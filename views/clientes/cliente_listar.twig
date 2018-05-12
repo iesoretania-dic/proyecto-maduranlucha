@@ -1,0 +1,45 @@
+{% extends 'layout.twig' %}
+
+{% block title 'listado de clientes' %}
+
+{% block contenido %}
+    <div class="contenido">
+
+        <form action="" method="get">
+
+            {% if mensaje == 'Ok' %}
+                <div class="contenedorTabla">
+                    <table id="miTabla" class="table table-bordered table-hover table-sm miTabla table-responsive-xl">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Dni</th>
+                            <th>Nombre</th>
+                            <th>Direccion</th>
+                            <th>Ciudad</th>
+                            <th>Telefono</th>
+                        </tr>
+                        </thead>
+
+                        {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                        {% for cliente in clientes %}
+                            <tr>
+                                <td>{{ cliente.dni }}</td>
+                                <td>{{ cliente.nombre }}</td>
+                                <td>{{ cliente.direccion }}</td>
+                                <td>{{ cliente.ciudad }}</td>
+                                <td>{{ cliente.telefono }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% elseif mensaje == 'error' %}
+                <label class="alert alert-primary">No hay clientes</label>
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block usuario %}
+ <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

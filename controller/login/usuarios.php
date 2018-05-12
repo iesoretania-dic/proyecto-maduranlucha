@@ -24,8 +24,7 @@ if(isset($_POST['enviar'])){
                 case 0: header('');
                     echo "no disponible";
                     break;
-                case 1: header('');
-                    echo "no disponible";
+                case 1: header('Location: ../cliente/cliente_listar.php');
                     break;
                 case 2: header('');
                     echo "no disponible";

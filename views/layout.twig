@@ -31,7 +31,20 @@
             <div class="elementos">
                 <ul id="miMenu" class="menu">
                     {% block elementosMenu %}
+                        {% if rol == '0' %}
+                            {# Elementos para los administradores #}
 
+                            {# Elementos para los comerciales #}
+                        {% elseif rol == '1' %}
+                            <li class="li"><a href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
+                            <li class="li"><a href="#"><i class="fas fa-exclamation-triangle"></i> Indicencias</a></li>
+                            {# Elementos para los tecnicos #}
+                        {% elseif rol == '2' %}
+
+                            {# Elementos para los controladores #}
+                        {% elseif rol == '4' %}
+
+                        {% endif %}
                     {% endblock %}
                 </ul>
             </div>
