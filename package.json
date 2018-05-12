@@ -19,7 +19,12 @@
   "homepage": "https://github.com/iesoretania-dic/proyecto-maduranlucha#readme",
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.3"
+    "popper.js": "^1.14.3",
+    "toastr": "^2.1.4"
   }
 }
