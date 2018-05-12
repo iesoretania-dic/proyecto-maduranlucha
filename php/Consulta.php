@@ -37,6 +37,71 @@ class Consulta extends Conexion{
         return $filasAfectadas;
     }
 
+    //Metodo que nos devuelve el id del usuario actual
+    public function get_id(){
+
+        $usuario = $_SESSION['usuario'];
+        $sql= "SELECT dni FROM usuario WHERE usuario = :usuario";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$usuario));
+        $resultado=$sentencia->fetch(PDO::FETCH_ASSOC);
+        $idUsuario = $resultado['dni'];
+        $sentencia->closeCursor();
+        return $idUsuario;
+    }
+    //Metodo que nos devuelve el rol del usuario actual
+    public function get_rol(){
+
+        $sql= "SELECT rol FROM usuario WHERE dni = :dni";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":dni"=>$this->get_id()));
+        $resultado=$sentencia->fetch(PDO::FETCH_ASSOC);
+        $rol = $resultado['rol'];
+        $sentencia->closeCursor();
+        return $rol;
+    }
+
+    //Metodo para insertar un registro en la tabla de noautorizados
+    public function set_noautorizado(){
+
+        $sql= "INSERT INTO noautorizados (usuario) VALUES (:usuario)";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$this->get_id()));
+        $sentencia->closeCursor();
+    }
+
+    //Metodo que comprueba si un usuario y clave son correctos en la base de datos
+    public function comprobarUsuario($usuario,$clave){
+
+        $sql= "SELECT dni FROM usuario WHERE usuario = :usuario AND clave = :clave";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$usuario,":clave"=>$clave));
+        $filasAfectadas = $sentencia->rowCount();
+        $sentencia->closeCursor();
+        return $filasAfectadas;
+    }
+
+    //Metodo que inserta un registros en la tabla de conexion
+    public function conexion(){
+
+        $sql= "INSERT INTO conexiones (usuario) VALUES (:usuario)";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$this->get_id()));
+        $sentencia->closeCursor();
+    }
+
+
+    //Metodo para obtener el hash de la clave del usuario
+    public function get_clave($usuario){
+
+        $sql= "SELECT clave FROM usuario WHERE usuario = :usuario";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$usuario));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['clave'];
+    }
+
 
 }
 
