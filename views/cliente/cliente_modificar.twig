@@ -1,0 +1,63 @@
+{% extends 'layout.twig' %}
+
+{% block title 'listado de clientes' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+            <div class="vistaFormulario">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Dni:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ cliente.dni }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ cliente.nombre }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Dirección:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ cliente.direccion }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Ciudad:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad" value="{{ cliente.ciudad }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Teléfono:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
+                </div>
+                {##}
+
+            </div>
+
+            <div class="grupoFB">
+                <input class="btn btn-primary" type="submit" value="Modificar" name="btnModificar">
+                <input class="btn btn-primary" type="submit" value="Cancelar" name="btnCancelar">
+            </div>
+
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-warning">Error al modificar el cliente {{ mensaje }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

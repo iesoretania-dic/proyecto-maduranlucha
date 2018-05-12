@@ -21,6 +21,7 @@
                             <th>Direccion</th>
                             <th>Ciudad</th>
                             <th>Telefono</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
 
@@ -32,6 +33,9 @@
                                 <td>{{ cliente.direccion }}</td>
                                 <td>{{ cliente.ciudad }}</td>
                                 <td>{{ cliente.telefono }}</td>
+                                <td class="td-acciones">
+                                    <a href="cliente_modificar.php?Id={{ cliente.dni }}"><input type="button" class="botonAccion btnModificar" title="modificar"></a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>
