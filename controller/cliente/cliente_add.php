@@ -35,7 +35,16 @@ if(!isset($_SESSION['usuario'])){
             if ($resultados > 0){
                 $mensaje = 'Ok';
 
-
+                $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
+                $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
+                $datos = new Consulta();
+                $resultados = $datos->get_sinDatos($cadena,$parametros);
+                if ($resultados > 0) {
+                    $mensaje = 'Ok';
+                    header('Location: cliente_listar.php');
+                }else{
+                    $mensaje = 'Error';
+                }
 
             }else{
                 $mensajedos = 'Error';

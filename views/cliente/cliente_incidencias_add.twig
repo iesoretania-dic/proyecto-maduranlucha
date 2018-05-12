@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Añadir incidencia' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="formularioTecnicos" action="" method="post">
+
+            <div class="vistaFormulario">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
+                    </div>
+                    <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tipo" id="tipo">
+                        <option value="averia">Averia</option>
+                        <option value="Instalacion">Instalacion</option>
+                        <option value="cambiodomicilio">Cambio de Domicilio</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label for="otros" class="input-group-text" id="inputGroup-sizing-default">Detalles(Opcional):</label>
+                        <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="otros" cols="15" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <input class="btn btn-primary" type="submit" value="Crear" name="btnCrearIncidencia">
+            <a href="javascript:history.back()"><input class="btn btn-primary" type="button" value="Cancelar" name="btnCancelar"></a>
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-danger">Error al añadir la incidencia</p>
+            {% endif %}
+        </form>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

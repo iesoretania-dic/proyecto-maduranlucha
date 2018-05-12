@@ -46,7 +46,6 @@ if(!isset($_SESSION['usuario'])){
 
     //Accion si existe la variable de session dniIncidencias a causa de pulsar el boton incidencias de la pagina de los clientes.
     if($tipo == '1'){
-//        $dniCliente =  $_SESSION['dniCliente'];
         //CONSULTA PARA OBTENER Las incidencias de un cliente.
         $consulta = "SELECT incidencia.*, usuario.usuario, usuario.nombre FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_cliente = :dni ORDER BY fecha_creacion DESC";
         $parametros = array(":dni"=>$dniCliente);
@@ -63,7 +62,8 @@ if(!isset($_SESSION['usuario'])){
     if($tipo == '1'){
         //Accion si se pulsa el boton añadir incidencia
         if(isset($_POST['btnAdd'])){
-            header('Location: cliente_incidencias_add.php');
+            $_SESSION['dniCliente'] = $dniCliente;
+            header('Location: cliente_incidencias_add.php?tipo=0');
         }
         //Accion si se pulsa el boton volver
         if(isset($_POST['btnVolver'])){
