@@ -1,0 +1,67 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Búsqueda de clientes' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+            <div class="vistaFormulario">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el DNI del cliente:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni">
+                </div>
+            </div>
+
+            <div class="vistaFormulario">
+                <input class="btn btn-primary" type="submit" value="Buscar" name="btnBuscar">
+                <input class="btn btn-primary" type="submit" value="Cancelar" name="btnCancelar">
+            </div>
+            {% if mensaje == 'ok' %}
+                {% if cliente.id_usuario %}
+                    {% if rol == '0' %}
+                        <p class="alert alert-danger">Cliente: {{ dni }} ya existe y está asocidado a un comercial.</p>
+                    {% elseif rol == '1' %}
+                        <p class="alert alert-danger">Cliente: {{ dni }} ya existe, pero está asociado a un comercial,para mas informacion contacte con un administrador</p>
+                    {% endif %}
+                {% else %}
+                    {% if rol == '1' %}
+
+                        <div class="vistaFormulario">
+                        <p class="alert alert-warning">Cliente: {{ dni }} ya existe, pero no esta asocidado a ningún comercial, ¿desea añadirlo?</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Comentario de la instalación:</span>
+                                </div>
+                                <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                            </div>
+                        </div>
+                        <div class="vistaFormulario">
+                            <input class="btn btn-success" type="submit" name="btnAddSi" value="Si">
+                            <input class="btn btn-danger" type="submit" name="btnAddNo" value="No">
+                        </div>
+
+                    {% elseif rol == '0' %}
+                        <p class="alert alert-warning">Cliente: {{ dni }} ya existe, pero no esta asocidado a ningún comercial.</p>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
+            {% if rol == '1' %}
+                {% if mensajeUpdate == 'error' %}
+                    <p class="alert alert-danger">Error al asignar al cliente: {{ dni }} para mas informacion contacte con el administrador</p>
+                {% endif %}
+
+                {% if mensajeIncidencia == 'error' %}
+                    <p class="alert alert-danger">Error al crear la instalación del cliente: {{ dni }} intente añadirla manualmente, si no es posible contacte con el administrador.</p>
+                {% endif %}
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}

@@ -36,6 +36,9 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    if(isset($_GET['addCliente'])){ /***/
+        header('Location: cliente_buscar.php');
+    }
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
@@ -43,7 +46,7 @@ if(!isset($_SESSION['usuario'])){
     $twig = new Twig_Environment($loader, []);
 
     try{
-        echo $twig->render('clientes/cliente_listar.twig', compact(
+        echo $twig->render('cliente/cliente_listar.twig', compact(
             'usuario',
             'clientes',
             'mensaje',

@@ -1,0 +1,71 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Añadir cliente' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+            <div class="vistaFormulario">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Dni:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Direccion:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Ciudad:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Telefono:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono">
+                </div>
+                {% if rol == '1' %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Comentario de la instalación:</span>
+                    </div>
+                    <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="grupoFB">
+                <input class="btn btn-primary btnF" type="submit" value="Añadir" name="btnEnviar">
+                <input class="btn btn-primary btnF" type="submit" value="Cancelar" name="btnCancelar">
+            </div>
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-warning">Error al insertar el cliente {{ nombre }}</p>
+            {% endif %}
+
+            {% if mensajedos == 'error' %}
+                <p class="alert alert-warning">Error al insertar la instalación del cliente: {{ nombre }}</p>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block usuario %}
+ <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
