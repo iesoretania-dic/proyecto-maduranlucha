@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Eliminar cliente' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+
+            <div>
+                <label class="alert alert-danger" for="dni">¿Seguro que desea eliminar el cliente: {{ dni }}?, si elimina un cliente se borraran todas sus incidencias y comentarios, esta acción no se podra deshacer.</label>
+            </div>
+
+            <input type="submit" value="Eliminar" name="btnEliminar">
+            <input type="submit" value="Cancelar" name="btnCancelar">
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-warning">Error al Eliminar el cliente: {{ dni }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}
