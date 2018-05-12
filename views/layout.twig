@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block css %}
+        <link rel="stylesheet" href="../../public/font-awesome/css/fontawesome-all.css">
+        <link rel="stylesheet" href="../../public/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="../../public/css/main-bootstrap.css">
+        <link rel="stylesheet" href="../../public/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="../../public/css/main-toastr.css">
+        <link rel="stylesheet" href="../../public/DataTables/datatables.min.css">
+        <link rel="stylesheet" href="../../public/select2/css/select2.min.css">
+        <link rel="stylesheet" href="../../public/css/normalize.css">
+        <link rel="stylesheet" href="../../public/css/main.css">
+    {% endblock %}
+    <title>{% block title 'Bienvendos' %}</title>
+</head>
+<body>
+
+    {% block menu %}
+
+        <div class="miNav">
+
+            <label class="labelMenu" for="btnMenu"></label>
+            <input class="btnMenu" id="btnMenu" type="checkbox">
+            <div class="logo">
+                <a href="#"><img class="imgLogo" src="../../public/resources/logo.png" alt=""></a>
+            </div>
+            <div class="elementos">
+                <ul id="miMenu" class="menu">
+                    {% block elementosMenu %}
+
+                    {% endblock %}
+                </ul>
+            </div>
+            <div class="usuario">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        {% block usuario %}
+                        {% endblock %}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+    {% block contenido %}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="../../public/js/jquery.min.js"></script>
+        <script src="../../public/js/popper.min.js"></script>
+        <script src="../../public/js/bootstrap.min.js"></script>
+        <script src="../../public/js/jquery-ui.min.js "></script>
+        <script src="../../public/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="../../public/js/bootstrap-datetimepicker.es.js"></script>
+        <script src="../../public/js/toastr.js"></script>
+        <script src="../../public/DataTables/datatables.min.js"></script>
+        <script src="../../public/select2/js/select2.min.js"></script>
+        <script src="../../public/js/javascript.js "></script>
+    {% endblock %}
+</body>
+</html>
