@@ -1,0 +1,36 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Login' %}
+
+{% block menu %}
+{% endblock %}
+
+
+{% block contenido %}
+    <div class="contenedorLogin">
+        <form class="formularioLogin" action="./usuarios.php" method="post">
+            <div class="login">
+
+                <div class="l-titulo">
+                    <label class="">Login:</label>
+                </div>
+
+                <div class="input-group  mb-1  l-usuario">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text input-group-text miTextGroup" id="basic-addon1"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" name="usuario" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1" value="{{ usuario }}" required>
+                </div>
+                <div class="input-group mb-1  l-password">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text input-group-text miTextGroup" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" name="password" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1">
+                </div>
+                <div class="b-login">
+                    <input class="btnLogin btn btn-primary" type="submit" name="enviar" value="Acceder">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
