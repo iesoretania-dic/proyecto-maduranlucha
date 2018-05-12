@@ -1,0 +1,52 @@
+@import 'variables';
+
+//MODIFICAR AQUI LAS VARIABLES Y ARCHIVOS DE BOOTSTRAP
+//ZONA VARIABLES
+$blue:   $primary-color;
+
+//FIN ZONA VARIABLES
+.btn{
+  min-width: 80px;
+  margin: 0;
+  padding: 0;
+}
+
+.col-sm-12{
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+//.dropdown-item{
+//  color:white;
+//}
+
+.btn-group-vertical{
+  margin: 10px 0;
+}
+
+.list-group-item{
+  height: 40px;
+}
+
+.vistaFormulario  .input-group-text{
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 250px;
+  }
+}
+//Modificar el ancho del input-group-text, para que el input text no se desborde sumarle el tamaño de este elemento.
+.vistaEstablecer  .input-group-text{
+  width: 100px;
+  @media screen and (min-width: $min-width) {
+    width: 100px;
+  }
+}
+
+.vistaFormulario  .input-group{
+  display: block;
+  @media screen and (min-width: $min-width) {
+    display: flex;
+  }
+}
+

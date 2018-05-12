@@ -1,0 +1,50 @@
+
+//.miTabla{
+//  @media screen and (min-width: $min-width) {
+//   //margin: 0 auto;
+//  }
+//}
+
+.miTabla tr td{
+  //width: 500px;
+  //max-width: 300px;
+  min-width: 100px;
+}
+
+.contenedorTabla{
+  //display: flex;
+}
+
+
+.miThead{
+  background-color: $primary-color;
+  color: $secondary-color;
+}
+
+tbody tr:nth-child(odd){
+  background-color: $secondary-color;
+}
+
+tbody tr:nth-child(even){
+  background-color: $color4;
+}
+
+tbody tr:hover{
+  //background-color: $primary-color;
+}
+
+.table-bordered {
+  border: none;
+}
+
+table a{
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 5px;
+}
+
+.td-acciones{
+  display: flex;
+  border: none;
+
+}

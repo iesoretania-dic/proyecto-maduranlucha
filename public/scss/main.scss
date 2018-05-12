@@ -1,0 +1,281 @@
+@import "variables";
+@import "menu-navegacion";
+@import "login";
+@import "tabla";
+//@import "main_bootstrap";
+
+//NO incluir aqui clases de bootstrap, añadirlos en el fichero _mi-bootstrap.scss
+
+*{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+
+
+body{
+  background-color: $secondary-color;
+}
+
+.contenido{
+  @media screen and (min-width: $min-width) {
+    padding-top: $alturaMenu + 5px;
+    margin-right: $alturaMenu + 10px;
+    margin-left: $alturaMenu + 10px;
+  }
+
+}
+
+.table tr{
+  height: 10px;
+}
+
+.li a{
+    color: white;
+
+}
+
+.acciones{
+    display: flex;
+}
+
+.acciones_elemento{
+
+}
+
+.grupoF{
+  margin: 0 auto 10px auto;
+  width: 95%;
+
+  @media screen and (min-width: $min-width) {
+    margin: 0 0 0 10px;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.inputF, .labelF{
+  width: 100%;
+  height: 30px;
+  display: block;
+  margin-right: 10px;
+  @media screen and (min-width: $min-width) {
+    height: 30px;
+    width: 300px;
+  }
+}
+
+.grupoFB{
+  margin: 0 auto 10px auto;
+  width: 95%;
+  @media screen and (min-width: $min-width) {
+    margin: 0 0 0 10px;
+    width: 550px;
+  }
+}
+
+.btnF{
+  display: inline;
+}
+
+.botonAccion{
+    width: 20px;
+    height: 20px;
+    /*background-image: linear-gradient(orange, pink);*/
+    background-repeat: no-repeat;
+    background-color: transparent ;
+    background-size: 100%;
+    color: transparent;
+    border: none;
+    /*outline: none;*/
+    cursor: pointer;
+    padding: 0;
+    margin: auto 0;
+}
+
+.btnEliminar{
+    background-image: url("../resources/delete.png");
+}
+
+.btnModificar{
+    background-image: url("../resources/modificar.png");
+}
+
+.btnLiberar{
+    background-image: url("../resources/liberar.png");
+}
+
+.btnIncidencias{
+    background-image: url("../resources/warning.png");
+}
+
+.btnAceptar{
+    background-image: url("../resources/aceptar.png");
+}
+
+.btnTecnico{
+    background-image: url("../resources/tecnico.png");
+}
+
+.btnNuevaIncidencia{
+   background-image: url("../resources/nueva2.png");
+}
+
+.btnComentario{
+  background-image: url("../resources/comentarios.png");
+}
+
+.btnInfo {
+  background-image: url("../resources/info.png");
+}
+
+.btnDispobible{
+  background-image: url("../resources/disponible.png");
+}
+
+
+.labelPersonal{
+    display: block;
+    margin-bottom: 2px;
+}
+
+.textareaPersonal{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.boton{
+    width: 300px;
+    display: block;
+    margin: 15px 0;
+
+}
+
+.formularioTecnicos{
+    padding-left: 20px;
+  display: inline;
+  min-height: 0;
+}
+
+.label{
+    font-size: 1em;
+}
+
+.miLabel{
+  display: block;
+  width: 200px;
+  margin: 15px 0 15px 0;
+}
+
+.miArea{
+  display: block;
+  width: 300px;
+  margin: 5px;
+}
+
+.miInput{
+  width: 100%;
+  height: 30px ;
+  @media screen and (min-width: $min-width) {
+    width: 200px;
+  }
+}
+
+.miSelect{
+  width: 200px ;
+  height: 30px;
+}
+
+.miDiv{
+    width: 300px;
+}
+
+.divMaterial{
+  margin: 20px 0;
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 50%;
+  }
+}
+
+.red{
+  color: darkred;
+}
+
+.green{
+  color: green;
+}
+
+.vistaFormulario{
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    width: 50%;
+  }
+}
+
+.vistaInfo{
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    width: 40%;
+  }
+}
+
+.vistaEstablecer{
+  width: 150px;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    width: 150px;
+  }
+}
+
+
+.vistaFormulario > .input-group{
+  display: block;
+  @media screen and (min-width: $min-width) {
+    display: flex;
+  }
+}
+
+.vistaFormulario > .input-group > .form-control{
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 1%;
+  }
+}
+
+.vistaCheck{
+  width: 50%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    width: 20%;
+  }
+}
+
+.vistaCheck > .input-group{
+  //display: block;
+  @media screen and (min-width: $min-width) {
+    display: flex;
+  }
+}
+
+.vistaCheck> .input-group > .form-control{
+  //width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 1%;
+  }
+}
+
+
+
+
+
