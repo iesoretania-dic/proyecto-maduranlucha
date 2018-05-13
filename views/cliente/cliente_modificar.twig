@@ -40,8 +40,48 @@
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
                 </div>
-                {##}
+                {% if rol == '0' %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Comercial:</span>
+                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial" id="comercial">
+                                <option value="{% if cliente.id_usuario %}{{ cliente.nombreComercial }} {% endif %}">
+                                    {% if cliente.id_usuario %}
+                                        {{ cliente.nombreComercial }}
+                                    {% else %}
+                                        Elija un comercial:
+                                    {% endif %}
+                                </option>
+                                <option value=""></option>
+                                {% for comercial in comerciales %}
+                                    <option value="{{ comercial.dni }}">{{ comercial.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Eliminado:</span>
+                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="eliminado" id="eliminado">
+                                <option value="{% if cliente.eliminado == 'Si' %}Si{% else %}No{% endif %}">
+                                    {% if cliente.eliminado == 'Si' %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </option>
+                                <option value="{% if cliente.eliminado == 'Si' %}No{% else %}Si{% endif %}">
+                                    {% if cliente.eliminado == 'Si' %}
+                                        No
+                                    {% else %}
+                                        Si
+                                    {% endif %}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="grupoFB">

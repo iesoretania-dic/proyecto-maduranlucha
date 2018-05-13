@@ -45,14 +45,32 @@ if(!isset($_SESSION['usuario'])){
         $ciudad = $_POST['ciudad'];
         $telefono = $_POST['telefono'];
 
-        if($rol == '1'){
+        if ($rol == '0'){
+            $comercial = $_POST['comercial'];
+            $eliminado = $_POST['eliminado'];
+            if($comercial == ""){
+                $comercial = null;
+            }
+
+            $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
+            $parametros = array(":dni"=>$dni, "usuario"=>$comercial ,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono, ":eliminado"=>$eliminado ,":dniAntiguo"=>$dniAntiguo);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+
+            if($filasAfectadas > 0){
+                header('Location: ../cliente/cliente_listar.php');
+                $mensaje = 'Ok';
+            }else{
+                $mensaje = 'error';
+            }
+        }elseif($rol == '1'){
             $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
             $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
             $datos = new Consulta();
             $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
             if($filasAfectadas > 0){
-                header('Location: cliente_listar.php');
+                header('Location: ../cliente/cliente_listar.php');
                 $mensaje = 'Ok';
             }else{
                 $mensaje = 'error';
@@ -62,7 +80,7 @@ if(!isset($_SESSION['usuario'])){
 
     //si pulsa cancelar redirigimos a la pagina del comercial_cliente.
     if(isset($_POST['btnCancelar'])){
-        header('Location: cliente_listar.php');
+        header('Location: ../cliente/cliente_listar.php');
     }
 
     ////////////////////////Renderizado//////////////////////////
