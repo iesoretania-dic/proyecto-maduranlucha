@@ -22,7 +22,19 @@ if(!isset($_SESSION['usuario'])){
     $clientes = [];
     $mensaje = null;
 
-    if($rol == '1'){
+
+    if($rol == '0'){
+        //consulta para listar todos los clientes
+        $consulta = "SELECT cliente.*, usuario.usuario as comercial, usuario.nombre as nombreComercial FROM cliente LEFT OUTER JOIN usuario ON  cliente.id_usuario = usuario.dni";
+        $datos = new Consulta();
+        $parametros = array();
+        $clientes = $datos->get_conDatos($consulta,$parametros);
+        if($clientes){
+            $mensaje = 'Ok';
+        }else{
+            $mensaje = 'error';
+        }
+    }elseif($rol == '1'){
         //Consulta para obtener los datos de los clientes del comerial
         $consulta = "SELECT dni,nombre,direccion,ciudad,telefono FROM cliente WHERE id_usuario= :usuario AND eliminado = :eliminado";
         $parametros = array(":usuario"=>$idUsuario,":eliminado"=> 'No');
