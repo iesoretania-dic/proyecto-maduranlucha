@@ -31,8 +31,7 @@ if(isset($_POST['enviar'])){
                 case 3: header('');
                     echo "no disponible";
                     break;
-                case 4: header('');
-                    echo "no disponible";
+                case 4: header('Location: ../cliente/cliente_incidencias.php');
                     break;
                 default: echo "Error";
             }

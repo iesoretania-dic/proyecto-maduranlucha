@@ -25,6 +25,8 @@
                     <table id="miTablaControlador" class="table table-bordered table-sm miTabla table-responsive-xl">
                         <thead class="miThead">
                         <tr>
+                            {#Vista para el administrador#}
+                            {% if rol == '0' %}
                             <th>Id</th>
                             <th>Creada</th>
                             {#<th>técnico</th>#}
@@ -35,6 +37,19 @@
                             {#<th>Estado</th>#}
                             {#<th>Reincidencia</th>#}
                             {#<th>Otros</th>#}
+                            {% endif %}
+                            {#Vista para el controlador#}
+                            {% if rol == '4' %}
+                                {#<th>Id</th>#}
+                                {#<th>Comercial</th>#}
+                                <th>Cliente_Dni</th>
+                                <th>Cliente_Nombre</th>
+                                <th>Cliente_Telefono</th>
+                                {#<th>Cliente_Direccion</th>#}
+                                {#<th>Cliente_Ciudad</th>#}
+                                {#<th>Creacion</th>#}
+                                <th>Info</th>
+                            {% endif %}
 
 
                         </tr>
@@ -43,6 +58,7 @@
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for fila in arrayFilas %}
                             <tr>
+                                {% if rol == '0' %}
                                 <td>{{ fila.id_incidencia }}</td>
                                 <td>{{ fila.usuario }}</td>
                                 {#<td>{{ fila.tecnico }}</td>#}
@@ -60,6 +76,18 @@
                                         Instalación
                                     {% endif %}
                                 </td>
+                                {% endif %}
+                                {% if rol == '4' %}
+                                    {#<td>{{ fila.id_incidencia }}</td>#}
+                                    {#<td><a href="#"></a>{{ fila.usuarioUsuario }}</td>#}
+                                    <td>{{ fila.id_cliente }}</td>
+                                    <td>{{ fila.nombreCliente }}</td>
+                                    <td>{{ fila.telefono }}</td>
+                                    {#<td>{{ fila.direccion }}</td>#}
+                                    {#<td>{{ fila.ciudad }}</td>#}
+                                    {#<td>{{ fila.fecha_creacion }}</td>#}
+                                    <td>{{ fila.otros }}</td>
+                                {% endif %}
 
 
                             </tr>
@@ -68,7 +96,11 @@
                 </div>
             {% elseif mensaje == 'No' %}
                 <div class="vistaFomulario">
-                    <label class="alert alert-primary">El cliente: {{ dniCliente }}, no tiene incidencias en este momento</label>
+                    {% if rol == '0' %}
+                        <p class="alert alert-primary">El cliente: {{ dniCliente }}, no tiene incidencias en este momento</p>
+                    {% elseif rol == '4' %}
+                        <p class="alert alert-primary">En este momento no hay incidencias para mostrar</p>
+                    {% endif %}
                 </div>
             {% endif %}
         </form>

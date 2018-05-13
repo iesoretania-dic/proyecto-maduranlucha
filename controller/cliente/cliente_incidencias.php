@@ -6,7 +6,7 @@ session_start();
 
 if(!isset($_SESSION['usuario'])){
     header('Location: ../../index.php');
-}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1')){
+}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1') and ($_SESSION['rol'] !='4')){
     $datos = new Consulta();
     $datos->set_noautorizado();
     header('Location: ../login/no_autorizado.php');
@@ -28,14 +28,72 @@ if(!isset($_SESSION['usuario'])){
         $_SESSION['Id'] ='';
     }
 
+    if ($rol == '0'){
+        //Consulta si viene desde el apartado de incidencias
+        if($tipo == '0'){
+            //Consulta para obtener todas las incidencias
+            $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
+            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
+            $datos = new Consulta();
+            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
 
-    //Consulta si viene desde el apartado de incidencias
-    if($tipo == '0'){
-        //Consulta para obtener todas las incidencias
-        $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
-        $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
+            if($arrayFilas){
+                $mensaje = 'Si';
+            }else{
+                $mensaje = 'No';
+            }
+        }
+
+        //Consulta si viene desde el apartado de incidencias
+        if($tipo == '0'){
+            //Consulta para obtener todas las incidencias
+            $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
+            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
+            $datos = new Consulta();
+            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
+
+            if($arrayFilas){
+                $mensaje = 'Si';
+            }else{
+                $mensaje = 'No';
+            }
+        }
+
+        //Accion si existe la variable de session dniIncidencias a causa de pulsar el boton incidencias de la pagina de los clientes.
+        if($tipo == '1'){
+            //CONSULTA PARA OBTENER Las incidencias de un cliente.
+            $consulta = "SELECT incidencia.*, usuario.usuario, usuario.nombre FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_cliente = :dni ORDER BY fecha_creacion DESC";
+            $parametros = array(":dni"=>$dniCliente);
+            $datos = new Consulta();
+            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
+
+            if($arrayFilas){
+                $mensaje = 'Si';
+            }else{
+                $mensaje = 'No';
+            }
+        }
+
+        if($tipo == '1'){
+            //Accion si se pulsa el boton añadir incidencia
+            if(isset($_POST['btnAdd'])){
+                $_SESSION['dniCliente'] = $dniCliente;
+                header('Location: cliente_incidencias_add.php?tipo=0');
+            }
+            //Accion si se pulsa el boton volver
+            if(isset($_POST['btnVolver'])){
+                header('Location: cliente_listar.php');
+            }
+        }
+
+    }
+
+    if ($rol == '4'){
+        //Consulta para devolver las incidencias de tipo averia a el controller.
+        $sentencia = "SELECT incidencia.id_incidencia,incidencia.estado,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.otros, cliente.nombre as nombreCliente, cliente.direccion, cliente.ciudad, cliente.telefono, usuario.usuario as usuarioUsuario, usuario.nombre as nombreUsuario FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.estado = :estado ORDER BY incidencia.fecha_creacion";
+        $parametros = array(":estado"=>'0');
         $datos = new Consulta();
-        $arrayFilas = $datos->get_conDatos($consulta,$parametros);
+        $arrayFilas =  $datos->get_conDatos($sentencia,$parametros);
 
         if($arrayFilas){
             $mensaje = 'Si';
@@ -44,60 +102,8 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
-    //Consulta si viene desde el apartado de incidencias
-    if($tipo == '0'){
-        //Consulta para obtener todas las incidencias
-        $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
-        $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
-        $datos = new Consulta();
-        $arrayFilas = $datos->get_conDatos($consulta,$parametros);
 
-        if($arrayFilas){
-            $mensaje = 'Si';
-        }else{
-            $mensaje = 'No';
-        }
-    }
 
-    //Accion si existe la variable de session dniIncidencias a causa de pulsar el boton incidencias de la pagina de los clientes.
-    if($tipo == '1'){
-        //CONSULTA PARA OBTENER Las incidencias de un cliente.
-        $consulta = "SELECT incidencia.*, usuario.usuario, usuario.nombre FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_cliente = :dni ORDER BY fecha_creacion DESC";
-        $parametros = array(":dni"=>$dniCliente);
-        $datos = new Consulta();
-        $arrayFilas = $datos->get_conDatos($consulta,$parametros);
-
-        if($arrayFilas){
-            $mensaje = 'Si';
-        }else{
-            $mensaje = 'No';
-        }
-    }
-
-    if($tipo == '1'){
-        //Accion si se pulsa el boton añadir incidencia
-        if(isset($_POST['btnAdd'])){
-            $_SESSION['dniCliente'] = $dniCliente;
-            header('Location: cliente_incidencias_add.php?tipo=0');
-        }
-        //Accion si se pulsa el boton volver
-        if(isset($_POST['btnVolver'])){
-            header('Location: cliente_listar.php');
-        }
-    }
-
-    //BOTONES DE ACCION//
-
-    //Accion si pulsa el boton de de informacion
-      if(isset($_POST['informacion'])){
-          header('Location: ../cliente/cliente_incidencias_info.php');
-    }
-
-    //Accion si pulsa el boton de de comentario
-    if(isset($_POST['comentarios'])){
-        $_SESSION['idIncidencia'] = $_POST['comentarios'];
-        header('Location: ../cliente/cliente_incidencias_comentario.php');
-    }
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
