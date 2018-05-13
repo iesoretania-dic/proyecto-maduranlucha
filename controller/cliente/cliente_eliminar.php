@@ -16,22 +16,37 @@ if(!isset($_SESSION['usuario'])){
     $dni = $_GET['Id'];
     $mensaje = null;
 
-    if($rol == '1' ){
-            //El comercial no elimina el cliente solo cambia el estado de eliminado.
-            if(isset($_POST['btnEliminar'])){
-                $consulta = "UPDATE cliente SET eliminado = :eliminado WHERE dni = :dni";
-                $parametros = array(":eliminado"=>'Si',":dni"=> $dni);
-                $datos = new Consulta();
-                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+    //El administrador si elimina el cliente
+    if($rol == '0'){ /**/
+        if(isset($_POST['btnEliminar'])){
+            $consulta ="DELETE FROM cliente WHERE dni = :dni";
+            $parametros = array(":dni"=> $dni);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
-                if($filasAfectadas > 0){
-                    $mensaje = 'ok';
-                    header('Location: ../cliente/cliente_listar.php');
-                }else{
-                    $mensaje = "error";
-                }
+            if($filasAfectadas > 0){
+                $mensaje = 'ok';
+                header('Location: cliente_listar.php');
+            }else{
+                $mensaje = "error";
             }
         }
+    }elseif($rol == '1' ){
+        //El comercial no elimina el cliente solo cambia el estado de eliminado.
+        if(isset($_POST['btnEliminar'])){
+            $consulta = "UPDATE cliente SET eliminado = :eliminado WHERE dni = :dni";
+            $parametros = array(":eliminado"=>'Si',":dni"=> $dni);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+
+            if($filasAfectadas > 0){
+                $mensaje = 'ok';
+                header('Location: ../cliente/cliente_listar.php');
+            }else{
+                $mensaje = "error";
+            }
+        }
+    }
 
 
     //si pulsa cancelar redirigimos a la pagina del comercial.
