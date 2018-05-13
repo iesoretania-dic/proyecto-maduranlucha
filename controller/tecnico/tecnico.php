@@ -109,6 +109,46 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    //ACCION DE LOS BOTONES
+
+    //Accion si se pulsa el boton de confirmar llamada
+    if(isset($_POST['confirmarLlamada'])){
+        try{
+            $sentencia = "UPDATE incidencia SET llamada_obligatoria = :llamada WHERE id_incidencia= :incidencia";
+            $parametros = (array(":llamada"=>'Si', ":incidencia"=>$asignada));
+            $datos = new Consulta();
+            $datos->get_sinDatos($sentencia,$parametros);
+        }catch (Exception $e){
+            die('Error: ' . $e->GetMessage());
+        }finally{
+            $bbdd = null;
+            header("Location: ../tecnico/tecnico.php");
+        }
+    }
+
+
+    $mensajeLlamada = null;
+    //Accion si pulsa el boton Finalizar
+    if(isset($_POST['btnFinalizarIncidencia'])){
+        if($llamada == 'Si'){
+            $_SESSION['asignada'] = $asignada;
+            $_SESSION['antenas'] = $datosUsuario['antenas'];
+            $_SESSION['routers'] = $datosUsuario['routers'];
+            $_SESSION['tipo'] = $tipo;
+            //Datos del cliente
+            $_SESSION['dniCliente'] = $cliente['dni'];
+            $_SESSION['antenasCliente'] = $cliente['antenas'];
+            $_SESSION['routersCliente'] = $cliente['routers'];
+            $_SESSION['retiradaCompleta'] =$cliente['retiradacompleta'];
+
+            header("Location: tecnico_finalizar.php");
+        }else{
+            $mensajeLlamada = 'No';
+        }
+    }
+
+
+
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
     $loader = new Twig_Loader_Filesystem('../../views');

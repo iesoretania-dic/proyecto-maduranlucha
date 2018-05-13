@@ -1,0 +1,76 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Pendientes' %}
+
+{% block contenido %}
+    <div class="contenido">
+
+        <form class="formularioTecnicos" action="" method="post">
+
+            {#Accion en caso de instalacion#}
+            {% if tipo == 'instalacion' %}
+                <div class="vistaCheck">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <label for="solucion">Seleccione una solución: </label>
+                    <select name="solucion" id="solucion">
+                        <option value="Instalacion normal">Instalación normal</option>
+                        <option value="una">Opcion 2</option>
+                        <option value="une">Opcion 3</option>
+                        <option value="otros">otros</option>
+                    </select>
+
+                    <div id="comentarioFinalizar" class="vistaFormulario">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <input class="btn btn-success" type="submit" value="Confirmar instalación" name="btnConfirmarFinalizar">
+                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                </div>
+            {% endif %}
+
+
+
+            {#mensajes posibles de error#}
+            {% if tipo == 'instalacion' %}
+                {% if mensajeFaltaMaterial == 'error' %}
+                    <p class="alert alert-danger">No dispones de tanto material</p>
+                {% endif %}
+
+                {% if mensajeRouter == 'error' %}
+                    <p class="alert alert-danger">No se instaló el router</p>
+                {% endif %}
+            {% endif %}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

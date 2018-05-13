@@ -12,6 +12,9 @@
                     <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente Incidencia">
                 {% elseif mensaje == 'Si' %}
 
+                    {% if mensajeLlamada == 'No' %}
+                        <label class="alert alert-danger">Debe confirmar la llamada antes de esa acción.</label>
+                    {% endif %}
 
                     <ul class="list-group">
                         <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
@@ -108,6 +111,10 @@
                             <li class="list-group-item liArea"><p class="pArea">{{ otros }}</p></li>
                         </ul>
                     {% endif %}
+
+                    <div class="btn-group-vertical">
+                        <input class="btn btn-success" type="submit" name="btnFinalizarIncidencia" value="Finalizar">
+                    </div>
 
                 {% endif %}
             </div>
