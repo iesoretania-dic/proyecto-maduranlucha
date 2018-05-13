@@ -27,7 +27,20 @@ if(!isset($_SESSION['usuario'])){
         $telefono = $_POST['telefono'];
         $comentario = $_POST['comentario'];
 
-        if($rol == '1'){
+        //El administrador da de alta un usuario pero no crea una incidencia automaticamente.
+        if($rol == '0'){
+            $cadena = "INSERT INTO cliente(dni,nombre,direccion,ciudad,telefono) VALUES (:dni,:nombre,:direccion,:ciudad,:telefono)";
+            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,"ciudad"=>$ciudad,":telefono"=>$telefono);
+            $datos = new Consulta();
+            $resultados = $datos->get_sinDatos($cadena,$parametros);
+
+            if ($resultados > 0){
+                $mensaje = 'Ok';
+                header('Location: cliente_listar.php');
+            }else{
+                $mensaje = 'Error';
+            }
+        }elseif($rol == '1'){
             $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,ciudad,telefono) VALUES (:dni,:usuario,:nombre,:direccion,:ciudad,:telefono)";
             $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono);
             $datos = new Consulta();
