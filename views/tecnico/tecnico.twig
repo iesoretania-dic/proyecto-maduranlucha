@@ -1,0 +1,124 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Tecnico' %}
+
+{% block contenido %}
+    <div class="contenido">
+    {% if cliente %}
+
+        <form class="formularioTecnicos" action="tecnico.php" method="post">
+            <div class="vistaFormulario">
+                {% if mensaje == 'No' %}
+                    <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente Incidencia">
+                {% elseif mensaje == 'Si' %}
+
+
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                            <div>
+                                <span>Incidencia asignada:</span>
+                                <span class="badge badge-primary">{{ asignada }}</span>
+                            </div>
+                            {% if llamada == 'No' %}
+                                <input class="btn btn-danger" type="submit" name="confirmarLlamada" value="LLamada realizada">
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                            <span>Material del tecnico: {{ datosUsuario.nombre }}, {{ datosUsuario.dni }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Antenas disponibles:</span>
+                            <span class="badge badge-primary">{{ datosUsuario.antenas }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Routers disponibles:</span>
+                            <span class="badge badge-primary">{{ datosUsuario.routers }}</span>
+                        </li>
+                    </ul>
+
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-secondary">Datos del cliente:</li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Nombre:</span>
+                            <span>{{ cliente.nombre }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Dni:</span>
+                            <span>{{ cliente.dni }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Dirección:</span>
+                            <span>{{ cliente.direccion }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Ciudad:</span>
+                            <span>{{ cliente.ciudad }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Teléfono:</span>
+                            <span>{{ cliente.telefono }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Tipo:</span>
+                            <span
+                                    {% if tipo == 'instalacion' %}
+                                        class="badge badge-primary"
+                                    {% elseif tipo == 'baja' %}
+                                        class="badge badge-danger"
+                                    {% elseif tipo == 'averia' %}
+                                        class="badge badge-warning"
+                                    {% elseif tipo == 'cambiodomicilio' %}
+                                        class="badge badge-info"
+                                    {% endif %}
+                            >
+                                {% if tipo == 'instalacion' %}
+                                    Instalación
+                                {% elseif tipo == 'baja' %}
+                                    Baja
+                                {% elseif tipo == 'averia' %}
+                                    Averia
+                                {% elseif tipo == 'cambiodomicilio' %}
+                                    Cambio de domicilio
+                                {% endif %}
+                            </span>
+                        </li>
+                    </ul>
+
+
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-secondary">
+                           <span>Material del cliente:</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Antenas en posesión:</span>
+                            <span class="badge badge-primary">{{ cliente.antenas }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Routers en posesión:</span>
+                            <span class="badge badge-primary">{{ cliente.routers }}</span>
+                        </li>
+                    </ul>
+
+                    {% if otros %}
+                        <ul class="list-group">
+                            <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios del comercial</li>
+                            <li class="list-group-item liArea"><p class="pArea">{{ otros }}</p></li>
+                        </ul>
+                    {% endif %}
+
+                {% endif %}
+            </div>
+
+        </form>
+    {% else %}
+        <label class="alert alert-primary">En este momento no hay incidencias disponibles</label>
+    {% endif %}
+    </div>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

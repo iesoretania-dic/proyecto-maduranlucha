@@ -1,0 +1,134 @@
+<?php
+require_once '../../php/Consulta.php';
+
+session_start();
+//var_dump($_POST);
+//var_dump($_SESSION);
+
+if(!isset($_SESSION['usuario'])){
+    header('Location: index.php');
+}elseif(($_SESSION['rol'] != '2') and ($_SESSION['rol'] != '0')){
+    $datos = new Consulta();
+    $datos->set_noautorizado();
+    header('Location: index.php');
+}else{
+    try{
+        $rol = $_SESSION['rol'];
+        $usuario  = $_SESSION['usuario'];
+        $datos = new Consulta();
+        $idUsuario = $datos->get_id();
+        //Consulta para saber si ya tiene un tarea asignada
+        $sentencia = "SELECT nombre,dni,asignada,antenas,routers FROM usuario WHERE dni= :asignada";
+        $parametros = (array(":asignada"=>$idUsuario));
+        $datos = new Consulta();
+        $datosUsuario = $datos->get_conDatosUnica($sentencia,$parametros);
+        $asignada = $datosUsuario['asignada'];
+        $cliente = null;
+        //En el caso de que si esta asignada devolvera el id de la incidencia
+        if($asignada){
+            $mensaje = 'Si';
+            $sentencia = "SELECT id_cliente,otros,tipo,reincidencia,llamada_obligatoria FROM incidencia WHERE id_incidencia =:idIncidencia ";
+            $parametros = (array(":idIncidencia"=>$asignada));
+            $datos = new Consulta();
+            $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
+            $reincidencia = $resultado['reincidencia'];
+            $id_cliente = $resultado['id_cliente'];
+            $otros = $resultado['otros'];
+            $tipo = $resultado['tipo'];
+            $llamada = $resultado['llamada_obligatoria'];
+        }else{
+
+            try {
+                $datos = new Consulta();
+                //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
+                $datos->conexionDB->beginTransaction();
+
+                //Consulta si no tiene una incidencia asignada
+                $mensaje = 'No';
+                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
+                $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio'));
+                $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
+
+                $asignada = $resultado['id_incidencia'];
+                $reincidencia = $resultado['reincidencia'];
+                $id_cliente = $resultado['id_cliente'];
+                $otros = $resultado['otros'];
+                $tipo = $resultado['tipo'];
+                $llamada = $resultado['llamada_obligatoria'];
+
+                //Actualizar la fecha de inicio
+                $sentencia = "UPDATE incidencia SET fecha_inicio = :inicio WHERE id_incidencia = :incidencia";
+                $parametros = (array(":inicio"=>date("Y-m-d H:i:s"), "incidencia"=>$asignada));
+                $datos->get_sinDatos($sentencia,$parametros);
+                $datos->conexionDB->commit();
+
+            } catch (PDOException $e) {
+                $datos->conexionDB->rollBack();
+                die('Error: ' . $e->getMessage());
+            } finally {
+                $datos->conexionDB = null;
+            }
+
+        }
+        if(isset($asignada)){
+            $sentencia = "SELECT * FROM cliente WHERE dni = :dni";
+            $parametros = (array(":dni"=>$id_cliente));
+            $datos = new Consulta();
+            $cliente= $datos->get_conDatosUnica($sentencia,$parametros);
+        }
+
+    }catch (Exception $e){
+        die('Error: ' . $e->GetMessage());
+    }
+
+    //Accion si pulsa el boton Aceptar
+    if(isset($_POST['btnAceptarIncidencia'])){
+
+        try {
+            $datos = new Consulta();
+            //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
+            $datos->conexionDB->beginTransaction();
+
+            //Consulta asignar la incidencia al usuario
+            $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni= :dni";
+            $parametros = (array(":asignada"=>$asignada, ":dni"=>$idUsuario));
+            $datos->get_sinDatos($sentencia,$parametros);
+
+            //Consulta para actualizar la incidencia a estado asignada
+            $sentencia = "UPDATE incidencia SET estado = :estado, tecnico = :usuario WHERE id_incidencia= :incidencia";
+            $parametros = (array(":estado"=>'2',":usuario"=>$idUsuario,":incidencia"=>$asignada));
+            $datos->get_sinDatos($sentencia,$parametros);
+
+            $datos->conexionDB->commit();
+            header("Location: ../tecnico/tecnico.php");
+        } catch (PDOException $e) {
+            $datos->conexionDB->rollBack();
+            die('Error: ' . $e->getMessage());
+        } finally {
+            $datos->conexionDB = null;
+        }
+    }
+
+    ////////////////////////Renderizado//////////////////////////
+    require_once '../../vendor/autoload.php';
+    $loader = new Twig_Loader_Filesystem('../../views');
+    $twig = new Twig_Environment($loader, []);
+
+    try{
+        echo $twig->render('tecnico/tecnico.twig', compact(
+            'mensaje',
+            'asignada',
+            'cliente',
+            'otros',
+            'tipo',
+            'llamada',
+            'mensajeLlamada',
+            'datosUsuario',
+            'usuario',
+            'rol'
+        ));
+    }catch (Exception $e){
+        echo  'Excepción: ', $e->getMessage(), "\n";
+    }
+}
+
