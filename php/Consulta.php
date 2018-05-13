@@ -91,7 +91,7 @@ class Consulta extends Conexion{
     }
 
 
-    //Metodo para obtener el hash de la clave del usuario
+    //Metodo para la clave del usuario
     public function get_clave($usuario){
 
         $sql= "SELECT clave FROM usuario WHERE usuario = :usuario";
@@ -100,6 +100,37 @@ class Consulta extends Conexion{
         $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
         $sentencia->closeCursor();
         return $resultado['clave'];
+    }
+
+    //Metodo que obtiene el hash de la clave del usuario
+    public function get_hash(){
+        $sql= "SELECT clave FROM usuario where dni = :dni";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":dni"=>$this->get_id()));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['clave'];
+    }
+
+    //Metodo que obtiene el nombre del usuario
+    public function get_nombre(){
+        $sql= "SELECT nombre FROM usuario where dni = :dni";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":dni"=>$this->get_id()));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['nombre'];
+    }
+
+    //Metodo que comprueba si existe el nombre de usuario
+    public function comprobarUsuarioExiste($usuario){
+
+        $sql= "SELECT usuario FROM usuario WHERE usuario = :usuario";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$usuario));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['usuario'];
     }
 
 

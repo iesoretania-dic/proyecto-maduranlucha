@@ -1,0 +1,89 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Añadir Usuarios' %}
+
+{% block contenido %}
+    <div class="contenido">
+
+        {% if zona == 'password' %}
+            <form class="" action="" method="post">
+                <p class="alert alert-info">Introduzca su contraseña:</p>
+
+                <div class="grupoF">
+                    <input class="inputF" id="usuario" type="password" name="passwordVerificar" value="">
+                    <input class="btn btn-primary" type="submit" value="aceptar" name="aceptar">
+                </div>
+                {% if mensaje == 'Ok' %}
+                    <p class="alert alert-success">Cambios guardados</p>
+                {% endif %}
+            </form>
+
+        {% endif %}
+
+        {% if zona == 'formulario' %}
+
+            <form class="" action="" method="post">
+
+                <div class="vistaFormulario">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="usuario" class="input-group-text" id="inputGroup-sizing-default">Introduce el usuario*:</label>
+                        </div>
+                        <input type="text" id="usuario" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ usuario }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="nombre" class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre*:</label>
+                        </div>
+                        <input type="text" id="nombre" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="password" class="input-group-text" id="inputGroup-sizing-default">Introduce la nueva Contraseña:</label>
+                        </div>
+                        <input type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="passwordR" class="input-group-text" id="inputGroup-sizing-default">Repite la Contraseña:</label>
+                        </div>
+                        <input type="password" id="passwordR" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                    </div>
+
+
+                </div>
+
+                <div class="grupoFB">
+                    <input class="btn btn-primary btnF" type="submit" value="Modificar" name="btnModificar">
+                    <input class="btn btn-primary btnF" type="submit" value="Cancelar" name="cancelar">
+                </div>
+                <div class="grupoF">
+                    <p class="alert alert-info">(*) Campos obligatorios</p>
+                </div>
+
+
+                {% if comprobarUsuario == false %}
+                    <p class="alert alert-danger">El Usuario ya existe</p>
+                {% endif %}
+
+                {% if claveCoinciden == false %}
+                    <p class="alert alert-danger">Las contraseñas no coinciden</p>
+                {% endif %}
+
+                {% if mensaje == 'error' %}
+                    <p class="alert alert-danger">Error modificar el usuario: {{ usuario }}</p>
+                {% endif %}
+
+            </form>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block usuario %}
+   {{ usuario }}
+{% endblock %}
