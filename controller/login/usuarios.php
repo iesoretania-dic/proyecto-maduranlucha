@@ -21,7 +21,7 @@ if(isset($_POST['enviar'])){
         $consulta->conexion();
         if(isset($_SESSION['rol'])){
             switch ($_SESSION['rol']) {
-                case 0: header('Location: ../cliente/cliente_listar.php');
+                case 0: header('Location: ../cliente/cliente_incidencias.php?tipo=0');
                     break;
                 case 1: header('Location: ../cliente/cliente_listar.php');
                     break;
