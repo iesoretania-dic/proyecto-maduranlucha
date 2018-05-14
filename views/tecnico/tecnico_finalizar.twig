@@ -160,7 +160,76 @@
 
             {% endif %}
 
+            {#Accion en casio de cambio de domicilio#}
+            {% if tipo == 'cambiodomicilio' %}
 
+
+                <div class="vistaCheck">
+                    <label class="alert alert-info">Ratirada de material</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaR">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena retirada" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerR">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router retirado" disabled>
+                    </div>
+                </div>
+
+                <div class="vistaCheck">
+                    <label class="alert alert-info">Instalación de material</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaI">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerI">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <label for="solucion">Seleccione una solución: </label>
+                    <select name="solucion" id="solucion">
+                        <option value="Instalacion normal">Instalación normal</option>
+                        <option value="una">Opcion 2</option>
+                        <option value="une">Opcion 3</option>
+                        <option value="otros">otros</option>
+                    </select>
+
+                    <div id="comentarioFinalizar" class="vistaFormulario">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <input class="btn btn-info" type="submit" value="Finalizar" name="btnConfirmarFinalizar">
+                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                </div>
+            {% endif %}
 
             {#mensajes posibles de error#}
             {% if tipo == 'instalacion' %}
@@ -195,6 +264,22 @@
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
+            {% endif %}
+
+            {% if tipo == 'cambiodomicilio' %}
+
+                {% if mensajeCambioDomicilio == 'materialnegativo' %}
+                    <label class="alert alert-danger">El usuario no dispone de ese material.</label>
+                {% endif %}
+
+                {% if mensajeCambioDomicilio == 'materialRecoger' %}
+                    <label class="alert alert-danger">No se retiró e instaló el router del cliente</label>
+                {% endif %}
+
+                {% if mensajeCambioDomicilio == 'materialfalta' %}
+                    <label class="alert alert-danger">El técnico no dispone de ese material.</label>
+                {% endif %}
+
             {% endif %}
         </form>
     </div>

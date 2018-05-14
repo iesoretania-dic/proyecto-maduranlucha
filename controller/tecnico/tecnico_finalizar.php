@@ -267,7 +267,104 @@ if(!isset($_SESSION['usuario'])){
             }
         }
 
+        //Accion en caso de cambio de domicilio
+        if ($tipo == 'cambiodomicilio') {
 
+            $arrayCambiodomicilio = [];
+
+            if (isset($_POST['solucion']) and $_POST['solucion'] != 'otros') {
+                $solucion = ($_POST['solucion']);
+                array_push($arrayCambiodomicilio, $solucion);
+            }
+
+            if (isset($_POST['otros']) and ($_POST['otros'] != '')) {
+                $otros = ($_POST['otros']);
+                array_push($arrayCambiodomicilio, $otros);
+            }
+
+            //Si el checbox esta marcado establecemos el valor de la variable a 1.
+            if (isset($_POST['antenaR']) and ($_POST['antenaR'] == '1')) {
+                $antenasDisponiblesTecnico++;
+                $antenasCliente--;
+                $antenaR = 1;
+                array_push($arrayCambiodomicilio, 'Retirada de antena');
+            }
+
+            if (isset($_POST['routerR']) and ($_POST['routerR'] == '1')) {
+                $routerR = 1;
+                $routersDisponiblesTecnico++;
+                $routersCliente--;
+                array_push($arrayCambiodomicilio, 'retirada de router');
+            }
+
+            //Si el checbox esta marcado establecemos el valor de la variable a 1.
+            if (isset($_POST['antenaI']) and ($_POST['antenaI'] == '1')) {
+                $antenasDisponiblesTecnico--;
+                $antenasCliente++;
+                $antenaI= 1;
+                array_push($arrayCambiodomicilio, 'Instalacion Antena');
+            }
+
+            if (isset($_POST['routerI']) and ($_POST['routerI'] == '1')) {
+                $routerI = 1;
+                $routersDisponiblesTecnico--;
+                $routersCliente++;
+                array_push($arrayCambiodomicilio, 'Instalacion Router');
+            }
+
+            $listaCambioDomilicio = json_encode($arrayCambiodomicilio);
+
+            //comprobamos si se a recogido el router y se instalo en el nuevo domicilio
+            if ($routerR == '1' AND $routerI == '1') {
+                if ($antenasCliente >= 0 AND $routersCliente >= 0) {
+                    if ($antenasDisponiblesTecnico > 0 and $routersDisponiblesTecnico > 0) {
+
+                        try {
+                            $datos = new Consulta();
+                            //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
+                            $datos->conexionDB->beginTransaction();
+
+                            //Consulta para insertar el material a la incidencia, establecer el estado a finalizado y incluir la fecha de resolucion
+                            $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes,disponible = NULL ,antenas = :antenas, routers = :routers WHERE id_incidencia = :id ";
+                            $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":antenas" => $antenaI - $antenaR, ":routers" => $routerI - $routerR, ":id" => $asignada);
+                            $datos->get_sinDatos($sentencia, $parametros);
+
+                            //Consulta para actualizar el material del tecnico y asignarle la instalacion
+                            $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers WHERE dni = :dni ";
+                            $parametros = array(":asignada" => NULL, ":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico, ":dni" => $idUsuario);
+                            $datos->get_sinDatos($sentencia, $parametros);
+
+                            //Consulta para actualizar el material del cliente
+                            $sentencia = "UPDATE cliente SET antenas = :antenas, routers = :routers WHERE dni = :dni ";
+                            $parametros = array(":antenas" => $antenasCliente, ":routers" => $routersCliente, ":dni" => $dniCliente);
+                            $datos->get_sinDatos($sentencia, $parametros);
+
+                            //consulta para insertar la solucion
+                            $sentencia = "INSERT INTO solucion (id_incidencia, solucion,tecnico) VALUES (:incidencia, :solucion, :tecnico)";
+                            $parametros = array(":incidencia" => $asignada, ":solucion" => $listaCambioDomilicio, ":tecnico" => $idUsuario);
+                            $datos->get_sinDatos($sentencia, $parametros);
+
+                            $datos->conexionDB->commit();
+                            header("Location: ../tecnico/tecnico.php");
+                        } catch (PDOException $e) {
+                            $datos->conexionDB->rollBack();
+                            die('Error: ' . $e->getMessage());
+                        } finally {
+                            $datos->conexionDB = null;
+                        }
+
+                    } else {
+                        $mensajeCambioDomicilio = "materialfalta";
+                    }
+
+                } else {
+                    $mensajeCambioDomicilio = "materialnegativo";
+                }
+
+            } else {
+                $mensajeCambioDomicilio = 'materialRecoger';
+            }
+        }
 
     }
 
