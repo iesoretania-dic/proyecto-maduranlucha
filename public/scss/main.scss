@@ -25,10 +25,12 @@ body{
 }
 
 .contenido{
+  padding-top: $alturaMenu;
+
   @media screen and (min-width: $min-width) {
-    padding-top: $alturaMenu + 5px;
-    margin-right: $alturaMenu + 10px;
-    margin-left: $alturaMenu + 10px;
+    padding-top: $alturaMenu * 2 ;
+    margin-right: $alturaMenu;
+    margin-left: $alturaMenu;
   }
 
 }
@@ -102,35 +104,35 @@ body{
 }
 
 .btnEliminar{
-    background-image: url("../resources/delete.png");
+  background-image: url("../resources/delete.png");
 }
 
 .btnModificar{
-    background-image: url("../resources/modificar.png");
+  background-image: url("../resources/modificar.png");
 }
 
 .btnLiberar{
-    background-image: url("../resources/liberar.png");
+  background-image: url("../resources/liberar.png");
 }
 
 .btnIncidencias{
-    background-image: url("../resources/warning.png");
+  background-image: url("../resources/warning.png");
 }
 
 .btnAceptar{
-    background-image: url("../resources/aceptar.png");
+  background-image: url("../resources/aceptar.png");
 }
 
 .btnTecnico{
-    background-image: url("../resources/tecnico.png");
+  background-image: url("../resources/wrench.png");
 }
 
 .btnNuevaIncidencia{
-   background-image: url("../resources/nueva2.png");
+  background-image: url("../resources/nueva2.png");
 }
 
 .btnComentario{
-  background-image: url("../resources/comentarios.png");
+  background-image: url("../resources/comments.png");
 }
 
 .btnInfo {
@@ -138,7 +140,11 @@ body{
 }
 
 .btnDispobible{
-  background-image: url("../resources/disponible.png");
+  background-image: url("../resources/calendar.png");
+}
+
+.btnReasignar{
+  background-image: url("../resources/ctecnico.png");
 }
 
 
@@ -215,9 +221,11 @@ body{
 }
 
 .vistaFormulario{
+  //margin-top: $alturaMenu;
   width: 100%;
   margin-bottom: 10px;
   @media screen and (min-width: $min-width) {
+    //margin-top: 0;
     width: 50%;
   }
 }

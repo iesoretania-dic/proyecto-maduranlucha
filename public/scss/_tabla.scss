@@ -22,11 +22,11 @@
 }
 
 tbody tr:nth-child(odd){
-  background-color: $secondary-color;
+  //background-color: $secondary-color;
 }
 
 tbody tr:nth-child(even){
-  background-color: $color4;
+  //background-color: $color4;
 }
 
 tbody tr:hover{
@@ -47,4 +47,20 @@ table a{
   display: flex;
   border: none;
 
+}
+
+.terminada {
+  background-color: hsla(120, 50%,50%,.3);
+}
+
+.asignada{
+  background-color: hsla(60, 50%,50%,.3);
+}
+
+.activa{
+  background-color: hsla(180, 50%,50%,.3);
+}
+
+.no-asignada{
+  background-color: hsla(180, 50%,95%,.4);
 }

@@ -32,23 +32,8 @@ if(!isset($_SESSION['usuario'])){
         //Consulta si viene desde el apartado de incidencias
         if($tipo == '0'){
             //Consulta para obtener todas las incidencias
-            $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
-            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
-            $datos = new Consulta();
-            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
-
-            if($arrayFilas){
-                $mensaje = 'Si';
-            }else{
-                $mensaje = 'No';
-            }
-        }
-
-        //Consulta si viene desde el apartado de incidencias
-        if($tipo == '0'){
-            //Consulta para obtener todas las incidencias
-            $consulta = "SELECT incidencia.*, usuario.usuario FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY tipo = :tipouno or tipo = :tipodos DESC, estado = :estado DESC, fecha_creacion";
-            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":estado"=>'0');
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, estado = '2' DESC, estado = '3' DESC, fecha_creacion";
+            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio');
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);
 

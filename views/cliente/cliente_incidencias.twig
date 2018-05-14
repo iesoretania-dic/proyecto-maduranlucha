@@ -29,7 +29,7 @@
                             {% if rol == '0' %}
                             <th>Id</th>
                             <th>Creada</th>
-                            {#<th>técnico</th>#}
+                            <th>Técnico</th>
                             <th>Creacion</th>
                             <th>Resolución</th>
                             <th>Disponible</th>
@@ -57,11 +57,21 @@
 
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for fila in arrayFilas %}
-                            <tr>
+                            <tr
+                                {% if fila.estado == '3' %}
+                                    class="terminada"
+                                {% elseif fila.estado == '2' %}
+                                    class="asignada"
+                                {% elseif fila.estado == '1' %}
+                                    class="activa"
+                                {% elseif fila.estado == '0' %}
+                                    class="no-asignada"
+                                {% endif %}
+                            >
                                 {% if rol == '0' %}
                                 <td>{{ fila.id_incidencia }}</td>
-                                <td>{{ fila.usuario }}</td>
-                                {#<td>{{ fila.tecnico }}</td>#}
+                                <td>{{ fila.tnombre }}</td>
+                                <td>{{ fila.ntecnico }}</td>
                                 <td>{{ fila.fecha_creacion }}</td>
                                 <td>{{ fila.fecha_resolucion }}</td>
                                 <td>{{ fila.proxima_llamada }}</td>
