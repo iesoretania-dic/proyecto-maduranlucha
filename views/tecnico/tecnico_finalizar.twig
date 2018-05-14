@@ -54,6 +54,55 @@
                 </div>
             {% endif %}
 
+            {#Accion en caso de baja#}
+            {% if tipo == 'baja' %}
+                <div class="vistaCheck">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                            </div>
+
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena recogida" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="checkRouterBaja" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router recogido*" disabled>
+                    </div>
+                    <label class="alert alert-info">(*)Campos obligatorios</label>
+                </div>
+
+                <div class="vistaFormulario">
+                    <label for="solucion">Seleccione una solución: </label>
+                    <select name="solucion" id="solucion">
+                        <option value="Baja completa">Baja completa</option>
+                        <option value="Baja parcial">Baja parcial</option>
+                        <option value="une">Opcion 3</option>
+                        <option value="otros">otros</option>
+                    </select>
+
+                    <div id="comentarioFinalizar" class="vistaFormulario">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <input id="btnBaja" class="btn btn-danger" type="submit" value="Confirmar Baja" name="btnConfirmarFinalizar">
+                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                </div>
+            {% endif %}
+
 
 
             {#mensajes posibles de error#}
@@ -64,6 +113,12 @@
 
                 {% if mensajeRouter == 'error' %}
                     <p class="alert alert-danger">No se instaló el router</p>
+                {% endif %}
+            {% endif %}
+
+            {% if tipo == 'baja' %}
+                {% if mensajeBaja == 'materialRecoger' %}
+                    <p class="alert alert-danger">No se retiró el router de la instalación</p>
                 {% endif %}
             {% endif %}
         </form>
