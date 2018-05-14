@@ -197,6 +197,76 @@ if(!isset($_SESSION['usuario'])){
             }
         }
 
+        //Accion en caso de averia
+        if ($tipo == 'averia') {
+
+            $arrayAveria = [];
+
+            if (isset($_POST['antenas']) and ($_POST['antenas'] == '1')) {
+                $cambioAntena = 'Cambio de Antena.';
+                array_push($arrayAveria, $cambioAntena);
+            }
+
+
+            if (isset($_POST['routers']) and ($_POST['routers'] == '1')) {
+                $cambioRouter = 'Cambio de router';
+                array_push($arrayAveria, $cambioRouter);
+            }
+
+
+            if (isset($_POST['orientacion']) and ($_POST['orientacion'] == '1')) {
+                $orientacionAntena = 'Orientacion de Antena';
+                array_push($arrayAveria, $orientacionAntena);
+            }
+
+
+            if (isset($_POST['conectores']) and ($_POST['conectores'] == '1')) {
+                $cambioConectores = 'Cambio de conectores';
+                array_push($arrayAveria, $cambioConectores);
+            }
+
+            if (isset($_POST['comentario']) and ($_POST['comentario'] != '')) {
+                $otros = ($_POST['comentario']);
+                array_push($arrayAveria, $otros);
+            }
+            /*Usamos json_encode() para convertir a string y poder guardarlo en la base de datos para volverlo un
+            array utilizamos json_decode()*/
+            $listaAverias = json_encode($arrayAveria);
+
+            $datos = new Consulta();
+            //insertamos la solucion en la base de datos
+            try {
+                //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
+                $datos->conexionDB->beginTransaction();
+                $sentencia = "INSERT INTO solucion (id_incidencia, solucion,tecnico) VALUES (:incidencia, :solucion, :tecnico)";
+                $parametros = array(":incidencia" => $asignada, ":solucion" => $listaAverias, ":tecnico" => $idUsuario);
+                $datos->get_sinDatos($sentencia, $parametros);
+
+                //Consulta para actualizar el estado del tecnico
+                $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni = :dni ";
+                $parametros = array(":asignada" => NULL, ":dni" => $idUsuario);
+                $datos->get_sinDatos($sentencia, $parametros);
+
+                //Consulta para actualizar la incidencia
+                $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, disponible = NULL WHERE id_incidencia = :id ";
+                $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":id" => $asignada);
+                $datos->get_sinDatos($sentencia, $parametros);
+
+                $datos->conexionDB->commit();
+                header("Location: tecnico.php");
+            } catch (PDOException $e) {
+                $datos->conexionDB->rollBack();
+
+                if($e->getCode() == '23000'){
+
+                    die('Ya existe una solucion para esta incidencia');
+                }
+
+            } finally {
+                $datos->conexionDB = null;
+            }
+        }
+
 
 
     }

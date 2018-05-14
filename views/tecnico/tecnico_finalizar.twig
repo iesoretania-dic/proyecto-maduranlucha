@@ -103,6 +103,63 @@
                 </div>
             {% endif %}
 
+            {#Accion en caso de averia#}
+            {% if tipo == 'averia' %}
+
+                <div class="vistaCheck">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                            </div>
+                        </div>
+
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio Antena" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio router" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Orientacion Antena" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="conectores">
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio de conectores" disabled>
+                    </div>
+                </div>
+
+
+                <div class="vistaFormulario">
+                    <div id="comentarioFinalizar*">
+                        <label class="labelTecnico miLabel" for="comentario">Otros:</label>
+                        <textarea class="labelTecnico miArea" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <input class="btn btn-warning" type="submit" value="Finalizar averia" name="btnConfirmarFinalizar">
+                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                </div>
+
+            {% endif %}
+
 
 
             {#mensajes posibles de error#}
@@ -119,6 +176,24 @@
             {% if tipo == 'baja' %}
                 {% if mensajeBaja == 'materialRecoger' %}
                     <p class="alert alert-danger">No se retiró el router de la instalación</p>
+                {% endif %}
+            {% endif %}
+
+            {% if tipo == 'averia' %}
+                {% if mensajeIncidencia == 'error' %}
+                    <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
+                {% endif %}
+
+                {% if mensajeBaja == 'existe' %}
+                    <label class="alert alert-danger">Ya existe una solucion para esta incidencia.</label>
+                {% endif %}
+
+                {% if mensajeUsuario == 'error' %}
+                    <label class="alert alert-danger">Error al desasignar la incidencia al usuario</label>
+                {% endif %}
+
+                {% if mensajeIncidencia == 'error' %}
+                    <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
             {% endif %}
         </form>
