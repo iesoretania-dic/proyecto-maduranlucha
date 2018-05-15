@@ -16,6 +16,10 @@
                         <label class="alert alert-danger">Debe confirmar la llamada antes de esa acción.</label>
                     {% endif %}
 
+                    {% if mensajeParcial == 'No' %}
+                        <label class="alert alert-danger">Solo se puede finalizar parcialmente una vez.</label>
+                    {% endif %}
+
                     <ul class="list-group">
                         <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
                             <div>
@@ -114,6 +118,7 @@
 
                     <div class="btn-group-vertical">
                         <input class="btn btn-success" type="submit" name="btnFinalizarIncidencia" value="Finalizar">
+                        <input class="btn btn-warning" type="submit" name="btnFinalizarParcialIncidencia" value="Finalizar de forma parcial">
                     </div>
 
                 {% endif %}

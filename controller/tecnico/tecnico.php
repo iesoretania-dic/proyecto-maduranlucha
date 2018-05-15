@@ -27,7 +27,7 @@ if(!isset($_SESSION['usuario'])){
         //En el caso de que si esta asignada devolvera el id de la incidencia
         if($asignada){
             $mensaje = 'Si';
-            $sentencia = "SELECT id_cliente,otros,tipo,reincidencia,llamada_obligatoria FROM incidencia WHERE id_incidencia =:idIncidencia ";
+            $sentencia = "SELECT id_cliente,otros,tipo,reincidencia,llamada_obligatoria,parcial FROM incidencia WHERE id_incidencia =:idIncidencia ";
             $parametros = (array(":idIncidencia"=>$asignada));
             $datos = new Consulta();
             $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
@@ -36,6 +36,7 @@ if(!isset($_SESSION['usuario'])){
             $otros = $resultado['otros'];
             $tipo = $resultado['tipo'];
             $llamada = $resultado['llamada_obligatoria'];
+            $parcial = $resultado['parcial'];
         }else{
 
             try {
@@ -45,7 +46,7 @@ if(!isset($_SESSION['usuario'])){
 
                 //Consulta si no tiene una incidencia asignada
                 $mensaje = 'No';
-                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
+                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria,parcial FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
                 $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio'));
                 $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
 
@@ -55,6 +56,7 @@ if(!isset($_SESSION['usuario'])){
                 $otros = $resultado['otros'];
                 $tipo = $resultado['tipo'];
                 $llamada = $resultado['llamada_obligatoria'];
+                $parcial = $resultado['parcial'];
 
                 //Actualizar la fecha de inicio
                 $sentencia = "UPDATE incidencia SET fecha_inicio = :inicio WHERE id_incidencia = :incidencia";
@@ -147,6 +149,31 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    //Accion si pulsa el boton finalizar parcial
+    if(isset($_POST['btnFinalizarParcialIncidencia'])){
+
+        if($llamada == 'Si'){
+            if($parcial == 'No'){
+                try{
+                    //Consulta para actualizar la incidencia a estado finalizada parcial
+                    $sentencia = "UPDATE incidencia SET estado = :estado, fecha_parcial = :fparcial,parcial= :parcial WHERE id_incidencia= :incidencia";
+                    $parametros = (array(":estado"=>'4',":incidencia"=>$asignada,":fparcial"=>date("Y-m-d H:i:s"),":parcial"=>'Si'));
+                    $datos = new Consulta();
+                    $datos->get_sinDatos($sentencia,$parametros);
+                }catch (Exception $e){
+                    die('Error: ' . $e->GetMessage());
+                }finally{
+                    header("Location: ../tecnico/tecnico.php");
+                }
+            }else{
+                $mensajeParcial = 'No';
+            }
+
+        }else{
+            $mensajeLlamada = 'No';
+        }
+    }
+
 
 
     ////////////////////////Renderizado//////////////////////////
@@ -165,7 +192,8 @@ if(!isset($_SESSION['usuario'])){
             'mensajeLlamada',
             'datosUsuario',
             'usuario',
-            'rol'
+            'rol',
+            'mensajeParcial'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
