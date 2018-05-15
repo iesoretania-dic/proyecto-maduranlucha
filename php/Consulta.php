@@ -84,12 +84,20 @@ class Consulta extends Conexion{
     //Metodo que inserta un registros en la tabla de conexion
     public function conexion(){
 
-        $sql= "INSERT INTO conexiones (usuario) VALUES (:usuario)";
+        $sql= "INSERT INTO conexiones (usuario,tipo) VALUES (:usuario,:tipo)";
         $sentencia=$this->conexionDB->prepare($sql);
-        $sentencia->execute(array(":usuario"=>$this->get_id()));
+        $sentencia->execute(array(":usuario"=>$this->get_id(),":tipo"=>'conexion'));
         $sentencia->closeCursor();
     }
 
+    //Metodo que inserta un registros en la tabla de conexion
+    public function desconexion(){
+
+        $sql= "INSERT INTO conexiones (usuario,tipo) VALUES (:usuario,:tipo)";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$this->get_id(),":tipo"=>'desconexion'));
+        $sentencia->closeCursor();
+    }
 
     //Metodo para la clave del usuario
     public function get_clave($usuario){

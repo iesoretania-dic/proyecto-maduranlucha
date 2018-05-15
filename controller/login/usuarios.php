@@ -38,7 +38,11 @@ if(isset($_POST['enviar'])){
     }
 }
 
-
+if(isset($_GET['exit'])){
+    $datos = new Consulta();
+    $datos->desconexion();
+    header('Location: ../../index.php');
+}
 
 
 
