@@ -1,0 +1,38 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Tecnico' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            {% if error %}
+                <p class="label label-danger">El comentario es obligatorio</p>
+            {% endif %}
+
+            <label class="labelTecnico miLabel" for="comentario">Desea añadir un comentario:</label>
+            <textarea class="labelTecnico " name="comentario" id="comentario" cols="40" rows="5"></textarea>
+
+            <div class="form-group miDiv">
+                <p>Proxima Llamada</p>
+                <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    </div>
+                    <input class="form-control" size="2" type="text" value="" readonly>
+                </div>
+                <input type="hidden" id="dtp_input1" value="" name="pllamada" /><br/>
+            </div>
+
+            <input class="btn btn-primary boton" type="submit" name="aceptarMoverPendiente" value="Aceptar">
+            <input class="btn btn-warning boton" type="submit" name="cancelarMoverPendiente" value="Cancelar">
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

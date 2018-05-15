@@ -174,6 +174,16 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    //Accion si pulsa el boton resolver mas tarde
+    if(isset($_POST['btnPendiente'])){
+        if($llamada == "Si") {
+            $_SESSION['idIncidencia'] = $asignada;
+            header("Location: tecnico_confirmar_pendiente.php");
+        }else{
+            $mensajeLlamada = 'No';
+        }
+    }
+
 
 
     ////////////////////////Renderizado//////////////////////////
