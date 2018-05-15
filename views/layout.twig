@@ -21,7 +21,7 @@
 
     {% block menu %}
 
-        <div class="miNav">
+        <div {% block classMenu %} class="miNav" {% endblock %}>
 
             <label class="labelMenu" for="btnMenu"></label>
             <input class="btnMenu" id="btnMenu" type="checkbox">

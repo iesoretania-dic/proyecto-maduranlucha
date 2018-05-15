@@ -24,6 +24,19 @@ if(!isset($_SESSION['usuario'])){
         $datosUsuario = $datos->get_conDatosUnica($sentencia,$parametros);
         $asignada = $datosUsuario['asignada'];
         $cliente = null;
+
+        //comprobar si hay averias sin asignar
+        $sentencia = "SELECT COUNT(*) as averias FROM incidencia WHERE tipo = :tipo and estado = :estado";
+        $parametros = (array(":tipo"=>'averia',":estado"=>'1'));
+        $datos = new Consulta();
+        $averias= $datos->get_conDatosUnica($sentencia,$parametros);
+
+        if($averias['averias'] > '0'){
+            $mensajeAverias = 'Si';
+        }else{
+            $mensajeAverias = 'No';
+        }
+
         //En el caso de que si esta asignada devolvera el id de la incidencia
         if($asignada){
             $mensaje = 'Si';
@@ -203,7 +216,8 @@ if(!isset($_SESSION['usuario'])){
             'datosUsuario',
             'usuario',
             'rol',
-            'mensajeParcial'
+            'mensajeParcial',
+            'mensajeAverias'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

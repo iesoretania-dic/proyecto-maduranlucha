@@ -9,7 +9,7 @@
         <form class="formularioTecnicos" action="tecnico.php" method="post">
             <div class="vistaFormulario">
                 {% if mensaje == 'No' %}
-                    <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente Incidencia">
+                    <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente">
                 {% elseif mensaje == 'Si' %}
 
                     {% if mensajeLlamada == 'No' %}
@@ -135,3 +135,13 @@
 {% block usuario %}
     <span>Conectado como: {{ usuario }}</span>
 {% endblock %}
+
+{% if mensaje == 'No' %}
+    {% block classMenu %}
+        {% if mensajeAverias == 'Si' %}
+            class="miNav miNavWarning"
+        {% elseif mensajeAverias == 'No' %}
+            class="miNav"
+        {% endif %}
+    {% endblock %}
+{% endif %}

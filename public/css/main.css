@@ -8,6 +8,10 @@
   top: 0;
 }
 
+.miNavWarning {
+  background-color: red;
+}
+
 .logo {
   display: none;
   grid-column: 1;
