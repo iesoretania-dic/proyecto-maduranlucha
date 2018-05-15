@@ -138,6 +138,10 @@
   background-color: #e98716;
 }
 
+.btnMia {
+  background-color: transparent;
+}
+
 .contenedorLogin {
   display: -webkit-box;
   display: -ms-flexbox;
