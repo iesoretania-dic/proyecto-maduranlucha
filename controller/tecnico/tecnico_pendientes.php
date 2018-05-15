@@ -31,6 +31,32 @@ if(!isset($_SESSION['usuario'])){
         die('Error: ' . $e->GetMessage());
     }
 
+    if(isset($_POST['incidencia_aceptar'])){
+        try{
+            //Consulta para obtener el valor de la incidencia asignada
+            $sentencia = "SELECT asignada FROM usuario WHERE dni=:dni";
+            $parametros = (array(":dni"=>$idUsuario));
+            $datos = new Consulta();
+            $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
+            $asignada = $resultado['asignada'];
+            $actual = $_POST['incidencia_aceptar'];
+
+            if(!$asignada){
+                //Consulta para asignar la incidencia en caso de que no tenga ya una asignada
+                $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni= :dni";
+                $parametros = (array(":asignada"=>$actual, ":dni"=>$idUsuario));
+                $datos = new Consulta();
+                $datos->get_sinDatos($sentencia,$parametros);
+                header("Location: tecnico.php");
+            }
+        }catch (Exception $e){
+            die('Error: ' . $e->GetMessage());
+        }finally{
+            $bbdd = null;
+        }
+
+    }
+
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';

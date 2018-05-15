@@ -4,6 +4,13 @@
 
 {% block contenido %}
     <div class="contenido">
+        {% if asignada %}
+            {% if asignada == actual  %}
+                <label class="alert alert-success">Ya tiene asignada la incidencia {{ actual }}</label>
+            {% else %}
+                <label class="alert alert-warning">No se pudo asignar la incidencia {{ actual }}, ya tiene un incidencia asignada: {{ asignada }}</label>
+            {% endif %}
+        {% endif %}
 
         <form action="" method="post">
             {% if mensaje == 'Si' %}
@@ -18,6 +25,7 @@
                             <th>Creacion</th>
                             <th>Disponible</th>
                             <th>Otros</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,7 +39,11 @@
                                 <td>{{ fila.fecha_creacion }}</td>
                                 <td>{{ fila.disponible }}</td>
                                 <td>{{ fila.otros }}</td>
+                                <td>
+                                    <input type="submit" class="botonAccion btnAceptar" title="Asignar" name="incidencia_aceptar" value={{ fila.id_incidencia }}>
+                                </td>
                             </tr>
+
                         {% endfor %}
                         </tbody>
                     </table>
@@ -42,7 +54,6 @@
             {% endif %}
         </form>
     </div>
-
 
 {% endblock %}
 
