@@ -41,9 +41,16 @@ if(!isset($_SESSION['usuario'])){
         $dniAntiguo =  $_GET['Id'];
         $dni = $_POST['dni'];
         $nombre = $_POST['nombre'];
-        $direccion = $_POST['direccion'];
         $ciudad = $_POST['ciudad'];
         $telefono = $_POST['telefono'];
+        $direccionP = $_POST['direccion'];
+        $direccionTipo = $_POST['tipoD'];
+
+        if($direccionTipo != ""){
+            $direccion = $direccionTipo . $direccionP;
+        }else{
+            $direccion = $direccionP;
+        }
 
         if ($rol == '0'){
             $comercial = $_POST['comercial'];

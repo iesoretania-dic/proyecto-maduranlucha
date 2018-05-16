@@ -22,10 +22,17 @@ if(!isset($_SESSION['usuario'])){
     if(isset($_POST['btnEnviar'])){
         $dni = $_POST['dni'];
         $nombre = $_POST['nombre'];
-        $direccion = $_POST['direccion'];
         $ciudad = $_POST['ciudad'];
         $telefono = $_POST['telefono'];
         $comentario = $_POST['comentario'];
+        $direccionP = $_POST['direccion'];
+        $direccionTipo = $_POST['tipoD'];
+
+        if($direccionTipo != ""){
+            $direccion = $direccionTipo . $direccionP;
+        }else{
+            $direccion = $direccionP;
+        }
 
         //El administrador da de alta un usuario pero no crea una incidencia automaticamente.
         if($rol == '0'){

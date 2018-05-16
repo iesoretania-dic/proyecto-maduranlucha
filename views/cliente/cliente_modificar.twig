@@ -24,6 +24,16 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Dirección:</span>
                     </div>
+                    <select name="tipoD" id="">
+                        <option value="C/ ">Calle</option>
+                        <option value="AVN ">Avenida</option>
+                        <option value="PLZA ">Plaza</option>
+                        <option value="PSO ">Paseo</option>
+                        <option value="CTRA ">Carretera</option>
+                        <option value="CMNO ">Camino</option>
+                        <option value="URB ">Urbanizazion</option>
+                        <option value="">Otros</option>
+                    </select>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ cliente.direccion }}">
                 </div>
 
