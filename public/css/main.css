@@ -286,6 +286,11 @@ table a {
   background-color: rgba(236, 249, 249, 0.4);
 }
 
+.parcial {
+  background-color: rgba(13, 38, 38, 0.4);
+  color: #eee;
+}
+
 * {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

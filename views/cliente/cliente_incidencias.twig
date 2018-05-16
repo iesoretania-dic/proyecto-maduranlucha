@@ -58,6 +58,8 @@
                                     class="activa"
                                 {% elseif fila.estado == '0' %}
                                     class="no-asignada"
+                                {% elseif fila.estado == '4' %}
+                                    class="parcial"
                                 {% endif %}
                             >
                                 {% if rol == '0' %}
@@ -87,10 +89,13 @@
                                 {% endif %}
                                 <td class="td-acciones">
                                     {% if rol == '0' or rol == '4' %}
+                                        {% if fila.estado == '0' %}
+                                            <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
+                                        {% endif %}
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
                                         {% else %}
-                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}$o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
                                         {% endif %}
                                     {% endif %}
                                 </td>

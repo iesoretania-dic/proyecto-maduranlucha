@@ -1,0 +1,59 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Controlador' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="formularioTecnicos" action="" method="post">
+
+            {% if error %}
+                <p class="label label-danger">El comentario es obligatorio</p>
+            {% endif %}
+
+            <div class="vistaFormulario">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Añadir un comentario:</label>
+                        <textarea id="comentario" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" cols="15" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+            {% if rol == '0' %}
+            <div class="vistaInfo">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Asignar a un técnico:</label>
+                    </div>
+                    <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tecnico" id="tecnico">
+                        <option value="">Seleccione un técnico: </option>
+                        {% for tecnico in tecnicos %}
+                            <option value="{{ tecnico.dni}}">{{ tecnico.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="form-group miDiv">
+                <p>Proxima Llamada: </p>
+                <div class="input-group date form_datetimed" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text miTextGroup" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    </div>
+                    <input class="form-control" size="2" type="text" value="{{ proLlamada }}" readonly>
+                </div>
+                <input type="hidden" id="dtp_input1" value="{{ proLlamada }}" name="llamada" /><br/>
+            </div>
+            <input class="btn btn-primary boton" type="submit" name="aceptarMoverTecnicos" value="Aceptar">
+            <input class="btn btn-warning boton" type="submit" name="cancelarMoverPendiente" value="Cancelar">
+
+        </form>
+    </div>
+
+
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}
