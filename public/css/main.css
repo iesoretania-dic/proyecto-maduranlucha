@@ -314,6 +314,23 @@ body {
   }
 }
 
+.contenidoInfo {
+  padding-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 768px) {
+  .contenidoInfo {
+    padding-top: 80px;
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+}
+
 .table tr {
   height: 10px;
 }
@@ -519,7 +536,7 @@ body {
 
 @media screen and (min-width: 768px) {
   .vistaFormulario {
-    width: 50%;
+    width: 60%;
   }
 }
 
@@ -589,5 +606,27 @@ body {
 @media screen and (min-width: 768px) {
   .vistaCheck > .input-group > .form-control {
     width: 1%;
+  }
+}
+
+.formInfo {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .formInfo {
+    width: 50%;
+  }
+}
+
+.historial {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .historial {
+    width: 50%;
   }
 }

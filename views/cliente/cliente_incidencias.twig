@@ -34,23 +34,15 @@
                             <th>Resolución</th>
                             <th>Disponible</th>
                             <th>Tipo</th>
-                            {#<th>Estado</th>#}
-                            {#<th>Reincidencia</th>#}
-                            {#<th>Otros</th>#}
                             {% endif %}
                             {#Vista para el controlador#}
                             {% if rol == '4' %}
-                                {#<th>Id</th>#}
-                                {#<th>Comercial</th>#}
                                 <th>Cliente_Dni</th>
                                 <th>Cliente_Nombre</th>
                                 <th>Cliente_Telefono</th>
-                                {#<th>Cliente_Direccion</th>#}
-                                {#<th>Cliente_Ciudad</th>#}
-                                {#<th>Creacion</th>#}
                                 <th>Info</th>
                             {% endif %}
-
+                            <th>Acciones</th>
 
                         </tr>
                         </thead>
@@ -88,16 +80,20 @@
                                 </td>
                                 {% endif %}
                                 {% if rol == '4' %}
-                                    {#<td>{{ fila.id_incidencia }}</td>#}
-                                    {#<td><a href="#"></a>{{ fila.usuarioUsuario }}</td>#}
                                     <td>{{ fila.id_cliente }}</td>
                                     <td>{{ fila.nombreCliente }}</td>
                                     <td>{{ fila.telefono }}</td>
-                                    {#<td>{{ fila.direccion }}</td>#}
-                                    {#<td>{{ fila.ciudad }}</td>#}
-                                    {#<td>{{ fila.fecha_creacion }}</td>#}
                                     <td>{{ fila.otros }}</td>
                                 {% endif %}
+                                <td class="td-acciones">
+                                    {% if rol == '0' or rol == '4' %}
+                                        {% if rol == '0' %}
+                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                        {% else %}
+                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}$o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
 
 
                             </tr>

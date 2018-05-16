@@ -1,0 +1,343 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Comentarios' %}
+
+{% block contenido %}
+
+    <div class="contenidoInfo">
+        <form class="formInfo" action="" method="post">
+            <div class="">
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                        <div>
+                            Datos de la incidencia:
+                            {% if incidencia.otros %}
+                            <a href="#" data-toggle="modal" data-target="#myModal" >Más información</a>
+                            {% endif %}
+                        </div>
+
+                        <input class="btn btn-primary" type="submit" value="volver" name="btnVolver">
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Incidencia número:</span>
+                        <span class="badge badge-primary">{{ incidencia.id_incidencia }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Comercial:</span>
+                        <span>{{ incidencia.id_usuario }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Cliente:</span>
+                        <span>{{ incidencia.id_cliente }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Técnico:</span>
+                        <span>{{ incidencia.tecnico }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de creación:</span>
+                        <span>{{ incidencia.fecha_creacion }}</span>
+                    </li>
+                    {% if incidencia.fecha_inicio %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de inicio:</span>
+                        <span>{{ incidencia.fecha_inicio }}</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de resolución:</span>
+                        <span>{{ incidencia.fecha_resolucion }}</span>
+                    </li>
+                    {% if incidencia.estado != '3' and incidencia.disponible %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Disponible a partir de:</span>
+                        {% if incidencia.disponible < fechaActual  %}
+                        <span class="badge badge-success">{{ incidencia.disponible }}</span>
+                        {% else %}
+                        <span class="badge badge-warning">{{ incidencia.disponible }}</span>
+                        {% endif %}
+
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Tipo:</span>
+                        <span
+                                {% if incidencia.tipo == 'instalacion' %}
+                                    class="badge badge-primary"
+                                {% elseif incidencia.tipo == 'baja' %}
+                                    class="badge badge-danger"
+                                {% elseif incidencia.tipo == 'averia' %}
+                                    class="badge badge-warning"
+                                {% elseif incidencia.tipo == 'cambiodomicilio' %}
+                                    class="badge badge-info"
+                                {% endif %}
+                        >
+                                {% if incidencia.tipo == 'instalacion' %}
+                                    Instalación
+                                {% elseif incidencia.tipo == 'baja' %}
+                                    Baja
+                                {% elseif incidencia.tipo == 'averia' %}
+                                    Averia
+                                {% elseif incidencia.tipo == 'cambiodomicilio' %}
+                                    Cambio de domicilio
+                                {% endif %}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Estado:</span>
+                        <span
+                                {% if incidencia.estado == '0' %}
+                                    class="badge badge-light"
+                                {% elseif incidencia.estado == '1' %}
+                                    class="badge badge-info"
+                                {% elseif incidencia.estado == '2' %}
+                                    class="badge badge-warning"
+                                {% elseif incidencia.estado == '3' %}
+                                    class="badge badge-success"
+                                {% elseif incidencia.estado == '4' %}
+                                    class="badge badge-dark"
+                                {% elseif incidencia.estado == '5' %}
+
+                                {% endif %}
+
+                        >
+                              {% if incidencia.estado == '0' %}
+                                  No asignada
+                              {% elseif incidencia.estado == '1' %}
+                                  Activa
+                              {% elseif incidencia.estado == '2' %}
+                                  Asignada
+                              {% elseif incidencia.estado == '3' %}
+                                  Finalizada
+                              {% elseif incidencia.estado == '4' %}
+                                  Finalizada parcial
+                              {% elseif incidencia.estado == '5' %}
+                                  No se pudo contactar con el cliente
+                              {% endif %}
+                        </span>
+                    </li>
+                    {% if incidencia.parcial == 'Si'%}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Fecha parcial:</span>
+                            <span class="badge badge-dark">{{ incidencia.fecha_parcial }}</span>
+                        </li>
+                    {% endif %}
+                    {% if incidencia.reincidencia > 0 %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Reincidencia:</span>
+                        <span class="badge badge-danger">{{ incidencia.reincidencia }}</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Llamada obligatoria (técnico):</span>
+                        <span
+                            {% if incidencia.llamada_obligatoria == 'No' %}
+                                class="badge badge-danger"
+                            {% elseif incidencia.llamada_obligatoria == 'Si' %}
+                                class="badge badge-success"
+                            {% endif %}
+                        >{{ incidencia.llamada_obligatoria }}</span>
+                    </li>
+                    {% if incidencia.antenas %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            {% if incidencia.tipo == 'instalacion' %}
+                                Antenas instaladas:
+                            {% elseif incidencia.tipo =='baja' %}
+                                Antenas retiradas:
+                            {% else %}
+                                Antenas:
+                            {% endif %}
+                        </span>
+                        <span class="badge badge-primary">
+                            {% if incidencia.antenas < 0 %}
+                                {{ incidencia.antenas * (-1) }}
+                            {% elseif incidencias.antenas >= 0 %}
+                                {{ incidencia.antenas }}
+                            {% endif %}
+                        </span>
+                    </li>
+                    {% endif %}
+                    {% if incidencia.routers %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            {% if incidencia.tipo == 'instalacion' %}
+                                Routers instalados:
+                            {% elseif incidencia.tipo =='baja' %}
+                                Routers retirados:
+                            {% else %}
+                                Routers:
+                            {% endif %}
+                        </span>
+                        <span class="badge badge-primary">
+                            {% if incidencia.routers < 0 %}
+                                {{ incidencia.routers * (-1) }}
+                            {% elseif incidencias.routers >= 0 %}
+                                {{ incidencia.routers }}
+                            {% endif %}
+                        </span>
+                    </li>
+                    {% endif %}
+                    {% if incidencia.estado == '3' %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Tiempo de solución:</span>
+                        <span>{{ tiempoResolucion }}</span>
+                    </li>
+                        {% if incidencia.fecha_inicio %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Tiempo de solución Técnico:</span>
+                            <span>{{ tiempoResoluciondos }}</span>
+                        </li>
+                        {% endif %}
+
+                        {% if incidencia.estado == '3' and tecnicoSolucion %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Solución:</span>
+                                <a href="#" data-toggle="modal" data-target="#myModal2" >Pulsa para ver la solución</a>
+                            </li>
+                        {% endif %}
+
+                    {% endif %}
+                </ul>
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary">Datos del cliente:</li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Dni:</span>
+                        <span>{{ cliente.dni }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Nombre:</span>
+                        <span>{{ cliente.nombre }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Dirección:</span>
+                        <span>{{ cliente.direccion }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Teléfono:</span>
+                        <span>{{ cliente.telefono }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Ciudad:</span>
+                        <span>{{ cliente.ciudad }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Cp:</span>
+                        <span>{{ cliente.cp}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Provincia:</span>
+                        <span>{{ cliente.provincia}}</span>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary">Datos del técnico:</li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Dni:</span>
+                        <span>{{ tecnico.dni }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Usuario:</span>
+                        <span>{{ tecnico.usuario }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Nombre:</span>
+                        <span>{{ tecnico.nombre }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Teléfono:</span>
+                        <span>{{ tecnico.telefono }}</span>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary">Datos del comercial:</li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Dni:</span>
+                        <span>{{ comercial.dni }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Usuario:</span>
+                        <span>{{ comercial.usuario }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Nombre:</span>
+                        <span>{{ comercial.nombre }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Teléfono:</span>
+                        <span>{{ comercial.telefono }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="container">
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <label for="info" class="alert alert-info">Informacion de la incidencia: {{ incidencia.id_incidencia }}</label>
+                                {#<textarea name="" id="info" cols="60" rows="10" disabled>{{ incidencia.otros }}</textarea>#}
+                                <p>{{ incidencia.otros }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="modal" id="myModal2">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <p for="info" class="alert alert-info">Solucion de la incidencia: {{ incidencia.id_incidencia }}</p>
+                                {#<p class="alert alert-info">Fecha de la solución: {{ fechaSolucion }}</p>#}
+                                {#<p class="alert alert-info">Tecnico de la solución: {{ tecnicoSolucion }}</p>#}
+
+                                {% for elemento in listaSolucion %}
+                                    <p>{{ elemento }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="historial">
+            <label class="alert alert-info">Historial incidencias del cliente, pulsa para ir a la última incidencia: <a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ ultimaIncidencia }}">{{ ultimaIncidencia }}</a></label>
+            <div class="contenedorTabla">
+                <table class="table table-bordered table-sm miTabla table-responsive-xl">
+                    <thead class="miThead">
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>InfoComercial</th>
+                        <th>Solucion</th>
+                    </tr>
+                    </thead>
+
+                    {% for incidencia in historialIncidencias %}
+                        <tr>
+                            <td><a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ incidencia.id_incidencia }}">{{ incidencia.id_incidencia }}</a></td>
+                            <td>{{ incidencia.fecha_creacion }}</td>
+                            <td>{{ incidencia.info }}</td>
+                            <td>{{ incidencia.solucion }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
