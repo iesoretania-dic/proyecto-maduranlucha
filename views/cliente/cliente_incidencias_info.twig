@@ -15,6 +15,12 @@
                             <a href="#" data-toggle="modal" data-target="#myModal" >Más información</a>
                             {% endif %}
                         </div>
+                        {% if (rol == '4' or rol == '0') and incidencia.estado == '0' %}
+                        <div>
+                            <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ incidencia.id_incidencia }}&tipo=0"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
+                            <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ incidencia.id_incidencia }}&tipo=0"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
+                        </div>
+                        {% endif %}
 
                         <input class="btn btn-primary" type="submit" value="volver" name="btnVolver">
                     </li>

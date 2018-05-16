@@ -91,6 +91,7 @@
                                     {% if rol == '0' or rol == '4' %}
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
+                                            <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
