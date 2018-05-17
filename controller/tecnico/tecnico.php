@@ -40,7 +40,7 @@ if(!isset($_SESSION['usuario'])){
         //En el caso de que si esta asignada devolvera el id de la incidencia
         if($asignada){
             $mensaje = 'Si';
-            $sentencia = "SELECT id_cliente,otros,tipo,reincidencia,llamada_obligatoria,parcial FROM incidencia WHERE id_incidencia =:idIncidencia ";
+            $sentencia = "SELECT id_cliente,otros,tipo,reincidencia,llamada_obligatoria,parcial,urgente FROM incidencia WHERE id_incidencia =:idIncidencia ";
             $parametros = (array(":idIncidencia"=>$asignada));
             $datos = new Consulta();
             $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
@@ -59,8 +59,8 @@ if(!isset($_SESSION['usuario'])){
 
                 //Consulta si no tiene una incidencia asignada
                 $mensaje = 'No';
-                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria,parcial FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
-                $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio'));
+                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria,parcial,urgente FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY urgente = :urgente DESC, tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
+                $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":urgente"=>'Si'));
                 $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
 
                 $asignada = $resultado['id_incidencia'];
@@ -217,7 +217,8 @@ if(!isset($_SESSION['usuario'])){
             'usuario',
             'rol',
             'mensajeParcial',
-            'mensajeAverias'
+            'mensajeAverias',
+            'resultado'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

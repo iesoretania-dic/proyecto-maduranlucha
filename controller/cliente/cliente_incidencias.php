@@ -87,6 +87,33 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    if($rol == '0'){
+        if(isset($_GET['Id'])){
+            $idIncidencia = $_GET['Id'];
+
+            //Obtenemos el campo de urgente
+            $sentencia = "SELECT urgente from incidencia WHERE id_incidencia = :incidencia";
+            $parametros = array(":incidencia"=>$idIncidencia);
+            $datos = new Consulta();
+            $resultado =  $datos->get_conDatosUnica($sentencia,$parametros);
+
+            $urgenteI = $resultado['urgente'];
+
+            if($urgenteI == 'No'){
+                $urgenteI = 'Si';
+            }elseif($urgenteI == 'Si') {
+                $urgenteI = 'No';
+            }
+
+            //Actualizamos el estado de urgente
+            $consulta = "UPDATE incidencia SET urgente = :urgente WHERE id_incidencia = :incidencia";
+            $parametros = array(":urgente"=>$urgenteI,":incidencia"=>$idIncidencia);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+            header('Location: cliente_incidencias.php?tipo=0');
+        }
+    }
+
 
 
 

@@ -457,6 +457,14 @@ body {
   background-image: url("../resources/ctecnico.png");
 }
 
+.btnUrgenteNo {
+  background-image: url("../resources/urgente-no.png");
+}
+
+.btnUrgenteSi {
+  background-image: url("../resources/urgente-si.png");
+}
+
 .labelPersonal {
   display: block;
   margin-bottom: 2px;

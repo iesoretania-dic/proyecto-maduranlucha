@@ -25,6 +25,9 @@
                             <div>
                                 <span>Incidencia asignada:</span>
                                 <span class="badge badge-primary">{{ asignada }}</span>
+                                {% if resultado.urgente == 'Si' %}
+                                    <span class="badge badge badge-danger">URGENTE</span>
+                                {% endif %}
                             </div>
                             {% if llamada == 'No' %}
                                 <input class="btn btn-danger" type="submit" name="confirmarLlamada" value="LLamada realizada">
