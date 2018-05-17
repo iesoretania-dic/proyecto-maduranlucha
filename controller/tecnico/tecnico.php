@@ -197,6 +197,18 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    //Accion si pulsa el boton no se pudo contactar con el cliente
+    if(isset($_POST['btnErrorIncidencia'])){
+        if($llamada == "Si"){
+            $_SESSION['idIncidencia'] = $asignada;
+            $_SESSION['tipo'] = $tipo;
+            $_SESSION['reincidencia'] = $reincidencia;
+            header("Location: tecnico_confirmar_no_contacto.php");
+        }else{
+            $mensajeLlamada = 'No';
+        }
+    }
+
 
 
     ////////////////////////Renderizado//////////////////////////

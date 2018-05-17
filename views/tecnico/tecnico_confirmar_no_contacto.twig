@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Tecnico' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            {% if error %}
+                <p class="label label-danger">El comentario es obligatorio</p>
+            {% endif %}
+
+            <label class="labelTecnico miLabel" for="comentario">Añadir un comentario:</label>
+            <textarea class="labelTecnico" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+
+            <input class="btn btn-primary boton" type="submit" name="aceptarMoverError" value="Aceptar">
+            <input class="btn btn-warning boton" type="submit" name="cancelarMoverError" value="Cancelar">
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
