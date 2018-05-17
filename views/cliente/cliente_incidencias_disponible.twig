@@ -1,0 +1,30 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Disponibilidad' %}
+
+{% block contenido %}
+
+    <div class="contenido">
+        <form action="" method="post">
+
+            <div class="form-group miDiv">
+                <p>Selecciona la fecha de disponiblidad:</p>
+                <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    </div>
+                    <input class="form-control" size="2" type="text" value="" readonly>
+                </div>
+                <input type="hidden" id="dtp_input1" value="" name="disponible"/><br/>
+            </div>
+
+            <div class="vistaFormulario">
+                <input class="btn btn-success" type="submit" value="Modificar" name="btnModificar">
+                <input class="btn btn-danger" type="submit" value="Cancelar" name="btnCancelar">
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

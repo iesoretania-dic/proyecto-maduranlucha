@@ -28,6 +28,7 @@
                             {#Vista para el administrador#}
                             {% if rol == '0' %}
                             <th>Id</th>
+                            <th>Cliente</th>
                             <th>Creada</th>
                             <th>Técnico</th>
                             <th>Creacion</th>
@@ -64,11 +65,12 @@
                             >
                                 {% if rol == '0' %}
                                 <td>{{ fila.id_incidencia }}</td>
+                                <td>{{ fila.ncliente }}</td>
                                 <td>{{ fila.tnombre }}</td>
                                 <td>{{ fila.ntecnico }}</td>
                                 <td>{{ fila.fecha_creacion }}</td>
                                 <td>{{ fila.fecha_resolucion }}</td>
-                                <td>{{ fila.proxima_llamada }}</td>
+                                <td>{{ fila.disponible }}</td>
                                 <td>
                                     {% if fila.tipo == 'averia' %}
                                         Averia
@@ -99,6 +101,9 @@
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
                                         {% else %}
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                        {% endif %}
+                                        {% if rol == '0' and  fila.estado != '3' %}
+                                            <a href="../cliente/cliente_incidencias_disponible.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnDispobible" title="Modificar fecha"></a>
                                         {% endif %}
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
                                             <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
