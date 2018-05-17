@@ -91,6 +91,8 @@
                                     {% if rol == '0' or rol == '4' %}
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
+                                        {% endif %}
+                                        {% if fila.estado == '0' or fila.estado == '1' or fila.estado == '2' %}
                                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' %}

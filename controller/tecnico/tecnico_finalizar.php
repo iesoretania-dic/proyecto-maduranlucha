@@ -317,7 +317,7 @@ if(!isset($_SESSION['usuario'])){
             //comprobamos si se a recogido el router y se instalo en el nuevo domicilio
             if ($routerR == '1' AND $routerI == '1') {
                 if ($antenasCliente >= 0 AND $routersCliente >= 0) {
-                    if ($antenasDisponiblesTecnico > 0 and $routersDisponiblesTecnico > 0) {
+                    if ($antenasDisponiblesTecnico >= 0 and $routersDisponiblesTecnico >= 0) {
 
                         try {
                             $datos = new Consulta();
