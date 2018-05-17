@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Comentarios' %}
+
+{% block contenido %}
+
+    <div class="contenido">
+        <form action="" method="post">
+
+            <div class="vistaInfo">
+                <label class="alert alert-warning">¿Seguro que desea eliminar la incidencia: {{ idIncidencia }}?, esta acción no se podrá deshacer</label>
+            </div>
+
+            <div class="vistaInfo">
+                <input class="btn btn-danger" type="submit" name="confirmarEliminar" value="Eliminar">
+                <a href="javascript:history.back()"><input class="btn btn-warning" type="button" value="volver"></a>
+            </div>
+
+            {% if mensaje == 'error' %}
+            <label class="alert alert-danger">No se pudo eliminar la incidencia numero {{ idIncidencia }}</label>
+            {% endif %}
+
+        </form>
+    </div>
+
+{% endblock %}

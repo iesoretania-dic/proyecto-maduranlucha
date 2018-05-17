@@ -100,6 +100,9 @@
                                         {% else %}
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
                                         {% endif %}
+                                        {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
+                                            <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
 
