@@ -111,6 +111,9 @@
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
                                             <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
                                         {% endif %}
+                                        {% if rol == '0' %}
+                                            <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
 

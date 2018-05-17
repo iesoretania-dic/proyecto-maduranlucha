@@ -1,0 +1,62 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Comentarios' %}
+
+{% block contenido %}
+
+    <div class="contenido">
+        <form action="" method="post">
+
+            {% if mensaje == 'error' %}
+                <label class="alert alert-primary">No hay comentarios</label>
+            {% else %}
+                <label class="alert alert-primary">Lista de comentarios</label>
+            {% endif %}
+
+            <div class="vistaInfo">
+                <a href="javascript:history.back()"><input class="btn btn-primary" type="button" value="volver"></a>
+            </div>
+
+            {% if rol == '0' %}
+            {% endif %}
+
+            {% if mensaje == 'Ok' %}
+                <div class="contenedorTabla">
+                    <table id="miTablaControlador" class="table table-bordered table-responsive-xl table-hover">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Técnico</th>
+                            <th>Comentario</th>
+                            <th>Creacion</th>
+                            <th>Cita</th>
+                            {#<th>Acciones</th>#}
+                        </tr>
+                        </thead>
+
+                        {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                        {% for comentario in comentarios %}
+                            <tr>
+                                <td>{{ comentario.tecnico }}</td>
+                                <td>{{ comentario.texto }}</td>
+                                <td>{{ comentario.fecha }}</td>
+                                <td>{{ comentario.cita }}</td>
+                                {#<td>#}
+                                {#<input type="submit" class="botonAccion btnModificar" title="modificar" name="dniModificar" value={{ cliente.dni }}>#}
+                                {#<input type="submit" class="botonAccion btnEliminar" title="eliminar" name="dniEliminar" value={{ cliente.dni }}>#}
+                                {#<input type="submit" class="botonAccion btnIncidencias" title="ver incidencias" name="dniIncidencias" value={{ cliente.dni }}>#}
+                                {#<input type="submit" class="botonAccion btnNuevaIncidencia" title="nueva incidencia" name="dniNuevaIncidencia" value={{ cliente.dni }}>#}
+                                {#{% if rol == '0' %}#}
+                                {#<input type="submit" class="botonAccion btnLiberar" title="liberar" name="dniLiberar" value={{ cliente.dni }}>#}
+                                {#{% endif %}#}
+
+                                {#</td>#}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+
+        </form>
+    </div>
+
+{% endblock %}
