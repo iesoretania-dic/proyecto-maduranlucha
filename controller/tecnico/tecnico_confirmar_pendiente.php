@@ -15,11 +15,20 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
     $idIncidencia = $_SESSION['idIncidencia'];
+
+    if(isset($_SESSION['disponible'])){
+        $disponible = $_SESSION['disponible'];
+    }
+
     $error = null;
     //Accion al pulsar el boton aceptar
     if(isset($_POST['aceptarMoverPendiente'])){
         $comentario = trim($_POST['comentario']);
         $pllamada = $_POST['pllamada'];
+
+        if($pllamada == null){
+            $pllamada =  date("Y-m-d H:i:s");
+        }
 
         if($comentario != ""){
             try {
@@ -68,7 +77,8 @@ if(!isset($_SESSION['usuario'])){
     try{
         echo $twig->render('tecnico/tecnico_confirmar_pendientes.twig', compact(
             'error',
-            'rol'
+            'rol',
+            'disponible'
 
         ));
     }catch (Exception $e){
