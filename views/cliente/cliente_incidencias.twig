@@ -105,6 +105,9 @@
                                         {% if rol == '0' and  fila.estado != '3' %}
                                             <a href="../cliente/cliente_incidencias_disponible.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnDispobible" title="Modificar fecha"></a>
                                         {% endif %}
+                                        {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1' or fila.estado == '2') %}
+                                            <a href="../cliente/cliente_incidencias_reasignar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnReasignar" title="Cambiar Técnico"></a>
+                                        {% endif %}
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
                                             <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
                                         {% endif %}
