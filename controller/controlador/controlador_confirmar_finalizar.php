@@ -57,13 +57,13 @@ if(!isset($_SESSION['usuario'])){
 
             if($tecnicoI){
                 //Consulta para modificar el estado de la indicencia
-                $sentencia = "UPDATE incidencia SET estado= :estado,  fecha_resolucion = :fechaRes,llamada_obligatoria = :llamada, disponible = NULL WHERE id_incidencia = :incidencia";
-                $parametros = (array(":estado"=>'3',":fechaRes"=> date("Y-m-d H:i:s"),":llamada"=>'Si',":incidencia"=>$idIncidencia));
+                $sentencia = "UPDATE incidencia SET estado= :estado,  fecha_resolucion = :fechaRes,llamada_obligatoria = :llamada, disponible = NULL, urgente =:urgente WHERE id_incidencia = :incidencia";
+                $parametros = (array(":estado"=>'3',":fechaRes"=> date("Y-m-d H:i:s"),":llamada"=>'Si',":incidencia"=>$idIncidencia,":urgente"=>'No'));
                 $datos->get_sinDatos($sentencia,$parametros);
             }else{
                 //Consulta para modificar el estado de la indicencia
-                $sentencia = "UPDATE incidencia SET estado= :estado, tecnico =:tecnico,fecha_inicio = :fechaInicio, fecha_resolucion = :fechaRes,llamada_obligatoria = :llamada, disponible = NULL WHERE id_incidencia = :incidencia";
-                $parametros = (array(":estado"=>'3',":tecnico"=>$idUsuario,":fechaRes"=> date("Y-m-d H:i:s"),":fechaInicio"=>date("Y-m-d H:i:s"),":llamada"=>'Si',":incidencia"=>$idIncidencia));
+                $sentencia = "UPDATE incidencia SET estado= :estado, tecnico =:tecnico,fecha_inicio = :fechaInicio, fecha_resolucion = :fechaRes,llamada_obligatoria = :llamada, disponible = NULL, urgente =:urgente WHERE id_incidencia = :incidencia";
+                $parametros = (array(":estado"=>'3',":tecnico"=>$idUsuario,":fechaRes"=> date("Y-m-d H:i:s"),":fechaInicio"=>date("Y-m-d H:i:s"),":llamada"=>'Si',":incidencia"=>$idIncidencia,":urgente"=>'No'));
                 $datos->get_sinDatos($sentencia,$parametros);
             }
 

@@ -81,8 +81,8 @@ if(!isset($_SESSION['usuario'])){
                         $datos->conexionDB->beginTransaction();
 
                         //Consulta para insertar el material a la incidencia, establecer el estado a finalizado y incluir la fecha de resolucion
-                        $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, antenas = :antenas, routers = :routers, disponible = NULL WHERE id_incidencia = :id ";
-                        $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":antenas" => $antenasIncidencia, ":routers" => $routersIncidencia, ":id" => $asignada);
+                        $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, antenas = :antenas, routers = :routers, disponible = NULL, urgente = :urgente WHERE id_incidencia = :id ";
+                        $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":antenas" => $antenasIncidencia, ":routers" => $routersIncidencia, ":id" => $asignada,":urgente"=>'No');
                         $datos->get_sinDatos($sentencia, $parametros);
 
                         //Consulta para actualizar el material del tecnico y asignarle la instalacion

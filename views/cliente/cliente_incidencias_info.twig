@@ -43,25 +43,25 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de creación:</span>
-                        <span>{{ incidencia.fecha_creacion }}</span>
+                        <span class="fechaCambiar">{{ incidencia.fecha_creacion }}</span>
                     </li>
                     {% if incidencia.fecha_inicio %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de inicio:</span>
-                        <span>{{ incidencia.fecha_inicio }}</span>
+                        <span class="fechaCambiar">{{ incidencia.fecha_inicio }}</span>
                     </li>
                     {% endif %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de resolución:</span>
-                        <span>{{ incidencia.fecha_resolucion }}</span>
+                        <span class="fechaCambiar">{{ incidencia.fecha_resolucion }}</span>
                     </li>
                     {% if incidencia.estado != '3' and incidencia.disponible %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Disponible a partir de:</span>
                         {% if incidencia.disponible < fechaActual  %}
-                        <span class="badge badge-success">{{ incidencia.disponible }}</span>
+                        <span class="badge badge-success fechaCambiar">{{ incidencia.disponible }}</span>
                         {% else %}
-                        <span class="badge badge-warning">{{ incidencia.disponible }}</span>
+                        <span class="badge badge-warning fechaCambiar">{{ incidencia.disponible }}</span>
                         {% endif %}
 
                     </li>

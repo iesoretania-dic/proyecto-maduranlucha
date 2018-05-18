@@ -68,9 +68,9 @@
                                 <td>{{ fila.ncliente }}</td>
                                 <td>{{ fila.tnombre }}</td>
                                 <td>{{ fila.ntecnico }}</td>
-                                <td>{{ fila.fecha_creacion }}</td>
-                                <td>{{ fila.fecha_resolucion }}</td>
-                                <td>{{ fila.disponible }}</td>
+                                <td class="fechaCambiar">{{ fila.fecha_creacion }}</td>
+                                <td class="fechaCambiar">{{ fila.fecha_resolucion }}</td>
+                                <td class="fechaCambiar">{{ fila.disponible }}</td>
                                 <td>
                                     {% if fila.tipo == 'averia' %}
                                         Averia

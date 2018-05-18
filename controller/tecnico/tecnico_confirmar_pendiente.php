@@ -1,7 +1,7 @@
 <?php
 require_once '../../php/Consulta.php';
 session_start();
-var_dump($_POST);
+//var_dump($_POST);
 //var_dump($_SESSION);
 
 if(!isset($_SESSION['usuario'])){
