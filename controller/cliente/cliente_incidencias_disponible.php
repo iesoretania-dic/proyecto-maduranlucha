@@ -25,9 +25,26 @@ if(!isset($_SESSION['usuario'])){
         $id= $_SESSION['Id'];
     }
 
+    //Obtenemos la fecha de disponibilidad de la incidencia
+
+    $consulta = "SELECT disponible FROM incidencia WHERE id_incidencia = :incidencia";
+    $parametros = array(":incidencia"=>$idIncidencia);
+    $datos = new Consulta();
+    $misDatos = $datos->get_conDatosUnica($consulta,$parametros);
+
+    $fechaDisponible = NULL;
+
+    if($misDatos){
+        $fechaDisponible = $misDatos['disponible'];
+    }
+
     if(isset($_POST['btnModificar'])){
 
         $fecha = $_POST['disponible'];
+
+        if($fecha == null){
+            $fecha = date("Y-m-d H:i:s");
+        }
 
         $consulta = "UPDATE incidencia SET disponible = :fecha WHERE id_incidencia = :incidencia";
         $parametros = array(":fecha"=>$fecha,":incidencia"=> $idIncidencia);
@@ -65,7 +82,8 @@ if(!isset($_SESSION['usuario'])){
         echo $twig->render('cliente/cliente_incidencias_disponible.twig', compact(
             'mensaje',
             'usuario',
-            'rol'
+            'rol',
+            'fechaDisponible'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

@@ -1,0 +1,39 @@
+.toggle-button {
+  display : none;
+  + label {
+    margin : auto;
+    display : block;
+    width : $size-toggle-button * 2;
+    height : $size-toggle-button;
+    background : hsl(0,40%,50%);
+    border-radius :  $size-toggle-button / 2;
+    box-shadow: 0 0 0 2px rgba($front-color,.5);
+    transition: $transition;
+
+    &:before {
+      content: "";
+      text-align: center;
+      line-height: $size-toggle-button;
+      display : block;
+      width : $size-toggle-button;
+      height : $size-toggle-button;
+      border-radius : 50%;
+      background : #eee;
+      transform: scale(0.8);
+      position : relative;
+      left : 0;
+      transition: $transition;
+    }
+  }
+  &:checked {
+    + label {
+      background : hsl(120,40%,50%);
+      &:before {
+        content: "";
+        left : $size-toggle-button;
+        background : #eee;
+        transform: scale(0.8);
+      }
+    }
+  }
+}

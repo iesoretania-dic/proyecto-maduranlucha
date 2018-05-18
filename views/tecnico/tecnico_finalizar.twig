@@ -13,7 +13,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <label for="toggle-antenas"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
@@ -22,7 +23,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <label for="toggle-routers"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
@@ -59,7 +61,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <label for="toggle-antenas"></label>
                             </div>
 
                         </div>
@@ -69,7 +72,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="checkRouterBaja" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <input id="checkRouterBaja" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <label for="checkRouterBaja"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router recogido*" disabled>
@@ -108,18 +112,21 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <label for="toggle-antenas"></label>
                             </div>
+                            {#<label for="">Antena instalada</label>#}
                         </div>
-
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio Antena" disabled>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <label for="toggle-routers"></label>
                             </div>
+                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio router" disabled>
                     </div>
@@ -127,8 +134,21 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
+                                <input id="toggle-ata" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="ata">
+                                <label for="toggle-ata"></label>
                             </div>
+                            {#<label for="">Antena instalada</label>#}
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio ATA" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-orientacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
+                                <label for="toggle-orientacion"></label>
+                            </div>
+                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Orientacion Antena" disabled>
                     </div>
@@ -136,12 +156,15 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="conectores">
+                                <input id="toggle-conectores" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="conectores">
+                                <label for="toggle-conectores"></label>
                             </div>
+                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio de conectores" disabled>
                     </div>
                 </div>
+
 
 
                 <div class="vistaFormulario">
@@ -167,7 +190,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaR">
+                                <input id="toggle-antenaR" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaR">
+                                <label for="toggle-antenaR"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena retirada" disabled>
@@ -176,7 +200,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerR">
+                                <input id="toggle-routerR" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerR">
+                                <label for="toggle-routerR"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router retirado" disabled>
@@ -188,7 +213,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaI">
+                                <input id="toggle-antenaI" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaI">
+                                <label for="toggle-antenaI"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
@@ -197,7 +223,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerI">
+                                <input id="toggle-routerI" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerI">
+                                <label for="toggle-routerI"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
