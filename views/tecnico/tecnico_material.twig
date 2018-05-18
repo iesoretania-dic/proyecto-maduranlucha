@@ -1,0 +1,164 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Material' %}
+
+{% block contenido %}
+    <div class="contenido">
+
+        <form class="formularioTecnicos" action="" method="post">
+
+            <div class="vistaFormulario">
+
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                        <span>Material del almacen:</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Antenas disponibles en almacen:</span>
+                        <span class="badge badge-primary ">{{ materialAlmacen.antenas }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Routers disponibles en almacen:</span>
+                        <span class="badge badge-primary ">{{ materialAlmacen.routers }}</span>
+                    </li>
+                </ul>
+
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                        <span>Material del técnico:</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Antenas en posesión:</span>
+                        <span class="badge badge-primary ">{{ materialTecnico.antenas }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Routers en posesión:</span>
+                        <span class="badge badge-primary ">{{ materialTecnico.routers }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="vistaFormulario">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input class="btn btn-danger btnF" type="submit" value="Retirar Material" name="retirarMaterial">
+                    <input class="btn btn-success btnF" type="submit" value="Depositar Material" name="depositarMaterial">
+                </div>
+            </div>
+
+
+            {% if retirar == 'Si' %}
+            <div class="vistaFormulario">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
+                        Retirar:
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <label for="antenas">Antenas:</label>
+                        <select name="numeroAntenas" id="antenas">
+                            {% for i in 0..limite %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <label for="routers">Routers:</label>
+                        <select name="numeroRouters" id="routers">
+                            {% for i in 0..limite %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <label for="atas">Ata:</label>
+                        <select name="numeroAtas" id="atas">
+                            {% for i in 0..limite %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <label for="conectores">Bolsa Conectores:</label>
+                        <select name="numeroConectores" id="conectores">
+                            {% for i in 0..1 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <label for="cables">Caja Cables:</label>
+                        <select name="numeroCables" id="cables">
+                            {% for i in 0..1 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="vistaFormulario">
+                <input class="btn btn-danger" type="submit" value="Aceptar" name="aceptarRetirar">
+            </div>
+            {% endif %}
+
+            {% if depositar == 'Si' %}
+
+                <div class="vistaFormulario">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                            Depositar:
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="antenas">Antenas:</label>
+                            <select name="numeroAntenas" id="antenas">
+
+                                {% for i in 0..20 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="routers">Routers:</label>
+                            <select name="numeroRouters" id="routers">
+                                {% for i in 0..20 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="vistaFormulario">
+                    <input class="btn btn-success" type="submit" value="Aceptar" name="aceptarDepositar">
+                </div>
+
+            {% endif %}
+
+
+            {% if mensajeAntenas == 'error' %}
+                <p class="alert alert-danger">No hay suficientes antenas para realizar esta operación</p>
+            {% endif %}
+
+            {% if mensajeRouters == 'error' %}
+                <p class="alert alert-danger">No hay suficientes routers realizar esta operación</p>
+            {% endif %}
+
+            {% if mensajeResultado == 'error' %}
+                <p class="alert alert-danger">Error</p>
+            {% endif %}
+
+            {% if mensajeValores == 'error' %}
+                <p class="alert alert-danger">No se admiten valores negativos en esta operación</p>
+            {% endif %}
+
+            {% if mensajeValoresCero == 'error' %}
+                <p class="alert alert-danger">No de puden dejar en blanco todos los campos</p>
+            {% endif %}
+
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

@@ -141,6 +141,16 @@ class Consulta extends Conexion{
         return $resultado['usuario'];
     }
 
+    public function get_stock(){
+
+        $sql= "SELECT * FROM stock ORDER BY fecha DESC LIMIT 1";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute();
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado;
+    }
+
 
 }
 

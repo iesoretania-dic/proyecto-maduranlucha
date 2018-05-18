@@ -184,9 +184,17 @@
             {#Accion en casio de cambio de domicilio#}
             {% if tipo == 'cambiodomicilio' %}
 
-
                 <div class="vistaCheck">
-                    <label class="alert alert-info">Ratirada de material</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-routerR" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="router">
+                                <label for="toggle-routerR"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router cambiado de domicilio" disabled>
+                    </div>
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -200,34 +208,11 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="toggle-routerR" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerR">
-                                <label for="toggle-routerR"></label>
-                            </div>
-                        </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router retirado" disabled>
-                    </div>
-                </div>
-
-                <div class="vistaCheck">
-                    <label class="alert alert-info">Instalación de material</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
                                 <input id="toggle-antenaI" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenaI">
                                 <label for="toggle-antenaI"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="toggle-routerI" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routerI">
-                                <label for="toggle-routerI"></label>
-                            </div>
-                        </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
                     </div>
                 </div>
 
