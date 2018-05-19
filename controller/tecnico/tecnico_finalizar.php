@@ -238,7 +238,7 @@ if(!isset($_SESSION['usuario'])){
         //Accion en caso de averia
         if ($tipo == 'averia') {
 
-            //Obtenemos el contador del conector  /**/
+            //Obtenemos el contador del conector
             $consulta = "SELECT contador FROM material WHERE id_usuario = :usuario and terminado = :terminado AND nombre = :nombre";
             $parametros = array(":usuario"=>$idUsuario,":terminado"=>'No',":nombre"=>'bolsaconectores');
             $datos = new Consulta();
@@ -246,11 +246,13 @@ if(!isset($_SESSION['usuario'])){
             $contadorConector = $datosMaterialConector['contador'];
 
             $arrayAveria = [];
+            $solucion = false;
 
             if (isset($_POST['antenas']) and ($_POST['antenas'] == '1')) {
                 $cambioAntena = 'Cambio de Antena.';
                 $antenasDisponiblesTecnico--;
                 array_push($arrayAveria, $cambioAntena);
+                $solucion = true;
             }
 
 
@@ -258,17 +260,20 @@ if(!isset($_SESSION['usuario'])){
                 $cambioRouter = 'Cambio de router';
                 $routersDisponiblesTecnico--;
                 array_push($arrayAveria, $cambioRouter);
+                $solucion = true;
             }
 
             if (isset($_POST['ata']) and ($_POST['ata'] == '1')) {
                 $cambioAta = 'Cambio de ATA';
                 array_push($arrayAveria, $cambioAta);
+                $solucion = true;
             }
 
 
             if (isset($_POST['orientacion']) and ($_POST['orientacion'] == '1')) {
                 $orientacionAntena = 'Orientacion de Antena';
                 array_push($arrayAveria, $orientacionAntena);
+                $solucion = true;
             }
 
 
@@ -276,11 +281,13 @@ if(!isset($_SESSION['usuario'])){
                 $cambioConectores = 'Cambio de conectores';
                 $contadorConector++;
                 array_push($arrayAveria, $cambioConectores);
+                $solucion = true;
             }
 
             if (isset($_POST['comentario']) and ($_POST['comentario'] != '')) {
                 $otros = ($_POST['comentario']);
                 array_push($arrayAveria, $otros);
+                $solucion = true;
             }
             /*Usamos json_encode() para convertir a string y poder guardarlo en la base de datos para volverlo un
             array utilizamos json_decode()*/
@@ -290,40 +297,45 @@ if(!isset($_SESSION['usuario'])){
             //insertamos la solucion en la base de datos
 
             if($datosMaterialConector){
-                try {
-                    //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
-                    $datos->conexionDB->beginTransaction();
-                    $sentencia = "INSERT INTO solucion (id_incidencia, solucion,tecnico) VALUES (:incidencia, :solucion, :tecnico)";
-                    $parametros = array(":incidencia" => $asignada, ":solucion" => $listaAverias, ":tecnico" => $idUsuario);
-                    $datos->get_sinDatos($sentencia, $parametros);
+                if($solucion){
+                    try {
+                        //Usamos uns transaccion para que en caso de error no ejecute ninguna sentencia.
+                        $datos->conexionDB->beginTransaction();
+                        $sentencia = "INSERT INTO solucion (id_incidencia, solucion,tecnico) VALUES (:incidencia, :solucion, :tecnico)";
+                        $parametros = array(":incidencia" => $asignada, ":solucion" => $listaAverias, ":tecnico" => $idUsuario);
+                        $datos->get_sinDatos($sentencia, $parametros);
 
-                    //Consulta para actualizar el estado del tecnico
-                    $sentencia = "UPDATE usuario SET asignada = :asignada,antenas = :antenas, routers = :routers WHERE dni = :dni ";
-                    $parametros = array(":asignada" => NULL, ":dni" => $idUsuario,":antenas"=>$antenasDisponiblesTecnico,":routers"=>$routersDisponiblesTecnico);
-                    $datos->get_sinDatos($sentencia, $parametros);
+                        //Consulta para actualizar el estado del tecnico
+                        $sentencia = "UPDATE usuario SET asignada = :asignada,antenas = :antenas, routers = :routers WHERE dni = :dni ";
+                        $parametros = array(":asignada" => NULL, ":dni" => $idUsuario,":antenas"=>$antenasDisponiblesTecnico,":routers"=>$routersDisponiblesTecnico);
+                        $datos->get_sinDatos($sentencia, $parametros);
 
-                    //Consulta para actualizar la incidencia
-                    $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, disponible = NULL WHERE id_incidencia = :id ";
-                    $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":id" => $asignada);
-                    $datos->get_sinDatos($sentencia, $parametros);
+                        //Consulta para actualizar la incidencia
+                        $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, disponible = NULL WHERE id_incidencia = :id ";
+                        $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":id" => $asignada);
+                        $datos->get_sinDatos($sentencia, $parametros);
 
-                    //consulta para añadir el conector  /**/
-                    $sentencia = "UPDATE material SET contador = :contador WHERE id_usuario = :usuario AND terminado = :terminado AND  nombre = :nombre";
-                    $parametros = array(":contador" => $contadorConector, ":usuario" => $idUsuario,":nombre"=>'bolsaconectores',":terminado"=>'No');
-                    $datos->get_sinDatos($sentencia, $parametros);
+                        //consulta para añadir el conector  /**/
+                        $sentencia = "UPDATE material SET contador = :contador WHERE id_usuario = :usuario AND terminado = :terminado AND  nombre = :nombre";
+                        $parametros = array(":contador" => $contadorConector, ":usuario" => $idUsuario,":nombre"=>'bolsaconectores',":terminado"=>'No');
+                        $datos->get_sinDatos($sentencia, $parametros);
 
-                    $datos->conexionDB->commit();
-                    header("Location: tecnico.php");
-                } catch (PDOException $e) {
-                    $datos->conexionDB->rollBack();
+                        $datos->conexionDB->commit();
+                        header("Location: tecnico.php");
+                    } catch (PDOException $e) {
+                        $datos->conexionDB->rollBack();
 
-                    if($e->getCode() == '23000'){
+                        if($e->getCode() == '23000'){
 
-                        die('Ya existe una solucion para esta incidencia');
+                            die('Ya existe una solucion para esta incidencia');
+                        }
+
+                    } finally {
+                        $datos->conexionDB = null;
                     }
+                }else{
 
-                } finally {
-                    $datos->conexionDB = null;
+                    $mensajeSolucionAveria = 'error';
                 }
             }else{
                 $mensajeFaltaConector = 'error';
@@ -451,7 +463,10 @@ if(!isset($_SESSION['usuario'])){
             'mensajeInstalacionRouter',
             'mensajeGeneralRouter',
             'mensajeCambioDomicilio',
-            'modo'
+            'modo',
+            'mensajeFaltaCable',
+            'mensajeFaltaConector',
+            'mensajeSolucionAveria'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

@@ -644,13 +644,13 @@ body {
 }
 
 .vistaCheck {
-  width: 50%;
+  width: 100%;
   margin-bottom: 10px;
 }
 
 @media screen and (min-width: 768px) {
   .vistaCheck {
-    width: 20%;
+    width: 40%;
   }
 }
 

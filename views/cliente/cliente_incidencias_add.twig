@@ -15,6 +15,9 @@
                         <option value="averia">Averia</option>
                         <option value="Instalacion">Instalacion</option>
                         <option value="cambiodomicilio">Cambio de Domicilio</option>
+                        {% if rol == '0' %}
+                            <option value="baja">Baja</option>
+                        {% endif %}
                     </select>
                 </div>
 

@@ -9,6 +9,11 @@
 
             {#Accion en caso de instalacion#}
             {% if tipo == 'instalacion' %}
+
+                <div class="vistaCheck">
+                    <p class="alert alert-info d-flex justify-content-between align-items-center" ><span>Indique la solución de la incidencia: </span><span class="badge badge-primary">{{ asignada }}</span> </p>
+                </div>
+
                 <div class="vistaCheck">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -40,12 +45,8 @@
                     </select>
 
                     <div id="comentarioFinalizar" class="vistaFormulario">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
-                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
-                            </div>
-                        </div>
+                        <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                        <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
                     </div>
                 </div>
 
@@ -57,6 +58,11 @@
 
             {#Accion en caso de baja#}
             {% if tipo == 'baja' %}
+
+                <div class="vistaCheck">
+                    <p class="alert alert-info d-flex justify-content-between align-items-center" ><span>Indique la solución de la incidencia: </span><span class="badge badge-primary">{{ asignada }}</span> </p>
+                </div>
+
                 <div class="vistaCheck">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -109,13 +115,16 @@
             {% if tipo == 'averia' %}
 
                 <div class="vistaCheck">
+                    <p class="alert alert-info d-flex justify-content-between align-items-center" ><span>Indique la solución de la incidencia: </span><span class="badge badge-primary">{{ asignada }}</span> </p>
+                </div>
+
+                <div class="vistaCheck">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
                                 <label for="toggle-antenas"></label>
                             </div>
-                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio Antena" disabled>
                     </div>
@@ -126,7 +135,6 @@
                                 <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
                                 <label for="toggle-routers"></label>
                             </div>
-                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio router" disabled>
                     </div>
@@ -137,7 +145,6 @@
                                 <input id="toggle-ata" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="ata">
                                 <label for="toggle-ata"></label>
                             </div>
-                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio ATA" disabled>
                     </div>
@@ -148,7 +155,6 @@
                                 <input id="toggle-orientacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
                                 <label for="toggle-orientacion"></label>
                             </div>
-                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Orientacion Antena" disabled>
                     </div>
@@ -159,7 +165,6 @@
                                 <input id="toggle-conectores" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="conectores">
                                 <label for="toggle-conectores"></label>
                             </div>
-                            {#<label for="">Antena instalada</label>#}
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio de conectores" disabled>
                     </div>
@@ -167,15 +172,15 @@
 
 
 
-                <div class="vistaFormulario">
+                <div class="vistaCheck">
                     <div id="comentarioFinalizar*">
-                        <label class="labelTecnico miLabel" for="comentario">Otros:</label>
-                        <textarea class="labelTecnico miArea" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+                        <p class="alert alert-info">Otros:</p>
+                        <textarea name="comentario" id="comentario" cols="40" rows="5"></textarea>
                     </div>
                 </div>
 
-                <div class="vistaFormulario">
-                    <input class="btn btn-warning" type="submit" value="Finalizar averia" name="btnConfirmarFinalizar">
+                <div class="vistaCheck">
+                    <input class="btn btn-warning" type="submit" value="Finalizar" name="btnConfirmarFinalizar">
                     <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
                 </div>
 
@@ -183,6 +188,10 @@
 
             {#Accion en casio de cambio de domicilio#}
             {% if tipo == 'cambiodomicilio' %}
+
+                <div class="vistaCheck">
+                    <p class="alert alert-info d-flex justify-content-between align-items-center" ><span>Indique la solución de la incidencia: </span><span class="badge badge-primary">{{ asignada }}</span> </p>
+                </div>
 
                 <div class="vistaCheck">
                     <div class="input-group mb-3">
@@ -272,6 +281,10 @@
 
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
+                {% endif %}
+
+                {% if mensajeSolucionAveria == 'error' %}
+                    <p class="alert alert-danger">Debes indicar una solución</p>
                 {% endif %}
             {% endif %}
 
