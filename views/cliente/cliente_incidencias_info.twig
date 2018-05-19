@@ -11,8 +11,11 @@
                     <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
                         <div>
                             Datos de la incidencia:
+                            {% if incidencia.urgente == 'Si' %}
+                                <span class="badge badge badge-danger">URGENTE</span>
+                            {% endif %}
                             {% if incidencia.otros %}
-                            <a href="#" data-toggle="modal" data-target="#myModal" >Más información</a>
+                                <a href="#" data-toggle="modal" data-target="#myModal" >Más información</a>
                             {% endif %}
                         </div>
                         {% if (rol == '4' or rol == '0') and incidencia.estado == '0' %}

@@ -62,6 +62,7 @@ $(function(){
         ordering: true,
         info: true,
         responsive: true,
+        pageLength: 25,
         order: [[0, "asc"]]
     });
 
@@ -92,7 +93,8 @@ $(function(){
         paginate: true,
         ordering: false,
         info: true,
-        responsive: false
+        responsive: false,
+        pageLength: 25
         // order: [[ 0, "asc" ]]
     });
 

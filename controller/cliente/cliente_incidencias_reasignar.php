@@ -20,6 +20,14 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $idIncidencia = $_GET['Id'];
 
+    if(isset($_SESSION['tipo'])){
+        $tipo = $_SESSION['tipo'];
+    }
+
+    if(isset($_SESSION['dni'])){
+        $dni= $_SESSION['dni'];
+    }
+
     //primero miramos si esa incidencia no la tiene como principal un tecnico
     $datos = new Consulta();
     $consulta = "SELECT nombre FROM usuario WHERE asignada = :idIncidencia";
@@ -61,7 +69,11 @@ if(!isset($_SESSION['usuario'])){
 
                 if ($resultado > 0){
                     $mensaje = 'ok';
-                    header('Location: ../cliente/cliente_incidencias.php?tipo=0');
+                    if(isset($_SESSION['dni']) and $_SESSION['dni'] != ""){
+                        header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$dni);
+                    }else{
+                        header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
+                    }
                 }else{
                     $mensaje = 'error';
                 }
@@ -76,7 +88,11 @@ if(!isset($_SESSION['usuario'])){
 
                 if ($resultado > 0){
                     $mensaje = 'ok';
-                    header('Location: ../cliente/cliente_incidencias.php?tipo=0');
+                    if(isset($_SESSION['dni']) and $_SESSION['dni'] != ""){
+                        header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$dni);
+                    }else{
+                        header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
+                    }
                 }else{
                     $mensaje = 'error';
                 }

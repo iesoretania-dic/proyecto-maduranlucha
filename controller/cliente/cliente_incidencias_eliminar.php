@@ -21,8 +21,8 @@ if(!isset($_SESSION['usuario'])){
         $tipo = $_SESSION['tipo'];
     }
 
-    if(isset($_SESSION['Id'])){
-        $id= $_SESSION['Id'];
+    if(isset($_SESSION['dni'])){
+        $dni= $_SESSION['dni'];
     }
 
     if(isset($_POST['confirmarEliminar'])){
@@ -35,8 +35,11 @@ if(!isset($_SESSION['usuario'])){
 
         if($filasAfectadas > 0){
             $mensaje = 'ok';
-
-            header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+            if(isset($_SESSION['dni']) and $_SESSION['dni'] != ""){
+                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$dni);
+            }else{
+                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
+            }
         }else{
             $mensaje = 'error';
         }

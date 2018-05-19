@@ -21,8 +21,8 @@ if(!isset($_SESSION['usuario'])){
         $tipo = $_SESSION['tipo'];
     }
 
-    if(isset($_SESSION['Id'])){
-        $id= $_SESSION['Id'];
+    if(isset($_SESSION['dni'])){
+        $dni= $_SESSION['dni'];
     }
 
     //Obtenemos la fecha de disponibilidad de la incidencia
@@ -41,7 +41,6 @@ if(!isset($_SESSION['usuario'])){
     if(isset($_POST['btnModificar'])){
 
         $fecha = $_POST['disponible'];
-
         if($fecha == null){
             $fecha = date("Y-m-d H:i:s");
         }
@@ -53,8 +52,8 @@ if(!isset($_SESSION['usuario'])){
 
         if($datosIncidencia > 0){
             $mensaje = 'ok';
-            if(isset($_SESSION['Id']) and $_SESSION['Id'] != ""){
-                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$id);
+            if(isset($_SESSION['dni']) and $_SESSION['dni'] != ""){
+                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$dni);
             }else{
                 header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
             }
