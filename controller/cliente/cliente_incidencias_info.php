@@ -137,7 +137,7 @@ if(!isset($_SESSION['usuario'])){
             }
 
             if(isset($_GET['Id']) and isset($_SESSION['tipo']) and $_SESSION['tipo'] == '1'){
-                header('Location: ../cliente/cliente_incidencias.php?tipo=1&Id='.$idCliente);
+                header('Location: ../cliente/cliente_incidencias.php?tipo=1&dni='.$idCliente);
             }
 
         }elseif ($rol == '4'){

@@ -21,11 +21,11 @@ if(!isset($_SESSION['usuario'])){
         $tipo = $_GET['tipo'];
         $_SESSION['tipo'] = $_GET['tipo'];
     }
-    if(isset($_GET['Id'])){
-        $dniCliente = $_GET['Id'];
-        $_SESSION['Id'] = $_GET['Id'];
+    if(isset($_GET['dni'])){
+        $dniCliente = $_GET['dni'];
+        $_SESSION['dni'] = $_GET['dni'];
     }else{
-        $_SESSION['Id'] ='';
+        $_SESSION['dni'] ='';
     }
 
     if ($rol == '0'){
@@ -47,7 +47,7 @@ if(!isset($_SESSION['usuario'])){
         //Accion si existe la variable de session dniIncidencias a causa de pulsar el boton incidencias de la pagina de los clientes.
         if($tipo == '1'){
             //CONSULTA PARA OBTENER Las incidencias de un cliente.
-            $consulta = "SELECT incidencia.*, usuario.usuario, usuario.nombre FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_cliente = :dni ORDER BY fecha_creacion DESC";
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia  INNER JOIN usuario ON incidencia.id_usuario = usuario.dni where incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, estado = '2' DESC,estado = '4' DESC, estado = '3' DESC, fecha_creacion";
             $parametros = array(":dni"=>$dniCliente);
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);

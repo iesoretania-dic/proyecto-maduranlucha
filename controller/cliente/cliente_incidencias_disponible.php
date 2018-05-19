@@ -54,23 +54,13 @@ if(!isset($_SESSION['usuario'])){
         if($datosIncidencia > 0){
             $mensaje = 'ok';
             if(isset($_SESSION['Id']) and $_SESSION['Id'] != ""){
-                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&Id=".$id);
+                header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$id);
             }else{
                 header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
             }
         }else{
             $mensaje = 'error';
         }
-    }
-
-    if(isset($_POST['btnCancelar'])){
-
-        if(isset($_SESSION['Id']) and $_SESSION['Id'] != ""){
-            header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&Id=".$id);
-        }else{
-            header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
-        }
-
     }
 
     ////////////////////////Renderizado//////////////////////////

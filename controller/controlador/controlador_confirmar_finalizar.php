@@ -23,8 +23,8 @@ if(!isset($_SESSION['usuario'])){
         $tipo = $_SESSION['tipo'];
     }
 
-    if(isset($_SESSION['Id'])){
-        $id= $_SESSION['Id'];
+    if(isset($_SESSION['dni'])){
+        $dni= $_SESSION['dni'];
     }
 
     //Accion al pulsar el boton aceptar
@@ -79,8 +79,8 @@ if(!isset($_SESSION['usuario'])){
                 header("Location: ../cliente/cliente_incidencias.php");
 
             }elseif($rol == '0'){
-                if(isset($_SESSION['Id']) and $_SESSION['Id'] != ""){
-                    header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&Id=".$id);
+                if(isset($_SESSION['dni']) and $_SESSION['dni'] != ""){
+                    header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo."&dni=".$dni);
                 }else{
                     header("Location: ../cliente/cliente_incidencias.php?tipo=".$tipo);
                 }
@@ -90,23 +90,6 @@ if(!isset($_SESSION['usuario'])){
             die('Error: ' . $e->getMessage());
         } finally {
             $datos->conexionDB = null;
-        }
-    }
-
-    if(isset($_POST['cancelarFinalizar'])){
-        if($rol == '4'){
-            if(isset($_GET['tipo']) and ($_GET['tipo'] == '0')){
-                header("Location: ../cliente/cliente_incidencias_info.php?Id=".$idIncidencia);
-            }else{
-                header("Location: ../cliente/cliente_incidencias.php");
-            }
-        }elseif($rol == '0'){
-            if(isset($_SESSION['tipo'])){
-                header("Location: ../cliente/cliente_incidencias.php?tipo=0");
-            }
-            if(isset($_GET['Id']) and isset($_GET['tipo'])){
-                header("Location: ../cliente/cliente_incidencias_info.php?tipo=0&Id=".$idIncidencia);
-            }
         }
     }
 

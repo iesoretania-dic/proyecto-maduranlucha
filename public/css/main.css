@@ -504,11 +504,11 @@ body {
 }
 
 .btnUrgenteNo {
-  background-image: url("../resources/urgente-no.png");
+  background-image: url("../resources/urgent-no.png");
 }
 
 .btnUrgenteSi {
-  background-image: url("../resources/urgente-si.png");
+  background-image: url("../resources/urgent-si.png");
 }
 
 .labelPersonal {

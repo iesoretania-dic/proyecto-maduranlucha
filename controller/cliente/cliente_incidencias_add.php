@@ -42,7 +42,7 @@ if(!isset($_SESSION['usuario'])){
             if($tipoI == 1){
                 header('Location: ../cliente/cliente_listar.php');
             }elseif($tipoI == 0){
-                header('Location: ../cliente/cliente_incidencias.php?Id='.$idCliente."&tipo=1");
+                header('Location: ../cliente/cliente_incidencias.php?dni='.$idCliente."&tipo=1");
             }
         }else{
             $mensaje = "error";
