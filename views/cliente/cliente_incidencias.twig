@@ -35,6 +35,18 @@
                                 <th>Resolución</th>
                                 <th>Disponible</th>
                                 <th>Tipo</th>
+                                <th>Acciones</th>
+                            {% endif %}
+                            {#Vista para el comercial#}
+                            {% if rol == '1' %}
+                                <th>Id</th>
+                                <th>Cliente</th>
+                                <th>Técnico</th>
+                                <th>Creacion</th>
+                                <th>Resolución</th>
+                                <th>Disponible</th>
+                                <th>Tipo</th>
+                                {#<th>Otros</th>#}
                             {% endif %}
                             {#Vista para el controlador#}
                             {% if rol == '4' %}
@@ -42,8 +54,9 @@
                                 <th>Cliente_Nombre</th>
                                 <th>Cliente_Telefono</th>
                                 <th>Info</th>
+                                <th>Acciones</th>
                             {% endif %}
-                            <th>Acciones</th>
+
 
                         </tr>
                         </thead>
@@ -83,14 +96,33 @@
                                     {% endif %}
                                 </td>
                                 {% endif %}
+                                {% if rol == '1' %}
+                                    <td>{{ fila.id_incidencia }}</td>
+                                    <td>{{ fila.ncliente }}</td>
+                                    <td>{{ fila.ntecnico }}</td>
+                                    <td class="fechaCambiar">{{ fila.fecha_creacion }}</td>
+                                    <td class="fechaCambiar">{{ fila.fecha_resolucion }}</td>
+                                    <td class="fechaCambiar">{{ fila.disponible }}</td>
+                                    <td>
+                                        {% if fila.tipo == 'averia' %}
+                                            Averia
+                                        {% elseif fila.tipo == 'cambiodomicilio' %}
+                                            Cambio de domicilio
+                                        {% elseif fila.tipo == 'baja' %}
+                                            Baja
+                                        {% elseif fila.tipo == 'instalacion' %}
+                                            Instalación
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
                                 {% if rol == '4' %}
                                     <td>{{ fila.id_cliente }}</td>
                                     <td>{{ fila.nombreCliente }}</td>
                                     <td>{{ fila.telefono }}</td>
                                     <td>{{ fila.otros }}</td>
                                 {% endif %}
-                                <td class="td-acciones">
-                                    {% if rol == '0' or rol == '4' %}
+                                {% if rol == '0' or rol == '4' %}
+                                    <td class="td-acciones">
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
                                         {% endif %}
@@ -117,10 +149,8 @@
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                         {% endif %}
-                                    {% endif %}
-                                </td>
-
-
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </table>

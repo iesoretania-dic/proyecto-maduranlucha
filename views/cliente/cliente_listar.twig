@@ -6,6 +6,17 @@
     <div class="contenido">
 
         <form action="" method="get">
+            {#Se ocultan ya que el mensaje lo mostraremos por toastr#}
+            {% if mensajeCambios == 'No' %}
+                <label id="cambiosModificarCliente" hidden>No</label>
+            {% elseif mensajeCambios == 'Si' %}
+                <label id="cambiosModificarCliente" hidden>Si</label>
+            {% elseif mensajeIncidencia == 'Si' %}
+                <label id="cambiosIncidencia" hidden>Si</label>
+            {% elseif mensajeEliminar == 'Si' %}
+                <label id="cambiosEliminar" hidden>Si</label>
+            {% endif %}
+
             <p class="alert alert-primary">Lista de clientes</p>
             <div>
                 <input class="btn btn-primary boton" type="submit" name="addCliente" value="Añadir cliente">

@@ -10,8 +10,8 @@
                 <label class="alert alert-danger" for="dni">¿Seguro que desea eliminar el cliente: {{ dni }}?, si elimina un cliente se borraran todas sus incidencias y comentarios, esta acción no se podra deshacer.</label>
             </div>
 
-            <input type="submit" value="Eliminar" name="btnEliminar">
-            <input type="submit" value="Cancelar" name="btnCancelar">
+            <input class="btn btn-danger" type="submit" value="Eliminar" name="btnEliminar">
+            <input class="btn btn-warning" type="submit" value="Cancelar" name="btnCancelar">
 
             {% if mensaje == 'error' %}
                 <p class="alert alert-warning">Error al Eliminar el cliente: {{ dni }}</p>

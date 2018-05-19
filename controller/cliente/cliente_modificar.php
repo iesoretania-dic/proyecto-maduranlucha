@@ -65,10 +65,9 @@ if(!isset($_SESSION['usuario'])){
             $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
             if($filasAfectadas > 0){
-                header('Location: ../cliente/cliente_listar.php');
-                $mensaje = 'Ok';
+                header('Location: ../cliente/cliente_listar.php?cambios=0');
             }else{
-                $mensaje = 'error';
+                header('Location: ../cliente/cliente_listar.php?cambios=1');
             }
         }elseif($rol == '1'){
             $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
@@ -77,10 +76,9 @@ if(!isset($_SESSION['usuario'])){
             $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
             if($filasAfectadas > 0){
-                header('Location: ../cliente/cliente_listar.php');
-                $mensaje = 'Ok';
+                header('Location: ../cliente/cliente_listar.php?cambios=0');
             }else{
-                $mensaje = 'error';
+                header('Location: ../cliente/cliente_listar.php?cambios=1');
             }
         }
     }

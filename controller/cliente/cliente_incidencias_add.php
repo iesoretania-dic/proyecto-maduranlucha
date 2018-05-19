@@ -40,9 +40,9 @@ if(!isset($_SESSION['usuario'])){
         if($filasAfectadas > 0){
             $mensaje = 'ok';
             if($tipoI == 1){
-                header('Location: ../cliente/cliente_listar.php');
+                header('Location: ../cliente/cliente_listar.php?cambios=3');
             }elseif($tipoI == 0){
-                header('Location: ../cliente/cliente_incidencias.php?dni='.$idCliente."&tipo=1");
+                header('Location: ../cliente/cliente_incidencias.php?dni='.$idCliente."&tipo=1&cambios=3");
             }
         }else{
             $mensaje = "error";

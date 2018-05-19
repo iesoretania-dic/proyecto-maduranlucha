@@ -22,6 +22,22 @@ if(!isset($_SESSION['usuario'])){
     $clientes = [];
     $mensaje = null;
 
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '0'){
+        $mensajeCambios = 'Si';
+    }
+
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '1'){
+        $mensajeCambios = 'No';
+    }
+
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '2'){
+        $mensajeEliminar = 'Si';
+    }
+
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '3'){
+        $mensajeIncidencia = 'Si';
+    }
+
 
     if($rol == '0'){
         //consulta para listar todos los clientes
@@ -62,7 +78,10 @@ if(!isset($_SESSION['usuario'])){
             'usuario',
             'clientes',
             'mensaje',
-            'rol'
+            'rol',
+            'mensajeCambios',
+            'mensajeIncidencia',
+            'mensajeEliminar'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

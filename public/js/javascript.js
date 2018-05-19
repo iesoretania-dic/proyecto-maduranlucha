@@ -99,6 +99,24 @@ $(function(){
     });
 
 
+    let mensajeCliente = $('#cambiosModificarCliente');
+    let mensajeIncidencia = $('#cambiosIncidencia');
+    let mensajeEliminar = $('#cambiosEliminar');
+
+    if (mensajeCliente.html() === 'No'){
+        toastr.warning('Cambios no guardados');
+    }
+    if (mensajeCliente.html() === 'Si'){
+        toastr.success('Cambios guardados');
+    }
+    if (mensajeIncidencia.html() === 'Si'){
+        toastr.success('Incidencia añadida');
+    }
+    if (mensajeEliminar.html() === 'Si'){
+        toastr.warning('Eliminado');
+    }
+
+
         // toastr.info('Page Loaded!');
 
 

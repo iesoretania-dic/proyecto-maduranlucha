@@ -26,7 +26,7 @@ if(!isset($_SESSION['usuario'])){
 
             if($filasAfectadas > 0){
                 $mensaje = 'ok';
-                header('Location: cliente_listar.php');
+                header('Location: ../cliente/cliente_listar.php?cambios=2');
             }else{
                 $mensaje = "error";
             }
@@ -41,7 +41,7 @@ if(!isset($_SESSION['usuario'])){
 
             if($filasAfectadas > 0){
                 $mensaje = 'ok';
-                header('Location: ../cliente/cliente_listar.php');
+                header('Location: ../cliente/cliente_listar.php?cambios=2');
             }else{
                 $mensaje = "error";
             }
@@ -51,7 +51,7 @@ if(!isset($_SESSION['usuario'])){
 
     //si pulsa cancelar redirigimos a la pagina del comercial.
     if(isset($_POST['btnCancelar'])){
-        header('Location: ../cliente/cliente_listar.php');
+        header('Location: ../cliente/cliente_listar.phpcambios=2b');
     }
 
 

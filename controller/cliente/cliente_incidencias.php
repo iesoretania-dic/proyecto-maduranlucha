@@ -27,13 +27,13 @@ if(!isset($_SESSION['usuario'])){
     }else{
         $_SESSION['dni'] ='';
     }
-
+    //ZONA DE LOS ADMINISTRADORES
     if ($rol == '0'){
         //Consulta si viene desde el apartado de incidencias
         if($tipo == '0'){
             //Consulta para obtener todas las incidencias
             $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, estado = '2' DESC, estado = '4' DESC, estado = '3' DESC, fecha_creacion";
-            $parametros = array(":tipouno"=>'averia',"tipodos"=>'cambiodomicilio');
+            $parametros = array();
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);
 
@@ -71,6 +71,51 @@ if(!isset($_SESSION['usuario'])){
             }
         }
 
+    }
+
+    //ZONA DE LOS COMERCIALES
+    if ($rol == '1'){
+        //Consulta si viene desde el apartado de incidencias
+        if($tipo == '0'){
+            //Consulta para obtener todas las incidencias
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_usuario = :comercial ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, estado = '2' DESC,estado = '4' DESC, estado = '3' DESC, fecha_creacion";
+            $parametros = array(":comercial"=>$idUsuario);
+            $datos = new Consulta();
+            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
+
+            if($arrayFilas){
+                $mensaje = 'Si';
+            }else{
+                $mensaje = 'No';
+            }
+        }
+
+        //Consulta si viene desde el apartado de los clientes, para un cliente en especifico.
+        if($tipo == '1'){
+            //CONSULTA PARA OBTENER Las incidencias de un cliente.
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, estado = '2' DESC,estado = '4' DESC, estado = '3' DESC, fecha_creacion";
+            $parametros = array(":dni"=>$dniCliente);
+            $datos = new Consulta();
+            $arrayFilas = $datos->get_conDatos($consulta,$parametros);
+
+            if($arrayFilas){
+                $mensaje = 'Si';
+            }else{
+                $mensaje = 'No';
+            }
+        }
+        //ZONA DE LOS CONTROLADORES
+        if($tipo == '1'){
+            //Accion si se pulsa el boton añadir incidencia
+            if(isset($_POST['btnAdd'])){
+                $_SESSION['dniCliente'] = $dniCliente;
+                header('Location: cliente_incidencias_add.php?tipo=0');
+            }
+            //Accion si se pulsa el boton volver
+            if(isset($_POST['btnVolver'])){
+                header('Location: cliente_listar.php');
+            }
+        }
     }
 
     if ($rol == '4'){
