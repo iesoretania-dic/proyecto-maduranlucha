@@ -27,9 +27,11 @@
                         </select>
                     </div>
                 </div>
-                <input class="btn btn-primary" type="submit" name="btnAceptar" value="Aceptar">
                 {% endif %}
-                <a href="javascript:history.back()"><input class="btn btn-primary" type="button" value="Volver"></a>
+                <div class="vistaFormulario">
+                    <button class="btn btn-primary" type="submit" name="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
+                    <a href="javascript:history.back()"><button class="btn btn-primary" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+                </div>
 
                 {% if mensaje == 'error' %}
                     <div>

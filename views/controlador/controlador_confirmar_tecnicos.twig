@@ -11,6 +11,7 @@
             {% endif %}
 
             <div class="vistaFormulario">
+                <p class="alert alert-info" >Enviar la incidencia a los ténicos </p>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Añadir un comentario:</label>
@@ -35,7 +36,7 @@
             {% endif %}
 
             <div class="form-group miDiv">
-                <p>Proxima Llamada: </p>
+                <p class="alert alert-info" >Próxima Llamada: </p>
                 <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
                     <div class="input-group-prepend">
                         <span class="input-group-text miTextGroup" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
@@ -45,8 +46,11 @@
                 </div>
                 <input type="hidden" id="dtp_input1" value="{{ proLlamada }}" name="llamada" /><br/>
             </div>
-            <input class="btn btn-primary boton" type="submit" name="aceptarMoverTecnicos" value="Aceptar">
-            <a href="javascript:history.back()"><input class="btn btn-warning boton" type="button" value="Cancelar"></a>
+
+            <div class="vistaCheck">
+                <button class="btn btn-primary" type="submit" name="aceptarMoverTecnicos"><i class="fas fa-wrench"></i> Aceptar</button>
+                <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+            </div>
 
         </form>
     </div>

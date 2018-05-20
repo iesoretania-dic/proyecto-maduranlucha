@@ -6,23 +6,24 @@
     <div class="contenido">
         <form class="" action="" method="post">
             <div class="vistaFormulario">
+                <p class="alert alert-info">Introduce los dátos del nuevo cliente: </p>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Dni:</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre:</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Direccion:</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la dirección:</span>
                     </div>
                     <select name="tipoD" id="">
                         <option value="">Otros</option>
@@ -39,14 +40,28 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Ciudad:</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la ciudad:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Telefono:</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la provincia:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="provincia">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el código postal:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono">
                 </div>
@@ -58,11 +73,13 @@
                     <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
                 </div>
                 {% endif %}
+                <p class="alert alert-info">(*) Campos obligatorios: </p>
+
             </div>
 
             <div class="grupoFB">
-                <input class="btn btn-primary btnF" type="submit" value="Añadir" name="btnEnviar">
-                <input class="btn btn-primary btnF" type="submit" value="Cancelar" name="btnCancelar">
+                <button class="btn btn-primary" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>
+                <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 
             {% if mensaje == 'error' %}

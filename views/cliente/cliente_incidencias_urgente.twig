@@ -9,15 +9,15 @@
             <div class="vistaFormulario">
 
                 {% if mensajeUrgente == 'No' %}
-                    <label class="alert alert-warning">¿Desea marcar indicencia como urgente?</label>
+                    <label class="alert alert-warning">¿Desea marcar incidencia como urgente?</label>
                 {% elseif mensajeUrgente == 'Si' %}
                     <label class="alert alert-warning">¿Desea reestrablecer la incidencia a su estado normal?</label>
                 {% endif %}
 
 
                 <div class="vistaFormulario">
-                    <input class="btn btn-success" type="submit" value="Si" name="btnUrgente">
-                    <a href="javascript:history.back()"><input class="btn btn-warning" type="button" value="Cancelar"></a>
+                    <button class="btn btn-success" type="submit" name="btnUrgente"><i class="fas fa-check"></i> Si</button>
+                    <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
                 </div>
 
             </div>

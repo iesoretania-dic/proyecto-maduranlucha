@@ -6,6 +6,7 @@
     <div class="contenido">
         <form class="" action="" method="post">
             <div class="vistaFormulario">
+                <label class="alert alert-info">Búsqueda de clientes</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el DNI del cliente:</span>
@@ -15,8 +16,8 @@
             </div>
 
             <div class="vistaFormulario">
-                <input class="btn btn-primary" type="submit" value="Buscar" name="btnBuscar">
-                <input class="btn btn-primary" type="submit" value="Cancelar" name="btnCancelar">
+                <button class="btn btn-primary" type="submit" name="btnBuscar"><i class="fas fa-search"></i> Buscar</button>
+                <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
             {% if mensaje == 'ok' %}
                 {% if cliente.id_usuario %}

@@ -8,7 +8,7 @@
         <form action="" method="post">
 
             <div class="form-group miDiv">
-                <p>Selecciona la fecha de disponiblidad:</p>
+                <p class="alert alert-info">Selecciona la fecha de disponiblidad:</p>
                 <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
@@ -20,8 +20,8 @@
             </div>
 
             <div class="vistaFormulario">
-                <input class="btn btn-success" type="submit" value="Modificar" name="btnModificar">
-                <a href="javascript:history.back()"><input class="btn btn-warning" type="button" value="Cancelar"></a>
+                <button class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Modificar</button>
+                <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
 
         </form>

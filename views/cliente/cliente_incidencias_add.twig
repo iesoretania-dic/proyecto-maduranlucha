@@ -30,8 +30,10 @@
             </div>
 
 
-            <input class="btn btn-primary" type="submit" value="Crear" name="btnCrearIncidencia">
-            <a href="javascript:history.back()"><input class="btn btn-primary" type="button" value="Cancelar" name="btnCancelar"></a>
+            <div class="vistaCheck">
+                <button class="btn btn-primary" type="submit" name="btnCrearIncidencia"><i class="fas fa-plus"></i> Crear</button>
+                <a href="javascript:history.back()"><button class="btn btn-primary" type="button" name="btnVolver"><i class="fas fa-undo"></i> Volver</button></a>
+            </div>
 
             {% if mensaje == 'error' %}
                 <p class="alert alert-danger">Error al añadir la incidencia</p>

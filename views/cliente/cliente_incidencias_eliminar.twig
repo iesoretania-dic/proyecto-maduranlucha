@@ -8,16 +8,16 @@
         <form action="" method="post">
 
             <div class="vistaInfo">
-                <label class="alert alert-warning">¿Seguro que desea eliminar la incidencia: {{ idIncidencia }}?, esta acción no se podrá deshacer</label>
+                <label class="alert alert-warning">¿Seguro que desea eliminar la incidencia: <span class="badge badge-primary">{{ idIncidencia }}</span>?, esta acción no se podrá deshacer</label>
             </div>
 
-            <div class="vistaInfo">
-                <input class="btn btn-danger" type="submit" name="confirmarEliminar" value="Eliminar">
-                <a href="javascript:history.back()"><input class="btn btn-warning" type="button" value="volver"></a>
+            <div class="vistaFormulario">
+                <button class="btn btn-danger" type="submit" name="confirmarEliminar"><i class="fas fa-ban"></i> Eliminar</button>
+                <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
 
             {% if mensaje == 'error' %}
-            <label class="alert alert-danger">No se pudo eliminar la incidencia numero {{ idIncidencia }}</label>
+            <label class="alert alert-danger">No se pudo eliminar la incidencia numero <span class="badge badge-primary">{{ idIncidencia }}</span></label>
             {% endif %}
 
         </form>

@@ -6,24 +6,28 @@
     <div class="contenido">
         <form class="formularioTecnicos" action="" method="post">
 
-            {#{% if error %}#}
-                {#<p class="label label-danger">El comentario es obligatorio</p>#}
-            {#{% endif %}#}
+            <div class="vistaFormulario">
+                <p class="alert alert-info" >Resolver la incidencia </p>
 
-            <label for="solucion">Seleccione una solución: </label>
+                <p class="alert alert-info">Seleccione una solución: </p>
 
-            <select name="solucion" id="solucion">
-                <option value="Resuelta sin problemas">Resuelta sin problemas</option>
-                <option value="otros">otros</option>
-            </select>
-
-            <div id="comentarioFinalizar">
-                <label class="labelTecnico miLabel" for="comentario">Añadir un comentario:</label>
-                <textarea class="labelTecnico miArea" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+                <select name="solucion" id="solucion">
+                    <option value="Resuelta sin problemas">Resuelta sin problemas</option>
+                    <option value="otros">otros</option>
+                </select>
             </div>
 
-            <input class="btn btn-primary boton" type="submit" name="confirmarFinalizar" value="Aceptar">
-            <a href="javascript:history.back()"><input class="btn btn-warning boton" type="button" value="Cancelar"></a>
+            <div class="vistaFormulario">
+                <div id="comentarioFinalizar">
+                    <label class="alert alert-info" for="comentario">Añadir un comentario:</label>
+                    <textarea class="labelTecnico miArea" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="vistaCheck">
+                <button class="btn btn-primary" type="submit" name="confirmarFinalizar"><i class="fas fa-check"></i> Aceptar</button>
+                <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+            </div>
         </form>
     </div>
 

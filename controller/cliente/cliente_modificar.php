@@ -42,6 +42,8 @@ if(!isset($_SESSION['usuario'])){
         $dni = $_POST['dni'];
         $nombre = $_POST['nombre'];
         $ciudad = $_POST['ciudad'];
+        $provincia = $_POST['provincia'];
+        $cp = $_POST['cp'];
         $telefono = $_POST['telefono'];
         $direccionP = $_POST['direccion'];
         $direccionTipo = $_POST['tipoD'];
@@ -59,8 +61,8 @@ if(!isset($_SESSION['usuario'])){
                 $comercial = null;
             }
 
-            $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
-            $parametros = array(":dni"=>$dni, "usuario"=>$comercial ,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono, ":eliminado"=>$eliminado ,":dniAntiguo"=>$dniAntiguo);
+            $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
+            $parametros = array(":dni"=>$dni, "usuario"=>$comercial ,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono, ":eliminado"=>$eliminado ,":dniAntiguo"=>$dniAntiguo);
             $datos = new Consulta();
             $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
@@ -70,8 +72,8 @@ if(!isset($_SESSION['usuario'])){
                 header('Location: ../cliente/cliente_listar.php?cambios=1');
             }
         }elseif($rol == '1'){
-            $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
-            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
+            $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
+            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
             $datos = new Consulta();
             $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
