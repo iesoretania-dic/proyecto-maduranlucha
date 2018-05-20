@@ -120,7 +120,7 @@ if(!isset($_SESSION['usuario'])){
 
     if ($rol == '4'){
         //Consulta para devolver las incidencias de tipo averia a el controller.
-        $sentencia = "SELECT incidencia.id_incidencia,incidencia.estado,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.otros, cliente.nombre as nombreCliente, cliente.direccion, cliente.ciudad, cliente.telefono, usuario.usuario as usuarioUsuario, usuario.nombre as nombreUsuario FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.estado = :estado ORDER BY incidencia.fecha_creacion";
+        $sentencia = "SELECT incidencia.id_incidencia,incidencia.estado,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.otros,incidencia.urgente, cliente.nombre as nombreCliente, cliente.direccion, cliente.ciudad, cliente.telefono, usuario.usuario as usuarioUsuario, usuario.nombre as nombreUsuario FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.estado = :estado ORDER BY incidencia.fecha_creacion";
         $parametros = array(":estado"=>'0');
         $datos = new Consulta();
         $arrayFilas =  $datos->get_conDatos($sentencia,$parametros);

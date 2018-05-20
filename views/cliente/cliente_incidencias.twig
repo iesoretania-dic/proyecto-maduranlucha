@@ -146,6 +146,9 @@
                                         {% if rol == '0'  and (fila.estado == '1' or fila.estado == '2') %}
                                             <a href="../cliente/cliente_incidencias_urgente.php?Id={{ fila.id_incidencia }}&tipo=0"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
                                         {% endif %}
+                                        {% if rol == '4'  and (fila.estado == '0') %}
+                                            <a href="#"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
+                                        {% endif %}
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                         {% endif %}
