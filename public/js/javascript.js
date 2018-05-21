@@ -207,6 +207,43 @@ $(function(){
         }
     });
 
+    let selectComerciales = $('#selectComerciales');
+    let contenedorToggleIncidencia = $('#contenedorToggleIncidencia');
+    let incidencia = $('#incidencia');
+    let comentarioIncidencia = $('#comentarioIncidencia');
+    let tipoIncidencia =$('#tipo');
+
+    selectComerciales.change(function () {
+        let opcion = $(this).val();
+
+        if (opcion !== "") {
+            contenedorToggleIncidencia.css("display","flex");
+        } else {
+            contenedorToggleIncidencia.css("display","none");
+            $('#toggle-incidencia').prop("checked",false);
+            incidencia.css("display", "none");
+            comentarioIncidencia.css("display", "none");
+            tipoIncidencia.val("");
+        }
+    });
+
+    incidencia.css("display", "none");
+    comentarioIncidencia.css("display", "none");
+    contenedorToggleIncidencia.css("display", "none");
+
+
+
+    $('#toggle-incidencia').change(function () {
+
+        if (!$(this).is(':checked')) {
+            incidencia.css("display", "none");
+            comentarioIncidencia.css("display", "none");
+        } else {
+            incidencia.css("display", "flex");
+            comentarioIncidencia.css("display", "block");
+        }
+    });
+
     //**********FIN VALIDACIONES**********//
 
     //FUNCION PARA CAMBIAR EL FORMATO DE LA FECHA Y HORA//

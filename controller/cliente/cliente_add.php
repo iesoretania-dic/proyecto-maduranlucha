@@ -19,6 +19,15 @@ if(!isset($_SESSION['usuario'])){
     $mensaje = null;
     $mensajedos = null;
 
+    if ($rol == '0'){
+        //Obtemos una lista de comerciales
+        $consulta = "SELECT * FROM usuario WHERE rol = :rol";
+        $parametros = array(":rol"=>'1');
+        $datos = new Consulta();
+        $comerciales = $datos->get_conDatos($consulta,$parametros);
+    }
+
+
     if(isset($_POST['btnEnviar'])){
         $dni = $_POST['dni'];
         $nombre = $_POST['nombre'];
@@ -27,8 +36,10 @@ if(!isset($_SESSION['usuario'])){
         $cp = $_POST['cp'];
         $telefono = $_POST['telefono'];
         $comentario = $_POST['comentario'];
+        $comercial = $_POST['comercial'];
         $direccionP = $_POST['direccion'];
         $direccionTipo = $_POST['tipoD'];
+        $tipo = $_POST['tipo'];
 
         if($direccionTipo != ""){
             $direccion = $direccionTipo . $direccionP;
@@ -38,10 +49,27 @@ if(!isset($_SESSION['usuario'])){
 
         //El administrador da de alta un usuario pero no crea una incidencia automaticamente.
         if($rol == '0'){
-            $cadena = "INSERT INTO cliente(dni,nombre,direccion,provincia,cp,ciudad,telefono) VALUES (:dni,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono)";
-            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono);
+
+            if($comercial == ""){
+                $comercial = null;
+            }
+
+            $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
             $datos = new Consulta();
             $resultados = $datos->get_sinDatos($cadena,$parametros);
+
+            if($tipo != ""){
+                $estado = 0;
+                if($tipo != 'averia'){
+                    $estado = 1;
+                }
+
+                $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
+                $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
+                $datos = new Consulta();
+                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+            }
 
             if ($resultados > 0){
                 $mensaje = 'Ok';
@@ -50,8 +78,8 @@ if(!isset($_SESSION['usuario'])){
                 $mensaje = 'Error';
             }
         }elseif($rol == '1'){
-            $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono)";
-            $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono);
+            $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+            $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
             $datos = new Consulta();
             $resultados = $datos->get_sinDatos($cadena,$parametros);
             if ($resultados > 0){
@@ -67,7 +95,6 @@ if(!isset($_SESSION['usuario'])){
                 }else{
                     $mensaje = 'Error';
                 }
-
             }else{
                 $mensajedos = 'Error';
             }
@@ -99,7 +126,8 @@ if(!isset($_SESSION['usuario'])){
             'mensajedos',
             'nombre',
             'dniB',
-            'rol'
+            'rol',
+            'comerciales'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
