@@ -7,7 +7,7 @@
         <form class="" action="" method="post">
             <div class="vistaFormulario">
                 {% if tipo == '1' %}
-                    <p class="alert alert-primary">Incidencias del cliente: {{ dniCliente }}</p>
+                    <p class="alert alert-primary">Incidencias del cliente: <span class="badge badge-primary">{{ nombreCliente }}, {{ dniCliente }}</span></p>
                 {% elseif tipo == '0' %}
                     <p class="alert alert-primary">Todas las incidencias</p>
                 {% endif %}
@@ -143,7 +143,7 @@
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
                                             <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
                                         {% endif %}
-                                        {% if rol == '0'  and (fila.estado == '1' or fila.estado == '2') %}
+                                        {% if rol == '0'  and (fila.estado == '1' or fila.estado == '2' or fila.estado == '0')  %}
                                             <a href="../cliente/cliente_incidencias_urgente.php?Id={{ fila.id_incidencia }}&tipo=0"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
                                         {% endif %}
                                         {% if rol == '4'  and (fila.estado == '0') %}
@@ -161,7 +161,11 @@
             {% elseif mensaje == 'No' %}
                 <div class="vistaFomulario">
                     {% if rol == '0' %}
-                        <p class="alert alert-primary">El cliente: {{ dniCliente }}, no tiene incidencias en este momento</p>
+                        {% if tipo == '1' %}
+                            <p class="alert alert-primary">El cliente: <span class="badge badge-primary">{{ nombreCliente }}, {{ dniCliente }}</span>, no tiene incidencias en este momento</p>
+                        {% elseif tipo == '0' %}
+                            <p class="alert alert-danger">Sin incidencias</p>
+                        {% endif %}
                     {% elseif rol == '4' %}
                         <p class="alert alert-primary">En este momento no hay incidencias para mostrar</p>
                     {% endif %}

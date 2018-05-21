@@ -27,6 +27,12 @@ if(!isset($_SESSION['usuario'])){
     }else{
         $_SESSION['dni'] ='';
     }
+
+    if(isset($dniCliente)){
+        $datos = new Consulta();
+        $nombreCliente = $datos->get_nombreCliente($dniCliente);
+    }
+
     //ZONA DE LOS ADMINISTRADORES
     if ($rol == '0'){
         //Consulta si viene desde el apartado de incidencias
@@ -144,7 +150,8 @@ if(!isset($_SESSION['usuario'])){
             'mensaje',
             'rol',
             'usuario',
-            'tipo'
+            'tipo',
+            'nombreCliente'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
