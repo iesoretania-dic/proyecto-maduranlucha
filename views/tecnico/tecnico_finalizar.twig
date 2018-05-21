@@ -37,7 +37,6 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <label for="solucion">Seleccione una solución: </label>
                     <select name="solucion" id="solucion">
                         <option value="Instalacion normal">Instalación normal</option>
                         <option value="Intalacion parcial">Instalacion parcial</option>
@@ -51,8 +50,8 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <input class="btn btn-success" type="submit" value="Confirmar instalación" name="btnConfirmarFinalizar">
-                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                    <button class="btn btn-success" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar instalación</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}
 
@@ -88,7 +87,6 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <label for="solucion">Seleccione una solución: </label>
                     <select name="solucion" id="solucion">
                         <option value="Baja completa">Baja completa</option>
                         <option value="Baja parcial">Baja parcial</option>
@@ -105,9 +103,13 @@
                     </div>
                 </div>
 
+                <div class="vistaCheck">
+                    <p class="alert alert-info">(*)Campos obligatorios</p>
+                </div>
+
                 <div class="vistaFormulario">
-                    <input id="btnBaja" class="btn btn-danger" type="submit" value="Confirmar Baja" name="btnConfirmarFinalizar">
-                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                    <button id="btnBaja" class="btn btn-danger" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar Baja</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}
 
@@ -244,8 +246,8 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <input class="btn btn-info" type="submit" value="Finalizar" name="btnConfirmarFinalizar">
-                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                    <button class="btn btn-info" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
+                    <button class="btn btn-warning" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}
 

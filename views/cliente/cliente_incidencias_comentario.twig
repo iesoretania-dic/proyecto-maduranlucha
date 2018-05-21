@@ -8,9 +8,9 @@
         <form action="" method="post">
 
             {% if mensaje == 'error' %}
-                <label class="alert alert-primary">No hay comentarios</label>
+                <label class="alert alert-primary">No hay comentarios para la incidencia numero: <span class="badge badge-primary">{{ idIncidencia }}</span></label>
             {% else %}
-                <label class="alert alert-primary">Lista de comentarios</label>
+                <label class="alert alert-primary">Lista de comentarios de la incidencia numero: <span class="badge badge-primary">{{ idIncidencia }}</span></label>
             {% endif %}
 
             <div class="vistaInfo">
@@ -28,7 +28,6 @@
                             <th>Técnico</th>
                             <th>Comentario</th>
                             <th>Creacion</th>
-                            <th>Cita</th>
                             {#<th>Acciones</th>#}
                         </tr>
                         </thead>
@@ -39,7 +38,6 @@
                                 <td>{{ comentario.tecnico }}</td>
                                 <td>{{ comentario.texto }}</td>
                                 <td>{{ comentario.fecha }}</td>
-                                <td>{{ comentario.cita }}</td>
                                 {#<td>#}
                                 {#<input type="submit" class="botonAccion btnModificar" title="modificar" name="dniModificar" value={{ cliente.dni }}>#}
                                 {#<input type="submit" class="botonAccion btnEliminar" title="eliminar" name="dniEliminar" value={{ cliente.dni }}>#}

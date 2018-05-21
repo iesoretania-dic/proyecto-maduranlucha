@@ -6,15 +6,17 @@
     <div class="contenido">
         <form class="" action="" method="post">
 
-            <div>
-                <label class="alert alert-danger" for="dni">¿Seguro que desea eliminar el cliente: {{ dni }}?, si elimina un cliente se borraran todas sus incidencias y comentarios, esta acción no se podra deshacer.</label>
+            <div class="vistaFormulario">
+                <label class="alert alert-danger" for="dni">¿Seguro que desea eliminar el cliente: <span class="badge btn-danger">{{ dni }}</span>?, si elimina un cliente se borraran todas sus incidencias y comentarios, esta acción no se podra deshacer.</label>
             </div>
 
-            <input class="btn btn-danger" type="submit" value="Eliminar" name="btnEliminar">
-            <input class="btn btn-warning" type="submit" value="Cancelar" name="btnCancelar">
+            <div class="vistaFormulario">
+                <button class="btn btn-danger" type="submit" name="btnEliminar"><i class="fas fa-ban"></i> Eliminar</button>
+                <button class="btn btn-warning" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
+            </div>
 
             {% if mensaje == 'error' %}
-                <p class="alert alert-warning">Error al Eliminar el cliente: {{ dni }}</p>
+                <p class="alert alert-warning">Error al Eliminar el cliente: <span class="badge btn-danger">{{ dni }}</span></p>
             {% endif %}
 
         </form>

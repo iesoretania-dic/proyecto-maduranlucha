@@ -7,14 +7,22 @@
         <form action="" method="post">
 
             {% if error %}
-                <p class="label label-danger">El comentario es obligatorio</p>
+                <p class="alert alert-danger">El comentario es obligatorio</p>
             {% endif %}
 
-            <label class="labelTecnico miLabel" for="comentario">Añadir un comentario:</label>
-            <textarea class="labelTecnico" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+            <div class="miDiv">
+                <p class="alert alert-info" >Añadir un comentario*:</p>
+                <textarea class="labelTecnico" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+            </div>
 
-            <input class="btn btn-primary boton" type="submit" name="aceptarMoverError" value="Aceptar">
-            <input class="btn btn-warning boton" type="submit" name="cancelarMoverError" value="Cancelar">
+            <div class="miDiv">
+                <p class="alert alert-info">(*) Campos obligatorios</p>
+            </div>
+
+            <div class="vistaCheck">
+                <button class="btn btn-primary" type="submit" name="aceptarMoverError"><i class="fas fa-check"></i> Aceptar</button>
+                <button class="btn btn-warning" type="submit" name="cancelarMoverError"><i class="fas fa-undo"></i> Volver</button>
+            </div>
         </form>
     </div>
 

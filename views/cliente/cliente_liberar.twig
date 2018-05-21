@@ -8,19 +8,19 @@
 
             {% if tipo == '1' %}
                 <div class="vistaFormulario">
-                    <label class="alert alert-warning" for="dni">¿Seguro que desea liberar el cliente: {{ dni }}?.</label>
+                    <label class="alert alert-warning" for="dni">¿Seguro que desea liberar el cliente: <span class="badge btn-warning">{{ dni }}</span>?.</label>
                 </div>
                 {##}
             {% endif %}
 
             <div class="vistaFormulario">
-                <input class="btn btn-warning" type="submit" value="Liberar" name="btnLiberar">
-                <input class="btn btn-danger" type="submit" value="Cancelar" name="btnCancelar">
+                <button class="btn btn-warning" type="submit" name="btnLiberar"><i class="fas fa-recycle"></i> Liberar</button>
+                <button class="btn btn-warning" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 
             {% if mensajeUpdate == 'error' %}
                 {% if tipo == '1' %}
-                    <p class="alert alert-danger">Error al liberar el cliente {{ dni }}</p>
+                    <p class="alert alert-danger">Error al liberar el cliente <span class="badge btn-warning">{{ dni }}</span></p>
                     {##}
                 {% endif %}
             {% endif %}

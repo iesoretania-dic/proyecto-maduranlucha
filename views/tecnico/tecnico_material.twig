@@ -39,8 +39,8 @@
             </div>
             <div class="vistaFormulario">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <input class="btn btn-danger btnF" type="submit" value="Retirar Material" name="retirarMaterial">
-                    <input class="btn btn-success btnF" type="submit" value="Depositar Material" name="depositarMaterial">
+                    <button class="btn btn-danger" type="submit" name="retirarMaterial"><i class="fas fa-long-arrow-alt-left"></i><i class="fas fa-archive"></i> Retirar Material</button>
+                    <button class="btn btn-success" type="submit" name="depositarMaterial"><i class="fas fa-long-arrow-alt-right"></i><i class="fas fa-archive"></i> Depositar Material</button>
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
             </div>
 
             <div class="vistaFormulario">
-                <input class="btn btn-danger" type="submit" value="Aceptar" name="aceptarRetirar">
+                <button class="btn btn-danger" type="submit" name="aceptarRetirar"><i class="fas fa-check"></i> Aceptar</button>
             </div>
             {% endif %}
 
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <input class="btn btn-success" type="submit" value="Aceptar" name="aceptarDepositar">
+                    <button class="btn btn-success" type="submit" name="aceptarDepositar"><i class="fas fa-check"></i> Aceptar</button>
                 </div>
 
             {% endif %}

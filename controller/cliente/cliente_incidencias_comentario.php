@@ -38,7 +38,8 @@ if(!isset($_SESSION['usuario'])){
             'mensaje',
             'usuario',
             'rol',
-            'comentarios'
+            'comentarios',
+            'idIncidencia'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

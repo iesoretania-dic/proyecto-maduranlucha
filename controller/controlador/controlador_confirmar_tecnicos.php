@@ -77,8 +77,8 @@ if(!isset($_SESSION['usuario'])){
 
 
         //CONSULTA PARA EL COMENTARIO
-        $sentencia = "INSERT INTO comentarios(id_incidencia,tecnico,texto,cita) VALUES (:incidencia,:tecnico,:comentario,:cita)";
-        $parametros= (array(":incidencia"=>$idIncidencia,":tecnico"=>$idUsuario,":comentario"=>$comentario,":cita"=>$pllamada));
+        $sentencia = "INSERT INTO comentarios(id_incidencia,tecnico,texto) VALUES (:incidencia,:tecnico,:comentario)";
+        $parametros= (array(":incidencia"=>$idIncidencia,":tecnico"=>$idUsuario,":comentario"=>$comentario));
         $datos = new Consulta();
         $datos->get_sinDatos($sentencia,$parametros);
 

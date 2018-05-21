@@ -26,7 +26,7 @@ if(!isset($_SESSION['usuario'])){
         $cliente = null;
 
         //comprobar si hay averias sin asignar
-        $sentencia = "SELECT COUNT(*) as averias FROM incidencia WHERE tipo = :tipo and estado = :estado";
+        $sentencia = "SELECT COUNT(*) as averias FROM incidencia WHERE tipo = :tipo and estado = :estado AND disponible <= now()";
         $parametros = (array(":tipo"=>'averia',":estado"=>'1'));
         $datos = new Consulta();
         $averias= $datos->get_conDatosUnica($sentencia,$parametros);
