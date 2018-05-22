@@ -19,7 +19,6 @@ if(!isset($_SESSION['usuario'])){
     $dni = $_GET['Id']; // Aqui recibimos el dni del cliente o del comercial depende de donde se envie.
     $tipo = $_GET['tipo']; // 0 para usuario, 1 para cliente
     $mensajeUpdate = null;
-    echo $tipo;
 
     //Accion al pulsar el boton de liberar
     if(isset($_POST['btnLiberar'])){
@@ -37,15 +36,36 @@ if(!isset($_SESSION['usuario'])){
             }else{
                 $mensajeUpdate = "error";
             }
+        }
 
+        if ($tipo == '0'){
 
+            //Comprobamos si el comercial tiene clientes
+            $consulta = "SELECT nombre FROM cliente WHERE id_usuario = :usuario";
+            $parametros = array(":usuario"=>$dni);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_conDatos($consulta,$parametros);
+
+            if ($filasAfectadas){
+                $consulta = "UPDATE cliente SET id_usuario = NULL WHERE id_usuario = :usuario";
+                $parametros = array(":usuario"=>$dni);
+                $datos = new Consulta();
+                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+
+                $mensajeUpdate = "ok";
+                header('Location: ../usuario/usuario_listar.php?rol=1');
+
+            }else{
+                $mensajeUpdate = 'sinClientes';
+            }
         }
     }
 
     //Accion en el caso de pulsar el boton de cancelar
     if(isset($_POST['btnCancelar'])){
-        //desde el panel del cliente
-        if($tipo == '1'){
+        if($tipo == '0'){
+            header('Location: ../usuario/usuario_listar.php?rol=1');
+        }elseif($tipo == '1'){
             header('Location: ../cliente/cliente_listar.php');
         }
     }
