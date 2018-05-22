@@ -13,6 +13,16 @@
                 <p class="alert alert-success">Lista de controladores</p>
             {% endif %}
 
+            <div class="vistaCheck">
+                {% if rolUsuario == 1 %}
+                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir comercial</button>
+                {% elseif rolUsuario == 2 %}
+                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir técnico</button>
+                {% elseif rolUsuario == 4 %}
+                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir controlador</button>
+                {% endif %}
+            </div>
+
             {% if mensaje == 'Ok' %}
                 <div class="contenedorTabla">
                     <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
