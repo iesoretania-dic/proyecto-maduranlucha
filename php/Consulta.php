@@ -171,6 +171,15 @@ class Consulta extends Conexion{
         return $resultado['nombre'];
     }
 
+    public function get_nombreUsuario($dni){
+        $sql= "SELECT nombre FROM usuario where dni = :dni";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":dni"=>$dni));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['nombre'];
+    }
+
 
 }
 

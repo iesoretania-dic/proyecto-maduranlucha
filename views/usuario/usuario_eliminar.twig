@@ -1,0 +1,32 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Añadir Usuarios' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+
+            <div class="vistaFormulario">
+                <p class="alert alert-danger"> ¿Desea eliminar el usuario <span class="badge badge-danger">{{ nombreUsuario }}</span> ?,esta acción no se podrá deshacer </p>
+            </div>
+
+
+
+            <div class="vistaFormulario">
+                <button class="btn btn-danger" type="submit" name="btnEliminar"><i class="fas fa-ban"></i> Eliminar</button>
+                <button class="btn btn-success" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-danger"> No se pudo eliminar el usuario <span class="badge badge-danger">{{ nombreUsuario }}</span>.</p>
+
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
