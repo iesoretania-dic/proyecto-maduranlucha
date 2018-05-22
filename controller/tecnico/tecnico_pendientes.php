@@ -16,6 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $idUsuario = $datos->get_id();
     $arrayFilas = [];
     $mensaje = null;
+    $fechaActual = date("Y-m-d H:i:s");
     try{
         //Consulta para obtener las incidencias pendientes del tecnico
         $sentencia = "SELECT incidencia.id_incidencia,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.fecha_resolucion,incidencia.disponible,incidencia.otros, cliente.nombre, cliente.telefono, cliente.direccion, usuario.asignada FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.tecnico= :tecnico AND incidencia.fecha_resolucion IS NULL ORDER BY fecha_creacion";
@@ -70,7 +71,8 @@ if(!isset($_SESSION['usuario'])){
             'arrayFilas',
             'asignada',
             'actual',
-            'rol'
+            'rol',
+            'fechaActual'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

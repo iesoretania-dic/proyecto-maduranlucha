@@ -291,6 +291,10 @@ table a {
   color: #eee;
 }
 
+.pendienteF {
+  background-color: rgba(191, 191, 64, 0.7);
+}
+
 .toggle-button {
   display: none;
 }

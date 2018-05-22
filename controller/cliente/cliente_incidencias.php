@@ -16,6 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario= $datos->get_id();
+    $fechaActual = date("Y-m-d H:i:s");
 
     if(isset($_GET['tipo'])){
         $tipo = $_GET['tipo'];
@@ -151,7 +152,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'usuario',
             'tipo',
-            'nombreCliente'
+            'nombreCliente',
+            'fechaActual'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

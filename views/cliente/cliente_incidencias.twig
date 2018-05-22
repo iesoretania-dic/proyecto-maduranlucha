@@ -83,7 +83,7 @@
                                 <td>{{ fila.ntecnico }}</td>
                                 <td class="fechaCambiar">{{ fila.fecha_creacion }}</td>
                                 <td class="fechaCambiar">{{ fila.fecha_resolucion }}</td>
-                                <td class="fechaCambiar">{{ fila.disponible }}</td>
+                                <td {% if fila.disponible > fechaActual %}  class="fechaCambiar pendienteF" {% else %} class="fechaCambiar" {% endif %}>{{ fila.disponible }}</td>
                                 <td>
                                     {% if fila.tipo == 'averia' %}
                                         Averia
@@ -102,7 +102,7 @@
                                     <td>{{ fila.ntecnico }}</td>
                                     <td class="fechaCambiar">{{ fila.fecha_creacion }}</td>
                                     <td class="fechaCambiar">{{ fila.fecha_resolucion }}</td>
-                                    <td class="fechaCambiar">{{ fila.disponible }}</td>
+                                    <td {% if fila.disponible > fechaActual %}  class="fechaCambiar pendienteF" {% else %} class="fechaCambiar" {% endif %}>{{ fila.disponible }}</td>
                                     <td>
                                         {% if fila.tipo == 'averia' %}
                                             Averia
