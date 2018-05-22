@@ -38,6 +38,7 @@
                                 <th>LimiteMaterial</th>
                                 <th>Activa</th>
                             {% endif %}
+                            <th>Acciones</th>
                         </tr>
                         </thead>
 
@@ -53,6 +54,9 @@
                                    <td>{{ usuario.limite }}</td>
                                    <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
                                 {% endif %}
+                                <td class="td-acciones">
+                                    <a href="../usuario/usuario_modificar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnModificar" title="Modificar"></a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </table>

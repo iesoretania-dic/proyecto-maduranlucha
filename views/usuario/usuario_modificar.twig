@@ -1,0 +1,100 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Añadir Usuarios' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+
+            <div class="vistaFormulario">
+                <p class="alert alert-info">Introduce los dátos del usuario</p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni*:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ datosUsuario.dni }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Usuario*:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ datosUsuario.usuario }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre*:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ datosUsuario.nombre }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Teléfono*:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ datosUsuario.telefono }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Contraseña:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Vuelve a introducir la Contraseña: </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                </div>
+                {% if rolUsuario == 2 %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
+                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="limite" id="limite">
+                                <option value="{{ datosUsuario.limite }}">{{ datosUsuario.limite }}</option>
+                                {% for i in 1..20 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="vistaFormulario">
+                <p class="alert alert-info">(*) Campos obligatorios</p>
+            </div>
+
+            <div class="vistaFormulario">
+                <button class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Si</button>
+                <button class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+
+
+
+            {% if comprobarDni == false %}
+                <p class="alert alert-danger">El dni ya existe</p>
+            {% endif %}
+
+            {% if comprobarUsuario == false %}
+                <p class="alert alert-danger">El Usuario ya existe</p>
+            {% endif %}
+
+            {% if claveCoinciden == false %}
+                <p class="alert alert-danger">Las contraseñas no coinciden</p>
+            {% endif %}
+
+            {% if mensaje == 'error' %}
+                <p class="alert alert-danger">Error al insertar el cliente {{ nUsuario }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
