@@ -1,0 +1,61 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Comerciales' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+            {% if rolUsuario == 1 %}
+                <p class="alert alert-success">Lista de comerciales</p>
+            {% elseif rolUsuario == 2 %}
+                <p class="alert alert-success">Lista de técnicos</p>
+            {% elseif rolUsuario == 4 %}
+                <p class="alert alert-success">Lista de controladores</p>
+            {% endif %}
+
+            {% if mensaje == 'Ok' %}
+                <div class="contenedorTabla">
+                    <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Dni</th>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            {% if rolUsuario == '2'%}
+                                <th>Antenas</th>
+                                <th>Routers</th>
+                                <th>LimiteMaterial</th>
+                                <th>Activa</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td>{{ usuario.dni }}</td>
+                                <td>{{ usuario.usuario }}</td>
+                                <td>{{ usuario.nombre }}</td>
+                                <td>{{ usuario.telefono }}</td>
+                                {% if rolUsuario == '2'%}
+                                   <td>{{ usuario.antenas }}</td>
+                                   <td>{{ usuario.routers }}</td>
+                                   <td>{{ usuario.limite }}</td>
+                                   <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% elseif mensaje == 'error' %}
+                <label class="alert alert-primary">No hay usuarios para mostrar</label>
+            {% endif %}
+
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
