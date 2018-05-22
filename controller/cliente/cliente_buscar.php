@@ -22,19 +22,28 @@ if(!isset($_SESSION['usuario'])){
     $mensajeUpdate = null;
 
     if(isset($_POST['btnBuscar'])){
-        $_SESSION['dniCliente'] = $_POST['dni']; //Lo guardamos para recordar el dni del cliente para añadirlo
+        
         $dni = $_POST['dni'];
-        $consulta = "SELECT * FROM cliente WHERE dni = :dni";
-        $parametros = array(":dni"=>$dni);
-        $datos = new Consulta();
-        $cliente = $datos->get_conDatosUnica($consulta,$parametros);
+        if(strlen($dni) == 9){
+            $_SESSION['dniCliente'] = $_POST['dni']; //Lo guardamos para recordar el dni del cliente para añadirlo
 
-        if($cliente){
-            $mensaje = "ok";
+            $consulta = "SELECT * FROM cliente WHERE dni = :dni";
+            $parametros = array(":dni"=>$dni);
+            $datos = new Consulta();
+            $cliente = $datos->get_conDatosUnica($consulta,$parametros);
+
+            if($cliente){
+                $mensaje = "ok";
+            }else{
+                $mensaje = "error";
+                header('Location: cliente_add.php');
+            }
         }else{
-            $mensaje = "error";
-            header('Location: cliente_add.php');
+            $mensajeDniNoValido = 'error';
         }
+
+
+
     }
 
     //si pulsa cancelar redirigimos a la pagina del comercial.
@@ -90,7 +99,8 @@ if(!isset($_SESSION['usuario'])){
             'dni',
             'nombre',
             'rol',
-            'mensajeInstalacion'
+            'mensajeInstalacion',
+            'mensajeDniNoValido'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

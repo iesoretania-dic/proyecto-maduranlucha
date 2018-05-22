@@ -57,6 +57,10 @@
                 {% if mensajeIncidencia == 'error' %}
                     <p class="alert alert-danger">Error al crear la instalación del cliente: {{ dni }} intente añadirla manualmente, si no es posible contacte con el administrador.</p>
                 {% endif %}
+
+                {% if mensajeDniNoValido == 'error' %}
+                    <p class="alert alert-danger">El dni no es válido</p>
+                {% endif %}
             {% endif %}
 
         </form>

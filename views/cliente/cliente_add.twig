@@ -11,7 +11,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }} disabled">
                 </div>
 
                 <div class="input-group mb-3">
@@ -134,6 +134,22 @@
 
             {% if mensajedos == 'error' %}
                 <p class="alert alert-warning">Error al insertar la instalación del cliente: {{ nombre }}</p>
+            {% endif %}
+
+            {% if mensajeValidacionVacios == 'vacios' %}
+                <p class="alert alert-warning">Hay campos obligatorios vacios</p>
+            {% endif %}
+
+            {% if mensajeValidacionDni == 'dniNoValido' %}
+                <p class="alert alert-warning">El dni introducido no es válido</p>
+            {% endif %}
+
+            {% if mensajeValidacionTelefono == 'telefonoNoValido' %}
+                <p class="alert alert-warning">El teléfono introducido no es válido</p>
+            {% endif %}
+
+            {% if mensajeValidacionComentario == 'comentarioNoValido' %}
+                <p class="alert alert-warning">El comentario es obligatorio</p>
             {% endif %}
         </form>
     </div>

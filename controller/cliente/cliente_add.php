@@ -29,17 +29,26 @@ if(!isset($_SESSION['usuario'])){
 
 
     if(isset($_POST['btnEnviar'])){
-        $dni = $_POST['dni'];
-        $nombre = $_POST['nombre'];
-        $ciudad = $_POST['ciudad'];
-        $provincia = $_POST['provincia'];
-        $cp = $_POST['cp'];
-        $telefono = $_POST['telefono'];
-        $comentario = $_POST['comentario'];
-        $comercial = $_POST['comercial'];
-        $direccionP = $_POST['direccion'];
+        $dni = strtoupper(trim($_POST['dni'])); //convertimos la cadena a mayusculas y quitamos los espacios en blanco delante y detras
+        $nombre = strtoupper(trim($_POST['nombre']));
+        $ciudad = strtoupper(trim($_POST['ciudad']));
+        $provincia = strtoupper(trim($_POST['provincia']));
+        $cp = trim($_POST['cp']);
+        $telefono = trim($_POST['telefono']);
+        $comentario = trim($_POST['comentario']);
+        if(isset($_POST['comercial'])){
+            $comercial = $_POST['comercial'];
+        }
+        $direccionP = strtoupper(trim($_POST['direccion']));
         $direccionTipo = $_POST['tipoD'];
-        $tipo = $_POST['tipo'];
+        if(isset($_POST['tipo'])){
+            $tipo = $_POST['tipo'];
+        }
+
+        $comprobarDNI = false;
+        $comprobarVacios = false;
+        $comprobarTelefono = false;
+        $comprobarComentario = false;
 
         if($direccionTipo != ""){
             $direccion = $direccionTipo . $direccionP;
@@ -47,56 +56,100 @@ if(!isset($_SESSION['usuario'])){
             $direccion = $direccionP;
         }
 
+        //Comprobamos no tengamos campos vacios
+        if ($nombre == "" or $direccionP == "" or $telefono == "" or $dni == ""){
+            $mensajeValidacionVacios = 'vacios';
+        }else{
+            $comprobarVacios = true;
+        }
+
+        //Comprobamos la longitud del dni
+        if (strlen($dni) != 9){
+            $mensajeValidacionDni = 'dniNoValido';
+        }else{
+            $comprobarDNI = true;
+        }
+
+        //Comprobamos la longitud del telefono
+        if (strlen($telefono) < 9 ){
+            $mensajeValidacionTelefono = 'telefonoNoValido';
+        }else{
+            $comprobarTelefono = true;
+        }
+
+        //Comprobamos que el comentario no venga vacio
+
+        if ($comentario == ""){
+            if($rol == '0'){
+                if($tipo != ""){
+                    $mensajeValidacionComentario = 'comentarioNoValido';
+                }else{
+                    $comprobarComentario = true;
+                }
+            }
+            if($rol == '1'){
+                $mensajeValidacionComentario = 'comentarioNoValido';
+            }
+        }else{
+            $comprobarComentario = true;
+        }
+
         //El administrador da de alta un usuario pero no crea una incidencia automaticamente.
         if($rol == '0'){
-
-            if($comercial == ""){
-                $comercial = null;
-            }
-
-            $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-            $datos = new Consulta();
-            $resultados = $datos->get_sinDatos($cadena,$parametros);
-
-            if($tipo != ""){
-                $estado = 0;
-                if($tipo != 'averia'){
-                    $estado = 1;
+            //Comprobamos que los datos son correctos antes de insertar el cliente
+            if($comprobarVacios  AND $comprobarDNI AND $comprobarTelefono AND $comprobarComentario){
+                if($comercial == ""){
+                    $comercial = null;
                 }
 
-                $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
-                $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
-                $datos = new Consulta();
-                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
-            }
-
-            if ($resultados > 0){
-                $mensaje = 'Ok';
-                header('Location: cliente_listar.php');
-            }else{
-                $mensaje = 'Error';
-            }
-        }elseif($rol == '1'){
-            $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-            $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-            $datos = new Consulta();
-            $resultados = $datos->get_sinDatos($cadena,$parametros);
-            if ($resultados > 0){
-                $mensaje = 'Ok';
-
-                $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
-                $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
+                $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+                $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
                 $datos = new Consulta();
                 $resultados = $datos->get_sinDatos($cadena,$parametros);
-                if ($resultados > 0) {
+
+                if($tipo != ""){
+                    $estado = 0;
+                    if($tipo != 'averia'){
+                        $estado = 1;
+                    }
+
+                    $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
+                    $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
+                    $datos = new Consulta();
+                    $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+                }
+
+                if ($resultados > 0){
                     $mensaje = 'Ok';
                     header('Location: cliente_listar.php');
                 }else{
                     $mensaje = 'Error';
                 }
-            }else{
-                $mensajedos = 'Error';
+            }
+        }
+
+        if($rol == '1'){
+            if($comprobarVacios  AND $comprobarDNI AND $comprobarTelefono AND $comprobarComentario){
+                $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+                $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
+                $datos = new Consulta();
+                $resultados = $datos->get_sinDatos($cadena,$parametros);
+                if ($resultados > 0){
+                    $mensaje = 'Ok';
+
+                    $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
+                    $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
+                    $datos = new Consulta();
+                    $resultados = $datos->get_sinDatos($cadena,$parametros);
+                    if ($resultados > 0) {
+                        $mensaje = 'Ok';
+                        header('Location: cliente_listar.php');
+                    }else{
+                        $mensaje = 'Error';
+                    }
+                }else{
+                    $mensajedos = 'Error';
+                }
             }
         }
     }
@@ -127,7 +180,11 @@ if(!isset($_SESSION['usuario'])){
             'nombre',
             'dniB',
             'rol',
-            'comerciales'
+            'comerciales',
+            'mensajeValidacionVacios',
+            'mensajeValidacionDni',
+            'mensajeValidacionTelefono',
+            'mensajeValidacionComentario'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
