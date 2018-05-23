@@ -47,6 +47,7 @@
                                 <th>Disponible</th>
                                 <th>Tipo</th>
                                 {#<th>Otros</th>#}
+                                <th>Acciones</th>
                             {% endif %}
                             {#Vista para el controlador#}
                             {% if rol == '4' %}
@@ -151,6 +152,13 @@
                                         {% endif %}
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                {% if rol == '1' %}
+                                    <td class="td-acciones">
+                                        {% if fila.estado == '3' %}
+                                            <a href="../cliente/cliente_incidencias_solucion.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnSolucion" title="Solucion"></a>
                                         {% endif %}
                                     </td>
                                 {% endif %}
