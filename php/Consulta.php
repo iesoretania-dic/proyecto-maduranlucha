@@ -141,6 +141,17 @@ class Consulta extends Conexion{
         return $resultado['dni'];
     }
 
+    //Metodo que comprueba si un dni existe en la tabla de clientes
+    public function comprobarDniClienteExiste($dni){
+
+        $sql= "SELECT dni FROM cliente WHERE dni = :dni";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":dni"=>$dni));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['dni'];
+    }
+
     //Metodo que comprueba si existe el nombre de usuario
     public function comprobarUsuarioExiste($usuario){
 

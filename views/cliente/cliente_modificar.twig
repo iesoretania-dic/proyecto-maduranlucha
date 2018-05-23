@@ -40,6 +40,13 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono*:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la ciudad:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad" value="{{ cliente.ciudad }}">
@@ -59,12 +66,6 @@
                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp" value="{{ cliente.cp }}">
                 </div>
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
-                </div>
                 {% if rol == '0' %}
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -111,6 +112,24 @@
             <div class="vistaCheck">
                 <button class="btn btn-primary" type="submit" name="btnModificar"><i class="far fa-edit"></i> Modificar</button>
                 <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+
+            <div class="vistaFormulario">
+                {% if mensajeValidacionVacios == 'vacios' %}
+                    <p class="alert alert-warning">Hay campos obligatorios vacios</p>
+                {% endif %}
+
+                {% if mensajeDniMinimo == 'error' %}
+                    <p class="alert alert-warning">El dni introducido no es válido</p>
+                {% endif %}
+
+                {% if mensajeValidacionTelefono == 'telefonoNoValido' %}
+                    <p class="alert alert-warning">El teléfono introducido no es válido</p>
+                {% endif %}
+
+                {% if mensajeDniExiste == 'error' %}
+                    <p class="alert alert-danger">El dni introducido ya existe</p>
+                {% endif %}
             </div>
 
         </form>

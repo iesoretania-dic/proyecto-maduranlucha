@@ -11,14 +11,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }} disabled">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
                 </div>
 
                 <div class="input-group mb-3">
@@ -35,35 +35,35 @@
                         <option value="CMNO ">Camino</option>
                         <option value="URB ">Urbanizazion</option>
                     </select>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ direccionP }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la ciudad:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad" value="{{ ciudad }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la provincia:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="provincia">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="provincia" value="{{ provincia }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el código postal:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp" value="{{ cp }}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ telefono }}">
                 </div>
             </div>
             {% if rol == '0' %}
@@ -128,29 +128,31 @@
                 <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 
-            {% if mensaje == 'error' %}
-                <p class="alert alert-warning">Error al insertar el cliente {{ nombre }}</p>
-            {% endif %}
+            <div class="vistaFormulario">
+                {% if mensaje == 'error' %}
+                    <p class="alert alert-warning">Error al insertar el cliente {{ nombre }}</p>
+                {% endif %}
 
-            {% if mensajedos == 'error' %}
-                <p class="alert alert-warning">Error al insertar la instalación del cliente: {{ nombre }}</p>
-            {% endif %}
+                {% if mensajedos == 'error' %}
+                    <p class="alert alert-warning">Error al insertar la instalación del cliente: {{ nombre }}</p>
+                {% endif %}
 
-            {% if mensajeValidacionVacios == 'vacios' %}
-                <p class="alert alert-warning">Hay campos obligatorios vacios</p>
-            {% endif %}
+                {% if mensajeValidacionVacios == 'vacios' %}
+                    <p class="alert alert-warning">Hay campos obligatorios vacios</p>
+                {% endif %}
 
-            {% if mensajeValidacionDni == 'dniNoValido' %}
-                <p class="alert alert-warning">El dni introducido no es válido</p>
-            {% endif %}
+                {% if mensajeValidacionDni == 'dniNoValido' %}
+                    <p class="alert alert-warning">El dni introducido no es válido</p>
+                {% endif %}
 
-            {% if mensajeValidacionTelefono == 'telefonoNoValido' %}
-                <p class="alert alert-warning">El teléfono introducido no es válido</p>
-            {% endif %}
+                {% if mensajeValidacionTelefono == 'telefonoNoValido' %}
+                    <p class="alert alert-warning">El teléfono introducido no es válido</p>
+                {% endif %}
 
-            {% if mensajeValidacionComentario == 'comentarioNoValido' %}
-                <p class="alert alert-warning">El comentario es obligatorio</p>
-            {% endif %}
+                {% if mensajeValidacionComentario == 'comentarioNoValido' %}
+                    <p class="alert alert-warning">El comentario es obligatorio</p>
+                {% endif %}
+            </div>
         </form>
     </div>
 {% endblock %}

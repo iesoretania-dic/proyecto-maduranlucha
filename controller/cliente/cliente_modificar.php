@@ -39,13 +39,13 @@ if(!isset($_SESSION['usuario'])){
 
     if(isset($_POST['btnModificar'])){
         $dniAntiguo =  $_GET['Id'];
-        $dni = $_POST['dni'];
-        $nombre = $_POST['nombre'];
-        $ciudad = $_POST['ciudad'];
-        $provincia = $_POST['provincia'];
-        $cp = $_POST['cp'];
-        $telefono = $_POST['telefono'];
-        $direccionP = $_POST['direccion'];
+        $dni = strtoupper(trim($_POST['dni']));
+        $nombre = strtoupper(trim($_POST['nombre']));
+        $ciudad = strtoupper(trim($_POST['ciudad']));
+        $provincia = strtoupper(trim($_POST['provincia']));
+        $cp = trim($_POST['cp']);
+        $telefono = trim($_POST['telefono']);
+        $direccionP = strtoupper(trim($_POST['direccion']));
         $direccionTipo = $_POST['tipoD'];
 
         if($direccionTipo != ""){
@@ -54,33 +54,80 @@ if(!isset($_SESSION['usuario'])){
             $direccion = $direccionP;
         }
 
+        $comprobarDNI = false;
+        $dniMinimo = false;
+        $comprobarVacios = false;
+        $comprobarTelefono = false;
+        $comprobarComentario = false;
+
+        //Comprobamos no tengamos campos vacios
+        if ($nombre == "" or $direccionP == "" or $telefono == "" or $dni == ""){
+            $mensajeValidacionVacios = 'vacios';
+        }else{
+            $comprobarVacios = true;
+        }
+
+        //Validamos el dni
+        if($dniAntiguo != $dni){
+            $datos = new Consulta();
+            //Comprobamos si el dni nuevo existe
+            if ($datos->comprobarDniClienteExiste($dni)){
+                $mensajeDniExiste = 'error';
+                $comprobarDni = false;
+            }else{
+                $comprobarDni = true;
+            }
+            //Comprobamos que el dni tenga 9 caracteres
+            if(strlen($dni) != 9){
+                $mensajeDniMinimo = 'error';
+            }else{
+                $dniMinimo = true;
+            }
+        }else{
+            $comprobarDni = true;
+            $dniMinimo = true;
+        }
+
+        //Comprobamos la longitud del telefono
+        if (strlen($telefono) < 9 ){
+            $mensajeValidacionTelefono = 'telefonoNoValido';
+        }else{
+            $comprobarTelefono = true;
+        }
+
         if ($rol == '0'){
             $comercial = $_POST['comercial'];
             $eliminado = $_POST['eliminado'];
-            if($comercial == ""){
-                $comercial = null;
+            if($comprobarVacios  AND $comprobarDni AND $dniMinimo AND $comprobarTelefono) {
+                if ($comercial == "") {
+                    $comercial = null;
+                }
+
+                $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
+                $parametros = array(":dni" => $dni, "usuario" => $comercial, ":nombre" => $nombre, ":direccion" => $direccion, ":cp" => $cp, ":provincia" => $provincia, ":ciudad" => $ciudad, ":telefono" => $telefono, ":eliminado" => $eliminado, ":dniAntiguo" => $dniAntiguo);
+                $datos = new Consulta();
+                $filasAfectadas = $datos->get_sinDatos($consulta, $parametros);
+
+                if ($filasAfectadas > 0) {
+                    header('Location: ../cliente/cliente_listar.php?cambios=0');
+                } else {
+                    header('Location: ../cliente/cliente_listar.php?cambios=1');
+                }
             }
+        }
 
-            $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
-            $parametros = array(":dni"=>$dni, "usuario"=>$comercial ,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono, ":eliminado"=>$eliminado ,":dniAntiguo"=>$dniAntiguo);
-            $datos = new Consulta();
-            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+        if($rol == '1'){
+            if($comprobarVacios  AND $comprobarDni  AND $dniMinimo AND $comprobarTelefono) {
+                $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
+                $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
+                $datos = new Consulta();
+                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
-            if($filasAfectadas > 0){
-                header('Location: ../cliente/cliente_listar.php?cambios=0');
-            }else{
-                header('Location: ../cliente/cliente_listar.php?cambios=1');
-            }
-        }elseif($rol == '1'){
-            $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
-            $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
-            $datos = new Consulta();
-            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
-
-            if($filasAfectadas > 0){
-                header('Location: ../cliente/cliente_listar.php?cambios=0');
-            }else{
-                header('Location: ../cliente/cliente_listar.php?cambios=1');
+                if($filasAfectadas > 0){
+                    header('Location: ../cliente/cliente_listar.php?cambios=0');
+                }else{
+                    header('Location: ../cliente/cliente_listar.php?cambios=1');
+                }
             }
         }
     }
@@ -104,7 +151,11 @@ if(!isset($_SESSION['usuario'])){
             'dni',
             'nombre',
             'comerciales',
-            'rol'
+            'rol',
+            'mensajeValidacionVacios',
+            'mensajeDniMinimo',
+            'mensajeValidacionTelefono',
+            'mensajeDniExiste'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

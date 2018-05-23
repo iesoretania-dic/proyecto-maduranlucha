@@ -1,5 +1,6 @@
 <?php
 require '../../php/Consulta.php';
+require_once '../../php/funciones.php';
 session_start();
 //var_dump($_POST);
 //var_dump($_SESSION);
@@ -16,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario= $datos->get_id();
+    $nombreUsuario = $datos->get_nombreUsuario($idUsuario);
     $mensaje = null;
     $mensajedos = null;
 
@@ -26,7 +28,6 @@ if(!isset($_SESSION['usuario'])){
         $datos = new Consulta();
         $comerciales = $datos->get_conDatos($consulta,$parametros);
     }
-
 
     if(isset($_POST['btnEnviar'])){
         $dni = strtoupper(trim($_POST['dni'])); //convertimos la cadena a mayusculas y quitamos los espacios en blanco delante y detras
@@ -102,54 +103,79 @@ if(!isset($_SESSION['usuario'])){
                     $comercial = null;
                 }
 
-                $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-                $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-                $datos = new Consulta();
-                $resultados = $datos->get_sinDatos($cadena,$parametros);
+                try {
+                    //Usamos una transacción para que en caso de error no ejecute ninguna sentencia.
+                    $datos = new Consulta();
+                    $datos->conexionDB->beginTransaction();
 
-                if($tipo != ""){
-                    $estado = 0;
-                    if($tipo != 'averia'){
-                        $estado = 1;
+                    $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+                    $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
+                    $datos = new Consulta();
+                    $resultados = $datos->get_sinDatos($cadena,$parametros);
+
+                    if($tipo != ""){
+                        $estado = 0;
+                        if($tipo != 'averia'){
+                            $estado = 1;
+                        }
+
+                        $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
+                        $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
+                        $datos = new Consulta();
+                        $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
                     }
 
-                    $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
-                    $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
-                    $datos = new Consulta();
-                    $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
-                }
+                    if ($resultados > 0){
+                        $mensaje = 'Ok';
+                        header('Location: cliente_listar.php');
+                    }
 
-                if ($resultados > 0){
-                    $mensaje = 'Ok';
-                    header('Location: cliente_listar.php');
-                }else{
+                    $datos->conexionDB->commit();
+                } catch (PDOException $e) {
+                    $datos->conexionDB->rollBack();
                     $mensaje = 'Error';
+                    die('Error: ' . $e->getMessage());
+                } finally {
+                    $datos->conexionDB = null;
                 }
             }
         }
 
         if($rol == '1'){
             if($comprobarVacios  AND $comprobarDNI AND $comprobarTelefono AND $comprobarComentario){
-                $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-                $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-                $datos = new Consulta();
-                $resultados = $datos->get_sinDatos($cadena,$parametros);
-                if ($resultados > 0){
-                    $mensaje = 'Ok';
 
-                    $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
-                    $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
+                try {
+                    //Usamos una transacción para que en caso de error no ejecute ninguna sentencia.
+                    $datos = new Consulta();
+                    $datos->conexionDB->beginTransaction();
+
+                    $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
+                    $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
                     $datos = new Consulta();
                     $resultados = $datos->get_sinDatos($cadena,$parametros);
-                    if ($resultados > 0) {
+                    if ($resultados > 0){
                         $mensaje = 'Ok';
-                        header('Location: cliente_listar.php');
-                    }else{
-                        $mensaje = 'Error';
+
+                        $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
+                        $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
+                        $datos = new Consulta();
+                        $resultados = $datos->get_sinDatos($cadena,$parametros);
+                        if ($resultados > 0) {
+                            $mensaje = 'Ok';
+                            header('Location: cliente_listar.php');
+                        }else{
+                            $mensaje = 'Error';
+                        }
                     }
-                }else{
-                    $mensajedos = 'Error';
+                    $datos->conexionDB->commit();
+                } catch (PDOException $e) {
+                    $datos->conexionDB->rollBack();
+                    $mensaje = 'Error';
+                    die('Error: ' . $e->getMessage());
+                } finally {
+                    $datos->conexionDB = null;
                 }
+
             }
         }
     }
@@ -161,10 +187,6 @@ if(!isset($_SESSION['usuario'])){
     if(isset($_SESSION['dniCliente'])){
         $dniB = $_SESSION['dniCliente'];
     }
-
-
-
-
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
@@ -184,7 +206,13 @@ if(!isset($_SESSION['usuario'])){
             'mensajeValidacionVacios',
             'mensajeValidacionDni',
             'mensajeValidacionTelefono',
-            'mensajeValidacionComentario'
+            'mensajeValidacionComentario',
+            'nombre',
+            'direccionP',
+            'ciudad',
+            'provincia',
+            'cp',
+            'telefono'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

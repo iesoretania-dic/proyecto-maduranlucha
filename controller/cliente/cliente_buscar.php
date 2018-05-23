@@ -41,9 +41,6 @@ if(!isset($_SESSION['usuario'])){
         }else{
             $mensajeDniNoValido = 'error';
         }
-
-
-
     }
 
     //si pulsa cancelar redirigimos a la pagina del comercial.
