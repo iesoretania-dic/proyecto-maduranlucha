@@ -1,0 +1,63 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Conexiones' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            {% if vista == 'conexiones' %}
+
+                <div class="vistaFormulario">
+                    <button class="btn btn-primary" type="submit" name="limpiar"><i class="fas fa-ban"></i> Limpiar conexiones</button>
+                </div>
+
+                <div class="contenedorTabla">
+                    <table id="miTablaControlador" class="table table-bordered table-sm miTabla table-responsive-xl">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                        </tr>
+                        </thead>
+
+                        {% for conexion in conexiones %}
+                            <tr>
+                                <td class="fechaCambiar">{{ conexion.fecha }}</td>
+                                <td>{{ conexion.usuario }}</td>
+                                <td>{{ conexion.nombre }}</td>
+                                <td {% if conexion.tipo == 'conexion' %}
+                                        class="ctipo_conexion"
+                                    {% elseif conexion.tipo == 'desconexion' %}
+                                        class="ctipo_desconexion"
+                                    {% endif %}
+                                >{{ conexion.tipo }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+            {% endif %}
+
+            {% if vista == 'limpiar' %}
+
+                <div class="vistaFormulario">
+                    <p class="alert alert-warning"> ¿Desea limpiar el historial de conexiones? </p>
+                </div>
+
+                <div class="vistaFormulario">
+                    <button class="btn btn-success" type="submit" name="aceptarLimpiar"><i class="fas fa-check"></i> Aceptar</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarLimpiar"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}
