@@ -1,0 +1,89 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Material' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+                {% if mensajeEstablecer != 'ok' %}
+                <div class="vistaFormulario">
+                    <button class="btn btn-success" type="submit" name="establecer"><i class="fas fa-archive"></i> Establecer material</button>
+                </div>
+                {% endif %}
+                {% if mensajeEstablecer == 'ok' %}
+                <div class="vistaFormulario">
+                    <p class="alert alert-info">Establece el número de materiales disponibles tras hacer un recuento de los mismos.</p>
+                </div>
+                <div class="vistaEstablecer">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="antenas" class="input-group-text" id="inputGroup-sizing-default">Antenas:</label>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="antenas" value='0'>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="routers" class="input-group-text" id="inputGroup-sizing-default">Routers:</label>
+                        </div>
+                        <input id="routers" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="routers" value='0'>
+                    </div>
+                </div>
+                    <div class="vistaFormulario">
+                        <button class="btn btn-success" type="submit" name="aceptarEstablecer"><i class="fas fa-check"></i> Aceptar</button>
+                        <a href="javascript:history.back()"><button class="btn btn-warning" type="submit" name="cancelarMoverError"><i class="fas fa-undo"></i> Volver</button></a>
+                    </div>
+                {% endif %}
+            {% if mensaje == 'ok' and mensajeEstablecer != 'ok' %}
+                <div class="contenedorTabla">
+                    <table id="miTablaControlador" class="table table-bordered table-hover table-sm miTabla table-responsive-xl">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Mov Antenas</th>
+                            <th>Mov Routers</th>
+                            <th>Antenas</th>
+                            <th>Routers</th>
+                        </tr>
+                        </thead>
+                        {% for material in materiales %}
+                            <tr>
+                                <td class="fechaCambiar">{{ material.fecha }}</td>
+                                <td>{{ material.usuario }}</td>
+                                {% if material.antenasM < 0 %}
+                                    <td class="red">{{ material.antenasM * (-1)}}</td>
+                                {% elseif material.antenasM > 0 %}
+                                    <td class="green">{{ material.antenasM }}</td>
+                                {% else %}
+                                    <td>{{ material.antenasM }}</td>
+                                {% endif %}
+
+                                {% if material.routersM < 0 %}
+                                    <td class="red">{{ material.routersM * (-1)}}</td>
+                                {% elseif material.routersM > 0 %}
+                                    <td class="green">{{ material.routersM }}</td>
+                                {% else %}
+                                    <td>{{ material.routersM }}</td>
+                                {% endif %}
+                                <td>{{ material.antenas }}</td>
+                                <td>{{ material.routers }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% elseif mensaje == 'error' and mensajeEstablecer != 'ok' %}
+                <label class="alert alert-primary">No hay materiales</label>
+            {% endif %}
+
+            {% if mensajeResultadoEstablecer == 'error' and mensajeEstablecer == 'ok' %}
+                <label class="alert alert-danger">No se pudo establecer el material</label>
+            {% endif %}
+
+        </form>
+    </div>
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}
