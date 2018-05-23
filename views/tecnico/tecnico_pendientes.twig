@@ -15,7 +15,7 @@
         <form action="" method="post">
             {% if mensaje == 'Si' %}
                 <div class="table-responsive-xl">
-                    <table id="miTablaControlador" class="table table-responsive-xl table-sm table-bordered table-hover ">
+                    <table id="miTablaControlador" class="table table-responsive-xl table-sm table-bordered miHover">
                         <thead class="miThead">
                         <tr>
                             <th>Id</th>
@@ -31,7 +31,7 @@
                         <tbody>
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for fila in arrayFilas %}
-                            <tr {% if fila.disponible > fechaActual %} class="pendienteF" {% endif %} >
+                            <tr {% if fila.disponible > fechaActual %} class="pendienteF" {% else %} class="pendienteW" {% endif %} >
                                 <td>{{ fila.id_incidencia }}</td>
                                 <td>{{ fila.id_cliente }}</td>
                                 <td>{{ fila.nombre }}</td>
@@ -39,8 +39,9 @@
                                 <td class="fechaCambiar">{{ fila.fecha_creacion }}</td>
                                 <td class="fechaCambiar">{{ fila.disponible }}</td>
                                 <td>{{ fila.otros }}</td>
-                                <td>
+                                <td class="td-acciones">
                                     <input type="submit" class="botonAccion btnAceptar" title="Asignar" name="incidencia_aceptar" value={{ fila.id_incidencia }}>
+                                    <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                 </td>
                             </tr>
 

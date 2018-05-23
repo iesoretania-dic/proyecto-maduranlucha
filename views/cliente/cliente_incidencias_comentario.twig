@@ -17,18 +17,14 @@
                 <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
 
-            {% if rol == '0' %}
-            {% endif %}
-
             {% if mensaje == 'Ok' %}
                 <div class="contenedorTabla">
-                    <table id="miTablaControlador" class="table table-bordered table-responsive-xl table-hover">
+                    <table id="" class="table table-bordered table-responsive-xl miHover">
                         <thead class="miThead">
                         <tr>
                             <th>Técnico</th>
                             <th>Comentario</th>
                             <th>Creacion</th>
-                            {#<th>Acciones</th>#}
                         </tr>
                         </thead>
 
@@ -37,17 +33,8 @@
                             <tr>
                                 <td>{{ comentario.tecnico }}</td>
                                 <td>{{ comentario.texto }}</td>
-                                <td>{{ comentario.fecha }}</td>
-                                {#<td>#}
-                                {#<input type="submit" class="botonAccion btnModificar" title="modificar" name="dniModificar" value={{ cliente.dni }}>#}
-                                {#<input type="submit" class="botonAccion btnEliminar" title="eliminar" name="dniEliminar" value={{ cliente.dni }}>#}
-                                {#<input type="submit" class="botonAccion btnIncidencias" title="ver incidencias" name="dniIncidencias" value={{ cliente.dni }}>#}
-                                {#<input type="submit" class="botonAccion btnNuevaIncidencia" title="nueva incidencia" name="dniNuevaIncidencia" value={{ cliente.dni }}>#}
-                                {#{% if rol == '0' %}#}
-                                {#<input type="submit" class="botonAccion btnLiberar" title="liberar" name="dniLiberar" value={{ cliente.dni }}>#}
-                                {#{% endif %}#}
+                                <td class="fechaCambiar">{{ comentario.fecha }}</td>
 
-                                {#</td>#}
                             </tr>
                         {% endfor %}
                     </table>
@@ -57,4 +44,8 @@
         </form>
     </div>
 
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
 {% endblock %}

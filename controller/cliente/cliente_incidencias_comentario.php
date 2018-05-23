@@ -6,7 +6,7 @@ session_start();
 
 if(!isset($_SESSION['usuario'])){
     header('Location: ../../index.php');
-}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1')){
+}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1')  and ($_SESSION['rol'] != '2')){
     $datos = new Consulta();
     $datos->set_noautorizado();
     header('Location: ../login/no_autorizado.php');
