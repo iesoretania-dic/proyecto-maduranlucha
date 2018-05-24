@@ -141,7 +141,6 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
-
     $mensajeLlamada = null;
     //Accion si pulsa el boton Finalizar
     if(isset($_POST['btnFinalizarIncidencia'])){
@@ -167,17 +166,8 @@ if(!isset($_SESSION['usuario'])){
 
         if($llamada == 'Si'){
             if($parcial == 'No'){
-                try{
-                    //Consulta para actualizar la incidencia a estado finalizada parcial
-                    $sentencia = "UPDATE incidencia SET estado = :estado, fecha_parcial = :fparcial,parcial= :parcial WHERE id_incidencia= :incidencia";
-                    $parametros = (array(":estado"=>'4',":incidencia"=>$asignada,":fparcial"=>date("Y-m-d H:i:s"),":parcial"=>'Si'));
-                    $datos = new Consulta();
-                    $datos->get_sinDatos($sentencia,$parametros);
-                }catch (Exception $e){
-                    die('Error: ' . $e->GetMessage());
-                }finally{
-                    header("Location: ../tecnico/tecnico.php");
-                }
+                $_SESSION['idIncidencia'] = $asignada;
+                header("Location: tecnico_finalizar_parcial.php");
             }else{
                 $mensajeParcial = 'No';
             }

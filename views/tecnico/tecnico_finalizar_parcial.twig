@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Parcial' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            <div class="vistaCheck">
+                <p class="alert alert-info">¿Desea finalizar de forma parcial la instalación?, esta acción solo se podrá realizar una vez por incidencia.</p>
+            </div>
+
+            <div class="vistaCheck">
+                <button class="btn btn-primary" type="submit" name="aceptarParcial"><i class="fas fa-check"></i> Aceptar</button>
+                <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+            </div>
+
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
