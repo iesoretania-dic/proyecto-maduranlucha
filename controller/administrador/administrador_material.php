@@ -18,7 +18,7 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
 
-    $consulta = "SELECT stock.fecha, stock.antenas, stock.routers,stock.ultimousuario,stock.antenasM,stock.routersM, usuario.dni, usuario.usuario FROM stock INNER JOIN usuario ON stock.ultimousuario  = usuario.dni ORDER BY stock.fecha DESC ";
+    $consulta = "SELECT stock.fecha, stock.antenas, stock.routers,stock.atas,stock.ultimousuario,stock.antenasM,stock.routersM,stock.atasM, usuario.dni, usuario.usuario FROM stock INNER JOIN usuario ON stock.ultimousuario  = usuario.dni ORDER BY stock.fecha DESC ";
     $parametros = array();
     $datos = new Consulta();
     $materiales = $datos->get_conDatos($consulta,$parametros);
@@ -37,9 +37,10 @@ if(!isset($_SESSION['usuario'])){
 
         $antenas = $_POST['antenas'];
         $routers = $_POST['routers'];
+        $atas = $_POST['atas'];
 
-        $consulta = "INSERT INTO stock (antenas,routers,ultimousuario,antenasM,routersM) VALUES (:antenas, :routers, :ultimo, :antenasM, :routersM)";
-        $parametros = array(":antenas"=>$antenas,":routers"=>$routers,":ultimo"=>$idUsuario,":antenasM"=>$antenas,":routersM"=>$routers);
+        $consulta = "INSERT INTO stock (antenas,routers,atas,ultimousuario,antenasM,routersM,atasM) VALUES (:antenas, :routers, :atas, :ultimo, :antenasM, :routersM, :atasM)";
+        $parametros = array(":antenas"=>$antenas,":routers"=>$routers,":atas"=>$atas,":ultimo"=>$idUsuario,":antenasM"=>$antenas,":routersM"=>$routers,":atasM"=>$atas);
         $datos = new Consulta();
         $resultado = $datos->get_sinDatos($consulta,$parametros);
 
