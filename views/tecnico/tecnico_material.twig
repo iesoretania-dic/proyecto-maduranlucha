@@ -21,6 +21,10 @@
                         <span>Routers disponibles en almacen:</span>
                         <span class="badge badge-primary ">{{ materialAlmacen.routers }}</span>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Atas disponibles en almacen:</span>
+                        <span class="badge badge-primary ">{{ materialAlmacen.atas }}</span>
+                    </li>
                 </ul>
 
                 <ul class="list-group">
@@ -35,6 +39,10 @@
                         <span>Routers en posesión:</span>
                         <span class="badge badge-primary ">{{ materialTecnico.routers }}</span>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Atas en posesión:</span>
+                        <span class="badge badge-primary ">{{ materialTecnico.atas }}</span>
+                    </li>
                 </ul>
             </div>
             <div class="vistaFormulario">
@@ -46,57 +54,57 @@
 
 
             {% if retirar == 'Si' %}
-            <div class="vistaFormulario">
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
-                        Retirar:
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <label for="antenas">Antenas:</label>
-                        <select name="numeroAntenas" id="antenas">
-                            {% for i in 0..limite %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <label for="routers">Routers:</label>
-                        <select name="numeroRouters" id="routers">
-                            {% for i in 0..limite %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <label for="atas">Ata:</label>
-                        <select name="numeroAtas" id="atas">
-                            {% for i in 0..limite %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <label for="conectores">Bolsa Conectores:</label>
-                        <select name="numeroConectores" id="conectores">
-                            {% for i in 0..1 %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <label for="cables">Caja Cables:</label>
-                        <select name="numeroCables" id="cables">
-                            {% for i in 0..1 %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                </ul>
-            </div>
+                <div class="vistaFormulario">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
+                            Retirar:
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="antenas">Antenas:</label>
+                            <select name="numeroAntenas" id="antenas">
+                                {% for i in 0..limite %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="routers">Routers:</label>
+                            <select name="numeroRouters" id="routers">
+                                {% for i in 0..limite %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="atas">Atas:</label>
+                            <select name="numeroAtas" id="atas">
+                                {% for i in 0..limite %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="conectores">Bolsa Conectores:</label>
+                            <select name="numeroConectores" id="conectores">
+                                {% for i in 0..1 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="cables">Caja Cables:</label>
+                            <select name="numeroCables" id="cables">
+                                {% for i in 0..1 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="vistaFormulario">
-                <button class="btn btn-danger" type="submit" name="aceptarRetirar"><i class="fas fa-check"></i> Aceptar</button>
-            </div>
+                <div class="vistaFormulario">
+                    <button class="btn btn-danger" type="submit" name="aceptarRetirar"><i class="fas fa-check"></i> Aceptar</button>
+                </div>
             {% endif %}
 
             {% if depositar == 'Si' %}
@@ -123,6 +131,14 @@
                                 {% endfor %}
                             </select>
                         </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <label for="routers">Atas:</label>
+                            <select name="numeroAtas" id="routers">
+                                {% for i in 0..20 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
                     </ul>
                 </div>
 
@@ -139,6 +155,10 @@
 
             {% if mensajeRouters == 'error' %}
                 <p class="alert alert-danger">No hay suficientes routers realizar esta operación</p>
+            {% endif %}
+
+            {% if mensajeAtas == 'error' %}
+                <p class="alert alert-danger">No hay suficientes atas realizar esta operación</p>
             {% endif %}
 
             {% if mensajeResultado == 'error' %}

@@ -594,11 +594,11 @@ body {
 }
 
 .red {
-  color: darkred;
+  background-color: rgba(191, 64, 64, 0.8);
 }
 
 .green {
-  color: green;
+  background-color: rgba(64, 191, 64, 0.8);
 }
 
 .vistaFormulario {
@@ -610,7 +610,20 @@ body {
 @media screen and (min-width: 768px) {
   .vistaFormulario {
     margin-top: 0;
-    width: 60%;
+    width: 600px;
+  }
+}
+
+.vistaFormularioXL {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .vistaFormularioXL {
+    margin-top: 0;
+    width: 800px;
   }
 }
 
@@ -633,6 +646,16 @@ body {
 @media screen and (min-width: 768px) {
   .vistaEstablecer {
     width: 150px;
+  }
+}
+
+.vistaFormularioXL .list-group-item {
+  height: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .vistaFormularioXL .list-group-item {
+    height: 50px;
   }
 }
 
@@ -711,4 +734,14 @@ body {
 
 .ctipo_desconexion {
   background: rgba(191, 64, 64, 0.5);
+}
+
+.btn-group-vertical, .btn-group {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .btn-group-vertical, .btn-group {
+    width: 400px;
+  }
 }

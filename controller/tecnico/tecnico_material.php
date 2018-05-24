@@ -18,18 +18,20 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
 
-    $consulta = "SELECT antenas,routers,limite FROM usuario WHERE dni = :dni";
+    $consulta = "SELECT antenas,routers,atas,limite FROM usuario WHERE dni = :dni";/**/
     $parametros = array(":dni"=>$idUsuario);
     $datos = new Consulta();
     $materialTecnico = $datos->get_conDatosUnica($consulta,$parametros);
     $antenasDisponiblesTecnico = $materialTecnico['antenas'];
     $routersDisponiblesTecnico = $materialTecnico['routers'];
+    $atasDisponiblesTecnico = $materialTecnico['atas'];/**/
     $limite = $materialTecnico['limite'];
 
     $datos = new Consulta();
     $materialAlmacen = $datos->get_stock();
     $antenasDisponiblesAlmacen = $materialAlmacen['antenas'];
     $routersDisponiblesAlmacen = $materialAlmacen['routers'];
+    $atasDisponiblesAlmacen = $materialAlmacen['atas'];/**/
 
     if(isset($_POST['retirarMaterial'])){
         $retirar = "Si";
@@ -46,17 +48,19 @@ if(!isset($_SESSION['usuario'])){
 
         $mensajeAntenas = null;
         $mensajeRouters = null;
+        $mensajeAtas = null;
         $mensajeResultado = null;
         $mensajeValores = null;
 
         $antenas = false;
         $routers = false;
+        $atas = false;
         $positivos = false;
         $sinNegativos = false;
 
         $cantidadAntenas = $_POST['numeroAntenas'];
         $cantidadRouters = $_POST['numeroRouters'];
-        $cantidadAtas = $_POST['numeroAtas'];
+        $cantidadAtas = $_POST['numeroAtas'];//***//
         $conectores = $_POST['numeroConectores']; /**/
         $cable = $_POST['numeroCables']; /**/
 
@@ -65,9 +69,10 @@ if(!isset($_SESSION['usuario'])){
         $materialAlmacen = $datos->get_stock();
         $antenasDisponiblesAlmacen = $materialAlmacen['antenas'];
         $routersDisponiblesAlmacen = $materialAlmacen['routers'];
+        $atasDisponiblesAlmacen = $materialAlmacen['atas'];/**/
 
         //Comprobamos que ningun campo tenga valores negativos
-        if($cantidadAntenas < 0 OR $cantidadRouters < 0){
+        if($cantidadAntenas < 0 OR $cantidadRouters < 0 OR $cantidadAtas < 0){
             $mensajeValores = 'error';
         }else{
             $sinNegativos = true;
@@ -93,6 +98,13 @@ if(!isset($_SESSION['usuario'])){
             $mensajeRouters= 'Ok';
         }else{
             $mensajeRouters= 'error';
+        }
+
+        if($atasDisponiblesAlmacen >= $cantidadAtas){
+            $atas = true;
+            $mensajeAtas= 'Ok';
+        }else{
+            $mensajeAtas= 'error';
         }
 
         if($cable == '1'){  /**/
@@ -153,25 +165,25 @@ if(!isset($_SESSION['usuario'])){
 
         }
 
-
-
         //Si las cantidades estan disponibles se realiza la operacion de lo contrario dara un error
 
-        if($cantidadRouters > '0' OR $cantidadAntenas > '0'){
-            if($routers AND $antenas AND $positivos AND $sinNegativos){
+        if($cantidadRouters > '0' OR $cantidadAntenas > '0' OR $cantidadAtas > '0'){
+            if($routers AND $antenas AND  $atas AND $positivos AND $sinNegativos){
                 $antenasRestantes = $antenasDisponiblesAlmacen - $cantidadAntenas;
                 $routersRestantes = $routersDisponiblesAlmacen - $cantidadRouters;
+                $atasRestantes = $atasDisponiblesAlmacen - $cantidadAtas;
 
-                $consulta = "INSERT INTO stock (antenas,routers,ultimousuario,antenasM,routersM) VALUES (:antenas, :routers, :ultimo, :antenasM, :routersM)";
-                $parametros = array(":antenas"=>$antenasRestantes,":routers"=>$routersRestantes,":ultimo"=>$idUsuario,":antenasM"=>$cantidadAntenas * (-1),":routersM"=>$cantidadRouters * (-1));
+                $consulta = "INSERT INTO stock (antenas,routers,atas,ultimousuario,antenasM,routersM,atasM) VALUES (:antenas, :routers,:atas, :ultimo, :antenasM, :routersM, :atasM)";
+                $parametros = array(":antenas"=>$antenasRestantes,":routers"=>$routersRestantes,":atas"=>$atasRestantes,":ultimo"=>$idUsuario,":antenasM"=>$cantidadAntenas * (-1),":routersM"=>$cantidadRouters * (-1),":atasM"=>$cantidadAtas * (-1));
                 $datos = new Consulta();
                 $resultado = $datos->get_sinDatos($consulta,$parametros);
 
                 $antenasUsuarioActualizado = $antenasDisponiblesTecnico + $cantidadAntenas;
                 $routersUsuarioActualizado = $routersDisponiblesTecnico + $cantidadRouters;
+                $atasUsuarioActualizado = $atasDisponiblesTecnico + $cantidadAtas;
 
-                $consulta = "UPDATE usuario SET antenas= :antenas, routers= :routers WHERE dni= :dni";
-                $parametros = array(":antenas"=>$antenasUsuarioActualizado,":routers"=>$routersUsuarioActualizado,":dni"=>$idUsuario);
+                $consulta = "UPDATE usuario SET antenas= :antenas, routers= :routers,atas = :atas WHERE dni= :dni";
+                $parametros = array(":antenas"=>$antenasUsuarioActualizado,":routers"=>$routersUsuarioActualizado,":atas"=>$atasUsuarioActualizado,":dni"=>$idUsuario);
                 $datos = new Consulta();
                 $resultadoUsuario = $datos->get_sinDatos($consulta,$parametros);
 
@@ -183,7 +195,7 @@ if(!isset($_SESSION['usuario'])){
                 }
 
                 //Comprobamos que al menos algun campo tenga valores positivos
-                if ($cantidadAntenas == 0 AND $cantidadRouters == 0 ) {
+                if ($cantidadAntenas == 0 AND $cantidadRouters == 0 AND $cantidadAtas == 0 ) {
                     $mensajeValoresCero = 'error';
                 }else{
                     $positivos = true;
@@ -203,6 +215,13 @@ if(!isset($_SESSION['usuario'])){
                 }else{
                     $mensajeRouters= 'error';
                 }
+
+                if($cantidadAtas <= $atasDisponiblesTecnico){
+                    $routers = true;
+                    $mensajeAtas= 'Ok';
+                }else{
+                    $mensajeAtas= 'error';
+                }
             }
         }
     }
@@ -212,32 +231,36 @@ if(!isset($_SESSION['usuario'])){
 
         $mensajeAntenas = null;
         $mensajeRouters = null;
+        $mensajeAtas = null;
         $mensajeResultado = null;
         $mensajeValores = null;
 
         $antenas = false;
         $routers = false;
+        $atas = false;
         $positivos = false;
         $sinNegativos = false;
 
         $cantidadAntenas = $_POST['numeroAntenas'];
         $cantidadRouters = $_POST['numeroRouters'];
+        $cantidadAtas = $_POST['numeroAtas'];
 
         //Actualizamos el stock por si otro tecnico retiro o deposito material
         $datos = new Consulta();
         $materialAlmacen = $datos->get_stock();
         $antenasDisponiblesAlmacen = $materialAlmacen['antenas'];
         $routersDisponiblesAlmacen = $materialAlmacen['routers'];
+        $atasDisponiblesAlmacen = $materialAlmacen['atas'];
 
         //Comprobamos que ningun campo tenga valores negativos
-        if($cantidadAntenas < 0 OR $cantidadRouters < 0){
+        if($cantidadAntenas < 0 OR $cantidadRouters < 0 OR $cantidadAtas < 0){
             $mensajeValores = 'error';
         }else{
             $sinNegativos = true;
         }
 
         //Comprobamos que al menos algun campo tenga valores positivos
-        if ($cantidadAntenas == 0 AND $cantidadRouters == 0 ) {
+        if ($cantidadAntenas == 0 AND $cantidadRouters == 0 AND $cantidadAtas == 0 ) {
             $mensajeValoresCero = 'error';
         }else{
             $positivos = true;
@@ -258,21 +281,30 @@ if(!isset($_SESSION['usuario'])){
             $mensajeRouters= 'error';
         }
 
+        if($cantidadAtas <= $atasDisponiblesTecnico){
+            $atas = true;
+            $mensajeAtas= 'Ok';
+        }else{
+            $mensajeAtas= 'error';
+        }
+
         //Si las cantidades estan disponibles se realiza la operacion de lo contrario dara un error
-        if($routers AND $antenas AND $positivos AND $sinNegativos){
+        if($routers AND $antenas AND $atas AND $positivos AND $sinNegativos){
             $antenasRestantes = $antenasDisponiblesAlmacen + $cantidadAntenas;
             $routersRestantes = $routersDisponiblesAlmacen + $cantidadRouters;
+            $atasRestantes = $atasDisponiblesAlmacen + $cantidadAtas;
 
-            $consulta = "INSERT INTO stock (antenas,routers,ultimousuario,antenasM,routersM) VALUES (:antenas, :routers, :ultimo, :antenasM, :routersM)";
-            $parametros = array(":antenas"=>$antenasRestantes,":routers"=>$routersRestantes,":ultimo"=>$idUsuario,":antenasM"=>$cantidadAntenas ,":routersM"=>$cantidadRouters);
+            $consulta = "INSERT INTO stock (antenas,routers,atas,ultimousuario,antenasM,routersM,atasM) VALUES (:antenas, :routers,:atas, :ultimo, :antenasM, :routersM, :atasM)";
+            $parametros = array(":antenas"=>$antenasRestantes,":routers"=>$routersRestantes,":atas"=>$atasRestantes,":ultimo"=>$idUsuario,":antenasM"=>$cantidadAntenas ,":routersM"=>$cantidadRouters,":atasM"=>$cantidadAtas);
             $datos = new Consulta();
             $resultado = $datos->get_sinDatos($consulta,$parametros);
 
             $antenasUsuarioActualizado = $antenasDisponiblesTecnico - $cantidadAntenas;
             $routersUsuarioActualizado = $routersDisponiblesTecnico - $cantidadRouters;
+            $atasUsuarioActualizado = $atasDisponiblesTecnico - $cantidadAtas;
 
-            $consulta = "UPDATE usuario SET antenas= :antenas, routers= :routers WHERE dni= :dni";
-            $parametros = array(":antenas"=>$antenasUsuarioActualizado,":routers"=>$routersUsuarioActualizado,":dni"=>$idUsuario);
+            $consulta = "UPDATE usuario SET antenas= :antenas, routers= :routers, atas= :atas WHERE dni= :dni";
+            $parametros = array(":antenas"=>$antenasUsuarioActualizado,":routers"=>$routersUsuarioActualizado,":atas"=>$atasUsuarioActualizado,":dni"=>$idUsuario);
             $datos = new Consulta();
             $resultadoUsuario = $datos->get_sinDatos($consulta,$parametros);
 
@@ -297,6 +329,7 @@ if(!isset($_SESSION['usuario'])){
             'mensajeResultado',
             'mensajeRouters',
             'mensajeAntenas',
+            'mensajeAtas',
             'mensajeValores',
             'mensajeValoresCero',
             'depositar',

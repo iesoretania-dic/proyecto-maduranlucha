@@ -237,11 +237,13 @@ body{
 }
 
 .red{
-  color: darkred;
+  background-color: hsla(0,50%,50%,.8);
+  //color: $secondary-color;
 }
 
 .green{
-  color: green;
+  background-color: hsla(120,50%,50%,.8);
+  //color: $secondary-color;
 }
 
 .vistaFormulario{
@@ -250,7 +252,17 @@ body{
   margin-bottom: 10px;
   @media screen and (min-width: $min-width) {
     margin-top: 0;
-    width: 60%;
+    width: 600px;
+  }
+}
+
+.vistaFormularioXL{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 800px;
   }
 }
 
@@ -267,6 +279,13 @@ body{
   margin-bottom: 10px;
   @media screen and (min-width: $min-width) {
     width: 150px;
+  }
+}
+
+.vistaFormularioXL .list-group-item {
+  height: 100px;
+  @media screen and (min-width: $min-width) {
+    height: 50px;
   }
 }
 
@@ -329,6 +348,13 @@ body{
 
 .ctipo_desconexion{
   background: hsla(0,50%,50%,.5);
+}
+
+.btn-group-vertical, .btn-group{
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 400px;
+  }
 }
 
 
