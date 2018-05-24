@@ -18,7 +18,7 @@ if(!isset($_SESSION['usuario'])){
         $datos = new Consulta();
         $idUsuario = $datos->get_id();
         //Consulta para saber si ya tiene un tarea asignada
-        $sentencia = "SELECT nombre,dni,asignada,antenas,routers FROM usuario WHERE dni= :asignada";
+        $sentencia = "SELECT nombre,dni,asignada,antenas,routers,atas FROM usuario WHERE dni= :asignada";/**/
         $parametros = (array(":asignada"=>$idUsuario));
         $datos = new Consulta();
         $datosUsuario = $datos->get_conDatosUnica($sentencia,$parametros);
@@ -26,7 +26,7 @@ if(!isset($_SESSION['usuario'])){
         $cliente = null;
 
         //comprobar si hay averias sin asignar
-        $sentencia = "SELECT COUNT(*) as averias FROM incidencia WHERE tipo = :tipo and estado = :estado AND disponible <= now()";
+        $sentencia = "SELECT COUNT(*) as averias FROM incidencia WHERE tipo = :tipo and estado = :estado AND disponible < now()";
         $parametros = (array(":tipo"=>'averia',":estado"=>'1'));
         $datos = new Consulta();
         $averias= $datos->get_conDatosUnica($sentencia,$parametros);
@@ -50,6 +50,7 @@ if(!isset($_SESSION['usuario'])){
             $tipo = $resultado['tipo'];
             $llamada = $resultado['llamada_obligatoria'];
             $parcial = $resultado['parcial'];
+            $urgente = $resultado['urgente'];
         }else{
 
             try {
@@ -70,6 +71,7 @@ if(!isset($_SESSION['usuario'])){
                 $tipo = $resultado['tipo'];
                 $llamada = $resultado['llamada_obligatoria'];
                 $parcial = $resultado['parcial'];
+                $urgente = $resultado['urgente'];
 
                 //Actualizar la fecha de inicio
                 $sentencia = "UPDATE incidencia SET fecha_inicio = :inicio WHERE id_incidencia = :incidencia";
@@ -95,6 +97,8 @@ if(!isset($_SESSION['usuario'])){
     }catch (Exception $e){
         die('Error: ' . $e->GetMessage());
     }
+
+
 
     //Accion si pulsa el boton Aceptar
     if(isset($_POST['btnAceptarIncidencia'])){
@@ -124,22 +128,9 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    //**//
     //ACCION DE LOS BOTONES
 
-    //Accion si se pulsa el boton de confirmar llamada
-    if(isset($_POST['confirmarLlamada'])){
-        try{
-            $sentencia = "UPDATE incidencia SET llamada_obligatoria = :llamada WHERE id_incidencia= :incidencia";
-            $parametros = (array(":llamada"=>'Si', ":incidencia"=>$asignada));
-            $datos = new Consulta();
-            $datos->get_sinDatos($sentencia,$parametros);
-        }catch (Exception $e){
-            die('Error: ' . $e->GetMessage());
-        }finally{
-            $bbdd = null;
-            header("Location: ../tecnico/tecnico.php");
-        }
-    }
 
     $mensajeLlamada = null;
     //Accion si pulsa el boton Finalizar
@@ -148,11 +139,13 @@ if(!isset($_SESSION['usuario'])){
             $_SESSION['asignada'] = $asignada;
             $_SESSION['antenas'] = $datosUsuario['antenas'];
             $_SESSION['routers'] = $datosUsuario['routers'];
+            $_SESSION['atas'] = $datosUsuario['atas'];/**/
             $_SESSION['tipo'] = $tipo;
             //Datos del cliente
             $_SESSION['dniCliente'] = $cliente['dni'];
             $_SESSION['antenasCliente'] = $cliente['antenas'];
             $_SESSION['routersCliente'] = $cliente['routers'];
+            $_SESSION['atasCliente'] = $cliente['atas'];/**/
             $_SESSION['retiradaCompleta'] =$cliente['retiradacompleta'];
 
             header("Location: tecnico_finalizar.php");
@@ -160,7 +153,6 @@ if(!isset($_SESSION['usuario'])){
             $mensajeLlamada = 'No';
         }
     }
-
     //Accion si pulsa el boton finalizar parcial
     if(isset($_POST['btnFinalizarParcialIncidencia'])){
 
@@ -176,7 +168,6 @@ if(!isset($_SESSION['usuario'])){
             $mensajeLlamada = 'No';
         }
     }
-
     //Accion si pulsa el boton resolver mas tarde
     if(isset($_POST['btnPendiente'])){
         if($llamada == "Si") {
@@ -187,6 +178,7 @@ if(!isset($_SESSION['usuario'])){
             $mensajeLlamada = 'No';
         }
     }
+
 
     //Accion si pulsa el boton no se pudo contactar con el cliente
     if(isset($_POST['btnErrorIncidencia'])){
@@ -200,7 +192,20 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
-
+    //Accion si se pulsa el boton de confirmar llamada
+    if(isset($_POST['confirmarLlamada'])){
+        try{
+            $sentencia = "UPDATE incidencia SET llamada_obligatoria = :llamada WHERE id_incidencia= :incidencia";
+            $parametros = (array(":llamada"=>'Si', ":incidencia"=>$asignada));
+            $datos = new Consulta();
+            $datos->get_sinDatos($sentencia,$parametros);
+        }catch (Exception $e){
+            die('Error: ' . $e->GetMessage());
+        }finally{
+            $bbdd = null;
+            header("Location: ../tecnico/tecnico.php");
+        }
+    }
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
@@ -221,10 +226,12 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'mensajeParcial',
             'mensajeAverias',
+            'urgente',
             'resultado'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
     }
 }
+
 

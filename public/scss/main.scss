@@ -40,6 +40,7 @@ body{
   padding-top: $alturaMenu;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   @media screen and (min-width: $min-width) {
     padding-top: $alturaMenu * 2 ;
     margin-right: $alturaMenu;
@@ -330,7 +331,7 @@ body{
   width: 100%;
   margin-bottom: 10px;
   @media screen and (min-width: $min-width) {
-    width: 50%;
+    width: 35%;
   }
 }
 
@@ -338,8 +339,20 @@ body{
   width: 100%;
   margin-bottom: 10px;
   @media screen and (min-width: $min-width) {
-    width:50%;
+    width:64%;
   }
+}
+
+.liArea{
+  height: 100px;
+}
+
+.pArea{
+  white-space: normal;
+  overflow: auto;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .ctipo_conexion{

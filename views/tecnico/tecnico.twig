@@ -4,86 +4,90 @@
 
 {% block contenido %}
     <div class="contenido">
-    {% if cliente %}
+        {% if cliente %}
 
-        <form class="formularioTecnicos" action="tecnico.php" method="post">
-            <div class="vistaFormulario">
-                {% if mensaje == 'No' %}
-                    <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente">
-                {% elseif mensaje == 'Si' %}
+            <form class="formularioTecnicos" action="tecnico.php" method="post">
+                <div class="vistaFormulario">
+                    {% if mensaje == 'No' %}
+                        <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente">
+                    {% elseif mensaje == 'Si' %}
 
-                    {% if mensajeLlamada == 'No' %}
-                        <label class="alert alert-danger">Debe confirmar la llamada antes de esa acción.</label>
-                    {% endif %}
+                        {% if mensajeLlamada == 'No' %}
+                            <label class="alert alert-danger">Debe confirmar la llamada antes de esa acción.</label>
+                        {% endif %}
 
-                    {% if mensajeParcial == 'No' %}
-                        <label class="alert alert-danger">Solo se puede finalizar parcialmente una vez.</label>
-                    {% endif %}
+                        {% if mensajeParcial == 'No' %}
+                            <label class="alert alert-danger">Solo se puede finalizar parcialmente una vez.</label>
+                        {% endif %}
 
-                    <ul class="list-group">
-                        <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
-                            <div>
-                                <span>Incidencia asignada:</span>
-                                <span class="badge badge-primary">{{ asignada }}</span>
-                                {% if resultado.urgente == 'Si' %}
-                                    <span class="badge badge badge-danger">URGENTE</span>
-                                {% endif %}
-                            </div>
-                            {% if llamada == 'No' %}
-                                <input class="btn btn-danger" type="submit" name="confirmarLlamada" value="LLamada realizada">
-                            {% endif %}
-                        </li>
-                    </ul>
-
-                    <ul class="list-group">
-                        <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
-                            <span>Material del tecnico: {{ datosUsuario.nombre }}, {{ datosUsuario.dni }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Antenas disponibles:</span>
-                            <span class="badge badge-primary">{{ datosUsuario.antenas }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Routers disponibles:</span>
-                            <span class="badge badge-primary">{{ datosUsuario.routers }}</span>
-                        </li>
-                    </ul>
-
-                    <ul class="list-group">
-                        <li class="alert alert-info list-group-item list-group-item-secondary">Datos del cliente:</li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Nombre:</span>
-                            <span>{{ cliente.nombre }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Dni:</span>
-                            <span>{{ cliente.dni }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Dirección:</span>
-                            <span>{{ cliente.direccion }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Ciudad:</span>
-                            <span>{{ cliente.ciudad }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Teléfono:</span>
-                            <span>{{ cliente.telefono }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Tipo:</span>
-                            <span
-                                    {% if tipo == 'instalacion' %}
-                                        class="badge badge-primary"
-                                    {% elseif tipo == 'baja' %}
-                                        class="badge badge-danger"
-                                    {% elseif tipo == 'averia' %}
-                                        class="badge badge-warning"
-                                    {% elseif tipo == 'cambiodomicilio' %}
-                                        class="badge badge-info"
+                        <ul class="list-group">
+                            <li class="alert alert-info list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span>Incidencia asignada:</span>
+                                    <span class="badge badge-primary">{{ asignada }}</span>
+                                    {% if resultado.urgente == 'Si' %}
+                                        <span class="badge badge badge-danger">URGENTE</span>
                                     {% endif %}
-                            >
+                                </div>
+                                {% if llamada == 'No' %}
+                                    <input class="btn btn-danger" type="submit" name="confirmarLlamada" value="LLamada realizada">
+                                {% endif %}
+                            </li>
+                        </ul>
+
+                        <ul class="list-group">
+                            <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                                <span>Material del tecnico: {{ datosUsuario.nombre }}, {{ datosUsuario.dni }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Routers disponibles:</span>
+                                <span class="badge badge-primary">{{ datosUsuario.routers }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Antenas disponibles:</span>
+                                <span class="badge badge-primary">{{ datosUsuario.antenas }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Atas disponibles:</span>
+                                <span class="badge badge-primary">{{ datosUsuario.atas }}</span>
+                            </li>
+                        </ul>
+
+                        <ul class="list-group">
+                            <li class="alert alert-info list-group-item list-group-item-secondary">Datos del cliente:</li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Nombre:</span>
+                                <span>{{ cliente.nombre }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Dni:</span>
+                                <span>{{ cliente.dni }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Dirección:</span>
+                                <span>{{ cliente.direccion }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Ciudad:</span>
+                                <span>{{ cliente.ciudad }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Teléfono:</span>
+                                <span>{{ cliente.telefono }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Tipo:</span>
+                                <span
+                                        {% if tipo == 'instalacion' %}
+                                            class="badge badge-primary"
+                                        {% elseif tipo == 'baja' %}
+                                            class="badge badge-danger"
+                                        {% elseif tipo == 'averia' %}
+                                            class="badge badge-warning"
+                                        {% elseif tipo == 'cambiodomicilio' %}
+                                            class="badge badge-info"
+                                        {% endif %}
+                                >
                                 {% if tipo == 'instalacion' %}
                                     Instalación
                                 {% elseif tipo == 'baja' %}
@@ -94,45 +98,49 @@
                                     Cambio de domicilio
                                 {% endif %}
                             </span>
-                        </li>
-                    </ul>
-
-
-                    <ul class="list-group">
-                        <li class="alert alert-info list-group-item list-group-item-secondary">
-                           <span>Material del cliente:</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Antenas en posesión:</span>
-                            <span class="badge badge-primary">{{ cliente.antenas }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Routers en posesión:</span>
-                            <span class="badge badge-primary">{{ cliente.routers }}</span>
-                        </li>
-                    </ul>
-
-                    {% if otros %}
-                        <ul class="list-group">
-                            <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios del comercial</li>
-                            <li class="list-group-item liArea"><p class="pArea">{{ otros }}</p></li>
+                            </li>
                         </ul>
+
+
+                        <ul class="list-group">
+                            <li class="alert alert-info list-group-item list-group-item-secondary">
+                                <span>Material del cliente:</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Routers en posesión:</span>
+                                <span class="badge badge-primary">{{ cliente.routers }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Antenas en posesión:</span>
+                                <span class="badge badge-primary">{{ cliente.antenas }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Atas en posesión:</span>
+                                <span class="badge badge-primary">{{ cliente.atas }}</span>
+                            </li>
+                        </ul>
+
+                        {% if otros %}
+                            <ul class="list-group">
+                                <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios del comercial</li>
+                                <li class="list-group-item liArea"><p class="pArea">{{ otros }}</p></li>
+                            </ul>
+                        {% endif %}
+
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-info text-left" type="submit" name="btnFinalizarIncidencia"><i class="fas fa-check"></i> Finalizar</button>
+                            <button class="btn btn-info text-left" type="submit" name="btnFinalizarParcialIncidencia"><i class="fas fa-check"></i> Finalizar de forma parcial</button>
+                            <button class="btn btn-info text-left" type="submit" name="btnPendiente"><i class="fas fa-calendar-alt"></i> Resolver mas tarde</button>
+                            <button class="btn btn-info text-left" type="submit" name="btnErrorIncidencia"><i class="fas fa-ban"></i> Sin contacto con el cliente</button>
+                        </div>
+
                     {% endif %}
+                </div>
 
-                    <div class="btn-group-vertical">
-                        <button class="btn btn-info text-left" type="submit" name="btnFinalizarIncidencia"><i class="fas fa-check"></i> Finalizar</button>
-                        <button class="btn btn-info text-left" type="submit" name="btnFinalizarParcialIncidencia"><i class="fas fa-check"></i> Finalizar de forma parcial</button>
-                        <button class="btn btn-info text-left" type="submit" name="btnPendiente"><i class="fas fa-calendar-alt"></i> Resolver mas tarde</button>
-                        <button class="btn btn-info text-left" type="submit" name="btnErrorIncidencia"><i class="fas fa-ban"></i> Sin contacto con el cliente</button>
-                    </div>
-
-                {% endif %}
-            </div>
-
-        </form>
-    {% else %}
-        <label class="alert alert-primary">En este momento no hay incidencias disponibles</label>
-    {% endif %}
+            </form>
+        {% else %}
+            <label class="alert alert-primary">En este momento no hay incidencias disponibles</label>
+        {% endif %}
     </div>
 {% endblock %}
 

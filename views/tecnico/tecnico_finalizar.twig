@@ -15,6 +15,17 @@
                 </div>
 
                 <div class="vistaCheck">
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <label for="toggle-routers"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado*" disabled>
+                    </div>
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -28,12 +39,17 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
-                                <label for="toggle-routers"></label>
+                                <input id="toggle-atas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="atas">
+                                <label for="toggle-atas"></label>
                             </div>
                         </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado" disabled>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Ata instalado" disabled>
                     </div>
+
+                </div>
+
+                <div class="vistaCheck">
+                    <p class="alert alert-info">(*) Obligatorio</p>
                 </div>
 
                 <div class="vistaFormulario">
@@ -43,7 +59,7 @@
                         <option value="otros">otros</option>
                     </select>
 
-                    <div id="comentarioFinalizar" class="vistaFormulario">
+                    <div id="comentarioFinalizar" class="vistaCheck">
                         <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
                         <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
                     </div>
@@ -53,26 +69,19 @@
                     <button class="btn btn-success" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar instalación</button>
                     <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
+
             {% endif %}
 
             {#Accion en caso de baja#}
+
             {% if tipo == 'baja' %}
+
 
                 <div class="vistaCheck">
                     <p class="alert alert-info d-flex justify-content-between align-items-center" ><span>Indique la solución de la incidencia: </span><span class="badge badge-primary">{{ asignada }}</span> </p>
                 </div>
 
                 <div class="vistaCheck">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
-                                <label for="toggle-antenas"></label>
-                            </div>
-
-                        </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena recogida" disabled>
-                    </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -81,9 +90,28 @@
                                 <label for="checkRouterBaja"></label>
                             </div>
                         </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router recogido*" disabled>
+                        <input id="routers" type="text" class="form-control" aria-label="Text input with checkbox" value="Router recogido*" disabled>
                     </div>
-                    <label class="alert alert-info">(*)Campos obligatorios</label>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-antenas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="antenas">
+                                <label for="toggle-antenas"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena recogida" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-atas" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="atas">
+                                <label for="toggle-atas"></label>
+                            </div>
+                        </div>
+                        <input id="atas" type="text" class="form-control" aria-label="Text input with checkbox" value="Ata recogido" disabled>
+                    </div>
                 </div>
 
                 <div class="vistaFormulario">
@@ -104,14 +132,14 @@
                 </div>
 
                 <div class="vistaCheck">
-                    <p class="alert alert-info">(*)Campos obligatorios</p>
+                    <p class="alert alert-info">(*) Obligatorio</p>
                 </div>
-
                 <div class="vistaFormulario">
                     <button id="btnBaja" class="btn btn-danger" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar Baja</button>
                     <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}
+
 
             {#Accion en caso de averia#}
             {% if tipo == 'averia' %}
@@ -121,6 +149,7 @@
                 </div>
 
                 <div class="vistaCheck">
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -144,21 +173,11 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="toggle-ata" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="ata">
+                                <input id="toggle-ata" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="atas">
                                 <label for="toggle-ata"></label>
                             </div>
                         </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio ATA" disabled>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="toggle-orientacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
-                                <label for="toggle-orientacion"></label>
-                            </div>
-                        </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Orientacion Antena" disabled>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio ata" disabled>
                     </div>
 
                     <div class="input-group mb-3">
@@ -170,8 +189,28 @@
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio de conectores" disabled>
                     </div>
-                </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-cables" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="cables">
+                                <label for="toggle-cables"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cambio de cable" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-orientacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="orientacion">
+                                <label for="toggle-orientacion"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Orientacion de antena" disabled>
+                    </div>
+
+                </div>
 
 
                 <div class="vistaCheck">
@@ -181,11 +220,10 @@
                     </div>
                 </div>
 
-                <div class="vistaCheck">
-                    <input class="btn btn-warning" type="submit" value="Finalizar" name="btnConfirmarFinalizar">
-                    <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelarFinalizar">
+                <div class="vistaFormulario">
+                    <button class="btn btn-success" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
-
             {% endif %}
 
             {#Accion en casio de cambio de domicilio#}
@@ -203,7 +241,7 @@
                                 <label for="toggle-routerR"></label>
                             </div>
                         </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router cambiado de domicilio" disabled>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router cambiado de domicilio*" disabled>
                     </div>
 
                     <div class="input-group mb-3">
@@ -225,6 +263,27 @@
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Antena instalada" disabled>
                     </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-conectores" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="conectores">
+                                <label for="toggle-conectores"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Conectores nuevos" disabled>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-cable" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="cable">
+                                <label for="toggle-cable"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Cable nuevo" disabled>
+                    </div>
+
                 </div>
 
                 <div class="vistaFormulario">
@@ -245,11 +304,17 @@
                     </div>
                 </div>
 
+                <div class="vistaCheck">
+                    <p class="alert alert-info">(*) Obligatorio</p>
+                </div>
+
                 <div class="vistaFormulario">
                     <button class="btn btn-info" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
-                    <button class="btn btn-warning" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-undo"></i> Volver</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}
+
+
 
             {#mensajes posibles de error#}
             {% if tipo == 'instalacion' %}
@@ -259,6 +324,14 @@
 
                 {% if mensajeRouter == 'error' %}
                     <p class="alert alert-danger">No se instaló el router</p>
+                {% endif %}
+                {##}
+                {% if mensajeFaltaCable == 'error' %}
+                    <p class="alert alert-danger">No tienes caja de cable asignada, retire una del almacen</p>
+                {% endif %}
+
+                {% if mensajeFaltaConector == 'error' %}
+                    <p class="alert alert-danger">No tienes bolsa de conectores asignada, retire una del almacen</p>
                 {% endif %}
             {% endif %}
 
@@ -284,7 +357,12 @@
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
-
+                {% if mensajeFaltaConector == 'error' %}
+                    <p class="alert alert-danger">No tienes bolsa de conectores asignada, retire una del almacen</p>
+                {% endif %}
+                {% if mensajeFaltaCable == 'error' %}
+                    <p class="alert alert-danger">No tienes caja de cable asignada, retire una del almacen</p>
+                {% endif %}
                 {% if mensajeSolucionAveria == 'error' %}
                     <p class="alert alert-danger">Debes indicar una solución</p>
                 {% endif %}
@@ -293,18 +371,19 @@
             {% if tipo == 'cambiodomicilio' %}
 
                 {% if mensajeCambioDomicilio == 'materialnegativo' %}
-                    <label class="alert alert-danger">El usuario no dispone de ese material.</label>
+                    <label class="alert alert-danger">El cliente no dispone de ese material.</label>
                 {% endif %}
 
                 {% if mensajeCambioDomicilio == 'materialRecoger' %}
-                    <label class="alert alert-danger">No se retiró e instaló el router del cliente</label>
+                    <label class="alert alert-danger">No se cambió el router de domicilio</label>
                 {% endif %}
 
                 {% if mensajeCambioDomicilio == 'materialfalta' %}
-                    <label class="alert alert-danger">El técnico no dispone de ese material.</label>
+                    <label class="alert alert-danger">El tecnico no dispone de ese material.</label>
                 {% endif %}
 
             {% endif %}
+
         </form>
     </div>
 
