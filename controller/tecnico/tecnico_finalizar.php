@@ -16,7 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario = $_SESSION['usuario'];
     $tipo = $_SESSION['tipo'];
     $datos = new Consulta();
-    $idUsuario = $datos->get_id();
+    $idUsuario = $_SESSION['dniUsuario'];
     $asignada = $_SESSION['asignada'];
     $dniCliente = $_SESSION['dniCliente'];
     $antenaR = 0;
@@ -79,6 +79,8 @@ if(!isset($_SESSION['usuario'])){
             $mensajeBaja = null;
             $mensajeRouter = null;
 
+
+
             //Obtenemos el contador del cable  /**/
             $consulta = "SELECT contador FROM material WHERE id_usuario = :usuario and terminado = :terminado AND nombre = :nombre";
             $parametros = array(":usuario"=>$idUsuario,":terminado"=>'No',":nombre"=>'cajacable');
@@ -101,6 +103,8 @@ if(!isset($_SESSION['usuario'])){
                 $mensajeFaltaConector = 'error';
             }
 
+
+
             //comprobamos que disponemos de suficiente material para la instalacion.
             if ($routersIncidencia <= $routersDisponiblesTecnico AND $antenasIncidencia <= $antenasDisponiblesTecnico AND $atasIncidencia <= $atasDisponiblesTecnico  AND $datosMaterialCable AND $datosMaterialConector) {
                 //Comprobamos que se instaló el router
@@ -120,10 +124,18 @@ if(!isset($_SESSION['usuario'])){
                         $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":antenas" => $antenasIncidencia, ":routers" => $routersIncidencia,":atas"=>$atasIncidencia, ":id" => $asignada,":urgente"=>'No');
                         $datos->get_sinDatos($sentencia, $parametros);
 
-                        //Consulta para actualizar el material del tecnico y asignarle la instalacion ****
-                        $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
-                        $parametros = array(":asignada" => NULL, ":antenas" => $antenasResultado, ":routers" => $routersResultado,":atas"=>$atasResultado, ":dni" => $idUsuario);
-                        $datos->get_sinDatos($sentencia, $parametros);
+                        //Si la finalizacion es por la via normal se desasigna la incidencia por que se supone que es la activa del tecnico, si viene de un administrador no hay que desasignarla.
+                        if(isset($_SESSION['forzado']) AND $_SESSION['forzado'] == '0'){
+                            //Consulta para actualizar el material del tecnico y asignarle la instalacion ****
+                            $sentencia = "UPDATE usuario SET antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
+                            $parametros = array(":antenas" => $antenasResultado, ":routers" => $routersResultado,":atas"=>$atasResultado, ":dni" => $idUsuario);
+                            $datos->get_sinDatos($sentencia, $parametros);
+                        }else{
+                            //Consulta para actualizar el material del tecnico y asignarle la instalacion ****
+                            $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
+                            $parametros = array(":asignada" => NULL, ":antenas" => $antenasResultado, ":routers" => $routersResultado,":atas"=>$atasResultado, ":dni" => $idUsuario);
+                            $datos->get_sinDatos($sentencia, $parametros);
+                        }
 
                         //Consulta para actualizar el material del cliente ****
                         $sentencia = "UPDATE cliente SET antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
@@ -149,7 +161,14 @@ if(!isset($_SESSION['usuario'])){
 
 
                         $datos->conexionDB->commit();
-                        header("Location: tecnico.php");
+
+                        if(isset($_SESSION['forzado'])){
+                            header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+                        }else{
+                            header("Location: ../tecnico/tecnico.php");
+                        }
+
+
                     } catch (PDOException $e) {
                         $datos->conexionDB->rollBack();
                         die('Error: ' . $e->getMessage());
@@ -228,9 +247,16 @@ if(!isset($_SESSION['usuario'])){
                     $datos->get_sinDatos($sentencia, $parametros);
 
                     //Consulta para actualizar el material del tecnico ****
-                    $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers,atas = :atas WHERE dni = :dni ";
-                    $parametros = array(":asignada" => NULL, ":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico, ":dni" => $idUsuario);
-                    $datos->get_sinDatos($sentencia, $parametros);
+                    if(isset($_SESSION['forzado']) AND $_SESSION['forzado'] == '0'){
+                        $sentencia = "UPDATE usuario SET  antenas = :antenas, routers = :routers,atas = :atas WHERE dni = :dni ";
+                        $parametros = array(":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico, ":dni" => $idUsuario);
+                        $datos->get_sinDatos($sentencia, $parametros);
+                    }else{
+                        $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers,atas = :atas WHERE dni = :dni ";
+                        $parametros = array(":asignada" => NULL, ":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico, ":dni" => $idUsuario);
+                        $datos->get_sinDatos($sentencia, $parametros);
+                    }
+
 
                     //Consulta para actualizar el material del cliente ***
                     $sentencia = "UPDATE cliente SET antenas = :antenas, routers = :routers,atas = :atas, fecha_baja = :fBaja WHERE dni = :dni ";
@@ -243,7 +269,11 @@ if(!isset($_SESSION['usuario'])){
                     $datos->get_sinDatos($sentencia, $parametros);
 
                     $datos->conexionDB->commit();
-                    header("Location: tecnico.php");
+                    if(isset($_SESSION['forzado'])){
+                        header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+                    }else{
+                        header("Location: ../tecnico/tecnico.php");
+                    }
                 } catch (PDOException $e) {
                     $datos->conexionDB->rollBack();
                     die('Error: ' . $e->getMessage());
@@ -345,9 +375,16 @@ if(!isset($_SESSION['usuario'])){
                             $datos->get_sinDatos($sentencia, $parametros);
 
                             //Consulta para actualizar el estado del tecnico ****
-                            $sentencia = "UPDATE usuario SET asignada = :asignada,antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
-                            $parametros = array(":asignada" => NULL, ":dni" => $idUsuario,":antenas"=>$antenasDisponiblesTecnico,":routers"=>$routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico);
-                            $datos->get_sinDatos($sentencia, $parametros);
+                            if(isset($_SESSION['forzado']) AND $_SESSION['forzado'] == '0'){
+                                $sentencia = "UPDATE usuario SET antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
+                                $parametros = array(":dni" => $idUsuario,":antenas"=>$antenasDisponiblesTecnico,":routers"=>$routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico);
+                                $datos->get_sinDatos($sentencia, $parametros);
+                            }else{
+                                $sentencia = "UPDATE usuario SET asignada = :asignada,antenas = :antenas, routers = :routers, atas = :atas WHERE dni = :dni ";
+                                $parametros = array(":asignada" => NULL, ":dni" => $idUsuario,":antenas"=>$antenasDisponiblesTecnico,":routers"=>$routersDisponiblesTecnico,":atas"=>$atasDisponiblesTecnico);
+                                $datos->get_sinDatos($sentencia, $parametros);
+                            }
+
 
                             //Consulta para actualizar la incidencia
                             $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes, disponible = NULL, antenas = :antenas, routers = :routers,atas = :atas WHERE id_incidencia = :id ";
@@ -365,7 +402,11 @@ if(!isset($_SESSION['usuario'])){
                             $datos->get_sinDatos($sentencia, $parametros);
 
                             $datos->conexionDB->commit();
-                            header("Location: tecnico.php");
+                            if(isset($_SESSION['forzado'])){
+                                header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+                            }else{
+                                header("Location: ../tecnico/tecnico.php");
+                            }
                         } catch (PDOException $e) {
                             $datos->conexionDB->rollBack();
 
@@ -462,9 +503,16 @@ if(!isset($_SESSION['usuario'])){
                             $datos->get_sinDatos($sentencia, $parametros);
 
                             //Consulta para actualizar el material del tecnico y asignarle la instalacion
-                            $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers WHERE dni = :dni ";
-                            $parametros = array(":asignada" => NULL, ":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico, ":dni" => $idUsuario);
-                            $datos->get_sinDatos($sentencia, $parametros);
+                            if(isset($_SESSION['forzado']) AND $_SESSION['forzado'] == '0'){
+                                $sentencia = "UPDATE usuario SET antenas = :antenas, routers = :routers WHERE dni = :dni ";
+                                $parametros = array(":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico, ":dni" => $idUsuario);
+                                $datos->get_sinDatos($sentencia, $parametros);
+                            }else{
+                                $sentencia = "UPDATE usuario SET asignada = :asignada, antenas = :antenas, routers = :routers WHERE dni = :dni ";
+                                $parametros = array(":asignada" => NULL, ":antenas" => $antenasDisponiblesTecnico, ":routers" => $routersDisponiblesTecnico, ":dni" => $idUsuario);
+                                $datos->get_sinDatos($sentencia, $parametros);
+                            }
+
 
                             //Consulta para actualizar el material del cliente
                             $sentencia = "UPDATE cliente SET antenas = :antenas, routers = :routers WHERE dni = :dni ";
@@ -487,7 +535,11 @@ if(!isset($_SESSION['usuario'])){
                             $datos->get_sinDatos($sentencia, $parametros);
 
                             $datos->conexionDB->commit();
-                            header("Location: ../tecnico/tecnico.php");
+                            if(isset($_SESSION['forzado'])){
+                                header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+                            }else{
+                                header("Location: ../tecnico/tecnico.php");
+                            }
                         } catch (PDOException $e) {
                             $datos->conexionDB->rollBack();
                             die('Error: ' . $e->getMessage());
@@ -511,7 +563,11 @@ if(!isset($_SESSION['usuario'])){
 
     //Accion si pulsa el boton cancelar
     if(isset($_POST['cancelarFinalizar'])){
-        header("Location: ../tecnico/tecnico.php");
+        if(isset($_SESSION['forzado'])){
+            header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+        }else{
+            header("Location: ../tecnico/tecnico.php");
+        }
     }
 
     ////////////////////////Renderizado//////////////////////////

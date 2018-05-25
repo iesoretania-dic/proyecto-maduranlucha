@@ -127,8 +127,11 @@
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
                                         {% endif %}
-                                        {% if fila.estado == '0' or fila.estado == '1' or fila.estado == '2' %}
+                                        {% if fila.estado == '0' or fila.estado == '1'%}
                                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
+                                        {% endif %}
+                                        {% if rol == '0' and fila.estado == '2' %}
+                                            <a href="../tecnico/tecnico_finalizar_autorizar.php?Id={{ fila.id_incidencia }}&tipo={{ fila.tipo }}&cliente={{ fila.id_cliente }}&usuario={{ fila.tecnico }}&modo=0"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' %}
                                             <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>

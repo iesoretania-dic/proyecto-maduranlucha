@@ -137,6 +137,7 @@ if(!isset($_SESSION['usuario'])){
     if(isset($_POST['btnFinalizarIncidencia'])){
         if($llamada == 'Si'){
             $_SESSION['asignada'] = $asignada;
+            $_SESSION['dniUsuario'] = $datosUsuario['dni'];
             $_SESSION['antenas'] = $datosUsuario['antenas'];
             $_SESSION['routers'] = $datosUsuario['routers'];
             $_SESSION['atas'] = $datosUsuario['atas'];/**/

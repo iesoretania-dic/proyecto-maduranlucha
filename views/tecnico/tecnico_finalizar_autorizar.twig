@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block title 'autorizar' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            <div class="vistaCheck">
+                <p class="alert alert-danger">Esta incidencia corresponde al tecnico <span class="badge badge-primary">{{ datosUsuario.nombre }}</span>¿Desea finalizar la incidencia en su nombre?, no se deberan finalizar incidencias sin el consentimiento del técnico.</p>
+            </div>
+
+            <div class="vistaCheck">
+                <button class="btn btn-warning" type="submit" name="aceptarContinuar"><i class="fas fa-forward"></i> Continuar</button>
+                <a href="javascript:history.back()"><button class="btn btn-success" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+            </div>
+
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}
