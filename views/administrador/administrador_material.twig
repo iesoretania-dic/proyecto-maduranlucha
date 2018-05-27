@@ -58,7 +58,7 @@
                         </thead>
                         {% for material in materiales %}
                             <tr>
-                                <td class="fechaCambiar">{{ material.fecha }}</td>
+                                <td>{{ material.fecha | date ('d/m/y h:i') }}</td>
                                 <td>{{ material.usuario }}</td>
                                 {% if material.antenasM < 0 %}
                                     <td class="red">{{ material.antenasM * (-1)}}</td>
