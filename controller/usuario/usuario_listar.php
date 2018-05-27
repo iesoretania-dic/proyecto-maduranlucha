@@ -32,6 +32,7 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
 
     $mensaje = null;
     $usuarios = [];
@@ -65,7 +66,8 @@ if(!isset($_SESSION['usuario'])){
             'usuarios',
             'mensaje',
             'rol',
-            'rolUsuario'
+            'rolUsuario',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

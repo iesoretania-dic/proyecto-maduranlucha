@@ -16,6 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
 
     $consulta = "SELECT conexiones.fecha, conexiones.usuario,conexiones.tipo, usuario.nombre FROM conexiones INNER JOIN usuario ON conexiones.usuario = usuario.dni ORDER BY conexiones.fecha DESC";
     $parametros = array();
@@ -64,7 +65,8 @@ if(!isset($_SESSION['usuario'])){
             'mensaje',
             'rol',
             'conexiones',
-            'vista'
+            'vista',
+            'uri'
 
         ));
     }catch (Exception $e){

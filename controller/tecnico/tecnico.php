@@ -17,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
         $usuario  = $_SESSION['usuario'];
         $datos = new Consulta();
         $idUsuario = $datos->get_id();
+        $uri =  $_SERVER['REQUEST_URI'];
         //Consulta para saber si ya tiene un tarea asignada
         $sentencia = "SELECT nombre,dni,asignada,antenas,routers,atas FROM usuario WHERE dni= :asignada";/**/
         $parametros = (array(":asignada"=>$idUsuario));
@@ -228,7 +229,8 @@ if(!isset($_SESSION['usuario'])){
             'mensajeParcial',
             'mensajeAverias',
             'urgente',
-            'resultado'
+            'resultado',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

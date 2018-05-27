@@ -17,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
     $_SESSION['dniCliente'] ='';
 
     $clientes = [];
@@ -81,7 +82,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'mensajeCambios',
             'mensajeIncidencia',
-            'mensajeEliminar'
+            'mensajeEliminar',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

@@ -16,6 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario= $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
     $fechaActual = date("Y-m-d H:i:s");
     $_SESSION['origen'] = $_SERVER['REQUEST_URI'];
 
@@ -154,7 +155,8 @@ if(!isset($_SESSION['usuario'])){
             'usuario',
             'tipo',
             'nombreCliente',
-            'fechaActual'
+            'fechaActual',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

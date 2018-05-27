@@ -34,26 +34,27 @@
                     </li>
                     {% block elementosMenu %}
                         {% if rol == '0' %}
+                            {#modificar al pasar a produccion#}
                             {# Elementos para los administradores #}
-                            <li class="nav-item"><a class="miLink " href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Incidencias</a></li>
-                            <li class="nav-item"><a class="miLink " href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
-                            <li class="nav-item"><a class="miLink " href="../usuario/usuario_listar.php?rol=1"><i class="fas fa-users"></i> Comerciales</a></li>
-                            <li class="nav-item"><a class="miLink " href="../usuario/usuario_listar.php?rol=2"><i class="fas fa-users"></i> Técnicos</a></li>
-                            <li class="nav-item"><a class="miLink " href="../usuario/usuario_listar.php?rol=4"><i class="fas fa-users"></i> Controladores</a></li>
-                            <li class="nav-item"><a class="miLink " href="../administrador/administrador_material.php"><i class="fas fa-cubes"></i> Material</a></li>
-                            <li class="nav-item"><a class="miLink " href="../administrador/administrador_conexiones.php"><i class="fas fa-link"></i> Conexiones</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_incidencias.php?tipo=0'%} active {% endif %}" href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Incidencias</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_listar.php'%} active {% endif %}" href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/usuario/usuario_listar.php?rol=1'%} active {% endif %}" href="../usuario/usuario_listar.php?rol=1"><i class="fas fa-users"></i> Comerciales</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/usuario/usuario_listar.php?rol=2'%} active {% endif %}" href="../usuario/usuario_listar.php?rol=2"><i class="fas fa-users"></i> Técnicos</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/usuario/usuario_listar.php?rol=4'%} active {% endif %}" href="../usuario/usuario_listar.php?rol=4"><i class="fas fa-users"></i> Controladores</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/administrador/administrador_material.php'%} active {% endif %}" href="../administrador/administrador_material.php"><i class="fas fa-cubes"></i> Material</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/administrador/administrador_conexiones.php'%} active {% endif %}" href="../administrador/administrador_conexiones.php"><i class="fas fa-link"></i> Conexiones</a></li>
                             {# Elementos para los comerciales #}
                         {% elseif rol == '1' %}
-                            <li class="nav-item"><a class="miLink " href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
-                            <li class="nav-item"><a class="miLink " href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Indicencias</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_listar.php'%} active {% endif %}" href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_incidencias.php?tipo=0'%} active {% endif %}" href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Indicencias</a></li>
                             {# Elementos para los tecnicos #}
                         {% elseif rol == '2' %}
-                            <li class="nav-item"><a class="miLink " href="../tecnico/tecnico.php"><i class="fas fa-exclamation-triangle"></i> Inicio</a></li>
-                            <li class="nav-item"><a class="miLink " href="../tecnico/tecnico_pendientes.php"><i class="fas fa-users"></i> Pendientes</a></li>
-                            <li class="nav-item"><a class="miLink " href="../tecnico/tecnico_material.php"><i class="fas fa-cubes"></i> Material</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/tecnico/tecnico.php'%} active {% endif %}" href="../tecnico/tecnico.php"><i class="fas fa-exclamation-triangle"></i> Inicio</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/tecnico/tecnico_pendientes.php'%} active {% endif %}" href="../tecnico/tecnico_pendientes.php"><i class="fas fa-users"></i> Pendientes</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/tecnico/tecnico_material.php'%} active {% endif %}" href="../tecnico/tecnico_material.php"><i class="fas fa-cubes"></i> Material</a></li>
                             {# Elementos para los controladores #}
                         {% elseif rol == '4' %}
-                            <li class="nav-item"><a class="miLink " href="../cliente/cliente_incidencias.php"><i class="fas fa-exclamation-triangle"></i> Incidencias</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_incidencias.php'%} active {% endif %}" href="../cliente/cliente_incidencias.php"><i class="fas fa-exclamation-triangle"></i> Incidencias</a></li>
                         {% endif %}
                     {% endblock %}
                 </ul>

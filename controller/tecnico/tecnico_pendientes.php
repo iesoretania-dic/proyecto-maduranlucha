@@ -14,6 +14,7 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
     $arrayFilas = [];
     $mensaje = null;
     $fechaActual = date("Y-m-d H:i:s");
@@ -72,7 +73,8 @@ if(!isset($_SESSION['usuario'])){
             'asignada',
             'actual',
             'rol',
-            'fechaActual'
+            'fechaActual',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

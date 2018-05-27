@@ -17,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
 
     $consulta = "SELECT stock.fecha, stock.antenas, stock.routers,stock.atas,stock.ultimousuario,stock.antenasM,stock.routersM,stock.atasM, usuario.dni, usuario.usuario FROM stock INNER JOIN usuario ON stock.ultimousuario  = usuario.dni ORDER BY stock.fecha DESC ";
     $parametros = array();
@@ -67,7 +68,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'materiales',
             'mensajeEstablecer',
-            'mensajeResultadoEstablecer'
+            'mensajeResultadoEstablecer',
+            'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

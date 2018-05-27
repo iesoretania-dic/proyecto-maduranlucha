@@ -17,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
+    $uri =  $_SERVER['REQUEST_URI'];
 
     $consulta = "SELECT antenas,routers,atas,limite FROM usuario WHERE dni = :dni";/**/
     $parametros = array(":dni"=>$idUsuario);
@@ -336,7 +337,8 @@ if(!isset($_SESSION['usuario'])){
             'retirar',
             'limite',
             'rol',
-            'usuario'
+            'usuario',
+            'uri'
 
         ));
     }catch (Exception $e){

@@ -151,9 +151,9 @@
 {% if mensaje == 'No' %}
     {% block classMenu %}
         {% if mensajeAverias == 'Si' %}
-            class="miNav miNavWarning"
+            menuNavWarning
         {% elseif mensajeAverias == 'No' %}
-            class="miNav"
+            menuNav
         {% endif %}
     {% endblock %}
 {% endif %}
