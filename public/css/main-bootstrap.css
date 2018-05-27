@@ -24,7 +24,7 @@
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 991px) {
   .vistaFormulario .input-group-text {
     width: 250px;
   }
@@ -34,7 +34,7 @@
   width: 100px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 991px) {
   .vistaEstablecer .input-group-text {
     width: 100px;
   }
@@ -44,7 +44,7 @@
   display: block;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 991px) {
   .vistaFormulario .input-group {
     display: -webkit-box;
     display: -ms-flexbox;

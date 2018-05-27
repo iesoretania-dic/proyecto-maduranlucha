@@ -1,119 +1,42 @@
-.miNav{
-  display: grid;
-  grid-template-columns: 50px 1fr 200px;
-  background-color: $primary-color;
-  width: 100%;
-  height: $alturaMenu;
-  position: fixed;
-  z-index: 99;
-  top: 0;
 
-  //@media screen and (min-width: $min-width) {
-  //  grid-template-columns: 50px 1fr 200px;
-  //}
-}
-
-.miNavWarning{
-  background-color: red;
-}
-
-.logo{
+.miLogo{
   display: none;
-  grid-column: 1;
-  line-height:$alturaMenu;
-  padding:0;
-  margin:0 0 0 5px;
   @media screen and (min-width: $min-width) {
-    display: flex;
+    display: inline-block;
   }
-
 }
 
 .imgLogo{
   width: $alturaMenu * 0.8;
   height: $alturaMenu * 0.8;
-  margin: auto 0;
-}
-
-.elementos{
-  grid-column: 2;
-  & ul{
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    position: absolute;
-    left: 0;
-    top: $alturaMenu;
-    transform: translateX(-100%);
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-
-    @media screen and (min-width: $min-width) {
-      flex-direction: row;
-      position: initial;
-      transform: translateX(0%);
-    }
-  }
-  & ul li{
-    display: inline-block;
-    width: 100px;
-    min-width: 100%;
-    padding-left: 5px;
-    line-height:$alturaMenu;
-    text-align: left;
-    cursor: pointer;
-    color: $font-color;
-    background-color: $primary-color;
-    @media screen and (min-width: $min-width) {
-      min-width: 100px ;
-      width: auto;
-      padding-left: 0;
-      text-align: center;
-      background-color: transparent;
-    }
-    &:hover{
-      color:$color3;
-    }
-  }
-}
-
-.usuario{
-  grid-column: 3;
-  padding-right: 5px;
-  text-align: right;
-  line-height:$alturaMenu;
-}
-
-.btnMenu{
-  display: none;
-  &:checked ~ .elementos ul{
-    transform: translateX(0%);
-  }
+  margin: auto 15px auto 0;
 }
 
 
-.labelMenu{
-  display: block;
-  width: $alturaMenu * 0.8;
-  height: $alturaMenu * 0.8;
-  padding: 0;
-  margin: auto;
-  background-image: url("../resources/menu.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  @media screen and (min-width: $min-width) {
-    display: none;
-  }
-}
 
-.mia{
+.menuNav{
   background-color: $primary-color;
 }
 
-.btnMia{
-  background-color: transparent;
+.menuNavWarning{
+  background-color: hsla(0,70%,50%,.8);
+}
+
+
+.miLink{
+  color: #0a0a0a;
+  display: block;
+  padding: 7px;
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    padding: 7px;
+    width: 100%;
+  }
+
+  &:hover{
+    color: $secondary-color;
+  }
+  &:link{
+    text-decoration: none;
+  }
 }

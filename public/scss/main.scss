@@ -370,6 +370,20 @@ body{
   }
 }
 
+//modificar el boton de menu en vista movil
+.navbar-light .navbar-toggler{
+  color: #0a0a0a;
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+  color: #0a0a0a;
+}
+
+.navbar {
+  //height: 32px;
+  padding: 2px 5px;
+}
 
 
 
