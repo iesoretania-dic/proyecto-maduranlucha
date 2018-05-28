@@ -11,14 +11,16 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ cliente.dni }}">
+                    <input id="dni-add-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ cliente.dni }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajedniAddInput"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ cliente.nombre }}">
+                    <input id="input-nombre-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ cliente.nombre }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeNombreInput"></p>
                 </div>
 
                 <div class="input-group mb-3">
@@ -35,14 +37,16 @@
                         <option value="CMNO ">Camino</option>
                         <option value="URB ">Urbanizazion</option>
                     </select>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ cliente.direccion }}">
+                    <input id="input-direccion-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ cliente.direccion }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeDireccionInput"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
+                    <input id="input-telefono-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ cliente.telefono }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeTelefonoInput"></p>
                 </div>
 
                 <div class="input-group mb-3">
@@ -69,7 +73,7 @@
                 {% if rol == '0' %}
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el comercial:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Comercial:</span>
                             <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial" id="comercial">
                                 <option value="{% if cliente.id_usuario %}{{ cliente.id_usuario }} {% endif %}">
                                     {% if cliente.id_usuario %}
@@ -110,7 +114,7 @@
             </div>
 
             <div class="vistaCheck">
-                <button class="btn btn-primary" type="submit" name="btnModificar"><i class="far fa-edit"></i> Modificar</button>
+                <button id="btnAddCliente" class="btn btn-primary" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Modificar</button>
                 <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 
@@ -130,8 +134,8 @@
                 {% if mensajeDniExiste == 'error' %}
                     <p class="alert alert-danger">El dni introducido ya existe</p>
                 {% endif %}
-            </div>
 
+            </div>
         </form>
     </div>
 {% endblock %}

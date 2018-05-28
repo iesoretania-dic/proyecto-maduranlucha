@@ -677,3 +677,8 @@ body {
 .active {
   color: white;
 }
+
+.alerta {
+  margin: auto 5px;
+  padding: 4px;
+}

@@ -19,8 +19,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="toggle-routers" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
-                                <label for="toggle-routers"></label>
+                                <input id="checkRouterInstalacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="routers">
+                                <label for="checkRouterInstalacion"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router instalado*" disabled>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <button class="btn btn-success" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar instalación</button>
+                    <button id="btnInstalacion" class="btn btn-success" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar instalación</button>
                     <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
 
@@ -237,8 +237,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input id="toggle-routerR" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="router">
-                                <label for="toggle-routerR"></label>
+                                <input id="checkRouterCambioDomicilio" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="router">
+                                <label for="checkRouterCambioDomicilio"></label>
                             </div>
                         </div>
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Router cambiado de domicilio*" disabled>
@@ -309,7 +309,7 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <button class="btn btn-info" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
+                    <button id="btnCambioDomicilio" class="btn btn-info" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
                     <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
             {% endif %}

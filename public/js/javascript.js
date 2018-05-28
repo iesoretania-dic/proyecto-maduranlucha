@@ -1,26 +1,7 @@
 $(function(){
     "use strict";
 
-    //**********ZONA JS**********//
-
-    // let miSelect = document.getElementById('solucion');
-    // let comentario = document.getElementById('comentarioFinalizar');
-    // comentario.style.display = "none";
-
-    // miSelect.addEventListener('change',function() {
-    //     let opcion = this.options[miSelect.selectedIndex];
-    //
-    //     if(opcion.innerHTML === "otros"){
-    //         comentario.style.display = "block";
-    //     }else{
-    //         comentario.style.display = "none";
-    //     }
-    // });
-
-    //**********FIN ZONA JS**********//
-
     //**********ZONA JQUERY**********//
-
 
     $('.form_datetime').datetimepicker({
         language:  'es',
@@ -33,6 +14,14 @@ $(function(){
         showMeridian: 1,
 
     });
+
+    // jQuery.datetimepicker.setLocale('es');
+    //
+    // $('.form_datetime').datetimepicker({
+    //     timepicker:true,
+    //     format:'Y-m-d H:i',
+    //     step:15
+    // });
 
 
     $('#miTabla').DataTable({
@@ -94,7 +83,7 @@ $(function(){
         ordering: false,
         info: true,
         responsive: false,
-        pageLength: 25
+        pageLength: 25,
         // order: [[ 0, "asc" ]]
     });
 
@@ -117,65 +106,66 @@ $(function(){
     }
 
 
-        // toastr.info('Page Loaded!');
+
+    // toastr.info('Page Loaded!');
 
 
-        /*toast positions
-        *
-        * toast-top-right
-        * toast-top-center
-        * toast-top-letf
-        * toast-bottom-right
-        * toast-bottom-center
-        * toast-bottom-letf
-        *
-        * */
+    /*toast positions
+    *
+    * toast-top-right
+    * toast-top-center
+    * toast-top-letf
+    * toast-bottom-right
+    * toast-bottom-center
+    * toast-bottom-letf
+    *
+    * */
 
-        /* toast tipe alert
-        *
-        * toastr.info()
-        * toastr.warning()
-        * toastr.success()
-        * toastr.error()
-        *
-        */
-        // let micheck =  $('#checkRouter');
-        //
-        //
-        //     if(micheck.checked)
-
-
-        // $('#btnBaja').click(function() {
-        //     console.log(micheck.checked);
-        //
-        //     if(micheck.checked === false){
-        //         toastr.success('Hola mundo','',{
-        //             closeButton: false,
-        //             debug: false,
-        //             newestOnTop: false,
-        //             progressBar: false,
-        //             positionClass: "toast-top-center",
-        //             preventDuplicates: true,
-        //             onclick: null,
-        //             showDuration: "100",
-        //             hideDuration: "1000",
-        //             timeOut: "5000",
-        //             extendedTimeOut: "1000",
-        //             showEasing: "swing",
-        //             hideEasing: "linear",
-        //             showMethod: "show",
-        //             hideMethod: "hide"
-        //         });
-        //     }
-        // });
+    /* toast tipe alert
+    *
+    * toastr.info()
+    * toastr.warning()
+    * toastr.success()
+    * toastr.error()
+    *
+    */
+    // let micheck =  $('#checkRouter');
+    //
+    //
+    //     if(micheck.checked)
 
 
-        //***********FIN ZONA JQUERY***********//
+    // $('#btnBaja').click(function() {
+    //     console.log(micheck.checked);
+    //
+    //     if(micheck.checked === false){
+    //         toastr.success('Hola mundo','',{
+    //             closeButton: false,
+    //             debug: false,
+    //             newestOnTop: false,
+    //             progressBar: false,
+    //             positionClass: "toast-top-center",
+    //             preventDuplicates: true,
+    //             onclick: null,
+    //             showDuration: "100",
+    //             hideDuration: "1000",
+    //             timeOut: "5000",
+    //             extendedTimeOut: "1000",
+    //             showEasing: "swing",
+    //             hideEasing: "linear",
+    //             showMethod: "show",
+    //             hideMethod: "hide"
+    //         });
+    //     }
+    // });
 
 
-        //************VALIDACIONES************//
+    //***********FIN ZONA JQUERY***********//
 
-        //Control sobre el boton de finalizar baja
+
+    //************VALIDACIONES************//
+
+    //Control sobre el boton de finalizar baja
 
 
     let miSelect = $('#solucion');
@@ -185,7 +175,6 @@ $(function(){
 
     miSelect.change(function () {
         let opcion = this.options[this.selectedIndex].innerHTML;
-        console.log(opcion);
 
         if (opcion === "otros") {
             comentario.css("display","block");
@@ -194,6 +183,37 @@ $(function(){
         }
     });
 
+    //************************************************//
+
+    let checkInstalacion = $('#checkInstalacion');
+    let comentarioInstalacion = $('#comentarioInstalacion');
+
+    // comentarioInstalacion.css("display","none");
+
+    checkInstalacion.change(function () {
+        if ($(this).is(':checked')) {
+            comentarioInstalacion.css("display","block");
+        } else {
+            comentarioInstalacion.css("display","none");
+        }
+    });
+
+    //************************************************//
+    //DESACTIVAR EL BOTON DE FINALIZAR INSTALACION//
+
+    let btnInstalacion = $('#btnInstalacion');
+    btnInstalacion.attr("disabled", true);
+
+    $('#checkRouterInstalacion').change(function () {
+
+        if (!this.checked) {
+            btnInstalacion.attr("disabled", true);
+        } else {
+            btnInstalacion.attr("disabled", false);
+        }
+    });
+
+    //DESACTIVAR EL BOTON DE FINALIZAR BAJA//
 
     let btnBaja = $('#btnBaja');
     btnBaja.attr("disabled", true);
@@ -206,6 +226,22 @@ $(function(){
             btnBaja.attr("disabled", false);
         }
     });
+
+    //DESACTIVAR EL BOTON DE CAMBIO DE DOMICILIO//
+
+    let btnCambioDomicilio = $('#btnCambioDomicilio');
+    btnCambioDomicilio.attr("disabled", true);
+
+    $('#checkRouterCambioDomicilio').change(function () {
+
+        if (!this.checked) {
+            btnCambioDomicilio.attr("disabled", true);
+        } else {
+            btnCambioDomicilio.attr("disabled", false);
+        }
+    });
+
+    //************************************************//
 
     let selectComerciales = $('#selectComerciales');
     let contenedorToggleIncidencia = $('#contenedorToggleIncidencia');
@@ -244,8 +280,62 @@ $(function(){
         }
     });
 
-    //**********FIN VALIDACIONES**********//
+    //VALIDACION AL BUSCAR CLIENTES PARA AÑADIRLOS
 
+    let dniBuscarCliente = $('#btnBuscar');
+    let dniBuscarInput = $('#dniBuscarInput');
+    let mensajedniBuscarInput = $('#mensajedniBuscarInput');
+
+
+
+    dniBuscarCliente.click(function(e){
+        mensajedniBuscarInput.html("");
+        if(dniBuscarInput.val().length !== 9){
+            e.preventDefault();
+            mensajedniBuscarInput.html('La longitud debe ser de 9 caracteres');
+        }
+    });
+
+    //VALIDACION AL AÑADIR y MODIFICAR CLIENTES
+
+    let dniAddInput = $('#dni-add-input');
+    let btnAddCliente = $('#btnAddCliente');
+    let mensajedniAddInput = $('#mensajedniAddInput');
+    let mensajeNombreInput = $('#mensajeNombreInput');
+    let mensajeDireccionInput =$('#mensajeDireccionInput');
+    let mensajeTelefonoInput =$('#mensajeTelefonoInput');
+    let inputDireccionAdd = $('#input-direccion-add');
+    let inputNombreAdd = $('#input-nombre-add');
+    let inputTelefonoAdd = $('#input-telefono-add');
+
+    btnAddCliente.click(function(e){
+        mensajedniAddInput.html("");
+        mensajeNombreInput.html("");
+        mensajeDireccionInput.html("");
+        mensajeTelefonoInput.html("");
+        if(dniAddInput.val().length !== 9){
+            e.preventDefault();
+            mensajedniAddInput.html('mínimo 9 caracteres');
+        }
+        if(inputNombreAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreInput.html('Obligatorio');
+        }
+        if(inputDireccionAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeDireccionInput.html('Obligatorio');
+        }
+        if(inputTelefonoAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeTelefonoInput.html('Obligatorio');
+        }
+        if(inputTelefonoAdd.val().trim().length > 0 && inputTelefonoAdd.val().trim().length < 9 )  {
+            e.preventDefault();
+            mensajeTelefonoInput.html('mínimo 9 caracteres');
+        }
+    });
+
+    //**********FIN VALIDACIONES**********//
 
 });
 

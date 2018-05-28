@@ -11,12 +11,13 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el DNI del cliente:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dni }}">
+                    <input id="dniBuscarInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dni }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajedniBuscarInput"></p>
                 </div>
             </div>
 
             <div class="vistaFormulario">
-                <button class="btn btn-primary" type="submit" name="btnBuscar"><i class="fas fa-search"></i> Buscar</button>
+                <button id="btnBuscar" class="btn btn-primary" type="submit" name="btnBuscar"><i class="fas fa-search"></i> Buscar</button>
                 <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
             {% if mensaje == 'ok' %}
@@ -30,7 +31,19 @@
                     {% if rol == '1' %}
 
                         <div class="vistaFormulario">
-                        <p class="alert alert-warning">Cliente: {{ dni }} ya existe, pero no esta asocidado a ningún comercial, ¿desea añadirlo?</p>
+                            <p class="alert alert-warning">Cliente: {{ dni }} ya existe, pero no esta asocidado a ningún comercial, ¿desea añadirlo?</p>
+                        </div>
+                        <div class="vistaCheck">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input id="checkInstalacion" type="checkbox" aria-label="Checkbox for following text input" value="1" name="instalacionAuto" checked>
+                                    </div>
+                                </div>
+                                <input id="" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir instalación" disabled>
+                            </div>
+                        </div>
+                        <div class="vistaFormulario" id="comentarioInstalacion">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-default">Comentario de la instalación:</span>
@@ -57,10 +70,6 @@
                 {% if mensajeIncidencia == 'error' %}
                     <p class="alert alert-danger">Error al crear la instalación del cliente: {{ dni }} intente añadirla manualmente, si no es posible contacte con el administrador.</p>
                 {% endif %}
-
-                {% if mensajeDniNoValido == 'error' %}
-                    <p class="alert alert-danger">El dni no es válido</p>
-                {% endif %}
             {% endif %}
 
             {% if mensajeDniNoValido == 'error' %}
@@ -71,6 +80,6 @@
     </div>
 {% endblock %}
 
- {% block usuario %}
-     <span>Conectado como: {{ usuario }}</span>
- {% endblock %}
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

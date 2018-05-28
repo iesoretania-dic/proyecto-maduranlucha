@@ -4,129 +4,7 @@
 
 {% block contenido %}
     <div class="contenido">
-        <form class="" action="" method="post">
-            <div class="vistaFormulario">
-                <p class="alert alert-info">Introduce los dátos del nuevo cliente: </p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la dirección:</span>
-                    </div>
-                    <select name="tipoD" id="">
-                        <option value="">Otros</option>
-                        <option value="C/ ">Calle</option>
-                        <option value="AVN ">Avenida</option>
-                        <option value="PLZA ">Plaza</option>
-                        <option value="PSO ">Paseo</option>
-                        <option value="CTRA ">Carretera</option>
-                        <option value="CMNO ">Camino</option>
-                        <option value="URB ">Urbanizazion</option>
-                    </select>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ direccionP }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la ciudad:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad" value="{{ ciudad }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la provincia:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="provincia" value="{{ provincia }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el código postal:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp" value="{{ cp }}">
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono:</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ telefono }}">
-                </div>
-            </div>
-            {% if rol == '0' %}
-                <div class="vistaFormulario">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Comercial:</span>
-                            <select id="selectComerciales" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial">
-                                <option value="">Seleccione un comercial</option>
-                                {% for comercial in comerciales %}
-                                    <option value="{{ comercial.dni }}">{{ comercial.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="miDiv">
-                    <div id="contenedorToggleIncidencia" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input id="toggle-incidencia" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input">
-                                <label for="toggle-incidencia"></label>
-                            </div>
-                        </div>
-                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir incidencia" disabled>
-                    </div>
-
-                    <div id="incidencia" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
-                        </div>
-                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tipo" id="tipo">
-                            <option value="">Indique el tipo de la incidencia:</option>
-                            <option value="averia">Averia</option>
-                            <option value="Instalacion">Instalacion</option>
-                            <option value="cambiodomicilio">Cambio de Domicilio</option>
-                            <option value="baja">Baja</option>
-                        </select>
-                    </div>
-
-                    <div id="comentarioIncidencia" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label for="otros" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
-                            <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="otros" cols="15" rows="2"></textarea>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-            {% if rol == '1' %}
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Comentario de la instalación:</span>
-                </div>
-                <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
-            </div>
-            {% endif %}
-            <p class="alert alert-info">(*) Campos obligatorios: </p>
-
-
-            <div class="grupoFB">
-                <button class="btn btn-primary" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>
-                <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
-            </div>
+        <form class="formularioTecnicos" action="" method="post">
 
             <div class="vistaFormulario">
                 {% if mensaje == 'error' %}
@@ -153,10 +31,156 @@
                     <p class="alert alert-warning">El comentario es obligatorio</p>
                 {% endif %}
             </div>
+
+
+            <div class="vistaFormulario">
+                <p class="alert alert-info">Introduce los dátos del nuevo cliente: </p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni*:</span>
+                    </div>
+                    <input id="dni-add-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dniB }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajedniAddInput"></p>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre*:</span>
+                    </div>
+                    <input id="input-nombre-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeNombreInput"></p>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la dirección*:</span>
+                    </div>
+                    <select name="tipoD" id="">
+                        <option value="">Otros</option>
+                        <option value="C/ ">Calle</option>
+                        <option value="AVN ">Avenida</option>
+                        <option value="PLZA ">Plaza</option>
+                        <option value="PSO ">Paseo</option>
+                        <option value="CTRA ">Carretera</option>
+                        <option value="CMNO ">Camino</option>
+                        <option value="URB ">Urbanizazion</option>
+                    </select>
+                    <input id="input-direccion-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="direccion" value="{{ direccionP }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeDireccionInput"></p>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el teléfono*:</span>
+                    </div>
+                    <input id="input-telefono-add" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ telefono }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeTelefonoInput"></p>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la ciudad:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="ciudad" value="{{ ciudad }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce la provincia:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="provincia" value="{{ provincia }}">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Introduce el codigo postal:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp" value="{{ cp }}">
+                </div>
+
+            </div>
+            {% if rol == '0' %}
+                <div class="vistaFormulario">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Comercial:</span>
+                            <select id="selectComerciales" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial">
+                                <option value="">Seleccione un comercial</option>
+                                {% for comercial in comerciales %}
+                                    <option value="{{ comercial.dni }}">{{ comercial.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="miDiv">
+                    <div id="contenedorToggleIncidencia" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="toggle-incidencia" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input">
+                                <label for="toggle-incidencia"></label>
+                            </div>
+                        </div>
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir incidencia" disabled>
+                    </div>
+                </div>
+                <div class="vistaCheck">
+                    <div id="incidencia" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
+                        </div>
+                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tipo" id="tipo">
+                            <option value="">Indique el tipo de la incidencia:</option>
+                            <option value="averia">Averia</option>
+                            <option value="Instalacion">Instalacion</option>
+                            <option value="cambiodomicilio">Cambio de Domicilio</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="vistaFormulario">
+                    <div id="comentarioIncidencia" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="otros" class="input-group-text" id="inputGroup-sizing-default">Detalles*:</label>
+                            <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="otros" cols="25" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            {% endif %}
+            {% if rol == '1' %}
+                <div class="vistaFormulario">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Detalles de la instalación*:</span>
+                        </div>
+                        <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                    </div>
+                </div>
+
+            {% endif %}
+
+            <div class="vistaFormulario">
+                <p class="alert alert-info">(*) Campos obligatorios: </p>
+            </div>
+
+
+
+
+            <div class="vistaFormulario">
+                <button id="btnAddCliente" class="btn btn-primary" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>
+                <button class="btn btn-primary" type="submit" name="btnCancelar"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+
+
         </form>
     </div>
 {% endblock %}
 
 {% block usuario %}
- <span>Conectado como: {{ usuario }}</span>
+    <span>Conectado como: {{ usuario }}</span>
 {% endblock %}
