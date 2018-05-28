@@ -1,0 +1,73 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Informes' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+
+            {% if vista == 'botones' %}
+            <div class="vistaFormularioXL">
+                <ul class="list-group">
+                    {#1#}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Clientes dados de baja con material: </span>
+                        <button class="btn btn-info btnInforme" type="submit" name="bajaMaterial"><i class="fas fa-search"></i></button>
+                    </li>
+                </ul>
+            </div>
+
+            {% endif %}
+
+            {% if vista == 'consulta' %}
+                <div class="vistaFormulario">
+                    <button id="btnAddCliente" class="btn btn-primary" type="submit" name="btnVolver"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+
+                {% if consulta == '1' %}
+
+                <div class="contenedorTabla">
+                    <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
+                        <thead class="miThead">
+                        <tr>
+                            <th>Dni</th>
+                            <th>Nombre</th>
+                            <th>Antenas</th>
+                            <th>Routers</th>
+                            <th>Telefono</th>
+                            <th>Tipo</th>
+                        </tr>
+                        </thead>
+
+                        {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                        {% for cliente in clientes %}
+                            <tr>
+                                <td>{{ cliente.dni }}</td>
+                                <td>{{ cliente.nombre }}</td>
+                                <td>{{ cliente.antenas }}</td>
+                                <td>{{ cliente.routers }}</td>
+                                <td>{{ cliente.telefono }}</td>
+                                <td>{{ cliente.tipo }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+
+            {% endif %}
+
+
+            {% if vista == 'botones' %}
+                {% if mensaje == 'error' %}
+                    <label class="alert alert-warning">No hay resultados</label>
+                {% endif %}
+            {% endif %}
+
+
+        </form>
+    </div>
+{% endblock %}
+
+ {% block usuario %}
+     <span>Conectado como: {{ usuario }}</span>
+ {% endblock %}
