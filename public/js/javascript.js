@@ -242,11 +242,12 @@ $(function(){
     });
 
     //************************************************//
-
+    //Control sobre añadir incidencias cuando creamos clientes para el administrador.
     let selectComerciales = $('#selectComerciales');
     let contenedorToggleIncidencia = $('#contenedorToggleIncidencia');
+    let comentarioIncidenciaText = $('#otros');
+    let comentarioIncidenciaContenedor = $('#comentarioIncidencia');
     let incidencia = $('#incidencia');
-    let comentarioIncidencia = $('#comentarioIncidencia');
     let tipoIncidencia =$('#tipo');
 
     selectComerciales.change(function () {
@@ -258,13 +259,14 @@ $(function(){
             contenedorToggleIncidencia.css("display","none");
             $('#toggle-incidencia').prop("checked",false);
             incidencia.css("display", "none");
-            comentarioIncidencia.css("display", "none");
+            comentarioIncidenciaText.val("");
+            comentarioIncidenciaContenedor.css("display", "none");
             tipoIncidencia.val("");
         }
     });
 
     incidencia.css("display", "none");
-    comentarioIncidencia.css("display", "none");
+    comentarioIncidenciaContenedor.css("display", "none");
     contenedorToggleIncidencia.css("display", "none");
 
 
@@ -273,10 +275,10 @@ $(function(){
 
         if (!$(this).is(':checked')) {
             incidencia.css("display", "none");
-            comentarioIncidencia.css("display", "none");
+            comentarioIncidenciaContenedor.css("display", "none");
         } else {
             incidencia.css("display", "flex");
-            comentarioIncidencia.css("display", "block");
+            comentarioIncidenciaContenedor.css("display", "block");
         }
     });
 

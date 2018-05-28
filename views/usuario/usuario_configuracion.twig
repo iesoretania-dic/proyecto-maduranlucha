@@ -1,17 +1,25 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Añadir Usuarios' %}
+{% block title 'Configuracion' %}
 
 {% block contenido %}
     <div class="contenido">
 
         {% if zona == 'password' %}
             <form class="" action="" method="post">
-                <p class="alert alert-info">Introduzca su contraseña:</p>
+                <p class="alert alert-info">Por motivos de seguridad:</p>
 
-                <div class="grupoF">
-                    <input class="inputF" id="usuario" type="password" name="passwordVerificar" value="">
-                    <input class="btn btn-primary" type="submit" value="aceptar" name="aceptar">
+                <div class="vistaFormulario">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
+                        </div>
+                        <input class="form-control" id="usuario" type="password" name="passwordVerificar" value="">
+                    </div>
+                </div>
+
+                <div class="vistaCheck">
+                    <button id="btnAddCliente" class="btn btn-primary" type="submit" name="aceptar"><i class="fas fa-unlock"></i> Aceptar</button>
                 </div>
                 {% if mensaje == 'Ok' %}
                     <p class="alert alert-success">Cambios guardados</p>
@@ -42,14 +50,14 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="password" class="input-group-text" id="inputGroup-sizing-default">Introduce la nueva Contraseña:</label>
+                            <label for="password" class="input-group-text" id="inputGroup-sizing-default">Introduce la nueva contraseña:</label>
                         </div>
                         <input type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="passwordR" class="input-group-text" id="inputGroup-sizing-default">Repite la Contraseña:</label>
+                            <label for="passwordR" class="input-group-text" id="inputGroup-sizing-default">Repite la contraseña:</label>
                         </div>
                         <input type="password" id="passwordR" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
                     </div>
@@ -57,11 +65,11 @@
 
                 </div>
 
-                <div class="grupoFB">
-                    <input class="btn btn-primary btnF" type="submit" value="Modificar" name="btnModificar">
-                    <input class="btn btn-primary btnF" type="submit" value="Cancelar" name="cancelar">
+                <div class="vistaCheck">
+                    <button id="btnAddCliente" class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-check"></i> Modificar</button>
+                    <button id="btnAddCliente" class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
-                <div class="grupoF">
+                <div class="vistaFormulario">
                     <p class="alert alert-info">(*) Campos obligatorios</p>
                 </div>
 
