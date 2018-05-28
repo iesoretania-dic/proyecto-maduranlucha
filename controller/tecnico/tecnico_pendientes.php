@@ -20,7 +20,7 @@ if(!isset($_SESSION['usuario'])){
     $fechaActual = date("Y-m-d H:i:s");
     try{
         //Consulta para obtener las incidencias pendientes del tecnico
-        $sentencia = "SELECT incidencia.id_incidencia,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.fecha_resolucion,incidencia.disponible,incidencia.otros, cliente.nombre, cliente.telefono, cliente.direccion, usuario.asignada FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.tecnico= :tecnico AND incidencia.fecha_resolucion IS NULL ORDER BY fecha_creacion";
+        $sentencia = "SELECT incidencia.id_incidencia,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.fecha_resolucion,incidencia.disponible,incidencia.otros, cliente.nombre, cliente.telefono,cliente.ciudad, cliente.direccion, usuario.asignada FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.tecnico= :tecnico AND incidencia.fecha_resolucion IS NULL ORDER BY fecha_creacion";
         $parametros = (array(":tecnico"=>$idUsuario));
         $datos = new Consulta();
         $arrayFilas = $datos->get_conDatos($sentencia,$parametros);

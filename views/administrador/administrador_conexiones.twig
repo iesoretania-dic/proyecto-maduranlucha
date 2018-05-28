@@ -25,7 +25,7 @@
 
                         {% for conexion in conexiones %}
                             <tr>
-                                <td>{{ conexion.fecha | date ('d/m/y h:i') }}</td>
+                                <td>{{ conexion.fecha | date ('d/m/y H:i') }}</td>
                                 <td>{{ conexion.usuario }}</td>
                                 <td>{{ conexion.nombre }}</td>
                                 <td {% if conexion.tipo == 'conexion' %}

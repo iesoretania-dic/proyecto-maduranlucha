@@ -22,6 +22,7 @@
                             <th>Cliente</th>
                             <th>Nombre</th>
                             <th>Telefono</th>
+                            <th>Ciudad</th>
                             <th>Creacion</th>
                             <th>Disponible</th>
                             <th>Otros</th>
@@ -36,8 +37,9 @@
                                 <td>{{ fila.id_cliente }}</td>
                                 <td>{{ fila.nombre }}</td>
                                 <td>{{ fila.telefono }}</td>
-                                <td>{{ fila.fecha_creacion | date ('d/m/y h:i') }}</td>
-                                <td>{{ fila.disponible | date ('d/m/y h:i') }}</td>
+                                <td>{{ fila.ciudad }}</td>
+                                <td>{{ fila.fecha_creacion | date ('d/m/y H:i') }}</td>
+                                <td>{{ fila.disponible | date ('d/m/y H:i') }}</td>
                                 <td>{{ fila.otros }}</td>
                                 <td class="td-acciones">
                                     <input type="submit" class="botonAccion btnAceptar" title="Asignar" name="incidencia_aceptar" value={{ fila.id_incidencia }}>
