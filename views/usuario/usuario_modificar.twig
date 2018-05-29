@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Añadir Usuarios' %}
+{% block title 'Modificar Usuarios' %}
 
 {% block contenido %}
     <div class="contenido">
@@ -12,42 +12,48 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el dni*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ datosUsuario.dni }}">
+                    <input id="usuarioDniAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ datosUsuario.dni }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeDniAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Usuario*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ datosUsuario.usuario }}">
+                    <input id="usuarioUsuarioAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ datosUsuario.usuario }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeUsuarioAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ datosUsuario.nombre }}">
+                    <input id="usuarioNombreAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ datosUsuario.nombre }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeNombreAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Teléfono*:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ datosUsuario.telefono }}">
+                    <input id="usuarioTelefonoAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ datosUsuario.telefono }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeTelefonoAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Contraseña:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                    <input id="usuarioClaveAdd" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeClaveAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Vuelve a introducir la Contraseña: </span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                    <input id="usuarioClaveRAdd" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeClaveRAdd"></p>
                 </div>
                 {% if rolUsuario == 2 %}
                     <div class="input-group mb-3">
@@ -69,26 +75,37 @@
             </div>
 
             <div class="vistaFormulario">
-                <button class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Si</button>
+                <button id="btnUsuarioModificar" class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Si</button>
                 <button class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 
 
-
-            {% if comprobarDni == false %}
+            {% if mensajeDniExiste == 'error' %}
                 <p class="alert alert-danger">El dni ya existe</p>
             {% endif %}
 
-            {% if comprobarUsuario == false %}
-                <p class="alert alert-danger">El Usuario ya existe</p>
+            {% if mensajeDniMinimo == 'error' %}
+                <p class="alert alert-danger">El dni no es válido</p>
             {% endif %}
 
-            {% if claveCoinciden == false %}
-                <p class="alert alert-danger">Las contraseñas no coinciden</p>
+            {% if mensajeClaveNoValida == 'error' %}
+                <p class="alert alert-danger">la clave debe tener al menos 5 caracteres</p>
             {% endif %}
 
-            {% if mensaje == 'error' %}
-                <p class="alert alert-danger">Error al insertar el cliente {{ nUsuario }}</p>
+            {% if mensajeClaveNoCoincide == 'error' %}
+                <p class="alert alert-danger">la clave no coincide</p>
+            {% endif %}
+
+            {% if mensajeUsuarioExiste == 'error' %}
+                <p class="alert alert-danger">El usuario ya existe</p>
+            {% endif %}
+
+            {% if mensajeUsuarioMinimo == 'error' %}
+                <p class="alert alert-danger">El usuario no es válido</p>
+            {% endif %}
+
+            {% if mensajeTelefoNoValido == 'error' %}
+                <p class="alert alert-danger">El teléfono no es válido</p>
             {% endif %}
 
         </form>

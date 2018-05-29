@@ -23,54 +23,60 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Dni:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni">
+                    <input id="usuarioDniAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="dni" value="{{ dni }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeDniAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre de usuario:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario">
+                    <input id="usuarioUsuarioAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ nUsuario }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeUsuarioAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Nombre:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre">
+                    <input id="usuarioNombreAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeNombreAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Télefono:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono">
+                    <input id="usuarioTelefonoAdd" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="telefono" value="{{ telefono }}" >
+                    <p type="text" class="badge badge-danger alerta" id="mensajeTelefonoAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce la Contraseña:</span>
                     </div>
-                    <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                    <input id="usuarioClaveAdd" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeClaveAdd"></p>
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Vuelve a introducir la Contraseña:</span>
                     </div>
-                    <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                    <input id="usuarioClaveRAdd" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                    <p type="text" class="badge badge-danger alerta" id="mensajeClaveRAdd"></p>
                 </div>
                 {% if rolUsuario == 2 %}
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
-                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="limite" id="limite">
-                            {% for i in 1..20 %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
+                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="limite" id="limite">
+                                {% for i in 1..20 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                </div>
                 {% endif %}
             </div>
 
@@ -79,7 +85,7 @@
             </div>
 
             <div class="vistaFormulario">
-                <button class="btn btn-success" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>
+                <button id="btnUsuarioAdd" class="btn btn-success" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>
                 <button class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
 

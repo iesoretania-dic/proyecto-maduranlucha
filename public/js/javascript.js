@@ -317,7 +317,7 @@ $(function(){
         mensajeTelefonoInput.html("");
         if(dniAddInput.val().length !== 9){
             e.preventDefault();
-            mensajedniAddInput.html('mínimo 9 caracteres');
+            mensajedniAddInput.html('9 caracteres');
         }
         if(inputNombreAdd.val().trim().length === 0){
             e.preventDefault();
@@ -334,6 +334,137 @@ $(function(){
         if(inputTelefonoAdd.val().trim().length > 0 && inputTelefonoAdd.val().trim().length < 9 )  {
             e.preventDefault();
             mensajeTelefonoInput.html('mínimo 9 caracteres');
+        }
+    });
+
+    //VALIDACION AL AÑADIR y MODIFICAR USUARIOS
+
+    let btnUsuarioAdd = $('#btnUsuarioAdd');
+    let btnUsuarioModificar = $('#btnUsuarioModificar');
+
+    let usuarioDniAdd = $('#usuarioDniAdd');
+    let usuarioUsuarioAdd = $('#usuarioUsuarioAdd');
+    let usuarioNombreAdd = $('#usuarioNombreAdd');
+    let usuarioTelefonoAdd = $('#usuarioTelefonoAdd');
+    let usuarioClaveAdd = $('#usuarioClaveAdd');
+    let usuarioClaveRAdd = $('#usuarioClaveRAdd');
+
+    let mensajeDniAdd = $('#mensajeDniAdd');
+    let mensajeUsuarioAdd = $('#mensajeUsuarioAdd');
+    let mensajeNombreAdd = $('#mensajeNombreAdd');
+    let mensajeTelefonoAdd = $('#mensajeTelefonoAdd');
+    let mensajeClaveAdd = $('#mensajeClaveAdd');
+    let mensajeClaveRAdd = $('#mensajeClaveRAdd');
+
+    btnUsuarioAdd.click(function(e){
+        mensajeDniAdd.html("");
+        mensajeUsuarioAdd.html("");
+        mensajeNombreAdd.html("");
+        mensajeTelefonoAdd.html("");
+        mensajeClaveAdd.html("");
+        mensajeClaveRAdd.html("");
+
+        if(usuarioDniAdd.val().length !== 9){
+            e.preventDefault();
+            mensajeDniAdd.html('9 caracteres');
+        }
+        if(usuarioUsuarioAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeUsuarioAdd.html('Obligatorio');
+        }
+        if(usuarioNombreAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreAdd.html('Obligatorio');
+        }
+        if(usuarioTelefonoAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeTelefonoAdd.html('Obligatorio');
+        }
+        if(usuarioTelefonoAdd.val().trim().length > 0 && usuarioTelefonoAdd.val().trim().length < 9 )  {
+            e.preventDefault();
+            mensajeTelefonoAdd.html('mínimo 9 caracteres');
+        }
+        if(usuarioClaveAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeClaveAdd.html('Obligatorio');
+        }
+        if(usuarioClaveRAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeClaveRAdd.html('Obligatorio');
+        }
+
+        if(usuarioClaveAdd.val().trim().length < 5){
+            e.preventDefault();
+            mensajeClaveAdd.html('Mínimo 5 caracteres');
+        }
+
+        if(usuarioClaveRAdd.val().trim().length < 5){
+            e.preventDefault();
+            mensajeClaveRAdd.html('Mínimo 5 caracteres');
+        }
+
+        if(usuarioClaveAdd.val().trim() !== usuarioClaveRAdd.val().trim()){
+            e.preventDefault();
+            mensajeClaveAdd.html('No coinciden');
+            mensajeClaveRAdd.html('No coinciden');
+        }
+
+    });
+    //Modificar usuarios
+    btnUsuarioModificar.click(function(e){
+        mensajeDniAdd.html("");
+        mensajeUsuarioAdd.html("");
+        mensajeNombreAdd.html("");
+        mensajeTelefonoAdd.html("");
+        mensajeClaveAdd.html("");
+        mensajeClaveRAdd.html("");
+
+        if(usuarioDniAdd.val().length !== 9){
+            e.preventDefault();
+            mensajeDniAdd.html('9 caracteres');
+        }
+        if(usuarioUsuarioAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeUsuarioAdd.html('Obligatorio');
+        }
+        if(usuarioNombreAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreAdd.html('Obligatorio');
+        }
+        if(usuarioTelefonoAdd.val().trim().length === 0){
+            e.preventDefault();
+            mensajeTelefonoAdd.html('Obligatorio');
+        }
+        if(usuarioTelefonoAdd.val().trim().length > 0 && usuarioTelefonoAdd.val().trim().length < 9 )  {
+            e.preventDefault();
+            mensajeTelefonoAdd.html('Mínimo 9 caracteres');
+        }
+
+        if(usuarioClaveAdd.val().trim().length !== 0 || usuarioClaveRAdd.val().trim().length !== 0 )  {
+            if(usuarioClaveAdd.val().trim().length === 0){
+                e.preventDefault();
+                mensajeClaveAdd.html('Obligatorio');
+            }
+            if(usuarioClaveRAdd.val().trim().length === 0){
+                e.preventDefault();
+                mensajeClaveRAdd.html('Obligatorio');
+            }
+
+            if(usuarioClaveAdd.val().trim().length < 5){
+                e.preventDefault();
+                mensajeClaveAdd.html('Mínimo 5 caracteres');
+            }
+
+            if(usuarioClaveRAdd.val().trim().length < 5){
+                e.preventDefault();
+                mensajeClaveRAdd.html('Mínimo 5 caracteres');
+            }
+
+            if(usuarioClaveAdd.val().trim() !== usuarioClaveRAdd.val().trim()){
+                e.preventDefault();
+                mensajeClaveAdd.html('No coinciden');
+                mensajeClaveRAdd.html('No coinciden');
+            }
         }
     });
 
