@@ -33,8 +33,7 @@
                             <tr>
                                 <td>{{ comentario.tecnico }}</td>
                                 <td>{{ comentario.texto }}</td>
-                                <td>{{ comentario.fecha | date ('d/m/y H:i')}}</td>
-
+                                <td>{% if comentario.fecha %}{{ comentario.fecha | date ('d/m/y H:i') }} {% endif %}</td>
                             </tr>
                         {% endfor %}
                     </table>

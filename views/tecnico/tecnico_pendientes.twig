@@ -38,8 +38,8 @@
                                 <td>{{ fila.nombre }}</td>
                                 <td>{{ fila.telefono }}</td>
                                 <td>{{ fila.ciudad }}</td>
-                                <td>{{ fila.fecha_creacion | date ('d/m/y H:i') }}</td>
-                                <td>{{ fila.disponible | date ('d/m/y H:i') }}</td>
+                                <td>{% if fila.fecha_creacion %} {{ fila.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
+                                <td>{% if fila.disponible %} {{ fila.disponible | date ('d/m/y H:i') }} {% endif %}</td>
                                 <td>{{ fila.otros }}</td>
                                 <td class="td-acciones">
                                     <input type="submit" class="botonAccion btnAceptar" title="Asignar" name="incidencia_aceptar" value={{ fila.id_incidencia }}>

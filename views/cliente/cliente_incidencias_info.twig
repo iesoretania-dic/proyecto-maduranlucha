@@ -21,12 +21,14 @@
                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ incidencia.id_incidencia }}&tipo=0"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                         </div>
                         {% endif %}
-
                         <button class="btn btn-primary" type="submit" name="btnVolver"><i class="fas fa-undo"></i> Volver</button>
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Incidencia número:</span>
+                    <div>
+                      <span>Incidencia número:</span>
+                    </div>
+
                         <span class="badge badge-primary">{{ incidencia.id_incidencia }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -43,7 +45,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de creación:</span>
-                        <span>{{ incidencia.fecha_creacion | date ('d/m/y H:i') }}</span>
+                        <span>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</span>
                     </li>
                     {% if incidencia.fecha_inicio %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -53,7 +55,7 @@
                     {% endif %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de resolución:</span>
-                        <span class="fechaCambiar">{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }}</span>
+                        <span>{% if incidencia.fecha_resolucion %}{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</span>
                     </li>
                     {% if incidencia.estado != '3' and incidencia.disponible %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -61,7 +63,7 @@
                         {% if incidencia.disponible < fechaActual  %}
                         <span class="badge badge-success">{{ incidencia.disponible | date ('d/m/y H:i') }}</span>
                         {% else %}
-                        <span class="badge badge-warning">{{ incidencia.disponible | date ('d/m/y H:i') }}</span>
+                        <span class="badge badge-warning">{{ incidencia.disponible | date ('d/m/y H:i')}}</span>
                         {% endif %}
 
                     </li>
@@ -126,7 +128,7 @@
                     {% if incidencia.parcial == 'Si'%}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>Fecha parcial:</span>
-                            <span class="badge badge-dark">{{ incidencia.fecha_parcial | date ('d/m/y H:i') }}</span>
+                            <span class="badge badge-dark">{% if incidencia.fecha_parcial %} {{ incidencia.fecha_parcial | date ('d/m/y H:i') }} {% endif %}</span>
                         </li>
                     {% endif %}
                     {% if incidencia.reincidencia > 0 %}
@@ -200,13 +202,13 @@
                         {% if incidencia.estado == '3' and tecnicoSolucion %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>Solución:</span>
-                                <a href="#" data-toggle="modal" data-target="#myModal2" >Pulsa para ver la solución</a>
+                                <a href="#" data-toggle="modal" data-target="#myModal2">Pulsa para ver la solución</a>
                             </li>
                         {% endif %}
 
                     {% endif %}
                 </ul>
-               {% if incidencia.otros %}
+                 {% if incidencia.otros %}
                     <ul class="list-group">
                         <li class="alert alert-info list-group-item list-group-item-secondary">Información sobre la incidencia:</li>
                         <li class="list-group-item liArea"><p class="pArea">{{ incidencia.otros }}</p></li>
@@ -292,7 +294,7 @@
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <p>" class="alert alert-info">Solucion de la incidencia: {{ incidencia.id_incidencia }}</p>
+                                <p class="alert alert-info">Solucion de la incidencia: {{ incidencia.id_incidencia }}</p>
 
                                 {% for elemento in listaSolucion %}
                                     <p>{{ elemento }}</p>
@@ -304,7 +306,7 @@
             </div>
         </form>
         <div class="historial">
-            <label class="alert alert-info">Historial de incidencias del cliente, pulsa para ir a la última incidencia: <a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ ultimaIncidencia }}">{{ ultimaIncidencia }}</a></label>
+            <label class="alert alert-info">Historial incidencias del cliente, última incidencia del cliente: <a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ ultimaIncidencia }}">{{ ultimaIncidencia }}</a></label>
             <div class="contenedorTabla">
                 <table class="table table-bordered table-sm miTabla table-responsive-xl">
                     <thead class="miThead">
@@ -319,7 +321,7 @@
                     {% for incidencia in historialIncidencias %}
                         <tr>
                             <td><a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ incidencia.id_incidencia }}">{{ incidencia.id_incidencia }}</a></td>
-                            <td>{{ incidencia.fecha_creacion | date ('d/m/y H:i') }}</td>
+                            <td>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
                             <td>{{ incidencia.info }}</td>
                             <td>{{ incidencia.solucion }}</td>
                         </tr>

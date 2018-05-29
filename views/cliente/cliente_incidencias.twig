@@ -5,7 +5,7 @@
 {% block contenido %}
     <div class="contenido">
         <form class="" action="" method="post">
-            <div class="vistaFormulario">
+            <div class="">
                 {% if tipo == '1' %}
                     <p class="alert alert-primary">Incidencias del cliente: <span class="badge badge-primary">{{ nombreCliente }}, {{ dniCliente }}</span></p>
                 {% elseif tipo == '0' %}
@@ -36,6 +36,7 @@
                                 <th>Disponible</th>
                                 <th>Tipo</th>
                                 <th>Acciones</th>
+
                             {% endif %}
                             {#Vista para el comercial#}
                             {% if rol == '1' %}
@@ -58,52 +59,51 @@
                                 <th>Acciones</th>
                             {% endif %}
 
-
                         </tr>
                         </thead>
 
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for fila in arrayFilas %}
                             <tr
-                                {% if fila.estado == '3' %}
-                                    class="terminada"
-                                {% elseif fila.estado == '2' %}
-                                    class="asignada"
-                                {% elseif fila.estado == '1' %}
-                                    class="activa"
-                                {% elseif fila.estado == '0' %}
-                                    class="no-asignada"
-                                {% elseif fila.estado == '4' %}
-                                    class="parcial"
-                                {% endif %}
+                                    {% if fila.estado == '3' %}
+                                        class="terminada"
+                                    {% elseif fila.estado == '2' %}
+                                        class="asignada"
+                                    {% elseif fila.estado == '1' %}
+                                        class="activa"
+                                    {% elseif fila.estado == '0' %}
+                                        class="no-asignada"
+                                    {% elseif fila.estado == '4' %}
+                                        class="parcial"
+                                    {% endif %}
                             >
                                 {% if rol == '0' %}
-                                <td>{{ fila.id_incidencia }}</td>
-                                <td>{{ fila.ncliente }}</td>
-                                <td>{{ fila.tnombre }}</td>
-                                <td>{{ fila.ntecnico }}</td>
-                                <td>{{ fila.fecha_creacion | date ('d/m/y H:i') }}</td>
-                                <td>{{ fila.fecha_resolucion | date ('d/m/y H:i') }}</td>
-                                    <td {% if fila.disponible > fechaActual and fila.estado != '3' %}  class="pendienteF" {% elseif fila.disponible <= fechaActual and fila.estado != '3'  %} class="pendienteW"  {% endif %} >{{ fila.disponible | date ('d/m/y H:i') }}</td>
-                                <td>
-                                    {% if fila.tipo == 'averia' %}
-                                        Averia
-                                    {% elseif fila.tipo == 'cambiodomicilio' %}
-                                        Cambio de domicilio
-                                    {% elseif fila.tipo == 'baja' %}
-                                        Baja
-                                    {% elseif fila.tipo == 'instalacion' %}
-                                        Instalación
-                                    {% endif %}
-                                </td>
+                                    <td>{{ fila.id_incidencia }}</td>
+                                    <td>{{ fila.ncliente }}</td>
+                                    <td>{{ fila.tnombre }}</td>
+                                    <td>{{ fila.ntecnico }}</td>
+                                    <td>{% if fila.fecha_creacion %} {{ fila.fecha_creacion | date ('d/m/y H:i')}} {% endif %}</td>
+                                    <td>{% if fila.fecha_resolucion %}  {{ fila.fecha_resolucion | date ('d/m/y H:i')}} {% endif %}</td>
+                                    <td {% if fila.disponible > fechaActual and fila.estado != '3' %}  class="pendienteF" {% elseif fila.disponible <= fechaActual and fila.estado != '3'  %} class="pendienteW"  {% endif %} >{% if fila.disponible %}  {{ fila.disponible | date ('d/m/y H:i')}} {% endif %}</td>
+                                    <td>
+                                        {% if fila.tipo == 'averia' %}
+                                            Averia
+                                        {% elseif fila.tipo == 'cambiodomicilio' %}
+                                            Cambio de domicilio
+                                        {% elseif fila.tipo == 'baja' %}
+                                            Baja
+                                        {% elseif fila.tipo == 'instalacion' %}
+                                            Instalación
+                                        {% endif %}
+                                    </td>
                                 {% endif %}
                                 {% if rol == '1' %}
                                     <td>{{ fila.id_incidencia }}</td>
                                     <td>{{ fila.ncliente }}</td>
                                     <td>{{ fila.ntecnico }}</td>
-                                    <td>{{ fila.fecha_creacion | date ('d/m/y H:i') }}</td>
-                                    <td>{{ fila.fecha_resolucion | date ('d/m/y H:i') }}</td>
-                                    <td {% if fila.disponible > fechaActual and fila.estado != '3' %}  class="pendienteF" {% elseif fila.disponible <= fechaActual and fila.estado != '3'  %} class="pendienteW"  {% endif %} >{{ fila.disponible | date ('d/m/y H:i') }}</td>
+                                    <td>{% if fila.fecha_creacion %} {{ fila.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if fila.fecha_resolucion %} {{ fila.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td {% if fila.disponible > fechaActual and fila.estado != '3' %}  class="pendienteF" {% elseif fila.disponible <= fechaActual and fila.estado != '3'  %} class="pendienteW"  {% endif %} >{% if fila.disponible %}  {{ fila.disponible | date ('d/m/y H:i')}} {% endif %}</td>
                                     <td>
                                         {% if fila.tipo == 'averia' %}
                                             Averia
@@ -122,21 +122,22 @@
                                     <td>{{ fila.telefono }}</td>
                                     <td>{{ fila.otros }}</td>
                                 {% endif %}
+
                                 {% if rol == '0' or rol == '4' %}
                                     <td class="td-acciones">
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
                                         {% endif %}
-                                        {% if fila.estado == '0' or fila.estado == '1'%}
+                                        {% if fila.estado == '0' or fila.estado == '1' %}
                                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' and fila.estado == '2' %}
                                             <a href="../tecnico/tecnico_finalizar_autorizar.php?Id={{ fila.id_incidencia }}&tipo={{ fila.tipo }}&cliente={{ fila.id_cliente }}&usuario={{ fila.tecnico }}&modo=0"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' %}
-                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&tipo=0&o=0"><input type="button" class="botonAccion btnInfo" title="Más informacion"></a>
                                         {% else %}
-                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&o=0"><input type="button" class="botonAccion btnInfo" title="Más información"></a>
+                                            <a href="../cliente/cliente_incidencias_info.php?Id={{ fila.id_incidencia }}&o=0"><input type="button" class="botonAccion btnInfo" title="Más informacion"></a>
                                         {% endif %}
                                         {% if rol == '0' and  fila.estado != '3' %}
                                             <a href="../cliente/cliente_incidencias_disponible.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnDispobible" title="Modificar fecha"></a>
@@ -147,13 +148,13 @@
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
                                             <a href="../cliente/cliente_incidencias_eliminar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnEliminar" title="Eliminar incidencia"></a>
                                         {% endif %}
-                                        {% if rol == '0'  and (fila.estado == '1' or fila.estado == '2' or fila.estado == '0')  %}
-                                            <a href="../cliente/cliente_incidencias_urgente.php?Id={{ fila.id_incidencia }}&tipo=0"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
+                                        {% if rol == '0' and (fila.estado == '1' or fila.estado == '2' or fila.estado == '0') %}
+                                            <a href="../cliente/cliente_incidencias_urgente.php?Id={{ fila.id_incidencia }}&tipo=3"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
                                         {% endif %}
-                                        {% if rol == '4'  and (fila.estado == '0') %}
+                                        {% if rol == '4' and (fila.estado == '0' or fila.estado == '1' or fila.estado == '2' ) %}
                                             <a href="#"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
                                         {% endif %}
-                                        {% if rol == '0' %}
+                                        {% if rol == '0' or rol == '4' %}
                                             <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                         {% endif %}
                                     </td>
@@ -173,10 +174,11 @@
                 <div class="vistaFomulario">
                     {% if rol == '0' %}
                         {% if tipo == '1' %}
-                            <p class="alert alert-primary">El cliente: <span class="badge badge-primary">{{ nombreCliente }}, {{ dniCliente }}</span>, no tiene incidencias en este momento</p>
+                            <p class="alert alert-primary">El cliente: <span class="badge badge-primary">{{ nombreCliente }},{{ dniCliente }}</span>, no tiene incidencias en este momento</p>
                         {% elseif tipo == '0' %}
                             <p class="alert alert-danger">Sin incidencias</p>
                         {% endif %}
+
                     {% elseif rol == '4' %}
                         <p class="alert alert-primary">En este momento no hay incidencias para mostrar</p>
                     {% endif %}
@@ -188,5 +190,5 @@
 {% endblock %}
 
 {% block usuario %}
- <span>Conectado como: {{ usuario }}</span>
+    <span>Conectado como: {{ usuario }}</span>
 {% endblock %}
