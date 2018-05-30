@@ -1,9 +1,17 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Comerciales' %}
+{% block title 'Listar usuarios' %}
 
 {% block contenido %}
     <div class="contenido">
+
+        {#Se ocultan ya que el mensaje lo mostraremos por toastr#}
+        {% if mensajeCambios == 'No' %}
+            <label id="cambiosModificarUsuario" hidden>No</label>
+        {% elseif mensajeCambios == 'Si' %}
+            <label id="cambiosModificarUsuario" hidden>Si</label>
+        {% endif %}
+
         <form action="" method="post">
             {% if rolUsuario == 1 %}
                 <p class="alert alert-success">Lista de comerciales</p>
@@ -12,7 +20,6 @@
             {% elseif rolUsuario == 4 %}
                 <p class="alert alert-success">Lista de controladores</p>
             {% endif %}
-
             <div class="vistaCheck">
                 {% if rolUsuario == 1 %}
                     <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir comercial</button>
@@ -22,7 +29,6 @@
                     <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir controlador</button>
                 {% endif %}
             </div>
-
             {% if mensaje == 'Ok' %}
                 <div class="contenedorTabla">
                     <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
@@ -35,6 +41,7 @@
                             {% if rolUsuario == '2'%}
                                 <th>Antenas</th>
                                 <th>Routers</th>
+                                <th>Atas</th>
                                 <th>LimiteMaterial</th>
                                 <th>Activa</th>
                             {% endif %}
@@ -49,10 +56,11 @@
                                 <td>{{ usuario.nombre }}</td>
                                 <td>{{ usuario.telefono }}</td>
                                 {% if rolUsuario == '2'%}
-                                   <td>{{ usuario.antenas }}</td>
-                                   <td>{{ usuario.routers }}</td>
-                                   <td>{{ usuario.limite }}</td>
-                                   <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
+                                    <td>{{ usuario.antenas }}</td>
+                                    <td>{{ usuario.routers }}</td>
+                                    <td>{{ usuario.atas }}</td>
+                                    <td>{{ usuario.limite }}</td>
+                                    <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
                                 {% endif %}
                                 <td class="td-acciones">
                                     <a href="../usuario/usuario_modificar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnModificar" title="Modificar"></a>

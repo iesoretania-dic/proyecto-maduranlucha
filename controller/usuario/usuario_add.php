@@ -17,6 +17,8 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $rolUsuario = $_SESSION['rolUsuario']; //Guardamos el rol del usuario añadido en una variable de sesion para poder volver a la zona indicada de los usuarios.
 
+
+
     if(isset($_POST['btnEnviar'])){
 
         //Recuperamos los datos del formulario
@@ -26,7 +28,11 @@ if(!isset($_SESSION['usuario'])){
         $passwordR = trim($_POST['passwordR']);
         $nombre = trim($_POST['nombre']);
         $telefono = trim($_POST['telefono']);
-        $limite = $_POST['limite'];
+
+        if(isset($_POST['limite'])){
+            $limite = $_POST['limite'];
+        }
+
 
         $existe = null;
         $usuarioExiste = null;
@@ -75,7 +81,6 @@ if(!isset($_SESSION['usuario'])){
         }
 
         //Comprobamos que la clave no este vacia y su longitud minima se de 5 caracetres
-
         if ($password == "" OR  $passwordR == "" OR strlen($password) < 5 OR  strlen($passwordR) < 5){
             $mensajeClaveNoValida = 'error';
         }else{
@@ -156,6 +161,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'claveNoCoincide',
             'nUsuario',
+            'nombre',
+            'telefono',
             'dni',
             'rolUsuario',
             'mensajeDniMinimo',

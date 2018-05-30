@@ -17,11 +17,11 @@ if(!isset($_SESSION['usuario'])){
     de los usuarios y debemos especificar el rol y como ya no esta por la url se lo enviamos de vuelta en una variable de session.*/
 
     if(isset($_GET['rol'])){
-        if($_GET['rol'] == 1){
+        if($_GET['rol'] == '1'){
             $rolUsuario = '1';
-        }elseif($_GET['rol'] == 2){
+        }elseif($_GET['rol'] == '2'){
             $rolUsuario = '2';
-        }elseif($_GET['rol'] == 4){
+        }elseif($_GET['rol'] == '4'){
             $rolUsuario = '4';
         }
     }elseif(isset($_SESSION['rolUsuario'])){
@@ -33,6 +33,16 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
     $uri =  $_SERVER['REQUEST_URI'];
+
+    //Comprobamos si hay cambios al modificar o añadir datos
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '0'){
+        $mensajeCambios = 'Si';
+    }
+
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '1'){
+        $mensajeCambios = 'No';
+    }
+
 
     $mensaje = null;
     $usuarios = [];
@@ -67,7 +77,8 @@ if(!isset($_SESSION['usuario'])){
             'mensaje',
             'rol',
             'rolUsuario',
-            'uri'
+            'uri',
+            'mensajeCambios'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

@@ -55,7 +55,33 @@
                     <input id="usuarioClaveRAdd" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
                     <p type="text" class="badge badge-danger alerta" id="mensajeClaveRAdd"></p>
                 </div>
+
                 {% if rolUsuario == 2 %}
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Número de antenas*:</span>
+                        </div>
+                        <input id="usuarioAntenas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="antenas" value="{{ datosUsuario.antenas }}">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeAntenas"></p>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Número de routers*:</span>
+                        </div>
+                        <input id="usuarioRouters" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="routers" value="{{ datosUsuario.routers }}">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeRouters"></p>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Número de routers*:</span>
+                        </div>
+                        <input id="usuarioAtas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="atas" value="{{ datosUsuario.atas }}">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeAtas"></p>
+                    </div>
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
@@ -67,6 +93,7 @@
                             </select>
                         </div>
                     </div>
+
                 {% endif %}
             </div>
 
@@ -78,7 +105,6 @@
                 <button id="btnUsuarioModificar" class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-edit"></i> Si</button>
                 <button class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
             </div>
-
 
             {% if mensajeDniExiste == 'error' %}
                 <p class="alert alert-danger">El dni ya existe</p>

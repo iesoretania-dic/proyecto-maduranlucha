@@ -89,6 +89,7 @@ $(function(){
 
 
     let mensajeCliente = $('#cambiosModificarCliente');
+    let mensajeUsuario = $('#cambiosModificarUsuario');
     let mensajeIncidencia = $('#cambiosIncidencia');
     let mensajeEliminar = $('#cambiosEliminar');
 
@@ -103,6 +104,12 @@ $(function(){
     }
     if (mensajeEliminar.html() === 'Si'){
         toastr.warning('Eliminado');
+    }
+    if (mensajeUsuario.html() === 'No'){
+        toastr.warning('Cambios no guardados');
+    }
+    if (mensajeUsuario.html() === 'Si'){
+        toastr.success('Cambios guardados');
     }
 
 
@@ -348,6 +355,9 @@ $(function(){
     let usuarioTelefonoAdd = $('#usuarioTelefonoAdd');
     let usuarioClaveAdd = $('#usuarioClaveAdd');
     let usuarioClaveRAdd = $('#usuarioClaveRAdd');
+    let usuarioAntenas = $('#usuarioAntenas');
+    let usuarioRouters = $('#usuarioRouters');
+    let usuarioAtas = $('#usuarioAtas');
 
     let mensajeDniAdd = $('#mensajeDniAdd');
     let mensajeUsuarioAdd = $('#mensajeUsuarioAdd');
@@ -355,6 +365,9 @@ $(function(){
     let mensajeTelefonoAdd = $('#mensajeTelefonoAdd');
     let mensajeClaveAdd = $('#mensajeClaveAdd');
     let mensajeClaveRAdd = $('#mensajeClaveRAdd');
+    let mensajeAntenas = $('#mensajeAntenas');
+    let mensajeRouters = $('#mensajeRouters');
+    let mensajeAtas = $('#mensajeAtas');
 
     btnUsuarioAdd.click(function(e){
         mensajeDniAdd.html("");
@@ -418,6 +431,9 @@ $(function(){
         mensajeTelefonoAdd.html("");
         mensajeClaveAdd.html("");
         mensajeClaveRAdd.html("");
+        mensajeAntenas.html("");
+        mensajeRouters.html("");
+        mensajeAtas.html("");
 
         if(usuarioDniAdd.val().length !== 9){
             e.preventDefault();
@@ -466,6 +482,20 @@ $(function(){
                 mensajeClaveRAdd.html('No coinciden');
             }
         }
+
+        if(usuarioAntenas.val().trim().length === 0){
+            e.preventDefault();
+            mensajeAntenas.html('Obligatorio');
+        }
+        if(usuarioRouters.val().trim().length === 0){
+            e.preventDefault();
+            mensajeRouters.html('Obligatorio');
+        }
+        if(usuarioAtas.val().trim().length === 0){
+            e.preventDefault();
+            mensajeAtas.html('Obligatorio');
+        }
+
     });
 
     //VALIDACION AL MODIFICAR DATOS DEL USUARIO DESDE EL PANEL DE CONFIGURACION
