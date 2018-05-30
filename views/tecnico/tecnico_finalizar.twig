@@ -342,6 +342,7 @@
             {% endif %}
 
             {% if tipo == 'averia' %}
+
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
@@ -357,15 +358,19 @@
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
+
                 {% if mensajeFaltaConector == 'error' %}
                     <p class="alert alert-danger">No tienes bolsa de conectores asignada, retire una del almacen</p>
                 {% endif %}
+
                 {% if mensajeFaltaCable == 'error' %}
                     <p class="alert alert-danger">No tienes caja de cable asignada, retire una del almacen</p>
                 {% endif %}
+
                 {% if mensajeSolucionAveria == 'error' %}
                     <p class="alert alert-danger">Debes indicar una solución</p>
                 {% endif %}
+
             {% endif %}
 
             {% if tipo == 'cambiodomicilio' %}
@@ -380,6 +385,14 @@
 
                 {% if mensajeCambioDomicilio == 'materialfalta' %}
                     <label class="alert alert-danger">El tecnico no dispone de ese material.</label>
+                {% endif %}
+
+                {% if mensajeFaltaConector == 'error' %}
+                    <p class="alert alert-danger">No tienes bolsa de conectores asignada, retire una del almacen</p>
+                {% endif %}
+
+                {% if mensajeFaltaCable == 'error' %}
+                    <p class="alert alert-danger">No tienes caja de cable asignada, retire una del almacen</p>
                 {% endif %}
 
             {% endif %}
