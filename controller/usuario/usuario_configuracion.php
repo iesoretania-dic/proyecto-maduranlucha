@@ -20,6 +20,15 @@ if(!isset($_SESSION['usuario'])){
     $comprobarPassword = true;
     $claveCoinciden = true;
 
+    //Comprobamos si hay cambios al modificar o añadir datos
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '0'){
+        $mensajeCambios = 'Si';
+    }
+
+    if(isset($_GET['cambios']) and $_GET['cambios'] == '1'){
+        $mensajeCambios = 'No';
+    }
+
     if(!isset($_SESSION['mod'])){
         $zona = 'password';
     }
@@ -80,9 +89,12 @@ if(!isset($_SESSION['usuario'])){
                     $mensaje = 'Ok';
                     $zona = 'password';
                     $_SESSION['mod'] = 'password';
-                    header("Location: ../usuario/usuario_configuracion.php");
+                    header("Location: ../usuario/usuario_configuracion.php?cambios=0");
                 }else{
-                    $mensaje = 'error';
+                    $mensaje = 'Ok';
+                    $zona = 'password';
+                    $_SESSION['mod'] = 'password';
+                    header("Location: ../usuario/usuario_configuracion.php?cambios=1");
                 }
             }elseif($password == $passwordR){
                 $passwordCifrado = codificar($password);
@@ -93,11 +105,14 @@ if(!isset($_SESSION['usuario'])){
 
                 if ($resultados > 0){
                     $mensaje = 'Ok';
-                    $_SESSION['mod'] = 'password';
                     $zona = 'password';
-                    header("Location: ../usuario/usuario_configuracion.php");
+                    $_SESSION['mod'] = 'password';
+                    header("Location: ../usuario/usuario_configuracion.php?cambios=0");
                 }else{
-                    $mensaje = 'error';
+                    $mensaje = 'Ok';
+                    $zona = 'password';
+                    $_SESSION['mod'] = 'password';
+                    header("Location: ../usuario/usuario_configuracion.php?cambios=1");
                 }
             }else{
                 $claveCoinciden = false;
@@ -128,7 +143,8 @@ if(!isset($_SESSION['usuario'])){
             'claveNoCoincide',
             'comprobarUsuario',
             'claveCoinciden',
-            'nombre'
+            'nombre',
+            'mensajeCambios'
 
         ));
     }catch (Exception $e){

@@ -5,6 +5,13 @@
 {% block contenido %}
     <div class="contenido">
 
+        {#Se ocultan ya que el mensaje lo mostraremos por toastr#}
+        {% if mensajeCambios == 'No' %}
+            <label id="cambiosModificarUsuario" hidden>No</label>
+        {% elseif mensajeCambios == 'Si' %}
+            <label id="cambiosModificarUsuario" hidden>Si</label>
+        {% endif %}
+
         {% if zona == 'password' %}
             <form class="" action="" method="post">
                 <p class="alert alert-info">Por motivos de seguridad:</p>
@@ -36,38 +43,42 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="usuario" class="input-group-text" id="inputGroup-sizing-default">Introduce el usuario*:</label>
+                            <label for="usuarioConfUsuario" class="input-group-text" >Introduce el usuario*:</label>
                         </div>
-                        <input type="text" id="usuario" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ usuario }}">
+                        <input  id="usuarioConfUsuario"  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nUsuario" value="{{ usuario }}">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeConfUsuario"></p>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="nombre" class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre*:</label>
+                            <label  for="usuarioConfNombre" class="input-group-text" >Introduce el nombre*:</label>
                         </div>
-                        <input type="text" id="nombre" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
+                        <input id="usuarioConfNombre" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nombre" value="{{ nombre }}">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeConfNombre"></p>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="password" class="input-group-text" id="inputGroup-sizing-default">Introduce la nueva contraseña:</label>
+                            <label for="usuarioConfClave" class="input-group-text" >Introduce la nueva contraseña:</label>
                         </div>
-                        <input type="password" id="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                        <input id="usuarioConfClave"  type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="password">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeConfClave"></p>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label for="passwordR" class="input-group-text" id="inputGroup-sizing-default">Repite la contraseña:</label>
+                            <label  for="usuarioConfClaveR" class="input-group-text" >Repite la contraseña:</label>
                         </div>
-                        <input type="password" id="passwordR" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                        <input id="usuarioConfClaveR"  type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="passwordR">
+                        <p type="text" class="badge badge-danger alerta" id="mensajeConfClaveR"></p>
                     </div>
 
 
                 </div>
 
                 <div class="vistaCheck">
-                    <button id="btnAddCliente" class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-check"></i> Modificar</button>
-                    <button id="btnAddCliente" class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
+                    <button id="btnConfUsuario" class="btn btn-success" type="submit" name="btnModificar"><i class="fas fa-check"></i> Modificar</button>
+                    <button  class="btn btn-warning" type="submit" name="cancelar"><i class="fas fa-undo"></i> Volver</button>
                 </div>
                 <div class="vistaFormulario">
                     <p class="alert alert-info">(*) Campos obligatorios</p>

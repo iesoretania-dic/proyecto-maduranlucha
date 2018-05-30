@@ -444,12 +444,6 @@ body {
   margin: 15px 0;
 }
 
-.formularioTecnicos {
-  padding-left: 20px;
-  display: inline;
-  min-height: 0;
-}
-
 .label {
   font-size: 1em;
 }
@@ -531,6 +525,19 @@ body {
   }
 }
 
+.vistaFormularioXS {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioXS {
+    margin-top: 0;
+    width: 300px;
+  }
+}
+
 .vistaInfo {
   width: 100%;
   margin-bottom: 10px;
@@ -563,24 +570,34 @@ body {
   }
 }
 
-.vistaFormulario > .input-group {
+.vistaFormularioXS .list-group-item {
+  height: 100px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioXS .list-group-item {
+    height: 50px;
+  }
+}
+
+.vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group {
   display: block;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormulario > .input-group {
+  .vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
 }
 
-.vistaFormulario > .input-group > .form-control {
+.vistaFormulario > .input-group > .form-control, .vistaFormularioXL > .input-group > .form-control, .vistaFormularioXS > .input-group > .form-control {
   width: 100%;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormulario > .input-group > .form-control {
+  .vistaFormulario > .input-group > .form-control, .vistaFormularioXL > .input-group > .form-control, .vistaFormularioXS > .input-group > .form-control {
     width: 1%;
   }
 }
@@ -610,6 +627,26 @@ body {
   }
 }
 
+.liArea {
+  height: 100px;
+}
+
+.pArea {
+  white-space: normal;
+  overflow: auto;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.ctipo_conexion {
+  background: rgba(64, 191, 64, 0.5);
+}
+
+.ctipo_desconexion {
+  background: rgba(191, 64, 64, 0.5);
+}
+
 .formInfo {
   width: 100%;
   margin-bottom: 10px;
@@ -630,26 +667,6 @@ body {
   .historial {
     width: 64%;
   }
-}
-
-.liArea {
-  height: 100px;
-}
-
-.pArea {
-  white-space: normal;
-  overflow: auto;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.ctipo_conexion {
-  background: rgba(64, 191, 64, 0.5);
-}
-
-.ctipo_desconexion {
-  background: rgba(191, 64, 64, 0.5);
 }
 
 .btn-group-vertical, .btn-group {

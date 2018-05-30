@@ -3,7 +3,6 @@
 @import "login";
 @import "tabla";
 @import "toggle-button";
-
 //@import "main_bootstrap";
 
 //NO incluir aqui clases de bootstrap, añadirlos en el fichero _mi-bootstrap.scss
@@ -28,7 +27,6 @@ body{
 
 .contenido{
   padding-top: $alturaMenu;
-
   @media screen and (min-width: $min-width) {
     padding-top: $alturaMenu * 2 ;
     margin-right: $alturaMenu;
@@ -53,12 +51,12 @@ body{
 }
 
 .li a{
-    color: white;
+  color: white;
 
 }
 
 .acciones{
-    display: flex;
+  display: flex;
 }
 
 .acciones_elemento{
@@ -102,18 +100,18 @@ body{
 }
 
 .botonAccion{
-    width: 20px;
-    height: 20px;
-    /*background-image: linear-gradient(orange, pink);*/
-    background-repeat: no-repeat;
-    background-color: transparent ;
-    background-size: 100%;
-    color: transparent;
-    border: none;
-    /*outline: none;*/
-    cursor: pointer;
-    padding: 0;
-    margin: auto 0;
+  width: 20px;
+  height: 20px;
+  /*background-image: linear-gradient(orange, pink);*/
+  background-repeat: no-repeat;
+  background-color: transparent ;
+  background-size: 100%;
+  color: transparent;
+  border: none;
+  /*outline: none;*/
+  cursor: pointer;
+  padding: 0;
+  margin: auto 0;
 }
 
 .btnEliminar{
@@ -172,32 +170,31 @@ body{
   background-image: url("../resources/solucion.png");
 }
 
-
 .labelPersonal{
-    display: block;
-    margin-bottom: 2px;
+  display: block;
+  margin-bottom: 2px;
 }
 
 .textareaPersonal{
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .boton{
-    //width: 300px;
-    display: block;
-    margin: 15px 0;
+  //width: 300px;
+  display: block;
+  margin: 15px 0;
 
 }
 
-.formularioTecnicos{
-    padding-left: 20px;
-  display: inline;
-  min-height: 0;
-}
+//.formularioTecnicos{
+//    //padding-left: 20px;
+//  display: inline;
+//  min-height: 0;
+//}
 
 .label{
-    font-size: 1em;
+  font-size: 1em;
 }
 
 .miLabel{
@@ -226,7 +223,7 @@ body{
 }
 
 .miDiv{
-    width: 300px;
+  width: 300px;
 }
 
 .divMaterial{
@@ -257,6 +254,7 @@ body{
   }
 }
 
+//
 .vistaFormularioXL{
   margin-top: $alturaMenu / 2;
   width: 100%;
@@ -267,6 +265,16 @@ body{
   }
 }
 
+.vistaFormularioXS{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 300px;
+  }
+}
+//
 .vistaInfo{
   width: 100%;
   margin-bottom: 10px;
@@ -283,6 +291,7 @@ body{
   }
 }
 
+//
 .vistaFormularioXL .list-group-item {
   height: 100px;
   @media screen and (min-width: $min-width) {
@@ -290,15 +299,21 @@ body{
   }
 }
 
-
-.vistaFormulario > .input-group{
+.vistaFormularioXS .list-group-item {
+  height: 100px;
+  @media screen and (min-width: $min-width) {
+    height: 50px;
+  }
+}
+//
+.vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group{
   display: block;
   @media screen and (min-width: $min-width) {
     display: flex;
   }
 }
 
-.vistaFormulario > .input-group > .form-control{
+.vistaFormulario > .input-group > .form-control ,.vistaFormularioXL > .input-group > .form-control ,.vistaFormularioXS > .input-group > .form-control {
   width: 100%;
   @media screen and (min-width: $min-width) {
     width: 1%;
@@ -327,6 +342,29 @@ body{
   }
 }
 
+
+.liArea{
+  height: 100px;
+}
+
+.pArea{
+  white-space: normal;
+  overflow: auto;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+
+.ctipo_conexion{
+  background: hsla(120,50%,50%,.5);
+}
+
+.ctipo_desconexion{
+  background: hsla(0,50%,50%,.5);
+}
+
+
 .formInfo{
   width: 100%;
   margin-bottom: 10px;
@@ -343,32 +381,14 @@ body{
   }
 }
 
-.liArea{
-  height: 100px;
-}
-
-.pArea{
-  white-space: normal;
-  overflow: auto;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.ctipo_conexion{
-  background: hsla(120,50%,50%,.5);
-}
-
-.ctipo_desconexion{
-  background: hsla(0,50%,50%,.5);
-}
-
+//
 .btn-group-vertical, .btn-group{
   width: 100%;
   @media screen and (min-width: $min-width) {
     width: 400px;
   }
 }
+//
 
 //modificar el boton de menu en vista movil
 .navbar-light .navbar-toggler{
@@ -394,6 +414,5 @@ body{
   margin: auto 5px;
   padding: 4px;
 }
-
 
 

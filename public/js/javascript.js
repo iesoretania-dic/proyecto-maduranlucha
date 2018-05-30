@@ -468,6 +468,66 @@ $(function(){
         }
     });
 
+    //VALIDACION AL MODIFICAR DATOS DEL USUARIO DESDE EL PANEL DE CONFIGURACION
+
+    let btnUsuarioConf = $('#btnConfUsuario');
+
+    let usuarioConfUsuario = $('#usuarioConfUsuario');
+    let usuarioConfNombre = $('#usuarioConfNombre');
+    let usuarioConfClave = $('#usuarioConfClave');
+    let usuarioConfClaveR = $('#usuarioConfClaveR');
+
+    let mensajeConfUsuario = $('#mensajeConfUsuario');
+    let mensajeConfNombre = $('#mensajeConfNombre');
+    let mensajeConfClave = $('#mensajeConfClave');
+    let mensajeConfClaveR = $('#mensajeConfClaveR');
+
+
+    btnUsuarioConf.click(function(e){
+        mensajeConfUsuario.html("");
+        mensajeConfNombre.html("");
+        mensajeConfClave.html("");
+        mensajeConfClaveR.html("");
+
+        if(usuarioConfUsuario.val().trim().length === 0){
+            e.preventDefault();
+            mensajeConfUsuario.html('Obligatorio');
+        }
+        if(usuarioConfNombre.val().trim().length === 0){
+            e.preventDefault();
+            mensajeConfNombre.html('Obligatorio');
+        }
+        if(usuarioConfClave.val().trim().length !== 0 || usuarioConfClaveR.val().trim().length !== 0 )  {
+
+            if(usuarioConfClave.val().trim().length === 0){
+                e.preventDefault();
+                mensajeConfClave.html('Obligatorio');
+            }
+            if(usuarioConfClaveR.val().trim().length === 0){
+                e.preventDefault();
+                mensajeConfClaveR.html('Obligatorio');
+            }
+            if(usuarioConfClave.val().trim().length < 5){
+                e.preventDefault();
+                mensajeConfClave.html('Mínimo 5 caracteres');
+            }
+            if(usuarioConfClaveR.val().trim().length < 5){
+                e.preventDefault();
+                mensajeConfClaveR.html('Mínimo 5 caracteres');
+            }
+            if(usuarioConfClave.val().trim() !== usuarioConfClaveR.val().trim()){
+                e.preventDefault();
+                mensajeConfClave.html('No coinciden');
+                mensajeConfClaveR.html('No coinciden');
+            }
+
+        }
+
+
+
+    });
+
+
     //**********FIN VALIDACIONES**********//
 
 });
