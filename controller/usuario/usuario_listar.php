@@ -23,6 +23,8 @@ if(!isset($_SESSION['usuario'])){
             $rolUsuario = '2';
         }elseif($_GET['rol'] == '4'){
             $rolUsuario = '4';
+        }elseif($_GET['rol'] == '0'){
+            $rolUsuario = '0';
         }
     }elseif(isset($_SESSION['rolUsuario'])){
         $rolUsuario = $_SESSION['rolUsuario'];
