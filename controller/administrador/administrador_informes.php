@@ -23,6 +23,11 @@ if(!isset($_SESSION['usuario'])){
     $vista = 'botones';
     $consulta = null;
 
+    //Lista de clientes
+    $sentencia = "SELECT dni, nombre from cliente";
+    $parametros = array();
+    $datos = new Consulta();
+    $clientes = $datos->get_conDatos($sentencia,$parametros);
 
     if(isset($_POST['bajaMaterial'])){
 
@@ -34,6 +39,25 @@ if(!isset($_SESSION['usuario'])){
         if($clientes){
             $vista = 'consulta';
             $consulta = '1';
+        }else{
+            $mensaje = 'error';
+        }
+    }
+
+    if(isset($_POST['incidenciasCliente'])){
+        $_SESSION['origen'] = $_SERVER['REQUEST_URI'];
+        $dniCliente = $_POST['dniCliente'];
+        $datos = new Consulta();
+        $nombreCliente = $datos->get_nombreCliente($dniCliente);
+
+        $sentencia = "SELECT id_incidencia, (SELECT nombre FROM usuario WHERE dni= id_usuario) AS id_usuario, (SELECT nombre FROM usuario WHERE dni= tecnico) AS tecnico,fecha_creacion,fecha_inicio,fecha_resolucion,disponible,tipo,estado from incidencia where id_cliente= :dni ORDER BY estado = '0' DESC, estado = '1' DESC,estado = '2' DESC,estado = '3' DESC,estado = '4' DESC, fecha_resolucion DESC, fecha_creacion ASC";
+        $parametros = array(":dni"=>$dniCliente);
+        $datos = new Consulta();
+        $incidencias = $datos->get_conDatos($sentencia,$parametros);
+
+        if($incidencias){
+            $vista = 'consulta';
+            $consulta = '2';
         }else{
             $mensaje = 'error';
         }

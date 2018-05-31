@@ -14,6 +14,20 @@
                         <span>Clientes dados de baja con material: </span>
                         <button class="btn btn-info btnInforme" type="submit" name="bajaMaterial"><i class="fas fa-search"></i></button>
                     </li>
+                    {#2#}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span>Incidencias del cliente: </span>
+                            <select name="dniCliente" id="miselect">
+                                <option value="">Selecciona un cliente:</option>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.dni }}">{{ cliente.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button class="btn btn-info" type="submit" name="incidenciasCliente"><i class="fas fa-search"></i></button>
+                    </li>
                 </ul>
             </div>
 
@@ -52,6 +66,54 @@
                         {% endfor %}
                     </table>
                 </div>
+                {% endif %}
+
+                {% if consulta == '2' %}
+                    <div class="contenedorTabla">
+
+                        <div class="vistaFormulario">
+                            <p class="alert alert-info">Incidencias del cliente: <span class="badge badge-primary">{{ nombreCliente }}</span></p>
+                        </div>
+
+                        <table id="miTablaControlador" class="table table-bordered table-sm miTabla table-responsive-xl">
+                            <thead class="miThead">
+                            <tr>
+                                <th>Id</th>
+                                <th>usuario</th>
+                                <th>Tecnico</th>
+                                <th>Creación</th>
+                                <th>Inicio</th>
+                                <th>Resolución</th>
+                                <th>Disponible</th>
+                                <th>Tipo</th>
+                            </tr>
+                            </thead>
+                            {% for incidencia in incidencias %}
+                                <tr
+                                        {% if incidencia.estado == '3' %}
+                                            class="terminada"
+                                        {% elseif incidencia.estado == '2' %}
+                                            class="asignada"
+                                        {% elseif incidencia.estado == '1' %}
+                                            class="activa"
+                                        {% elseif incidencia.estado == '0' %}
+                                            class="no-asignada"
+                                        {% elseif incidencia.estado == '4' %}
+                                            class="parcial"
+                                        {% endif %}
+                                >
+                                    <td><a href="../cliente/cliente_incidencias_info.php?Id={{ incidencia.id_incidencia }}">{{ incidencia.id_incidencia }}</a></td>
+                                    <td>{{ incidencia.id_usuario }}</td>
+                                    <td>{{ incidencia.tecnico }}</td>
+                                    <td>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_inicio %} {{ incidencia.fecha_inicio | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_resolucion %} {{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td {% if incidencia.disponible > fechaActual and incidencia.estado != '3' %}  class="pendienteF" {% elseif incidencia.disponible <= fechaActual and incidencia.estado != '3'  %} class="pendienteW"  {% endif %} >{% if incidencia.disponible %} {{ incidencia.disponible | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{{ incidencia.tipo }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% endif %}
 
             {% endif %}
