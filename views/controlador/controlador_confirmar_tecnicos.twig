@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Controlador' %}
+{% block title 'Técnicos' %}
 
 {% block contenido %}
     <div class="contenido">
@@ -10,40 +10,39 @@
                 <p class="label label-danger">El comentario es obligatorio</p>
             {% endif %}
 
-            <div class="vistaInfo">
+            <div class="vistaFormularioS">
                 <p class="alert alert-warning" >Enviar a técnicos </p>
-                <p class="alert alert-info">Añadir un comentario*:</p>
-                <textarea id="comentario" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" cols="15" rows="2"></textarea>
-                <p class="alert alert-info" >Enviar la incidencia a los ténicos </p>
+                <label for=comentario class="input-group-text">Añadir Comentario*:</label>
+                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentario" cols="10" rows="2"></textarea>
             </div>
             {% if rol == '0' %}
-            <div class="vistaInfo">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Asignar a un técnico:</label>
+                <div class="vistaFormularioS">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Técnico:</label>
+                        </div>
+                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tecnico" id="tecnico">
+                            <option value="">Seleccione un técnico: </option>
+                            {% for tecnico in tecnicos %}
+                                <option value="{{ tecnico.dni}}">{{ tecnico.nombre }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tecnico" id="tecnico">
-                        <option value="">Seleccione un técnico: </option>
-                        {% for tecnico in tecnicos %}
-                            <option value="{{ tecnico.dni}}">{{ tecnico.nombre }}</option>
-                        {% endfor %}
-                    </select>
                 </div>
-            </div>
             {% endif %}
 
-            <div class="form-group miDiv">
-                <p class="alert alert-info" >Disponible a partir de: </p>
+            <div class="form-group vistaFormularioS">
+                <label class="input-group-text">Disponible a partir de:</label>
                 <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
                     <div class="input-group-prepend">
                         <span class="input-group-text miTextGroup" id="basic-addon1"><i class="fas fa-calendar-alt"></i></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     </div>
-                    <input class="form-control" size="2" type="text" value="{{ proLlamada }}" readonly>
+                    <input class="form-control" size="2" type="text" value="{{ proLlamada }}">
                 </div>
                 <input type="hidden" id="dtp_input1" value="{{ proLlamada }}" name="llamada" /><br/>
             </div>
-            <div class="vistaCheck">
+            <div class="vistaFormularioS">
                 <p class="alert alert-info" >(*) Campos obligatorios </p>
             </div>
 
@@ -51,7 +50,6 @@
                 <button class="btn btn-primary" type="submit" name="aceptarMoverTecnicos"><i class="fas fa-wrench"></i> Aceptar</button>
                 <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
-
         </form>
     </div>
 

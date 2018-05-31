@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Tecnico' %}
+{% block title 'Confirmar' %}
 
 {% block contenido %}
     <div class="contenido">
@@ -10,12 +10,12 @@
                 <p class="alert alert-danger">El comentario es obligatorio</p>
             {% endif %}
 
-            <div class="miDiv">
-                <p class="alert alert-info" >Añadir un comentario*:</p>
-                <textarea class="labelTecnico" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+            <div class="vistaFormularioXS">
+                <label for=comentario class="input-group-text">Añadir Comentario*:</label>
+                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentario" cols="10" rows="2"></textarea>
             </div>
 
-            <div class="miDiv">
+            <div class="vistaFormularioXS">
                 <p class="alert alert-info">(*) Campos obligatorios</p>
             </div>
 
@@ -25,7 +25,6 @@
             </div>
         </form>
     </div>
-
 
 {% endblock %}
 

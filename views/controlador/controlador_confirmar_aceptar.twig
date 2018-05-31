@@ -1,29 +1,29 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Controlador' %}
+{% block title 'Confirmar' %}
 
 {% block contenido %}
     <div class="contenido">
         <form class="formularioTecnicos" action="" method="post">
 
-            <div class="vistaFormulario">
-                <p class="alert alert-info" >Resolver la incidencia </p>
+            <div class="vistaFormularioS">
+                <p class="alert alert-warning" >Resolver la incidencia </p>
+                <label class="input-group-text">Seleccione una solución:</label>
+            </div>
 
-                <p class="alert alert-info">Seleccione una solución: </p>
-
-                <select name="solucion" id="solucion">
+            <div class="vistaFormularioS">
+                <select name="solucion" id="solucionConfimarFinalizar">
                     <option value="Resuelta sin problemas">Resuelta sin problemas</option>
                     <option value="otros">otros</option>
                 </select>
             </div>
 
-            <div class="vistaFormulario">
-                <div id="comentarioFinalizar">
-                    <label class="alert alert-info" for="comentario">Añadir un comentario:</label>
-                    <textarea class="labelTecnico miArea" name="comentario" id="comentario" cols="40" rows="5"></textarea>
+            <div class="vistaFormularioS">
+                <div id="comentarioConfirmarFinalizar">
+                    <label class="input-group-text">Añadir un comentario:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentario" cols="10" rows="2"></textarea>
                 </div>
             </div>
-
             <div class="vistaCheck">
                 <button class="btn btn-primary" type="submit" name="confirmarFinalizar"><i class="fas fa-check"></i> Aceptar</button>
                 <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
