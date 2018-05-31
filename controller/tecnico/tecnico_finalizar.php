@@ -224,10 +224,16 @@ if(!isset($_SESSION['usuario'])){
 
             $listaBaja = json_encode($arrayBaja);
 
-            //comprobamos si se a recogido el router
-            if ($routersIncidencia == 1) {
+            //comprobamos que el cliente dispone del material
+            //Actualmente desactivada la comprobacion por que no sabemos los materiales que disponen los clientes que fueron importardos.
+//            if($routerCliente >= 0 AND $antenaCliente >= 0 AND $ataCliente >= 0 ){
+            //comprobamos si se a recogido el router o la baja es parcial.
+            if ($routersIncidencia == 1 or $solucion == 'Baja parcial') {
 
-                $routersDisponiblesTecnico++;
+                if ($routersIncidencia == 1) {
+                    $routersDisponiblesTecnico++;
+                }
+
                 if ($antenasIncidencia == 1) {
                     $antenasDisponiblesTecnico++;
                 }
@@ -281,8 +287,11 @@ if(!isset($_SESSION['usuario'])){
                     $datos->conexionDB = null;
                 }
 
-            } else {
-                $mensajeBaja = 'materialRecoger';
+//                } else {
+//                    $mensajeBaja = 'materialRecoger';
+//                }
+            }else{
+                $mensajeMaterialCliente = 'error';
             }
         }
 

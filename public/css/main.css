@@ -512,6 +512,58 @@ body {
   }
 }
 
+.vistaFormularioXS {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioXS {
+    margin-top: 0;
+    width: 300px;
+  }
+}
+
+.vistaFormularioS {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioS {
+    margin-top: 0;
+    width: 400px;
+  }
+}
+
+.vistaFormularioM {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioM {
+    margin-top: 0;
+    width: 500px;
+  }
+}
+
+.vistaFormularioL {
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioL {
+    margin-top: 0;
+    width: 600px;
+  }
+}
+
 .vistaFormularioXL {
   margin-top: 20px;
   width: 100%;
@@ -525,16 +577,16 @@ body {
   }
 }
 
-.vistaFormularioXS {
+.vistaFormularioXXL {
   margin-top: 20px;
   width: 100%;
   margin-bottom: 10px;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormularioXS {
+  .vistaFormularioXXL {
     margin-top: 0;
-    width: 300px;
+    width: 800px;
   }
 }
 
@@ -560,44 +612,70 @@ body {
   }
 }
 
-.vistaFormularioXL .list-group-item {
+.vistaFormulario .list-group-item,
+.vistaFormularioXS .list-group-item,
+.vistaFormularioS .list-group-item,
+.vistaFormularioM .list-group-item,
+.vistaFormularioL .list-group-item,
+.vistaFormularioXL .list-group-item,
+.vistaFormularioXXL .list-group-item {
   height: 100px;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormularioXL .list-group-item {
+  .vistaFormulario .list-group-item,
+  .vistaFormularioXS .list-group-item,
+  .vistaFormularioS .list-group-item,
+  .vistaFormularioM .list-group-item,
+  .vistaFormularioL .list-group-item,
+  .vistaFormularioXL .list-group-item,
+  .vistaFormularioXXL .list-group-item {
     height: 50px;
   }
 }
 
-.vistaFormularioXS .list-group-item {
-  height: 100px;
-}
-
-@media screen and (min-width: 991px) {
-  .vistaFormularioXS .list-group-item {
-    height: 50px;
-  }
-}
-
-.vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group {
+.vistaFormulario > .input-group,
+.vistaFormularioXS > .input-group,
+.vistaFormularioS > .input-group,
+.vistaFormularioM > .input-group,
+.vistaFormularioL > .input-group,
+.vistaFormularioXL > .input-group,
+.vistaFormularioXXL > .input-group {
   display: block;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group {
+  .vistaFormulario > .input-group,
+  .vistaFormularioXS > .input-group,
+  .vistaFormularioS > .input-group,
+  .vistaFormularioM > .input-group,
+  .vistaFormularioL > .input-group,
+  .vistaFormularioXL > .input-group,
+  .vistaFormularioXXL > .input-group {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
 }
 
-.vistaFormulario > .input-group > .form-control, .vistaFormularioXL > .input-group > .form-control, .vistaFormularioXS > .input-group > .form-control {
+.vistaFormulario > .input-group > .form-control,
+.vistaFormularioXS > .input-group > .form-control,
+.vistaFormularioS > .input-group > .form-control,
+.vistaFormularioM > .input-group > .form-control,
+.vistaFormularioL > .input-group > .form-control,
+.vistaFormularioXL > .input-group > .form-control,
+.vistaFormularioXXL > .input-group > .form-control {
   width: 100%;
 }
 
 @media screen and (min-width: 991px) {
-  .vistaFormulario > .input-group > .form-control, .vistaFormularioXL > .input-group > .form-control, .vistaFormularioXS > .input-group > .form-control {
+  .vistaFormulario > .input-group > .form-control,
+  .vistaFormularioXS > .input-group > .form-control,
+  .vistaFormularioS > .input-group > .form-control,
+  .vistaFormularioM > .input-group > .form-control,
+  .vistaFormularioL > .input-group > .form-control,
+  .vistaFormularioXL > .input-group > .form-control,
+  .vistaFormularioXXL > .input-group > .form-control {
     width: 1%;
   }
 }

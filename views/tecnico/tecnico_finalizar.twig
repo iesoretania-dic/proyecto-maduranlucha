@@ -53,16 +53,16 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <select name="solucion" id="solucion">
+                    <select name="solucion" id="solucionFinalizar">
                         <option value="Instalacion normal">Instalación normal</option>
                         <option value="Intalacion parcial">Instalacion parcial</option>
                         <option value="otros">otros</option>
                     </select>
+                </div>
 
-                    <div id="comentarioFinalizar" class="vistaCheck">
-                        <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
-                        <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
-                    </div>
+                <div id="comentarioFinalizarInstalacion" class="vistaCheck">
+                    <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
                 </div>
 
                 <div class="vistaFormulario">
@@ -115,24 +115,22 @@
                 </div>
 
                 <div class="vistaFormulario">
-                    <select name="solucion" id="solucion">
+                    <select name="solucion" id="solucionFinalizarBaja">
                         <option value="Baja completa">Baja completa</option>
                         <option value="Baja parcial">Baja parcial</option>
                         <option value="otros">otros</option>
                     </select>
-
-                    <div id="comentarioFinalizar" class="vistaFormulario">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
-                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
+                <div id="comentarioFinalizar" class="vistaCheck">
+                    <label for="comentarioBaja" class="input-group-text">Detalles:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentarioBaja" cols="10" rows="2"></textarea>
+                    <p type="text" class="badge badge-danger alerta" id="mensajeBaja"></p>
+                </div>
+
+
                 <div class="vistaCheck">
-                    <p class="alert alert-info">(*) Obligatorio</p>
+                    <p class="alert alert-info">* Si no es posible retirar el router, marque la opción baja parcial e indique los detalles.</p>
                 </div>
                 <div class="vistaFormulario">
                     <button id="btnBaja" class="btn btn-danger" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Confirmar Baja</button>
@@ -212,12 +210,9 @@
 
                 </div>
 
-
-                <div class="vistaCheck">
-                    <div id="comentarioFinalizar*">
-                        <p class="alert alert-info">Otros:</p>
-                        <textarea name="comentario" id="comentario" cols="40" rows="5"></textarea>
-                    </div>
+                <div id="comentarioAveria" class="vistaCheck">
+                    <label for=comentarioAveria class="input-group-text">Detalles:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentarioAveria" cols="10" rows="2"></textarea>
                 </div>
 
                 <div class="vistaFormulario">
@@ -288,21 +283,18 @@
 
                 <div class="vistaFormulario">
                     <label for="solucion">Seleccione una solución: </label>
-                    <select name="solucion" id="solucion">
+                    <select name="solucion" id="solucionFinalizarCambioDomicilio">
                         <option value="Cambio de domicilio normal">Cambio de domicilio normal</option>
                         <option value="Cambio de domicilio parcial">Cambio de domicilio parcial</option>
                         <option value="otros">otros</option>
                     </select>
-
-                    <div id="comentarioFinalizar" class="vistaFormulario">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
-                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+                <div id="comentarioFinalizarCambioDomicilio" class="vistaCheck">
+                    <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
+                </div>
+
 
                 <div class="vistaCheck">
                     <p class="alert alert-info">(*) Obligatorio</p>
@@ -339,10 +331,13 @@
                 {% if mensajeBaja == 'materialRecoger' %}
                     <p class="alert alert-danger">No se retiró el router de la instalación</p>
                 {% endif %}
+
+                {% if mensajeMaterialCliente == 'error' %}
+                    <p class="alert alert-danger">El cliente no dispone de ese material.</p>
+                {% endif %}
             {% endif %}
 
             {% if tipo == 'averia' %}
-
                 {% if mensajeIncidencia == 'error' %}
                     <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
                 {% endif %}
@@ -370,7 +365,6 @@
                 {% if mensajeSolucionAveria == 'error' %}
                     <p class="alert alert-danger">Debes indicar una solución</p>
                 {% endif %}
-
             {% endif %}
 
             {% if tipo == 'cambiodomicilio' %}

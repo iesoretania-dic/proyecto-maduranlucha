@@ -5,8 +5,6 @@
 @import "toggle-button";
 //@import "main_bootstrap";
 
-//NO incluir aqui clases de bootstrap, añadirlos en el fichero _mi-bootstrap.scss
-
 *{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -28,7 +26,7 @@ body{
 .contenido{
   padding-top: $alturaMenu;
   @media screen and (min-width: $min-width) {
-    padding-top: $alturaMenu * 2 ;
+    padding-top: $alturaMenu * 2;
     margin-right: $alturaMenu;
     margin-left: $alturaMenu;
   }
@@ -40,7 +38,7 @@ body{
   flex-wrap: wrap;
   justify-content: space-between;
   @media screen and (min-width: $min-width) {
-    padding-top: $alturaMenu * 2 ;
+    padding-top: $alturaMenu * 2;
     margin-right: $alturaMenu;
     margin-left: $alturaMenu;
   }
@@ -104,7 +102,7 @@ body{
   height: 20px;
   /*background-image: linear-gradient(orange, pink);*/
   background-repeat: no-repeat;
-  background-color: transparent ;
+  background-color: transparent;
   background-size: 100%;
   color: transparent;
   border: none;
@@ -187,12 +185,6 @@ body{
 
 }
 
-//.formularioTecnicos{
-//    //padding-left: 20px;
-//  display: inline;
-//  min-height: 0;
-//}
-
 .label{
   font-size: 1em;
 }
@@ -255,15 +247,6 @@ body{
 }
 
 //
-.vistaFormularioXL{
-  margin-top: $alturaMenu / 2;
-  width: 100%;
-  margin-bottom: 10px;
-  @media screen and (min-width: $min-width) {
-    margin-top: 0;
-    width: 800px;
-  }
-}
 
 .vistaFormularioXS{
   margin-top: $alturaMenu / 2;
@@ -274,6 +257,57 @@ body{
     width: 300px;
   }
 }
+
+.vistaFormularioS{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 400px;
+  }
+}
+
+.vistaFormularioM{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 500px;
+  }
+}
+
+.vistaFormularioL{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 600px;
+  }
+}
+
+.vistaFormularioXL{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 800px;
+  }
+}
+
+.vistaFormularioXXL{
+  margin-top: $alturaMenu / 2;
+  width: 100%;
+  margin-bottom: 10px;
+  @media screen and (min-width: $min-width) {
+    margin-top: 0;
+    width: 800px;
+  }
+}
+
 //
 .vistaInfo{
   width: 100%;
@@ -292,28 +326,40 @@ body{
 }
 
 //
-.vistaFormularioXL .list-group-item {
+
+.vistaFormulario .list-group-item,
+.vistaFormularioXS .list-group-item,
+.vistaFormularioS .list-group-item,
+.vistaFormularioM .list-group-item,
+.vistaFormularioL .list-group-item,
+.vistaFormularioXL .list-group-item,
+.vistaFormularioXXL .list-group-item{
   height: 100px;
   @media screen and (min-width: $min-width) {
     height: 50px;
   }
 }
 
-.vistaFormularioXS .list-group-item {
-  height: 100px;
-  @media screen and (min-width: $min-width) {
-    height: 50px;
-  }
-}
-//
-.vistaFormulario > .input-group, .vistaFormularioXL > .input-group, .vistaFormularioXS > .input-group{
+.vistaFormulario > .input-group,
+.vistaFormularioXS > .input-group,
+.vistaFormularioS > .input-group,
+.vistaFormularioM > .input-group,
+.vistaFormularioL > .input-group,
+.vistaFormularioXL > .input-group,
+.vistaFormularioXXL > .input-group{
   display: block;
   @media screen and (min-width: $min-width) {
     display: flex;
   }
 }
 
-.vistaFormulario > .input-group > .form-control ,.vistaFormularioXL > .input-group > .form-control ,.vistaFormularioXS > .input-group > .form-control {
+.vistaFormulario > .input-group > .form-control,
+.vistaFormularioXS > .input-group > .form-control,
+.vistaFormularioS > .input-group > .form-control,
+.vistaFormularioM > .input-group > .form-control,
+.vistaFormularioL > .input-group > .form-control,
+.vistaFormularioXL > .input-group > .form-control,
+.vistaFormularioXXL > .input-group > .form-control{
   width: 100%;
   @media screen and (min-width: $min-width) {
     width: 1%;
@@ -414,5 +460,4 @@ body{
   margin: auto 5px;
   padding: 4px;
 }
-
 

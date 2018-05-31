@@ -1,7 +1,28 @@
 $(function(){
     "use strict";
 
+    //**********ZONA JS**********//
+
+    // let miSelect = document.getElementById('solucion');
+    // let comentario = document.getElementById('comentarioFinalizar');
+    // comentario.style.display = "none";
+
+    // miSelect.addEventListener('change',function() {
+    //     let opcion = this.options[miSelect.selectedIndex];
+    //
+    //     if(opcion.innerHTML === "otros"){
+    //         comentario.style.display = "block";
+    //     }else{
+    //         comentario.style.display = "none";
+    //     }
+    // });
+
+    //**********FIN ZONA JS**********//
+
     //**********ZONA JQUERY**********//
+
+
+    $('#miselect').select2();
 
     $('.form_datetime').datetimepicker({
         language:  'es',
@@ -172,23 +193,8 @@ $(function(){
 
     //************VALIDACIONES************//
 
-    //Control sobre el boton de finalizar baja
 
 
-    let miSelect = $('#solucion');
-    let comentario = $('#comentarioFinalizar');
-
-    comentario.css("display","none");
-
-    miSelect.change(function () {
-        let opcion = this.options[this.selectedIndex].innerHTML;
-
-        if (opcion === "otros") {
-            comentario.css("display","block");
-        } else {
-            comentario.css("display","none");
-        }
-    });
 
     //************************************************//
 
@@ -206,6 +212,9 @@ $(function(){
     });
 
     //************************************************//
+
+    //***********FINALIZAR INSTALACION*************//
+
     //DESACTIVAR EL BOTON DE FINALIZAR INSTALACION//
 
     let btnInstalacion = $('#btnInstalacion');
@@ -219,6 +228,24 @@ $(function(){
             btnInstalacion.attr("disabled", false);
         }
     });
+
+    // Activar el comentario de finalizar instalacion
+
+    let solucionFinalizar = $('#solucionFinalizar');
+    let comentarioFinalizarInstalacion = $('#comentarioFinalizarInstalacion');
+    comentarioFinalizarInstalacion.css("display","none");
+
+    solucionFinalizar.change(function () {
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion === "otros" ) {
+            comentarioFinalizarInstalacion.css("display","block");
+        } else {
+            comentarioFinalizarInstalacion.css("display","none");
+        }
+    });
+
+    //***********FINALIZAR BAJA*************//
 
     //DESACTIVAR EL BOTON DE FINALIZAR BAJA//
 
@@ -234,6 +261,65 @@ $(function(){
         }
     });
 
+    //
+
+    let solucionFinalizarBaja = $('#solucionFinalizarBaja');
+    solucionFinalizarBaja.change(function () {
+
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion === 'Baja parcial') {
+            btnBaja.attr("disabled", false);
+        } else {
+            btnBaja.attr("disabled", true);
+        }
+
+        if (opcion === 'otros' || opcion === 'Baja completa') {
+            let checkBaja = document.getElementById('checkRouterBaja');
+            if(checkBaja.checked){
+                btnBaja.attr("disabled", false)
+            }else {
+                btnBaja.attr("disabled", true);
+            }
+        }
+
+    });
+
+    //Comentario al finalizar baja
+
+    let comentario = $('#comentarioFinalizar');
+    let comentarioBaja = $('#comentarioBaja');
+    let mensajeBaja = $('#mensajeBaja');
+
+    comentario.css("display","none");
+
+    solucionFinalizarBaja.change(function () {
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion !== "Baja completa" ) {
+            comentario.css("display","block");
+        } else {
+            comentario.css("display","none");
+        }
+    });
+
+    btnBaja.click(function(e){
+        let selectBaja = document.getElementById('solucionFinalizarBaja');
+        let opcion = selectBaja.options[selectBaja.selectedIndex].value;
+        if(opcion === 'Baja parcial'){
+            if(comentarioBaja.val().trim().length === 0){
+                e.preventDefault();
+                mensajeBaja.html('Obligatorio');
+            }
+        }
+    });
+
+
+
+
+
+    //***********FINALIZAR CAMBIO DOMICILIO*************//
+
     //DESACTIVAR EL BOTON DE CAMBIO DE DOMICILIO//
 
     let btnCambioDomicilio = $('#btnCambioDomicilio');
@@ -248,7 +334,42 @@ $(function(){
         }
     });
 
+    //comentario finalizar cambio domicilio
+
+    let solucionFinalizarCambioDomicilio = $('#solucionFinalizarCambioDomicilio');
+    let comentarioFinalizarCambioDomicilio = $('#comentarioFinalizarCambioDomicilio');
+    comentarioFinalizarCambioDomicilio.css("display","none");
+
+    solucionFinalizarCambioDomicilio.change(function () {
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion === "otros" ) {
+            comentarioFinalizarCambioDomicilio.css("display","block");
+        } else {
+            comentarioFinalizarCambioDomicilio.css("display","none");
+        }
+    });
+
+    //comentario confirmar finalizar
+
+    let solucionConfimarFinalizar = $('#solucionConfimarFinalizar');
+    let comentarioConfirmarFinalizar = $('#comentarioConfirmarFinalizar');
+    comentarioConfirmarFinalizar.css("display","none");
+
+    solucionConfimarFinalizar.change(function () {
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion === "otros" ) {
+            comentarioConfirmarFinalizar.css("display","block");
+        } else {
+            comentarioConfirmarFinalizar.css("display","none");
+        }
+    });
+
+
+
     //************************************************//
+
     //Control sobre añadir incidencias cuando creamos clientes para el administrador.
     let selectComerciales = $('#selectComerciales');
     let contenedorToggleIncidencia = $('#contenedorToggleIncidencia');
@@ -275,8 +396,6 @@ $(function(){
     incidencia.css("display", "none");
     comentarioIncidenciaContenedor.css("display", "none");
     contenedorToggleIncidencia.css("display", "none");
-
-
 
     $('#toggle-incidencia').change(function () {
 
@@ -550,19 +669,8 @@ $(function(){
                 mensajeConfClave.html('No coinciden');
                 mensajeConfClaveR.html('No coinciden');
             }
-
         }
-
-
-
     });
 
-
     //**********FIN VALIDACIONES**********//
-
 });
-
-
-
-
-
