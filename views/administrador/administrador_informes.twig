@@ -28,6 +28,19 @@
 
                         <button class="btn btn-info" type="submit" name="incidenciasCliente"><i class="fas fa-search"></i></button>
                     </li>
+                    {#3#}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span for="miselect">Clientes dados de baja en: </span>
+                            <select name="limite" id="miselect">
+                                {% for i in 0..6 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            <span> meses </span>
+                        </div>
+                        <button class="btn btn-info" type="submit" name="clientesBajaTiempo"><i class="fas fa-search"></i></button>
+                    </li>
                 </ul>
             </div>
 
@@ -113,6 +126,26 @@
                                 </tr>
                             {% endfor %}
                         </table>
+                    </div>
+                {% endif %}
+
+                {% if consulta == '3' %}
+                    <div class="vistaFormularioXL">
+                        {% for mes in arraymeses %}
+                            {% if mes.valor > 0 %}
+                                <ul class="list-group">
+                                    <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                                        <span class="badge badge-secondary">{{ mes.mes }}{% if mes.mes == 1 %} mes {% else %} meses {% endif %}</span>
+                                        <span class="badge badge-primary">Total: {{ mes.valor }}</span>
+                                    </li>
+                                    {% for cliente in mes.nombres %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>{{ cliente }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 {% endif %}
 

@@ -63,6 +63,43 @@ if(!isset($_SESSION['usuario'])){
         }
     }
 
+    if(isset($_POST['clientesBajaTiempo'])){
+
+        $limite = $_POST['limite'];
+
+        if($limite == 0){
+            $limite = 120;
+        }
+
+        $sentencia = "SELECT fecha_alta,fecha_baja,nombre,id_usuario,telefono,dni FROM cliente WHERE fecha_baja is NOT NULL";
+        $parametros = array();
+        $datos = new Consulta();
+        $fechas = $datos->get_conDatos($sentencia,$parametros);
+        $arraymeses = [];
+
+        //Definimos el array
+        for ($i = 1; $i < $limite+1; $i++) {
+            $arraymeses[] = array('mes'=>$i,'valor'=>0,'nombres'=>array());
+        }
+
+        foreach ($fechas as $fecha){
+
+            $tiempo_seg = restarfechas($fecha['fecha_alta'],$fecha['fecha_baja']);
+            $cadena = $fecha['nombre'].' , '.$fecha['fecha_alta'].' , '.$fecha['fecha_baja'].' , '.$fecha['id_usuario'].' , '.$fecha['telefono'];
+            $valor = round($tiempo_seg / 2592000);
+
+            for ($i = 0; $i < $limite; $i++) {
+                if($valor == $arraymeses[$i]['mes']){
+                    $arraymeses[$i]['valor']++ ;
+                    $arraymeses[$i]['nombres'][]=$cadena;
+                }
+            }
+        }
+
+        $vista = 'consulta';
+        $consulta = '3';
+    }
+
     if(isset($_POST['btnVolver'])){
         header('Location: ../administrador/administrador_informes.php');
     }
