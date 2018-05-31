@@ -6,7 +6,7 @@ session_start();
 
 if(!isset($_SESSION['usuario'])){
     header('Location: ../../index.php');
-}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1')  and ($_SESSION['rol'] != '2')){
+}elseif($_SESSION['rol'] != '0' and ($_SESSION['rol'] != '1')  and ($_SESSION['rol'] != '2') and ($_SESSION['rol'] != '4') ){
     $datos = new Consulta();
     $datos->set_noautorizado();
     header('Location: ../login/no_autorizado.php');
@@ -16,7 +16,7 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $usuario  = $_SESSION['usuario'];
     $idIncidencia =  $_GET['Id'];
-    $consulta = "SELECT * FROM comentarios WHERE id_incidencia = :incidencia ORDER BY fecha";
+    $consulta = "SELECT id_incidencia, (SELECT nombre FROM usuario WHERE dni = tecnico) AS tecnico, fecha,texto FROM comentarios WHERE id_incidencia = :incidencia ORDER BY fecha";
     $parametros = array(":incidencia"=> $idIncidencia);
     $datos = new Consulta();
     $comentarios = $datos->get_conDatos($consulta,$parametros);
