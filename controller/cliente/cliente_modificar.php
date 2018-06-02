@@ -98,26 +98,40 @@ if(!isset($_SESSION['usuario'])){
         if ($rol == '0'){
             $comercial = $_POST['comercial'];
             $eliminado = $_POST['eliminado'];
-            if($comprobarVacios  AND $comprobarDni AND $dniMinimo AND $comprobarTelefono) {
-                if ($comercial == "") {
+            $antenas = $_POST['antena'];
+            $routers = $_POST['router'];
+            $atas = $_POST['ata'];
+            $alta = $_POST['alta'];
+            $baja = $_POST['baja'];
+
+            if(strlen($alta) == 0){
+                $alta = null;
+            }
+
+            if(strlen($baja) == 0){
+                $baja = null;
+            }
+
+            if($comprobarVacios  AND $comprobarDni AND $dniMinimo AND  $comprobarTelefono){
+                if($comercial == ""){
                     $comercial = null;
                 }
 
-                $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado WHERE dni = :dniAntiguo";
-                $parametros = array(":dni" => $dni, "usuario" => $comercial, ":nombre" => $nombre, ":direccion" => $direccion, ":cp" => $cp, ":provincia" => $provincia, ":ciudad" => $ciudad, ":telefono" => $telefono, ":eliminado" => $eliminado, ":dniAntiguo" => $dniAntiguo);
+                $consulta = "UPDATE cliente SET dni = :dni, id_usuario = :usuario, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono, eliminado = :eliminado,antenas = :antenas, routers = :routers, atas = :atas, fecha_alta = :alta, fecha_baja = :baja WHERE dni = :dniAntiguo";
+                $parametros = array(":dni"=>$dni, "usuario"=>$comercial ,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono, ":eliminado"=>$eliminado ,":dniAntiguo"=>$dniAntiguo,":antenas"=>$antenas,":routers"=>$routers,":atas"=>$atas,"alta"=>$alta,":baja"=>$baja);
                 $datos = new Consulta();
-                $filasAfectadas = $datos->get_sinDatos($consulta, $parametros);
+                $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
-                if ($filasAfectadas > 0) {
+                if($filasAfectadas > 0){
                     header('Location: ../cliente/cliente_listar.php?cambios=0');
-                } else {
+                }else{
                     header('Location: ../cliente/cliente_listar.php?cambios=1');
                 }
             }
         }
 
         if($rol == '1'){
-            if($comprobarVacios  AND $comprobarDni  AND $dniMinimo AND $comprobarTelefono) {
+            if($comprobarVacios  AND $comprobarDni AND $dniMinimo AND $comprobarTelefono){
                 $consulta = "UPDATE cliente SET dni = :dni, nombre = :nombre, direccion = :direccion, cp = :cp, provincia = :provincia, ciudad = :ciudad, telefono = :telefono WHERE dni = :dniAntiguo";
                 $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":direccion"=>$direccion,":cp"=>$cp,":provincia"=>$provincia,":ciudad"=>$ciudad,":telefono"=>$telefono,":dniAntiguo"=>$dniAntiguo);
                 $datos = new Consulta();

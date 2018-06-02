@@ -17,11 +17,12 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
-    $uri =  $_SERVER['REQUEST_URI'];
     $_SESSION['dniCliente'] ='';
+    $uri =  $_SERVER['REQUEST_URI'];
 
     $clientes = [];
     $mensaje = null;
+
 
     if(isset($_GET['cambios']) and $_GET['cambios'] == '0'){
         $mensajeCambios = 'Si';
@@ -40,6 +41,7 @@ if(!isset($_SESSION['usuario'])){
     }
 
 
+
     if($rol == '0'){
         //consulta para listar todos los clientes
         $consulta = "SELECT cliente.*, usuario.usuario as comercial, usuario.nombre as nombreComercial FROM cliente LEFT OUTER JOIN usuario ON  cliente.id_usuario = usuario.dni";
@@ -53,7 +55,7 @@ if(!isset($_SESSION['usuario'])){
         }
     }elseif($rol == '1'){
         //Consulta para obtener los datos de los clientes del comerial
-        $consulta = "SELECT dni,nombre,direccion,ciudad,telefono FROM cliente WHERE id_usuario= :usuario AND eliminado = :eliminado";
+        $consulta = "SELECT dni,nombre,direccion,ciudad,telefono,fecha_baja,fecha_alta,antenas,routers,atas FROM cliente WHERE id_usuario= :usuario AND eliminado = :eliminado";
         $parametros = array(":usuario"=>$idUsuario,":eliminado"=> 'No');
         $datos = new Consulta();
         $clientes = $datos->get_conDatos($consulta,$parametros);
@@ -66,8 +68,9 @@ if(!isset($_SESSION['usuario'])){
     }
 
     if(isset($_GET['addCliente'])){ /***/
-        header('Location: cliente_buscar.php');
+        header('Location: ../cliente/cliente_buscar.php');
     }
+
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';

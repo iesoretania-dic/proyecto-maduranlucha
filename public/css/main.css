@@ -429,6 +429,18 @@ body {
   background-image: url("../resources/solucion.png");
 }
 
+.antena {
+  background-image: url("../resources/antena.png");
+}
+
+.router {
+  background-image: url("../resources/router.png");
+}
+
+.ata {
+  background-image: url("../resources/ata.png");
+}
+
 .labelPersonal {
   display: block;
   margin-bottom: 2px;
@@ -776,4 +788,15 @@ body {
 .alerta {
   margin: auto 5px;
   padding: 4px;
+}
+
+.material {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.form-group {
+  margin: 0;
+  padding: 0;
 }

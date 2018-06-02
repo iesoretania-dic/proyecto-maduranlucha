@@ -19,12 +19,12 @@
 
             <p class="alert alert-primary">Lista de clientes</p>
             <div>
-                <button class="btn btn-primary boton" type="submit" name="addCliente" ><i class="fas fa-plus"></i> Añadir cliente</button>
+                <button class="btn btn-primary boton" type="submit" name="addCliente" ><i class="fas fa-user-plus"></i> Añadir cliente</button>
             </div>
 
             {% if mensaje == 'Ok' %}
                 <div class="contenedorTabla">
-                    <table id="miTabla" class="table table-bordered table-hover table-sm miTabla table-responsive-xl">
+                    <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
                         <thead class="miThead">
                         <tr>
                             <th>Dni</th>
@@ -35,6 +35,11 @@
                             {% if rol == '0' %}
                                 <th>Comercial</th>
                                 <th>Eliminado</th>
+                            {% endif %}
+                            <th>Alta</th>
+                            <th>Baja</th>
+                            {% if rol == '0' %}
+                                <th>Material</th>
                             {% endif %}
                             <th>Acciones</th>
                         </tr>
@@ -51,6 +56,15 @@
                                 {% if rol == '0' %}
                                     <td>{{ cliente.nombreComercial }}</td>
                                     <td>{{ cliente.eliminado }}</td>
+                                {% endif %}
+                                <td>{% if cliente.fecha_alta %}{{ cliente.fecha_alta | date ('d/m/Y') }} {% endif %}</td>
+                                <td>{% if cliente.fecha_baja %} {{ cliente.fecha_baja | date ('d/m/Y') }} {% endif %}</td>
+                                {% if rol == '0' %}
+                                    <td>
+                                        {% if cliente.routers == 1 %} <a class="material" href="#"><input type="button" class="botonAccion router" title="router"></a> {% endif %}
+                                        {% if cliente.antenas == 1 %} <a class="material" href="#"><input type="button" class="botonAccion antena" title="antena"></a> {% endif %}
+                                        {% if cliente.atas == 1 %} <a class="material" href="#"><input type="button" class="botonAccion ata" title="ata"></a> {% endif %}
+                                    </td>
                                 {% endif %}
                                 <td class="td-acciones">
                                     <a href="cliente_modificar.php?Id={{ cliente.dni }}"><input type="button" class="botonAccion btnModificar" title="modificar"></a>
@@ -74,5 +88,5 @@
 {% endblock %}
 
 {% block usuario %}
- <span>Conectado como: {{ usuario }}</span>
+    <span>Conectado como: {{ usuario }}</span>
 {% endblock %}
