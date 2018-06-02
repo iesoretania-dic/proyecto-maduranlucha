@@ -71,7 +71,7 @@ if(!isset($_SESSION['usuario'])){
             $limite = 120;
         }
 
-        $sentencia = "SELECT fecha_alta,fecha_baja,nombre,id_usuario,telefono,dni FROM cliente WHERE fecha_baja is NOT NULL";
+        $sentencia = "SELECT fecha_alta,fecha_baja,nombre, (SELECT nombre from usuario WHERE usuario.dni = id_usuario) AS id_usuario,telefono,dni FROM cliente WHERE fecha_baja is NOT NULL";
         $parametros = array();
         $datos = new Consulta();
         $fechas = $datos->get_conDatos($sentencia,$parametros);
@@ -79,19 +79,18 @@ if(!isset($_SESSION['usuario'])){
 
         //Definimos el array
         for ($i = 1; $i < $limite+1; $i++) {
-            $arraymeses[] = array('mes'=>$i,'valor'=>0,'nombres'=>array());
+            $arraymeses[] = array('mes'=>$i,'valor'=>0,'clientes'=>null);
         }
 
         foreach ($fechas as $fecha){
-
             $tiempo_seg = restarfechas($fecha['fecha_alta'],$fecha['fecha_baja']);
-            $cadena = $fecha['nombre'].' , '.$fecha['fecha_alta'].' , '.$fecha['fecha_baja'].' , '.$fecha['id_usuario'].' , '.$fecha['telefono'];
+            $cliente = array("nombre"=>$fecha['nombre'],"fecha_alta"=>$fecha['fecha_alta'],"fecha_baja"=>$fecha['fecha_baja'],"id_usuario"=>$fecha['id_usuario'],"telefono"=>$fecha['telefono']);
             $valor = round($tiempo_seg / 2592000);
 
             for ($i = 0; $i < $limite; $i++) {
                 if($valor == $arraymeses[$i]['mes']){
                     $arraymeses[$i]['valor']++ ;
-                    $arraymeses[$i]['nombres'][]=$cadena;
+                    $arraymeses[$i]['clientes'][]=$cliente;
                 }
             }
         }

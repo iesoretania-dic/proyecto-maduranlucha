@@ -11,27 +11,33 @@
 
                 {% if mensaje == 'principal' %}
                     <div>
-                        <label class="alert alert-danger">No se puede modificar la incicencia ya que actualmente esta siendo atendia por: <span class="badge badge-danger">{{ nombreTecnico }}</span></label>
+                        <label class="alert alert-danger">No se puede modificar la incidencia ya que actualmente está siendo atendida por:<span class="badge badge-danger">{{ nombreTecnico }}</span></label>
+                    </div>
+
+                    <div class="vistaFormulario">
+                        <a href="javascript:history.back()"><button class="btn btn-primary" type="button"><i class="fas fa-undo"></i> Volver</button></a>
                     </div>
 
                 {% else %}
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Introduce el Tecnico:</label>
-                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nuevoTecnico" id="tecnico">
-                            <option value=""></option>
-                            {% for tecnico in tecnicos %}
-                                <option value="{{ tecnico.dni }}">{{ tecnico.nombre }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Selecciona el técnico:</label>
+                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nuevoTecnico" id="tecnico">
+                                <option value=""></option>
+                                {% for tecnico in tecnicos %}
+                                    <option value="{{ tecnico.dni }}">{{ tecnico.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="vistaFormulario">
+                        <button class="btn btn-primary" type="submit" name="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
+                        <a href="javascript:history.back()"><button class="btn btn-primary" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+                    </div>
+
                 {% endif %}
-                <div class="vistaFormulario">
-                    <button class="btn btn-primary" type="submit" name="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
-                    <a href="javascript:history.back()"><button class="btn btn-primary" type="button"><i class="fas fa-undo"></i> Volver</button></a>
-                </div>
 
                 {% if mensaje == 'error' %}
                     <div>
@@ -39,11 +45,7 @@
                     </div>
                 {% endif %}
 
-
             </div>
-
-
-
 
         </form>
     </div>

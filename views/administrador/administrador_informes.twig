@@ -138,12 +138,30 @@
                                         <span class="badge badge-secondary">{{ mes.mes }}{% if mes.mes == 1 %} mes {% else %} meses {% endif %}</span>
                                         <span class="badge badge-primary">Total: {{ mes.valor }}</span>
                                     </li>
-                                    {% for cliente in mes.nombres %}
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <span>{{ cliente }}</span>
-                                        </li>
-                                    {% endfor %}
+
                                 </ul>
+                                <table class="table table-bordered table-sm miTabla table-responsive-xl">
+                                    <thead class="miThead">
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Alta</th>
+                                        <th>Baja</th>
+                                        <th>Comercial</th>
+                                        <th>Telefono</th>
+                                    </tr>
+                                    </thead>
+
+                                    {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                                    {% for cliente in mes.clientes %}
+                                        <tr>
+                                            <td>{{ cliente.nombre }}</td>
+                                            <td>{{ cliente.fecha_alta | date ('d/m/y')}}</td>
+                                            <td>{{ cliente.fecha_baja | date ('d/m/y')}}</td>
+                                            <td>{{ cliente.id_usuario }}</td>
+                                            <td>{{ cliente.telefono }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
                             {% endif %}
                         {% endfor %}
                     </div>

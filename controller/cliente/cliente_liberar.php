@@ -17,6 +17,7 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
     $dni = $_GET['Id']; // Aqui recibimos el dni del cliente o del comercial depende de donde se envie.
+    $nombreCliente = $datos->get_nombreCliente($dni);
     $tipo = $_GET['tipo']; // 0 para usuario, 1 para cliente
     $mensajeUpdate = null;
 
@@ -86,7 +87,8 @@ if(!isset($_SESSION['usuario'])){
             'comerciales',
             'rol',
             'filasAfectadas',
-            'tipo'
+            'tipo',
+            'nombreCliente'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

@@ -19,6 +19,12 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $fechaActual = date("Y-m-d H:i:s");
 
+    if(isset($_SESSION['origen'])){
+        $origen = $_SESSION['origen'];
+    }
+
+
+
     if(isset($_GET['Id'])){
         $_SESSION['idIncidencia'] = "";
         $idIncidencia =  $_GET['Id'];
@@ -129,20 +135,10 @@ if(!isset($_SESSION['usuario'])){
     }else{
         $mensajeCliente = 'error';
     }
-
     if(isset($_POST['btnVolver'])){
-        if($rol == '0'){
-            if(isset($_GET['Id']) and isset($_SESSION['tipo']) and $_SESSION['tipo'] == '0'){
-                header('Location: ../cliente/cliente_incidencias.php?tipo=0');
-            }
 
-            if(isset($_GET['Id']) and isset($_SESSION['tipo']) and $_SESSION['tipo'] == '1'){
-                header('Location: ../cliente/cliente_incidencias.php?tipo=1&dni='.$idCliente);
-            }
+        header('Location:'.$origen);
 
-        }elseif ($rol == '4'){
-            header('Location: ../cliente/cliente_incidencias.php');
-        }
     }
 
 

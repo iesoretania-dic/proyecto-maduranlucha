@@ -33,16 +33,18 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Comercial:</span>
-                        <span>{{ incidencia.id_usuario }}</span>
+                        <span>{{ comercial.nombre }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Cliente:</span>
-                        <span>{{ incidencia.id_cliente }}</span>
+                        <span>{{ cliente.nombre }}</span>
                     </li>
+                    {% if tecnico.nombre %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Técnico:</span>
-                        <span>{{ incidencia.tecnico }}</span>
+                        <span>{{ tecnico.nombre }}</span>
                     </li>
+                    {% endif %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de creación:</span>
                         <span>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</span>
@@ -53,10 +55,12 @@
                         <span>{{ incidencia.fecha_inicio | date ('d/m/y H:i') }}</span>
                     </li>
                     {% endif %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Fecha de resolución:</span>
-                        <span>{% if incidencia.fecha_resolucion %}{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</span>
-                    </li>
+                    {% if incidencia.fecha_resolucion %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Fecha de resolución:</span>
+                            <span>{% if incidencia.fecha_resolucion %}{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</span>
+                        </li>
+                    {% endif %}
                     {% if incidencia.estado != '3' and incidencia.disponible %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Disponible a partir de:</span>
@@ -187,6 +191,26 @@
                         </span>
                     </li>
                     {% endif %}
+                    {% if incidencia.atas %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            {% if incidencia.tipo == 'instalacion' %}
+                                Atas instalados:
+                            {% elseif incidencia.tipo =='baja' %}
+                                Atas retirados:
+                            {% else %}
+                                Atas:
+                            {% endif %}
+                        </span>
+                        <span class="badge badge-primary">
+                            {% if incidencia.atas < 0 %}
+                                {{ incidencia.atas * (-1) }}
+                            {% elseif incidencias.atas >= 0 %}
+                                {{ incidencia.atas }}
+                            {% endif %}
+                        </span>
+                    </li>
+                    {% endif %}
                     {% if incidencia.estado == '3' %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Tiempo de solución:</span>
@@ -245,25 +269,27 @@
                         <span>{{ cliente.provincia}}</span>
                     </li>
                 </ul>
-                <ul class="list-group">
-                    <li class="alert alert-info list-group-item list-group-item-secondary">Datos del técnico:</li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Dni:</span>
-                        <span>{{ tecnico.dni }}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Usuario:</span>
-                        <span>{{ tecnico.usuario }}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Nombre:</span>
-                        <span>{{ tecnico.nombre }}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Teléfono:</span>
-                        <span>{{ tecnico.telefono }}</span>
-                    </li>
-                </ul>
+                {% if tecnico.dni %}
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-secondary">Datos del técnico:</li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Dni:</span>
+                            <span>{{ tecnico.dni }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Usuario:</span>
+                            <span>{{ tecnico.usuario }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Nombre:</span>
+                            <span>{{ tecnico.nombre }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Teléfono:</span>
+                            <span>{{ tecnico.telefono }}</span>
+                        </li>
+                    </ul>
+                {% endif %}
                 <ul class="list-group">
                     <li class="alert alert-info list-group-item list-group-item-secondary">Datos del comercial:</li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">

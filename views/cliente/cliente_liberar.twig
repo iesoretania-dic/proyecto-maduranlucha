@@ -8,7 +8,7 @@
 
             {% if tipo == '1' %}
                 <div class="vistaFormulario">
-                    <label class="alert alert-warning" for="dni">¿Seguro que desea liberar el cliente: <span class="badge btn-warning">{{ dni }}</span>?.</label>
+                    <label class="alert alert-warning" for="dni">¿Seguro que desea liberar el cliente: <span class="badge btn-warning">{{ nombreCliente }}</span>?.</label>
                 </div>
             {% elseif tipo == '0' %}
                 <div class="vistaFormulario">
@@ -22,14 +22,14 @@
 
             {% if mensajeUpdate == 'error' %}
                 {% if tipo == '1' %}
-                    <p class="alert alert-danger">Error al liberar el cliente <span class="badge btn-warning">{{ dni }}</span></p>
+                    <p class="alert alert-danger">Error al liberar el cliente <span class="badge btn-warning">{{ nombreCliente }}</span></p>
                 {% elseif tipo == '0' %}
                     <p class="alert alert-danger">No se pudieron liberar los clientes</p>
                 {% endif %}
             {% endif %}
 
             {% if mensajeUpdate == 'sinClientes' %}
-                <p class="alert alert-warning">El comercial <span class="badge btn-warning">{{ dni }}</span>, no dispone de clientes para liberar en este momento</p>
+                <p class="alert alert-warning">El comercial <span class="badge btn-warning">{{ dniComercial }}</span>, no dispone de clientes para liberar en este momento</p>
             {% endif %}
 
         </form>

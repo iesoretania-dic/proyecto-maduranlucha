@@ -128,7 +128,7 @@
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
                                         {% endif %}
-                                        {% if fila.estado == '0' or fila.estado == '1' %}
+                                        {% if fila.estado == '0' or (fila.estado == '1' and fila.tipo == 'averia')%}
                                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' and fila.estado == '2' %}
@@ -142,7 +142,7 @@
                                         {% if rol == '0' and  fila.estado != '3' %}
                                             <a href="../cliente/cliente_incidencias_disponible.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnDispobible" title="Modificar fecha"></a>
                                         {% endif %}
-                                        {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1' or fila.estado == '2') %}
+                                        {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1' or fila.estado == '2' or fila.estado == '4') %}
                                             <a href="../cliente/cliente_incidencias_reasignar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnReasignar" title="Cambiar Técnico"></a>
                                         {% endif %}
                                         {% if rol == '0' and  (fila.estado == '0' or fila.estado == '1') %}
