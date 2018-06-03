@@ -35,6 +35,15 @@ $blue:   $primary-color;
     width: 250px;
   }
 }
+
+.vistaFormularioXXLS  .input-group-text{
+  width: 100%;
+  @media screen and (min-width: $min-width) {
+    width: 350px;
+  }
+}
+
+
 //Modificar el ancho del input-group-text, para que el input text no se desborde sumarle el tamaño de este elemento.
 .vistaEstablecer  .input-group-text{
   width: 100px;
@@ -50,3 +59,9 @@ $blue:   $primary-color;
   }
 }
 
+.vistaFormularioXXLS  .input-group{
+  display: block;
+  @media screen and (min-width: $min-width) {
+    display: flex;
+  }
+}

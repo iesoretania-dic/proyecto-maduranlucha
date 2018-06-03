@@ -1,4 +1,4 @@
 <?php
 
-header('Location: controller/login/login.php');
+header('Location: controller/login/test.php');
 

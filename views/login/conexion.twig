@@ -1,0 +1,55 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Conexion' %}
+
+{% block menu %}
+{% endblock %}
+
+
+{% block contenido %}
+    <div class="contenido">
+        <form action="" method="post">
+            <div>
+                <div>
+                    <p class="alert alert-warning">Formulario de conexion</p>
+                </div>
+                <p class="jumbotron">No ha sido posible establecer la conexion con la base de datos porfavor introduzca los datos de conexión:</p>
+
+                <div class="vistaFormularioXXLS">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la direccion del servidor:</span>
+                        </div>
+                        <input id="dni-add-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="servidor" value="{{ servidor }}" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de la base de datos:</span>
+                        </div>
+                        <input id="dni-add-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="basedatos" value="{{ basededatos }}" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de usuario de la base de datos:</span>
+                        </div>
+                        <input id="dni-add-input" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="usuario" value="{{ usuario }}" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
+                        </div>
+                        <input id="dni-add-input" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="clave">
+                    </div>
+
+                </div>
+
+                <div class="vistaFormularioXXL">
+                    <input class="btnLogin btn btn-primary" type="submit" name="enviar" value="Establecer">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

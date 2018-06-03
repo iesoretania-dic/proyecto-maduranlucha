@@ -30,6 +30,16 @@
   }
 }
 
+.vistaFormularioXXLS .input-group-text {
+  width: 100%;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioXXLS .input-group-text {
+    width: 350px;
+  }
+}
+
 .vistaEstablecer .input-group-text {
   width: 100px;
 }
@@ -46,6 +56,18 @@
 
 @media screen and (min-width: 991px) {
   .vistaFormulario .input-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.vistaFormularioXXLS .input-group {
+  display: block;
+}
+
+@media screen and (min-width: 991px) {
+  .vistaFormularioXXLS .input-group {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

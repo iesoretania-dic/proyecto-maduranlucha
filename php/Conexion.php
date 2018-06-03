@@ -1,14 +1,17 @@
 <?php
-
-abstract class Conexion{
+class Conexion{
 
     public $conexionDB;
 
-    public function __construct($servidor = 'localhost',$basededatos='gestion_incidencias' ,$usuario = 'root',$clave = ''){
+    public function __construct(){
 
-        $dns = 'mysql:host='.$servidor.'; dbname='.$basededatos;
-        $usarname = $usuario;
-        $password = $clave;
+        $file = fopen("../../php/parametros.txt", "r");
+        $datosFile = fgets($file);
+        $datosConexion = json_decode($datosFile, $assoc = true);
+
+        $dns = $datosConexion['dns'];
+        $usarname = $datosConexion['usuario'];
+        $password = $datosConexion['clave'];
 
         try{
             $this->conexionDB = new PDO($dns,$usarname,$password,array(PDO::ATTR_PERSISTENT => true));
@@ -17,7 +20,8 @@ abstract class Conexion{
             return $this->conexionDB;
 
         }catch(Exception $e){
-            die('Error: ' . $e->getCode());
+//            die('Error: ' . $e->getLine());
+
         }
     }
 }
