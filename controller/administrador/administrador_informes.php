@@ -99,6 +99,43 @@ if(!isset($_SESSION['usuario'])){
         $consulta = '3';
     }
 
+    if(isset($_POST['clientesBajaFechas'])){
+
+
+        $fecha1 = $limite = $_POST['anioI'].'-'.$_POST['mesI'].'-01';
+        $fecha2 = $limite = $_POST['anioD'].'-'.$_POST['mesD'].'-01';
+
+        $limite = 120;
+
+        $sentencia = "SELECT fecha_alta,fecha_baja,nombre,(SELECT nombre from usuario WHERE usuario.dni = id_usuario) AS id_usuario,telefono,dni FROM cliente WHERE fecha_baja is NOT NULL AND fecha_baja BETWEEN :fecha1 AND :fecha2 ";
+        $parametros = array(":fecha1"=>$fecha1,":fecha2"=>$fecha2);
+        $datos = new Consulta();
+        $fechas = $datos->get_conDatos($sentencia,$parametros);
+        $arraymeses = [];
+
+        //Definimos el array
+        for ($i = 1; $i < $limite+1; $i++) {
+            $arraymeses[] = array('mes'=>$i,'valor'=>0,'nombres'=>array());
+        }
+
+        foreach ($fechas as $fecha){
+
+            $tiempo_seg = restarfechas($fecha['fecha_alta'],$fecha['fecha_baja']);
+            $cliente = array("nombre"=>$fecha['nombre'],"fecha_alta"=>$fecha['fecha_alta'],"fecha_baja"=>$fecha['fecha_baja'],"id_usuario"=>$fecha['id_usuario'],"telefono"=>$fecha['telefono']);
+            $valor = round($tiempo_seg / 2592000);
+
+            for ($i = 0; $i < $limite; $i++) {
+                if($valor == $arraymeses[$i]['mes']){
+                    $arraymeses[$i]['valor']++ ;
+                    $arraymeses[$i]['clientes'][]=$cliente;
+                }
+            }
+        }
+
+        $vista = 'consulta';
+        $consulta = '3';
+    }
+
     if(isset($_POST['btnVolver'])){
         header('Location: ../administrador/administrador_informes.php');
     }
