@@ -136,6 +136,17 @@ if(!isset($_SESSION['usuario'])){
         $consulta = '3';
     }
 
+    if(isset($_POST['flujoIncidencias'])){
+        $datos = new Consulta();
+        $sentencia = "SELECT id_incidencia, (SELECT nombre FROM cliente WHERE dni = incidencia.id_cliente) as id_cliente, (SELECT nombre FROM usuario WHERE dni = id_usuario) as id_usuario,fecha_creacion,fecha_parcial,fecha_inicio,disponible,urgente,tipo FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY urgente = :urgente DESC, tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion";
+        $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":urgente"=>'Si'));
+        $incidencias = $datos->get_conDatos($sentencia,$parametros);
+
+        $vista = 'consulta';
+        $consulta = '4';
+    }
+
+
     if(isset($_POST['btnVolver'])){
         header('Location: ../administrador/administrador_informes.php');
     }

@@ -109,6 +109,13 @@
                         </div>
                         <button class="btn btn-info" type="submit" name="clientesBajaFechas"><i class="fas fa-search"></i></button>
                     </li>
+                    {#5#}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span>Flujo incidencias para los tecnicos </span>
+                        </div>
+                        <button class="btn btn-info" type="submit" name="flujoIncidencias"><i class="fas fa-search"></i></button>
+                    </li>
                 </ul>
             </div>
 
@@ -232,6 +239,40 @@
                                 </table>
                             {% endif %}
                         {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if consulta == '4' %}
+                    <p class="alert alert-info">En este apartado vemos como seria el flujo de incidencias para los técnicos</p>
+                    <div class="contenedorTabla">
+                        <table id="miTablaControlador" class="table table-bordered table-sm miTabla table-responsive-xl">
+                            <thead class="miThead">
+                            <tr>
+                                <th>Id</th>
+                                <th>Comercial</th>
+                                <th>Cliente</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Inicio</th>
+                                <th>Disponible</th>
+                                <th>Tipo</th>
+                                <th>Urgente</th>
+                            </tr>
+                            </thead>
+
+                            {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                            {% for incidencia in incidencias %}
+                                <tr>
+                                    <td>{{ incidencia.id_incidencia }}</td>
+                                    <td>{{ incidencia.id_usuario }}</td>
+                                    <td>{{ incidencia.id_cliente }}</td>
+                                    <td>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_inicio %} {{ incidencia.fecha_inicio | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_disponible %} {{ incidencia.disponible | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{{ incidencia.tipo }}</td>
+                                    <td>{{ incidencia.urgente }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 {% endif %}
 
