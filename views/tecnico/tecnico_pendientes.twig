@@ -32,7 +32,7 @@
                         <tbody>
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for fila in arrayFilas %}
-                            <tr {% if fila.disponible > fechaActual %} class="pendienteF" {% else %} class="pendienteW" {% endif %} >
+                            <tr {% if fila.disponible > fechaActual %} class="pendienteF" {% elseif fila.urgente == 'Si' %} class="pendienteU" {% else %} class="pendienteW" {% endif %} >
                                 <td>{{ fila.id_incidencia }}</td>
                                 <td>{{ fila.id_cliente }}</td>
                                 <td>{{ fila.nombre }}</td>

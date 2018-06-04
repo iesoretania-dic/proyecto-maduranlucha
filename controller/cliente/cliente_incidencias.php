@@ -42,7 +42,7 @@ if(!isset($_SESSION['usuario'])){
         //Consulta si viene desde el apartado de incidencias
         if($tipo == '0'){
             //Consulta para obtener todas las incidencias
-            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente,(SELECT ciudad FROM cliente WHERE dni = id_cliente) as poblacion FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
             $parametros = array();
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);
@@ -57,7 +57,7 @@ if(!isset($_SESSION['usuario'])){
         //Consulta si viene desde el apartado de los clientes, para un cliente en especifico.
         if($tipo == '1'){
             //CONSULTA PARA OBTENER Las incidencias de un cliente.
-            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia  INNER JOIN usuario ON incidencia.id_usuario = usuario.dni where incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente ,(SELECT ciudad FROM cliente WHERE dni = id_cliente) as poblacion FROM incidencia  INNER JOIN usuario ON incidencia.id_usuario = usuario.dni where incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
             $parametros = array(":dni"=>$dniCliente);
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);
@@ -86,7 +86,7 @@ if(!isset($_SESSION['usuario'])){
         //Consulta si viene desde el apartado de incidencias
         if($tipo == '0'){
             //Consulta para obtener todas las incidencias
-            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_usuario = :comercial ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente ,(SELECT ciudad FROM cliente WHERE dni = id_cliente) as poblacion FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_usuario = :comercial ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_resolucion DESC, incidencia.fecha_creacion ASC";
             $parametros = array(":comercial"=>$idUsuario);
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);
@@ -101,7 +101,7 @@ if(!isset($_SESSION['usuario'])){
         //Consulta si viene desde el apartado de los clientes, para un cliente en especifico.
         if($tipo == '1'){
             //CONSULTA PARA OBTENER Las incidencias de un cliente.
-            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_usuario = :comercial AND incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_creacion";
+            $consulta = "SELECT incidencia.*, usuario.nombre as tnombre,(SELECT nombre from usuario WHERE dni = incidencia.tecnico) as ntecnico,(SELECT nombre from cliente WHERE cliente.dni = incidencia.id_cliente) as ncliente ,(SELECT ciudad FROM cliente WHERE dni = id_cliente) as poblacion FROM incidencia INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.id_usuario = :comercial AND incidencia.id_cliente = :dni ORDER BY  incidencia.estado = '0' DESC, incidencia.estado = '1' DESC, incidencia.estado = '2' DESC,incidencia.estado = '4' DESC, incidencia.estado = '3' DESC, incidencia.fecha_creacion";
             $parametros = array(":comercial"=>$idUsuario,":dni"=>$dniCliente);
             $datos = new Consulta();
             $arrayFilas = $datos->get_conDatos($consulta,$parametros);

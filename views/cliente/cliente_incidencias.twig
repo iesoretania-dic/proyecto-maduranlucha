@@ -29,20 +29,20 @@
                             {% if rol == '0' %}
                                 <th>Id</th>
                                 <th>Cliente</th>
-                                <th>Creada</th>
+                                <th>Población</th>
                                 <th>Técnico</th>
                                 <th>Creación</th>
                                 <th>Resolución</th>
                                 <th>Disponible</th>
                                 <th>Tipo</th>
                                 <th>Acciones</th>
-
                             {% endif %}
                             {#Vista para el comercial#}
                             {% if rol == '1' %}
                                 <th>Id</th>
                                 <th>Cliente</th>
                                 <th>Técnico</th>
+                                <th>Población</th>
                                 <th>Creación</th>
                                 <th>Resolución</th>
                                 <th>Disponible</th>
@@ -55,6 +55,7 @@
                                 <th>Cliente_Dni</th>
                                 <th>Cliente_Nombre</th>
                                 <th>Cliente_Telefono</th>
+                                <th>Cliente_Ciudad</th>
                                 <th>Info</th>
                                 <th>Acciones</th>
                             {% endif %}
@@ -80,7 +81,7 @@
                                 {% if rol == '0' %}
                                     <td>{{ fila.id_incidencia }}</td>
                                     <td>{{ fila.ncliente }}</td>
-                                    <td>{{ fila.tnombre }}</td>
+                                    <td>{{ fila.poblacion }}</td>
                                     <td>{{ fila.ntecnico }}</td>
                                     <td>{% if fila.fecha_creacion %} {{ fila.fecha_creacion | date ('d/m/y H:i')}} {% endif %}</td>
                                     <td>{% if fila.fecha_resolucion %}  {{ fila.fecha_resolucion | date ('d/m/y H:i')}} {% endif %}</td>
@@ -101,6 +102,7 @@
                                     <td>{{ fila.id_incidencia }}</td>
                                     <td>{{ fila.ncliente }}</td>
                                     <td>{{ fila.ntecnico }}</td>
+                                    <td>{{ fila.poblacion }}</td>
                                     <td>{% if fila.fecha_creacion %} {{ fila.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
                                     <td>{% if fila.fecha_resolucion %} {{ fila.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</td>
                                     <td {% if fila.disponible > fechaActual and fila.estado != '3' %}  class="pendienteF" {% elseif fila.disponible <= fechaActual and fila.estado != '3'  %} class="pendienteW"  {% endif %} >{% if fila.disponible %}  {{ fila.disponible | date ('d/m/y H:i')}} {% endif %}</td>
@@ -120,6 +122,7 @@
                                     <td>{{ fila.id_cliente }}</td>
                                     <td>{{ fila.nombreCliente }}</td>
                                     <td>{{ fila.telefono }}</td>
+                                    <td>{{ fila.ciudad }}</td>
                                     <td>{{ fila.otros }}</td>
                                 {% endif %}
 
