@@ -7,7 +7,7 @@
         <form action="" method="post">
 
             {% if vista == 'botones' %}
-            <div class="vistaFormularioXL">
+            <div class="vistaFormularioXXL">
                 <ul class="list-group">
                     {#1#}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -115,6 +115,19 @@
                             <span>Flujo incidencias para los tecnicos </span>
                         </div>
                         <button class="btn btn-info" type="submit" name="flujoIncidencias"><i class="fas fa-search"></i></button>
+                    </li>
+                    {#6#}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span>Incidencias finalizadas por el técnico:  </span>
+                            <select name="tecnico" id="miSelectTecnicos">
+                                <option value="">Seleccione un técnico de la lista:</option>
+                                {% for i in tecnicos %}
+                                    <option value="{{ i.dni }}">{{ i.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-info" type="submit" name="incidenciasFinalizadasTecnico"><i class="fas fa-search"></i></button>
                     </li>
                 </ul>
             </div>
@@ -270,6 +283,38 @@
                                     <td>{% if incidencia.fecha_disponible %} {{ incidencia.disponible | date ('d/m/y H:i') }} {% endif %}</td>
                                     <td>{{ incidencia.tipo }}</td>
                                     <td>{{ incidencia.urgente }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+
+                {% if consulta == '5' %}
+                    <p class="alert alert-info">Incidencias finalizadas por el tecnico: <span class="badge badge-primary">{{ nombreTecnico }}</span></p>
+                    <div class="contenedorTabla">
+                        <table id="miTablaControlador" class="table table-bordered table-sm miTabla table-responsive-xl">
+                            <thead class="miThead">
+                            <tr>
+                                <th>Id</th>
+                                <th>Comercial</th>
+                                <th>Cliente</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Inicio</th>
+                                <th>Resolución</th>
+                                <th>Tipo</th>
+                            </tr>
+                            </thead>
+
+                            {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                            {% for incidencia in incidenciasTecnico %}
+                                <tr>
+                                    <td><a href="../cliente/cliente_incidencias_info.php?Id={{ incidencia.id_incidencia }}">{{ incidencia.id_incidencia }}</a></td>
+                                    <td>{{ incidencia.id_usuario }}</td>
+                                    <td>{{ incidencia.id_cliente }}</td>
+                                    <td>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_inicio %} {{ incidencia.fecha_inicio | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{% if incidencia.fecha_resolucion %} {{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</td>
+                                    <td>{{ incidencia.tipo }}</td>
                                 </tr>
                             {% endfor %}
                         </table>

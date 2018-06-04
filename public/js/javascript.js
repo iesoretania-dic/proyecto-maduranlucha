@@ -23,6 +23,8 @@ $(function(){
 
 
     $('#miselect').select2();
+    $('#miSelectTecnicos').select2();
+
 
     $('.form_datetime').datetimepicker({
         language:  'es',

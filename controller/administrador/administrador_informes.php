@@ -29,6 +29,12 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $clientes = $datos->get_conDatos($sentencia,$parametros);
 
+    //Lista de tecnicos
+    $sentencia = "SELECT dni, nombre from usuario WHERE rol != :rol" ;
+    $parametros = array("rol"=>'1');
+    $datos = new Consulta();
+    $tecnicos = $datos->get_conDatos($sentencia,$parametros);
+
     if(isset($_POST['bajaMaterial'])){
 
         $sentencia = "SELECT cliente.dni, cliente.nombre, cliente.antenas,cliente.telefono, cliente.routers, incidencia.tipo FROM cliente INNER JOIN incidencia ON cliente.dni = incidencia.id_cliente WHERE incidencia.tipo ='baja' and (cliente.routers  or cliente.antenas)";
@@ -146,6 +152,24 @@ if(!isset($_SESSION['usuario'])){
         $consulta = '4';
     }
 
+    if(isset($_POST['incidenciasFinalizadasTecnico'])){
+        $_SESSION['origen'] = $_SERVER['REQUEST_URI'];
+        $tecnicoListaIncidencias = $_POST['tecnico'];
+
+        if($tecnicoListaIncidencias != ""){
+            $datos = new Consulta();
+            $nombreTecnico = $datos->get_nombreUsuario($tecnicoListaIncidencias);
+            $datos = new Consulta();
+            $sentencia = "SELECT id_incidencia, (SELECT nombre FROM usuario WHERE dni = id_usuario) AS id_usuario, (SELECT nombre FROM cliente WHERE dni = id_cliente) AS id_cliente,fecha_creacion,fecha_inicio,fecha_resolucion,tipo FROM incidencia WHERE tecnico = :usuario AND estado = '3'";
+            $parametros = (array(":usuario"=>$tecnicoListaIncidencias));
+            $incidenciasTecnico = $datos->get_conDatos($sentencia,$parametros);
+
+            $vista = 'consulta';
+            $consulta = '5';
+        }else{
+            $mensajeTecnicoResueltas = 'error';
+        }
+    }
 
     if(isset($_POST['btnVolver'])){
         header('Location: ../administrador/administrador_informes.php');
