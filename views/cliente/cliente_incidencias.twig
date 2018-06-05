@@ -164,6 +164,7 @@
                                 {% endif %}
                                 {% if rol == '1' %}
                                     <td class="td-acciones">
+                                        <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                         {% if fila.estado == '3' %}
                                             <a href="../cliente/cliente_incidencias_solucion.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnSolucion" title="Solucion"></a>
                                         {% endif %}

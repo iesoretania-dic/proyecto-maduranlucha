@@ -47,7 +47,7 @@
 
                         {#le pasamos la variable que contiene el array con las filas de la consulta#}
                         {% for cliente in clientes %}
-                            <tr>
+                            <tr {% if cliente.pendientes > 0  %} class="pendienteF" {% endif %} >
                                 <td>{{ cliente.dni }}</td>
                                 <td>{{ cliente.nombre }}</td>
                                 <td>{{ cliente.direccion }}</td>
