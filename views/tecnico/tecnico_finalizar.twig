@@ -365,6 +365,10 @@
                 {% if mensajeSolucionAveria == 'error' %}
                     <p class="alert alert-danger">Debes indicar una solución</p>
                 {% endif %}
+
+                {% if mensajeMaterialPositivo == 'error' %}
+                    <p class="alert alert-danger">No dispone de suficiente material para esta solución.</p>
+                {% endif %}
             {% endif %}
 
             {% if tipo == 'cambiodomicilio' %}

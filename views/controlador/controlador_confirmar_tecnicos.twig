@@ -6,10 +6,11 @@
     <div class="contenido">
         <form class="formularioTecnicos" action="" method="post">
 
-            {% if error %}
-                <p class="label label-danger">El comentario es obligatorio</p>
-            {% endif %}
-
+            <div class="vistaFormularioS">
+                {% if mensajeComentario == 'error' %}
+                    <p class="alert alert-danger">El comentario es obligatorio</p>
+                {% endif %}
+            </div>
             <div class="vistaFormularioS">
                 <p class="alert alert-warning" >Enviar a técnicos </p>
                 <label for=comentario class="input-group-text">Añadir Comentario*:</label>
