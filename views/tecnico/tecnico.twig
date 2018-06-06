@@ -7,7 +7,7 @@
         {% if cliente %}
 
             <form class="formularioTecnicos" action="tecnico.php" method="post">
-                <div class="vistaFormulario">
+                <div class="formInfo">
                     {% if mensaje == 'No' %}
                         <input class="btn btn-danger" type="submit" name="btnAceptarIncidencia" value="Ver siguiente">
                     {% elseif mensaje == 'Si' %}
@@ -122,10 +122,22 @@
 
                         {% if otros %}
                             <ul class="list-group">
-                                <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios del comercial</li>
+                                <li class="alert alert-info list-group-item list-group-item-secondary">Información del comercial</li>
                                 <li class="list-group-item liArea"><p class="pArea">{{ otros }}</p></li>
                             </ul>
                         {% endif %}
+
+                        {% if arrayComentarios %}
+                            <ul class="list-group">
+                                <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios de la incidencia: <span class="badge badge-primary">{{ idIncidencia }}</span></li>
+                                {% for comentario in arrayComentarios %}
+                                    <li class="list-group-item liAreaS">
+                                        <p class="pArea">{{ comentario.texto }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {##}
 
                         <div class="btn-group-vertical">
                             <button class="btn btn-info text-left" type="submit" name="btnFinalizarIncidencia"><i class="fas fa-check"></i> Finalizar</button>

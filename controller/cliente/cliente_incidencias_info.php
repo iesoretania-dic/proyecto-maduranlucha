@@ -24,7 +24,6 @@ if(!isset($_SESSION['usuario'])){
     }
 
 
-
     if(isset($_GET['Id'])){
         $_SESSION['idIncidencia'] = "";
         $idIncidencia =  $_GET['Id'];
@@ -70,6 +69,12 @@ if(!isset($_SESSION['usuario'])){
         $tecnico = $datos->get_conDatosUnica($consulta,$parametros);
         $datos->conexionDB->commit();
 
+        //Obtener los comentarios de la incidencia ****
+        $sentencia = "SELECT comentarios.texto FROM comentarios WHERE id_incidencia = :incidencia ORDER BY comentarios.fecha ASC";
+        $parametros = (array(":incidencia"=>$idIncidencia));
+        $datos = new Consulta();
+        $arrayComentarios = $datos->get_conDatos($sentencia,$parametros);
+
     } catch (PDOException $e) {
         $datos->conexionDB->rollBack();
         die('Error: ' . $e->getMessage());
@@ -82,8 +87,6 @@ if(!isset($_SESSION['usuario'])){
 
     $interval = restarfechas($incidencia['fecha_inicio'],$incidencia['fecha_resolucion']);
     $tiempoResoluciondos = round($interval / 3600,2) . " Horas o (". round($interval / 86400,2) . ") Dias"  ; //dividimos entre 3600 para obtener las horas.
-
-
 
 
     if($incidencia['estado'] == '3'){
@@ -109,8 +112,6 @@ if(!isset($_SESSION['usuario'])){
     $parametros = array(":cliente"=>$idCliente);
     $datos = new Consulta();
     $historialIncidencias = $datos->get_conDatos($consulta,$parametros);
-
-
 
     if($incidencia){
         $mensajeIncidencia = 'Ok';
@@ -165,7 +166,8 @@ if(!isset($_SESSION['usuario'])){
             'fechaSolucion',
             'tecnicoSolucion',
             'historialIncidencias',
-            'ultimaIncidencia'
+            'ultimaIncidencia',
+            'arrayComentarios'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

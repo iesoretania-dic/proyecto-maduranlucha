@@ -93,6 +93,12 @@ if(!isset($_SESSION['usuario'])){
             $parametros = (array(":dni"=>$id_cliente));
             $datos = new Consulta();
             $cliente= $datos->get_conDatosUnica($sentencia,$parametros);
+
+            //Obtener los comentarios de la incidencia
+            $sentencia = "SELECT comentarios.texto FROM comentarios WHERE id_incidencia = :incidencia ORDER BY comentarios.fecha ASC";
+            $parametros = (array(":incidencia"=>$asignada));
+            $datos = new Consulta();
+            $arrayComentarios = $datos->get_conDatos($sentencia,$parametros);
         }
 
     }catch (Exception $e){
@@ -230,11 +236,10 @@ if(!isset($_SESSION['usuario'])){
             'mensajeAverias',
             'urgente',
             'resultado',
-            'uri'
+            'uri',
+            'arrayComentarios'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
     }
 }
-
-

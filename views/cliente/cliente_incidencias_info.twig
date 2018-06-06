@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Comentarios' %}
+{% block title 'Información' %}
 
 {% block contenido %}
 
@@ -238,6 +238,18 @@
                         <li class="list-group-item liArea"><p class="pArea">{{ incidencia.otros }}</p></li>
                     </ul>
                 {% endif %}
+
+                {% if arrayComentarios %}
+                    <ul class="list-group">
+                        <li class="alert alert-info list-group-item list-group-item-secondary">Comentarios de la incidencia: <span class="badge badge-primary">{{ idIncidencia }}</span></li>
+                        {% for comentario in arrayComentarios %}
+                            <li class="list-group-item liAreaS">
+                                <p class="pArea">{{ comentario.texto }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
                 <ul class="list-group">
                     <li class="alert alert-info list-group-item list-group-item-secondary">Datos del cliente:</li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">

@@ -745,6 +745,10 @@ body {
   height: 100px;
 }
 
+.liAreaS {
+  height: 60px;
+}
+
 .pArea {
   white-space: normal;
   overflow: auto;
@@ -780,16 +784,6 @@ body {
 @media screen and (min-width: 991px) {
   .historial {
     width: 64%;
-  }
-}
-
-.btn-group-vertical, .btn-group {
-  width: 100%;
-}
-
-@media screen and (min-width: 991px) {
-  .btn-group-vertical, .btn-group {
-    width: 400px;
   }
 }
 

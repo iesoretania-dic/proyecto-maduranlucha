@@ -417,6 +417,10 @@ body{
   height: 100px;
 }
 
+.liAreaS{
+  height: 60px;
+}
+
 .pArea{
   white-space: normal;
   overflow: auto;
@@ -450,15 +454,6 @@ body{
     width:64%;
   }
 }
-
-//
-.btn-group-vertical, .btn-group{
-  width: 100%;
-  @media screen and (min-width: $min-width) {
-    width: 400px;
-  }
-}
-//
 
 //modificar el boton de menu en vista movil
 .navbar-light .navbar-toggler{
