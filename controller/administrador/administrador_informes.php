@@ -37,7 +37,7 @@ if(!isset($_SESSION['usuario'])){
 
     if(isset($_POST['bajaMaterial'])){
 
-        $sentencia = "SELECT cliente.dni, cliente.nombre, cliente.antenas,cliente.telefono, cliente.routers, incidencia.tipo FROM cliente INNER JOIN incidencia ON cliente.dni = incidencia.id_cliente WHERE incidencia.tipo ='baja' and (cliente.routers  or cliente.antenas)";
+        $sentencia = "SELECT cliente.dni, cliente.nombre, cliente.antenas,cliente.telefono, cliente.routers,cliente.atas, incidencia.tipo FROM cliente INNER JOIN incidencia ON cliente.dni = incidencia.id_cliente WHERE incidencia.tipo ='baja' and (cliente.routers  or cliente.antenas)";
         $parametros = array();
         $datos = new Consulta();
         $clientes = $datos->get_conDatos($sentencia,$parametros);
@@ -55,6 +55,7 @@ if(!isset($_SESSION['usuario'])){
         $dniCliente = $_POST['dniCliente'];
         $datos = new Consulta();
         $nombreCliente = $datos->get_nombreCliente($dniCliente);
+        $fechaActual = date("Y-m-d H:i:s");
 
         $sentencia = "SELECT id_incidencia, (SELECT nombre FROM usuario WHERE dni= id_usuario) AS id_usuario, (SELECT nombre FROM usuario WHERE dni= tecnico) AS tecnico,fecha_creacion,fecha_inicio,fecha_resolucion,disponible,tipo,estado from incidencia where id_cliente= :dni ORDER BY estado = '0' DESC, estado = '1' DESC,estado = '2' DESC,estado = '3' DESC,estado = '4' DESC, fecha_resolucion DESC, fecha_creacion ASC";
         $parametros = array(":dni"=>$dniCliente);
@@ -197,7 +198,8 @@ if(!isset($_SESSION['usuario'])){
             'nombreTecnico',
             'mensajeTecnicoResueltas',
             'nombreCliente',
-            'uri'
+            'uri',
+            'fechaActual'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

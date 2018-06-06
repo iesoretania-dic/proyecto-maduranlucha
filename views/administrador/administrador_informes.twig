@@ -141,32 +141,32 @@
 
                 {% if consulta == '1' %}
 
-                <div class="contenedorTabla">
-                    <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
-                        <thead class="miThead">
-                        <tr>
-                            <th>Dni</th>
-                            <th>Nombre</th>
-                            <th>Antenas</th>
-                            <th>Routers</th>
-                            <th>Telefono</th>
-                            <th>Tipo</th>
-                        </tr>
-                        </thead>
-
-                        {#le pasamos la variable que contiene el array con las filas de la consulta#}
-                        {% for cliente in clientes %}
+                    <div class="contenedorTabla">
+                        <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
+                            <thead class="miThead">
                             <tr>
-                                <td>{{ cliente.dni }}</td>
-                                <td>{{ cliente.nombre }}</td>
-                                <td>{{ cliente.antenas }}</td>
-                                <td>{{ cliente.routers }}</td>
-                                <td>{{ cliente.telefono }}</td>
-                                <td>{{ cliente.tipo }}</td>
+                                <th>Dni</th>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Antenas</th>
+                                <th>Routers</th>
+                                <th>Atas</th>
                             </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                            </thead>
+
+                            {#le pasamos la variable que contiene el array con las filas de la consulta#}
+                            {% for cliente in clientes %}
+                                <tr>
+                                    <td>{{ cliente.dni }}</td>
+                                    <td>{{ cliente.nombre }}</td>
+                                    <td>{{ cliente.telefono }}</td>
+                                    <td>{{ cliente.antenas }}</td>
+                                    <td>{{ cliente.routers }}</td>
+                                    <td>{{ cliente.atas }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% endif %}
 
                 {% if consulta == '2' %}
@@ -235,7 +235,7 @@
                                         <th>Alta</th>
                                         <th>Baja</th>
                                         <th>Comercial</th>
-                                        <th>Telefono</th>
+                                        <th>Teléfono</th>
                                     </tr>
                                     </thead>
 

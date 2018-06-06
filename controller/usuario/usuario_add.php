@@ -17,8 +17,6 @@ if(!isset($_SESSION['usuario'])){
     $rol = $_SESSION['rol'];
     $rolUsuario = $_SESSION['rolUsuario']; //Guardamos el rol del usuario añadido en una variable de sesion para poder volver a la zona indicada de los usuarios.
 
-
-
     if(isset($_POST['btnEnviar'])){
 
         //Recuperamos los datos del formulario
@@ -33,6 +31,15 @@ if(!isset($_SESSION['usuario'])){
             $limite = $_POST['limite'];
         }
 
+        if($rolUsuario == '2'){
+            $antenas = 0;
+            $routers = 0;
+            $atas = 0;
+        }else{
+            $antenas = null;
+            $routers = null;
+            $atas = null;
+        }
 
         $existe = null;
         $usuarioExiste = null;
@@ -72,7 +79,6 @@ if(!isset($_SESSION['usuario'])){
             }
         }
 
-
         //Comprobamos que la clave es valida
         if ($password != $passwordR){
             $claveNoCoincide = 'error';
@@ -102,7 +108,7 @@ if(!isset($_SESSION['usuario'])){
         }
 
         //Comprobamos que el nombre de usuario tenga al menos 5 caracteres
-        if(strlen($nUsuario) < 5){
+        if(strlen($nUsuario) < 4){
             $mensajeUsuarioMinimo = 'error';
         }else{
             $usuarioMinimo = true;
@@ -115,13 +121,12 @@ if(!isset($_SESSION['usuario'])){
             $telefonoValido = true;
         }
 
-
         if($dniValido AND $nombreValido AND $claveCoincide AND $claveNoVacia AND $camposNoVacios AND $dniMinimo AND $usuarioMinimo AND $telefonoValido) {
             $passwordCifrado = codificar($password);
 
             try{
-                $cadena = "INSERT INTO usuario(dni,usuario,nombre,telefono,clave,rol,limite) values (:dni,:usuario,:nombre,:telefono,:clave,:rol,:limite)";
-                $parametros = array(":dni"=>$dni,":usuario"=>$nUsuario,":nombre"=>$nombre,":telefono"=>$telefono,":clave"=>$passwordCifrado,":rol"=>$rolUsuario,":limite"=>$limite);
+                $cadena = "INSERT INTO usuario(dni,usuario,nombre,telefono,clave,rol,limite,antenas,routers,atas) values (:dni,:usuario,:nombre,:telefono,:clave,:rol,:limite,:antenas,:routers,:atas)";
+                $parametros = array(":dni"=>$dni,":usuario"=>$nUsuario,":nombre"=>$nombre,":telefono"=>$telefono,":clave"=>$passwordCifrado,":rol"=>$rolUsuario,":limite"=>$limite,":antenas"=>$antenas,":routers"=>$routers,":atas"=>$atas);
                 $datos = new Consulta();
                 $resultados = $datos->get_sinDatos($cadena,$parametros);
 
@@ -137,7 +142,6 @@ if(!isset($_SESSION['usuario'])){
                 $mensaje = 'error';
             }
         }
-
     }
 
     if(isset($_POST['cancelar'])){
