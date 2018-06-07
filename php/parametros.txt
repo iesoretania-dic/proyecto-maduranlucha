@@ -1,1 +1,0 @@
-{"dns":"mysql:host=localhost; dbname=gestion_incidencias","usuario":"root","clave":""}

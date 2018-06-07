@@ -35,6 +35,7 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
     $uri =  $_SERVER['REQUEST_URI'];
+    $zona = 'password';
 
     //Comprobamos si hay cambios al modificar o añadir datos
     if(isset($_GET['cambios']) and $_GET['cambios'] == '0'){
@@ -45,6 +46,15 @@ if(!isset($_SESSION['usuario'])){
         $mensajeCambios = 'No';
     }
 
+//    if(!isset($_SESSION['mod'])){
+//        $zona = 'password';
+//    }
+//
+//    if(isset($_SESSION['mod']) and $_SESSION['mod'] == 'formulario'){
+//        $zona = 'formulario';
+//    }else{
+//        $zona = 'password';
+//    }
 
     $mensaje = null;
     $usuarios = [];
@@ -57,6 +67,17 @@ if(!isset($_SESSION['usuario'])){
         $mensaje = 'Ok';
     }else{
         $mensaje = 'error';
+    }
+
+    if(isset($_POST['aceptar'])){
+        $datos = new Consulta();
+        $hash = $datos->get_hash();
+        $clave = $_POST['passwordVerificar'];
+        if(password_verify($clave,$hash)){
+            $_POST['passwordVerificar'] = '';
+//            $_SESSION['mod'] = 'formulario';
+            $zona = 'formulario';
+        }
     }
 
     if(isset($_POST['addUsuario'])){
@@ -80,7 +101,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'rolUsuario',
             'uri',
-            'mensajeCambios'
+            'mensajeCambios',
+            'zona'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

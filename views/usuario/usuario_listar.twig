@@ -12,76 +12,99 @@
             <label id="cambiosModificarUsuario" hidden>Si</label>
         {% endif %}
 
-        <form action="" method="post">
-            {% if rolUsuario == 1 %}
-                <p class="alert alert-success">Lista de comerciales</p>
-            {% elseif rolUsuario == 2 %}
-                <p class="alert alert-success">Lista de técnicos</p>
-            {% elseif rolUsuario == 4 %}
-                <p class="alert alert-success">Lista de controladores</p>
-            {% elseif rolUsuario == 0 %}
-                <p class="alert alert-success">Lista de administradores</p>
-            {% endif %}
-            <div class="vistaCheck">
-                {% if rolUsuario == 1 %}
-                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir comercial</button>
-                {% elseif rolUsuario == 2 %}
-                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir técnico</button>
-                {% elseif rolUsuario == 4 %}
-                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir controlador</button>
-                {% elseif rolUsuario == 0 %}
-                    <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir administrador</button>
-                {% endif %}
-            </div>
-            {% if mensaje == 'Ok' %}
-                <div class="contenedorTabla">
-                    <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
-                        <thead class="miThead">
-                        <tr>
-                            <th>Dni</th>
-                            <th>Usuario</th>
-                            <th>Nombre</th>
-                            <th>Teléfono</th>
-                            {% if rolUsuario == '2'%}
-                                <th>Antenas</th>
-                                <th>Routers</th>
-                                <th>Atas</th>
-                                <th>LimiteMaterial</th>
-                                <th>Activa</th>
-                            {% endif %}
-                            <th>Acciones</th>
-                        </tr>
-                        </thead>
 
-                        {% for usuario in usuarios %}
-                            <tr>
-                                <td>{{ usuario.dni }}</td>
-                                <td>{{ usuario.usuario }}</td>
-                                <td>{{ usuario.nombre }}</td>
-                                <td>{{ usuario.telefono }}</td>
-                                {% if rolUsuario == '2'%}
-                                    <td>{{ usuario.antenas }}</td>
-                                    <td>{{ usuario.routers }}</td>
-                                    <td>{{ usuario.atas }}</td>
-                                    <td>{{ usuario.limite }}</td>
-                                    <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
-                                {% endif %}
-                                <td class="td-acciones">
-                                    <a href="../usuario/usuario_modificar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnModificar" title="Modificar"></a>
-                                    {% if rolUsuario == 1 %}
-                                        <a href="../cliente/cliente_liberar.php?Id={{ usuario.dni }}&tipo=0"><input type="button" class="botonAccion btnLiberar" title="Liberar clientes"></a>
-                                    {% endif %}
-                                    <a href="../usuario/usuario_eliminar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnEliminar" title="Elminar"></a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+        {% if rolUsuario == '0' and zona == 'password' %}
+            <form class="" action="" method="post">
+                <div class="vistaFormulario">
+                    <p class="alert alert-info">Para acceder a esta zona es necesario que introduzca su contraseña:</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
+                        </div>
+                        <input class="form-control" id="usuario" type="password" name="passwordVerificar" value="">
+                    </div>
                 </div>
-            {% elseif mensaje == 'error' %}
-                <label class="alert alert-primary">No hay usuarios para mostrar</label>
-            {% endif %}
 
-        </form>
+                <div class="vistaCheck">
+                    <button class="btn btn-primary" type="submit" name="aceptar"><i class="fas fa-unlock"></i> Aceptar</button>
+                </div>
+            </form>
+
+        {% endif %}
+
+        {% if rolUsuario != 0 or zona == 'formulario'%}
+
+            <form action="" method="post">
+                {% if rolUsuario == 1 %}
+                    <p class="alert alert-success">Lista de comerciales</p>
+                {% elseif rolUsuario == 2 %}
+                    <p class="alert alert-success">Lista de técnicos</p>
+                {% elseif rolUsuario == 4 %}
+                    <p class="alert alert-success">Lista de controladores</p>
+                {% elseif rolUsuario == 0 %}
+                    <p class="alert alert-success">Lista de administradores</p>
+                {% endif %}
+                <div class="vistaCheck">
+                    {% if rolUsuario == 1 %}
+                        <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir comercial</button>
+                    {% elseif rolUsuario == 2 %}
+                        <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir técnico</button>
+                    {% elseif rolUsuario == 4 %}
+                        <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir controlador</button>
+                    {% elseif rolUsuario == 0 %}
+                        <button class="btn btn-primary" type="submit" name="addUsuario"><i class="fas fa-plus"></i> Añadir administrador</button>
+                    {% endif %}
+                </div>
+                {% if mensaje == 'Ok' %}
+                    <div class="contenedorTabla">
+                        <table id="miTabla" class="table table-bordered table-sm miTabla table-responsive-xl">
+                            <thead class="miThead">
+                            <tr>
+                                <th>Dni</th>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                {% if rolUsuario == '2'%}
+                                    <th>Antenas</th>
+                                    <th>Routers</th>
+                                    <th>Atas</th>
+                                    <th>LimiteMaterial</th>
+                                    <th>Activa</th>
+                                {% endif %}
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+
+                            {% for usuario in usuarios %}
+                                <tr>
+                                    <td>{{ usuario.dni }}</td>
+                                    <td>{{ usuario.usuario }}</td>
+                                    <td>{{ usuario.nombre }}</td>
+                                    <td>{{ usuario.telefono }}</td>
+                                    {% if rolUsuario == '2'%}
+                                        <td>{{ usuario.antenas }}</td>
+                                        <td>{{ usuario.routers }}</td>
+                                        <td>{{ usuario.atas }}</td>
+                                        <td>{{ usuario.limite }}</td>
+                                        <td><a href="../cliente/cliente_incidencias_info.php?Id={{ usuario.asignada }}">{{ usuario.asignada }}</a></td>
+                                    {% endif %}
+                                    <td class="td-acciones">
+                                        <a href="../usuario/usuario_modificar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnModificar" title="Modificar"></a>
+                                        {% if rolUsuario == 1 %}
+                                            <a href="../cliente/cliente_liberar.php?Id={{ usuario.dni }}&tipo=0"><input type="button" class="botonAccion btnLiberar" title="Liberar clientes"></a>
+                                        {% endif %}
+                                        <a href="../usuario/usuario_eliminar.php?Id={{ usuario.dni }}&rolUsuario={{ rolUsuario }}"><input type="button" class="botonAccion btnEliminar" title="Elminar"></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% elseif mensaje == 'error' %}
+                    <label class="alert alert-primary">No hay usuarios para mostrar</label>
+                {% endif %}
+
+            </form>
+        {% endif %}
 
     </div>
 {% endblock %}
