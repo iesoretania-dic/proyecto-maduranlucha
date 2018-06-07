@@ -39,7 +39,7 @@ if(!isset($_SESSION['usuario'])){
             array_push($arraySolucion, $solucion);
         }
 
-        $listaSolucion = json_encode($arraySolucion);
+        $listaSolucion = json_encode($arraySolucion,JSON_UNESCAPED_UNICODE);
 
         //comprobamos el estado de la solucion
         $consulta = "SELECT estado,tecnico FROM incidencia WHERE id_incidencia = :idIncidencia";

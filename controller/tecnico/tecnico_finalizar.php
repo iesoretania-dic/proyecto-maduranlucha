@@ -70,7 +70,7 @@ if(!isset($_SESSION['usuario'])){
             }
 
             //recogemos todas las soluciones marcadas y lo pasamos a json para guardarlo en la base de datos.
-            $listaInstalacion = json_encode($arrayInstalacion);
+            $listaInstalacion = json_encode($arrayInstalacion,JSON_UNESCAPED_UNICODE);
 
             $antenasResultado = $antenasDisponiblesTecnico;
             $routersResultado = $routersDisponiblesTecnico;
@@ -222,7 +222,7 @@ if(!isset($_SESSION['usuario'])){
                 array_push($arrayBaja, 'Retirada de ata');
             }
 
-            $listaBaja = json_encode($arrayBaja);
+            $listaBaja = json_encode($arrayBaja,JSON_UNESCAPED_UNICODE);
 
             //comprobamos que el cliente dispone del material
             //Actualmente desactivada la comprobacion por que no sabemos los materiales que disponen los clientes que fueron importardos.
@@ -374,7 +374,7 @@ if(!isset($_SESSION['usuario'])){
             }
             /*Usamos json_encode() para convertir a string y poder guardarlo en la base de datos para volverlo un
             array utilizamos json_decode()*/
-            $listaAverias = json_encode($arrayAveria);
+            $listaAverias = json_encode($arrayAveria,JSON_UNESCAPED_UNICODE);
 
             $datos = new Consulta();
 
@@ -527,7 +527,7 @@ if(!isset($_SESSION['usuario'])){
                 array_push($arrayCambiodomicilio, 'Cable nuevo');
             }
 
-            $listaCambioDomilicio = json_encode($arrayCambiodomicilio);
+            $listaCambioDomilicio = json_encode($arrayCambiodomicilio,JSON_UNESCAPED_UNICODE);
 
             //Si se marco cable pero no hay caja de cable asignada, nos dara un mensaje de error.
             if($cables){
