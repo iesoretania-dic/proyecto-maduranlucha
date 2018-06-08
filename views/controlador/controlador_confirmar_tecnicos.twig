@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Técnicos' %}
+{% block title 'Confirmar' %}
 
 {% block contenido %}
     <div class="contenido">
@@ -11,10 +11,18 @@
                     <p class="alert alert-danger">El comentario es obligatorio</p>
                 {% endif %}
             </div>
+
             <div class="vistaFormularioS">
                 <p class="alert alert-warning" >Enviar a técnicos </p>
-                <label for=comentario class="input-group-text">Añadir Comentario*:</label>
-                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentario" cols="10" rows="5"></textarea>
+            </div>
+
+            <div class="vistaFormularioS">
+                <p type="text" class="badge badge-danger alerta" id="mensajeConfirmarTecnicos"></p>
+            </div>
+
+            <div class="vistaFormularioS">
+                <label for=comentarioConfirmarTecnicos class="input-group-text">Añadir Comentario*:</label>
+                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentarioConfirmarTecnicos" cols="10" rows="5"></textarea>
             </div>
             {% if rol == '0' %}
                 <div class="vistaFormularioS">
@@ -48,7 +56,7 @@
             </div>
 
             <div class="vistaCheck">
-                <button class="btn btn-primary" type="submit" name="aceptarMoverTecnicos"><i class="fas fa-wrench"></i> Aceptar</button>
+                <button id="btnAceptarConfirmarTecnicos" class="btn btn-primary" type="submit" name="aceptarMoverTecnicos"><i class="fas fa-wrench"></i> Aceptar</button>
                 <a href="javascript:history.back()"><button class="btn btn-warning" type="button"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
         </form>
