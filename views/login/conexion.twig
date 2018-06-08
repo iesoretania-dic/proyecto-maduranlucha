@@ -5,7 +5,6 @@
 {% block menu %}
 {% endblock %}
 
-
 {% block contenido %}
     <div class="contenido">
         <form action="" method="post">
@@ -48,146 +47,175 @@
             </div>
 
             {% if vista == 'crear' %}
-                    <div class="vistaFormularioXXLS">
-                        <p class="alert alert-info">Introduzca los datos de la nueva base de datos:</p>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Nombre base de datos*:</span>
-                            </div>
-                            <input id="inputNombreBaseDatosConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="basedatos" value="{{ basededatos }}" required>
+                <div class="vistaFormularioXXLS">
+                    <p class="alert alert-info">Introduzca los datos de la nueva base de datos:</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre base de datos*:</span>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Dirección del servidor de bases de datos:</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="servidor" value="localhost" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de usuario:</span>
-                            </div>
-                            <input id="inputUsuarioBaseDatosConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="usuario" value="root" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
-                            </div>
-                            <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="clave">
-                        </div>
-                    </div>
-                    <div class="vistaFormularioXS">
-                        <div class="input-group mb-3">
-                            <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir datos de prueba" disabled>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input id="prueba" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="datosPrueba">
-                                    <label for="prueba"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="vistaFormularioXXLS">
-                        <p class="alert alert-info">Introduzca los datos del administrador:</p>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Dni*:</span>
-                            </div>
-                            <input id="inputDniAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminDni" value="{{ adminDni }}" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Usuario*:</span>
-                            </div>
-                            <input id="inputDniUsuarioConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminUsuario" value= {% if adminUsuario %} {{ adminUsuario }} {% else %} "admin" {% endif %}  required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Nombre*:</span>
-                            </div>
-                            <input id="inputNombreAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminNombre" value= {% if adminNombre %} {{ adminNombre }} {% else %} "Administrador" {% endif %} required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Teléfono:</span>
-                            </div>
-                            <input id="inputTelefonoAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminTelefono" value="{{ adminTelefono }}" >
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Clave*:</span>
-                            </div>
-                            <input id="inputClaveAdminConexion" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminClave"  required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Repita la clave*:</span>
-                            </div>
-                            <input id="inputClaveAdminConexionR" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminClaveR"  required>
-                        </div>
-
-                        <p class="alert alert-warning">(*) Campos obligatorios</p>
+                        <input id="inputNombreBaseDatosConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="basedatos" value="{{ basededatos }}" required>
                     </div>
 
-
-
-                    <div class="vistaFormularioXXL">
-                        <button id="btnCrearBaseDatosConexion" class="btn btn-primary btnLogin d-block" type="submit" name="btnCrearConfirmar"><i class="fas fa-database"></i> Crear</button>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Dirección del servidor de bases de datos:</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="servidor" value="localhost" required>
                     </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de usuario:</span>
+                        </div>
+                        <input id="inputUsuarioBaseDatosConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="usuario" value="root" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
+                        </div>
+                        <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="clave">
+                    </div>
+                </div>
+                <div class="vistaFormularioXS">
+                    <div class="input-group mb-3">
+                        <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir datos de prueba" disabled>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input id="prueba" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="datosPrueba">
+                                <label for="prueba"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vistaFormularioXXLS">
+                    <p class="alert alert-info">Introduzca los datos del administrador:</p>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Dni*:</span>
+                        </div>
+                        <input id="inputDniAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminDni" value="{{ adminDni }}" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Usuario*:</span>
+                        </div>
+                        <input id="inputDniUsuarioConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminUsuario" value= {% if adminUsuario %} {{ adminUsuario }} {% else %} "admin" {% endif %}  required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre*:</span>
+                        </div>
+                        <input id="inputNombreAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminNombre" value= {% if adminNombre %} {{ adminNombre }} {% else %} "Administrador" {% endif %} required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Teléfono:</span>
+                        </div>
+                        <input id="inputTelefonoAdminConexion" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminTelefono" value="{{ adminTelefono }}" >
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Clave*:</span>
+                        </div>
+                        <input id="inputClaveAdminConexion" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminClave"  required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Repita la clave*:</span>
+                        </div>
+                        <input id="inputClaveAdminConexionR" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="adminClaveR"  required>
+                    </div>
+
+                    <p class="alert alert-warning">(*) Campos obligatorios</p>
+                </div>
+
+                {#Mensajes de validacion del lado del cliente#}
+                <div class="vistaFormularioXXL">
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosNoValido"></p>
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosMinimo"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosNoValido"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosMinimo"></p>
+                    <p type="text" class="danger" id="mensajeDniAdminConexionNoValido"></p>
+                    <p type="text" class="danger" id="mensajeDniAdminConexionObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioAdminConexionObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioAdminConexionNoValido"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioAdminConexionNoValidoOpc"></p>
+                    <p type="text" class="danger" id="mensajeNombreAdminConexionObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeNombreAdminConexionNoValido"></p>
+                    <p type="text" class="danger" id="mensajeNombreAdminConexionNoValidoOpc"></p>
+                    <p type="text" class="danger" id="mensajeTelefonoAdminConexionNoValido"></p>
+                    <p type="text" class="danger" id="mensajeClaveAdminConexionNoCoinciden"></p>
+                    <p type="text" class="danger" id="mensajeClaveAdminConexionMinimo"></p>
+                    <p type="text" class="danger" id="mensajeClaveAdminConexionObligatorio"></p>
+                </div>
+
+                <div class="vistaFormularioXXL">
+                    <button id="btnCrearBaseDatosConexion" class="btn btn-primary btnLogin d-block" type="submit" name="btnCrearConfirmar"><i class="fas fa-database"></i> Crear</button>
+                </div>
 
 
-                {% endif %}
+
+            {% endif %}
         </form>
         <form action="" method="post">
-                {% if vista == 'conectar' %}
+            {% if vista == 'conectar' %}
 
-                    <div class="vistaFormularioXXLS">
-                        <p class="alert alert-info">Introduzca los datos de conexión:</p>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce la dirección del servidor*:</span>
-                            </div>
-                            <input id="inputDireccionConectar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="servidor" value="localhost" required>
+                <div class="vistaFormularioXXLS">
+                    <p class="alert alert-info">Introduzca los datos de conexión:</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la dirección del servidor*:</span>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de la base de datos*:</span>
-                            </div>
-                            <input id="inputNombreBaseDatosConectar"  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="basedatos" value="gestion_incidencias" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de usuario*:</span>
-                            </div>
-                            <input id="inputUsuarioBaseDatosConectar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="usuario" value="root" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
-                            </div>
-                            <input  type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="clave">
-                        </div>
-                        <p class="alert alert-warning">(*) Campos obligatorios</p>
+                        <input id="inputDireccionConectar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="servidor" value="localhost" required>
                     </div>
 
-
-
-                    <div class="vistaFormularioXXL">
-                        <button id="btnConectarBaseDatosConexion" class="btn btn-primary btnLogin d-block" type="submit" name="btnConectarConfirmar"><i class="fas fa-plug"></i> Conectar</button>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de la base de datos*:</span>
+                        </div>
+                        <input id="inputNombreBaseDatosConectar"  type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="basedatos" value="gestion_incidencias" required>
                     </div>
-                {% endif %}
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el nombre de usuario*:</span>
+                        </div>
+                        <input id="inputUsuarioBaseDatosConectar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="usuario" value="root" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
+                        </div>
+                        <input  type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="clave">
+                    </div>
+                    <p class="alert alert-warning">(*) Campos obligatorios</p>
+                </div>
+
+                {#Mensajes de validacion del lado del cliente#}
+                <div class="vistaFormularioXXL">
+                    <p type="text" class="danger" id="mensajeDireccionConectar"></p>
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosConectarNoValido"></p>
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosConectarObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeNombreBaseDatosConectarMinimo"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosConectarNoValido"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosConectarObligatorio"></p>
+                    <p type="text" class="danger" id="mensajeUsuarioBaseDatosConectarMinimo"></p>
+                </div>
+
+                <div class="vistaFormularioXXL">
+                    <button id="btnConectarBaseDatosConexion" class="btn btn-primary btnLogin d-block" type="submit" name="btnConectarConfirmar"><i class="fas fa-plug"></i> Conectar</button>
+                </div>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

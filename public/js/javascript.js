@@ -21,6 +21,14 @@ $(function(){
 
     //**********ZONA JQUERY**********//
 
+    //EXPRESIONES REGULARES//
+
+    let dni = /^(\d{8})([a-zA-Z])$/;
+    let cif = /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/;
+    let nif = /^[XxYyZz]\d{7}[A-Za-z]$/;
+    let soloLetras = /^[a-z_A-Z]*$/;  //Solo letras sin incluir la ñ, se aceptan _ para separar nombre compuestos
+    let soloLetrasAlt = /^[a-zñ_A-ZÑ]*$/; //Solo letras incluida la ñ, se aceptan _ para separar nombre compuestos
+
 
     $('#miselect').select2();
     $('#miSelectTecnicos').select2();
@@ -681,6 +689,224 @@ $(function(){
                 mensajeConfClave.html('No coinciden');
                 mensajeConfClaveR.html('No coinciden');
             }
+        }
+    });
+
+    //VALIDACION AL MOVER INCIDENCIAS A LOS TECNICOS
+
+    let btnAceptarConfirmarTecnicos = $('#btnAceptarConfirmarTecnicos');
+    let comentarioConfirmarTecnicos = $('#comentarioConfirmarTecnicos');
+
+    let mensajeConfirmarTecnicos = $('#mensajeConfirmarTecnicos');
+
+    btnAceptarConfirmarTecnicos.click(function(e){
+        mensajeConfirmarTecnicos.html("");
+
+        if(comentarioConfirmarTecnicos.val().trim().length === 0){
+            e.preventDefault();
+            mensajeConfirmarTecnicos.html('El comentario es obligatorio');
+        }
+    });
+
+    //VALIDACION AL CREAR BASE DE DATOS DESDE EL FORMULARIO DE CONEXION.
+
+    //Botones
+    let btnCrearBaseDatosConexion = $('#btnCrearBaseDatosConexion');
+
+    //Controles
+    let inputNombreBaseDatosConexion = $('#inputNombreBaseDatosConexion');
+    let inputUsuarioBaseDatosConexion = $('#inputUsuarioBaseDatosConexion');
+    let inputDniAdminConexion = $('#inputDniAdminConexion');
+    let inputUsuarioAdminConexion = $('#inputDniUsuarioConexion');
+    let inputNombreAdminConexion = $('#inputNombreAdminConexion');
+    let inputTelefonoAdminConexion = $('#inputTelefonoAdminConexion');
+    let inputClaveAdminConexion = $('#inputClaveAdminConexion');
+    let inputClaveAdminConexionR = $('#inputClaveAdminConexionR');
+
+    //Mensajes
+    let mensajeNombreBaseDatosObligatorio = $('#mensajeNombreBaseDatosObligatorio');
+    let mensajeNombreBaseDatosNoValido = $('#mensajeNombreBaseDatosNoValido');
+    let mensajeNombreBaseDatosMinimo = $('#mensajeNombreBaseDatosMinimo');
+    let mensajeUsuarioBaseDatosObligatorio = $('#mensajeUsuarioBaseDatosObligatorio');
+    let mensajeUsuarioBaseDatosNoValido = $('#mensajeUsuarioBaseDatosNoValido');
+    let mensajeUsuarioBaseDatosMinimo = $('#mensajeUsuarioBaseDatosMinimo');
+    let mensajeDniAdminConexionNoValido = $('#mensajeDniAdminConexionNoValido');
+    let mensajeDniAdminConexionObligatorio = $('#mensajeDniAdminConexionObligatorio');
+    let mensajeUsuarioAdminConexionObligatorio = $('#mensajeUsuarioAdminConexionObligatorio');
+    let mensajeUsuarioAdminConexionNoValido = $('#mensajeUsuarioAdminConexionNoValido');
+    let mensajeUsuarioAdminConexionNoValidoOpc = $('#mensajeNombreBaseDatosNovalidoOpc');
+    let mensajeNombreAdminConexionObligatorio = $('#mensajeNombreAdminConexionObligatorio');
+    let mensajeNombreAdminConexionNoValido = $('#mensajeNombreAdminConexionNoValido');
+    let mensajeNombreAdminConexionNoValidoOpc = $('#mensajeNombreAdminConexionNoValidoOpc');
+    let mensajeTelefonoAdminConexionNoValido = $('#mensajeTelefonoAdminConexionNoValido');
+    let mensajeClaveAdminConexionNoCoinciden = $('#mensajeClaveAdminConexionNoCoinciden');
+    let mensajeClaveAdminConexionMinimo = $('#mensajeClaveAdminConexionMinimo');
+    let mensajeClaveAdminConexionObligatorio = $('#mensajeClaveAdminConexionObligatorio');
+
+    btnCrearBaseDatosConexion.click(function(e){
+        mensajeNombreBaseDatosObligatorio.html("");
+        mensajeNombreBaseDatosNoValido.html("");
+        mensajeNombreBaseDatosMinimo.html("");
+        mensajeUsuarioBaseDatosObligatorio.html("");
+        mensajeUsuarioBaseDatosNoValido.html("");
+        mensajeUsuarioBaseDatosMinimo.html("");
+        mensajeDniAdminConexionNoValido.html("");
+        mensajeDniAdminConexionObligatorio.html("");
+        mensajeUsuarioAdminConexionObligatorio.html("");
+        mensajeUsuarioAdminConexionNoValido.html("");
+        mensajeUsuarioAdminConexionNoValidoOpc.html("");
+        mensajeNombreAdminConexionObligatorio.html("");
+        mensajeNombreAdminConexionNoValido.html("");
+        mensajeNombreAdminConexionNoValidoOpc.html("");
+        mensajeTelefonoAdminConexionNoValido.html("");
+        mensajeClaveAdminConexionNoCoinciden.html("");
+        mensajeClaveAdminConexionMinimo.html("");
+        mensajeClaveAdminConexionObligatorio.html("");
+
+        //nombre de la base de datos
+        if(inputNombreBaseDatosConexion.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreBaseDatosObligatorio.html('El nombre de la base de datos es obligatorio');
+        }
+        if(!soloLetras.test(inputNombreBaseDatosConexion.val())){
+            e.preventDefault();
+            mensajeNombreBaseDatosNoValido.html('El nombre de la base de datos no es válido, solo se permiten letras, excluida la ñ y los espacios');
+        }
+        if(inputNombreBaseDatosConexion.val().trim().length < 4 && inputNombreBaseDatosConexion.val().trim().length > 0){
+            e.preventDefault();
+            mensajeNombreBaseDatosMinimo.html('La longitud mínima del nombre de la base de datos es de 4 caracteres')
+        }
+        //usuario de la base de datos
+        if(inputUsuarioBaseDatosConexion.val().trim().length === 0){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosObligatorio.html('El nombre de usuario de la base de datos es obligatorio');
+        }
+        if(!soloLetras.test(inputUsuarioBaseDatosConexion.val())){
+            e.preventDefault();
+            mensajeNombreBaseDatosNoValido.html('El nombre de usuario de la base de datos no es válido, solo se permiten letras, excluida la ñ y los espacios');
+        }
+        if(inputUsuarioBaseDatosConexion.val().trim().length < 4 && inputUsuarioBaseDatosConexion.val().trim().length > 0){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosMinimo.html('La longitud mínima del nombre de usuario de la base de datos es de 4 caracteres')
+        }
+        //dni del administrador
+        if(inputDniAdminConexion.val().trim().length === 0){
+            e.preventDefault();
+            mensajeDniAdminConexionObligatorio.html('El dni es obligatorio');
+        }
+        if(!dni.test(inputDniAdminConexion.val()) && !nif.test(inputDniAdminConexion.val()) && inputDniAdminConexion.val().trim().length > 0 ){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosNoValido.html('El dni no es válido');
+        }
+        // usuario administrador
+        if(inputUsuarioAdminConexion.val().trim().length === 0){
+            e.preventDefault();
+            mensajeUsuarioAdminConexionObligatorio.html('El usuario es obligatorio');
+        }
+        if(!soloLetrasAlt.test(inputUsuarioAdminConexion.val())){
+            e.preventDefault();
+            mensajeUsuarioAdminConexionNoValidoOpc.html('El nombre usuario no es válido, solo se permiten letras');
+        }
+        if(inputUsuarioAdminConexion.val().trim().length < 4 && inputUsuarioAdminConexion.val().trim().length > 0){
+            e.preventDefault();
+            mensajeUsuarioAdminConexionNoValido.html('La longitud mínima para el nombre de usuario es de 4 caracteres');
+        }
+        //nombre del administrador
+        if(inputNombreAdminConexion.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreAdminConexionObligatorio.html('El nombre es obligatorio');
+        }
+        if(!soloLetrasAlt.test(inputNombreAdminConexion.val())){
+            e.preventDefault();
+            mensajeNombreAdminConexionNoValidoOpc.html('El nombre no es válido, solo se permiten letras');
+        }
+        if(inputNombreAdminConexion.val().trim().length < 4 && inputNombreAdminConexion.val().trim().length > 0){
+            e.preventDefault();
+            mensajeNombreAdminConexionNoValido.html('La longitud mínima para el nombre es de 4 caracteres');
+        }
+        //telefono del administrador
+        if(inputTelefonoAdminConexion.val().trim().length < 9 && inputTelefonoAdminConexion.val().trim().length > 0){
+            e.preventDefault();
+            mensajeTelefonoAdminConexionNoValido.html('La longitud mínima para el teléfono es de 9 caracteres');
+        }
+        //Clave
+        if(inputClaveAdminConexion.val().trim().length === 0 || inputClaveAdminConexionR.val().trim().length === 0){
+            e.preventDefault();
+            mensajeClaveAdminConexionObligatorio.html('La clave es obligatoria');
+        }
+        if(inputClaveAdminConexion.val().trim().length > 0 && inputClaveAdminConexionR.val().trim().length > 0){
+            if(inputClaveAdminConexion.val().trim() !== inputClaveAdminConexionR.val().trim()){
+                e.preventDefault();
+                mensajeClaveAdminConexionNoCoinciden.html('Las claves no coinciden');
+            }
+        }
+        if(inputClaveAdminConexion.val().trim().length > 0 && inputClaveAdminConexionR.val().trim().length > 0){
+            if(inputClaveAdminConexion.val().trim().length < 5 || inputClaveAdminConexionR.val().trim().length < 5){
+                e.preventDefault();
+                mensajeClaveAdminConexionMinimo.html('la clave debe tener una longitud mínima de 5 caracteres');
+            }
+        }
+    });
+
+    //VALIDACION AL CONECTAR BASE DE DATOS DESDE EL FORMULARIO DE CONEXION.
+
+    //Botones
+    let btnConectarBaseDatosConexion = $('#btnConectarBaseDatosConexion');
+
+    //Controles
+    let inputDireccionConectar = $('#inputDireccionConectar');
+    let inputNombreBaseDatosConectar = $('#inputNombreBaseDatosConectar');
+    let inputUsuarioBaseDatosConectar = $('#inputUsuarioBaseDatosConectar');
+
+    //Mensajes
+    let mensajeDireccionConectar = $('#mensajeDireccionConectar');
+    let mensajeNombreBaseDatosConectarNoValido = $('#mensajeNombreBaseDatosConectarNoValido');
+    let mensajeNombreBaseDatosConectarObligatorio = $('#mensajeNombreBaseDatosConectarObligatorio');
+    let mensajeNombreBaseDatosConectarMinimo = $('#mensajeNombreBaseDatosConectarMinimo');
+    let mensajeUsuarioBaseDatosConectarNoValido = $('#mensajeUsuarioBaseDatosConectarNoValido');
+    let mensajeUsuarioBaseDatosConectarObligatorio = $('#mensajeUsuarioBaseDatosConectarObligatorio');
+    let mensajeUsuarioBaseDatosConectarMinimo = $('#mensajeUsuarioBaseDatosConectarMinimo');
+
+    btnConectarBaseDatosConexion.click(function(e){
+        mensajeDireccionConectar.html("");
+
+        mensajeNombreBaseDatosConectarNoValido.html("");
+        mensajeNombreBaseDatosConectarObligatorio.html("");
+        mensajeNombreBaseDatosConectarMinimo.html("");
+
+        mensajeUsuarioBaseDatosConectarNoValido.html("");
+        mensajeUsuarioBaseDatosConectarObligatorio.html("");
+        mensajeUsuarioBaseDatosConectarMinimo.html("");
+
+        if(inputDireccionConectar.val().trim().length === 0){
+            e.preventDefault();
+            mensajeDireccionConectar.html('La dirección del servidor es obligatoria');
+        }
+        //nombre de la base de datos
+        if(inputNombreBaseDatosConectar.val().trim().length === 0){
+            e.preventDefault();
+            mensajeNombreBaseDatosConectarObligatorio.html('El nombre de la base de datos es obligatorio');
+        }
+        if(!soloLetras.test(inputNombreBaseDatosConectar.val())){
+            e.preventDefault();
+            mensajeNombreBaseDatosConectarNoValido.html('El nombre de la base de datos no es válido, solo se permiten letras y _ , excluida la ñ y los espacios');
+        }
+        if(inputNombreBaseDatosConectar.val().trim().length < 4 && inputNombreBaseDatosConectar.val().trim().length > 0){
+            e.preventDefault();
+            mensajeNombreBaseDatosConectarMinimo.html('La longitud mínima del nombre de la base de datos es de 4 caracteres')
+        }
+        //usuario
+        if(inputUsuarioBaseDatosConectar.val().trim().length === 0){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosConectarNoValido.html('El usuario es obligatorio');
+        }
+        if(!soloLetras.test(inputUsuarioBaseDatosConectar.val())){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosConectarObligatorio.html('El usuario, solo se permiten letras y _ , excluida la ñ y los espacios');
+        }
+        if(inputUsuarioBaseDatosConectar.val().trim().length < 4 && inputUsuarioBaseDatosConectar.val().trim().length > 0){
+            e.preventDefault();
+            mensajeUsuarioBaseDatosConectarMinimo.html('La longitud mínima del usuario es de 4 caracteres')
         }
     });
 
