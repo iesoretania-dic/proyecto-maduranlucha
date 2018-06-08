@@ -343,9 +343,11 @@
                 </div>
             </div>
         </form>
+
         <div class="historial">
-            <label class="alert alert-info">Historial incidencias del cliente, última incidencia del cliente: <a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ ultimaIncidencia }}">{{ ultimaIncidencia }}</a></label>
+            <p class="alert alert-info">Historial incidencias del cliente, última incidencia del cliente: <a href="../cliente/cliente_incidencias_info.php?tipo=0&Id={{ ultimaIncidencia }}">{{ ultimaIncidencia }}</a></p>
             <div class="contenedorTabla">
+            {% if historialIncidencias %}
                 <table class="table table-bordered table-sm miTabla table-responsive-xl">
                     <thead class="miThead">
                     <tr>
@@ -365,9 +367,13 @@
                         </tr>
                     {% endfor %}
                 </table>
+                 {% else %}
+                <div>
+                    <p class="alert alert-primary d-block">No existen más incidencias del cliente: <span class="badge badge-primary">{{ cliente.nombre }}</span></p>
+                </div>
+        {% endif %}
             </div>
         </div>
-
 {% endblock %}
 
 {% block usuario %}

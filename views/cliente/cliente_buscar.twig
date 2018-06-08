@@ -6,7 +6,7 @@
     <div class="contenido">
         <form class="" action="" method="post">
             <div class="vistaFormulario">
-                <label class="alert alert-info">Búsqueda de clientes</label>
+                <p class="alert alert-info">Búsqueda de clientes</p>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Introduce el DNI del cliente:</span>
@@ -25,7 +25,7 @@
                     {% if rol == '0' %}
                         <p class="alert alert-danger">Cliente: {{ dni }} ya existe y está asocidado a un comercial.</p>
                     {% elseif rol == '1' %}
-                        <p class="alert alert-danger">Cliente: {{ dni }} ya existe, pero está asociado a un comercial,para mas informacion contacte con un administrador</p>
+                        <p class="alert alert-danger">Cliente: {{ dni }} ya existe, pero está asociado a un comercial, para más información contacte con un administrador</p>
                     {% endif %}
                 {% else %}
                     {% if rol == '1' %}
@@ -33,22 +33,21 @@
                         <div class="vistaFormulario">
                             <p class="alert alert-warning">Cliente: {{ dni }} ya existe, pero no esta asocidado a ningún comercial, ¿desea añadirlo?</p>
                         </div>
-                        <div class="vistaCheck">
+                        <div class="vistaFormularioXS">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input id="checkInstalacion" type="checkbox" aria-label="Checkbox for following text input" value="1" name="instalacionAuto" checked>
+                                        <input id="checkInstalacion" class="toggle-button" type="checkbox" aria-label="Checkbox for following text input" value="1" name="instalacionAuto" checked>
+                                        <label for="checkInstalacion"></label>
                                     </div>
                                 </div>
-                                <input id="" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir instalación" disabled>
+                                <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir instalación" disabled>
                             </div>
                         </div>
-                        <div class="vistaFormulario" id="comentarioInstalacion">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Comentario de la instalación:</span>
-                                </div>
-                                <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                        <div class="vistaFormularioXS" id="comentarioInstalacion">
+                            <div id="comentarioInstalacion">
+                                <label class="input-group-text">Comentario de la instalación:</label>
+                                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" cols="10" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="vistaFormulario">

@@ -375,7 +375,7 @@ $(function(){
     //Control sobre añadir incidencias cuando creamos clientes para el administrador.
     let selectComerciales = $('#selectComerciales');
     let contenedorToggleIncidencia = $('#contenedorToggleIncidencia');
-    let comentarioIncidenciaText = $('#otros');
+    let comentarioIncidenciaText = $('#input-comentario-add-Admin');
     let comentarioIncidenciaContenedor = $('#comentarioIncidencia');
     let incidencia = $('#incidencia');
     let tipoIncidencia =$('#tipo');
@@ -430,10 +430,14 @@ $(function(){
 
     let dniAddInput = $('#dni-add-input');
     let btnAddCliente = $('#btnAddCliente');
+    let comentarioAddInputComercial = $('#input-comentario-add-Comercial');
+    // let comentarioAddInputAdmin = $('#input-comentario-add-Admin');
     let mensajedniAddInput = $('#mensajedniAddInput');
     let mensajeNombreInput = $('#mensajeNombreInput');
     let mensajeDireccionInput =$('#mensajeDireccionInput');
     let mensajeTelefonoInput =$('#mensajeTelefonoInput');
+    let mensajeComentarioInputComercial =$('#mensajeComentarioInput');
+    // let mensajeComentarioInputAdmin =$('#mensajeComentarioInput');
     let inputDireccionAdd = $('#input-direccion-add');
     let inputNombreAdd = $('#input-nombre-add');
     let inputTelefonoAdd = $('#input-telefono-add');
@@ -443,6 +447,8 @@ $(function(){
         mensajeNombreInput.html("");
         mensajeDireccionInput.html("");
         mensajeTelefonoInput.html("");
+        mensajeComentarioInputComercial.html("");
+        // mensajeComentarioInputAdmin.html("");
         if(dniAddInput.val().length !== 9){
             e.preventDefault();
             mensajedniAddInput.html('9 caracteres');
@@ -462,6 +468,10 @@ $(function(){
         if(inputTelefonoAdd.val().trim().length > 0 && inputTelefonoAdd.val().trim().length < 9 )  {
             e.preventDefault();
             mensajeTelefonoInput.html('mínimo 9 caracteres');
+        }
+        if(comentarioAddInputComercial.val().trim().length === 0){
+            e.preventDefault();
+            mensajeComentarioInputComercial.html('Obligatorio');
         }
     });
 

@@ -56,7 +56,7 @@
                     <p type="text" class="badge badge-danger alerta" id="mensajeClaveRAdd"></p>
                 </div>
 
-                {% if rolUsuario == 2 %}
+                {% if rolUsuario == '2' %}
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -76,22 +76,21 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Número de routers*:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Número de atas*:</span>
                         </div>
                         <input id="usuarioAtas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="atas" value="{{ datosUsuario.atas }}">
                         <p type="text" class="badge badge-danger alerta" id="mensajeAtas"></p>
                     </div>
 
+
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
-                            <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="limite" id="limite">
-                                <option value="{{ datosUsuario.limite }}">{{ datosUsuario.limite }}</option>
-                                {% for i in 1..20 %}
-                                    <option value="{{ i }}">{{ i }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        <label for="limite" class="input-group-text" id="inputGroup-sizing-default">Límite de material:</label>
+                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="limite" id="limite">
+                            <option value="{{ datosUsuario.limite }}">{{ datosUsuario.limite }}</option>
+                            {% for i in 1..20 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                 {% endif %}

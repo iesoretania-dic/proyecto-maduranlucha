@@ -102,18 +102,16 @@
             {% if rol == '0' %}
                 <div class="vistaFormulario">
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Introduce el Comercial:</span>
-                            <select id="selectComerciales" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial">
-                                <option value="">Seleccione un comercial</option>
-                                {% for comercial in comerciales %}
-                                    <option value="{{ comercial.dni }}">{{ comercial.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Seleccione un comercial:</span>
+                        <select id="selectComerciales" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comercial">
+                            <option value=""></option>
+                            {% for comercial in comerciales %}
+                                <option value="{{ comercial.dni }}">{{ comercial.nombre }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
-                <div class="miDiv">
+                <div class="vistaFormularioL">
                     <div id="contenedorToggleIncidencia" class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -124,7 +122,7 @@
                         <input id="antenas" type="text" class="form-control" aria-label="Text input with checkbox" value="Añadir incidencia" disabled>
                     </div>
                 </div>
-                <div class="vistaCheck">
+                <div class="vistaFormularioL">
                     <div id="incidencia" class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
@@ -140,15 +138,13 @@
                 </div>
 
 
-                <div class="vistaFormulario">
-                    <div id="comentarioIncidencia" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label for="otros" class="input-group-text" id="inputGroup-sizing-default">Detalles*:</label>
-                            <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="otros" cols="25" rows="2"></textarea>
-                        </div>
+                <div class="vistaFormularioL" id="comentarioIncidencia">
+                    <div id="comentarioInstalacion">
+                        <label class="input-group-text">Detalles*:</label>
+                        <textarea id="input-comentario-add-Admin" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" cols="10" rows="5"></textarea>
                     </div>
+                    <p type="text" class="badge badge-danger alerta" id="mensajeComentarioInput"></p>
                 </div>
-
 
 
             {% endif %}
@@ -156,9 +152,10 @@
                 <div class="vistaFormulario">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Detalles de la instalación*:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Detalles de la instalación:</span>
                         </div>
-                        <textarea type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                        <textarea id="input-comentario-add-Comercial" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario"></textarea>
+                        <p type="text" class="badge badge-danger alerta" id="mensajeComentarioInput"></p>
                     </div>
                 </div>
 
@@ -167,9 +164,6 @@
             <div class="vistaFormulario">
                 <p class="alert alert-info">(*) Campos obligatorios: </p>
             </div>
-
-
-
 
             <div class="vistaFormulario">
                 <button id="btnAddCliente" class="btn btn-primary" type="submit" name="btnEnviar"><i class="fas fa-plus"></i> Añadir</button>

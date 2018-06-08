@@ -1,4 +1,4 @@
-<<?php
+<?php
 require '../../php/Consulta.php';
 require '../../php/funciones.php';
 session_start();
@@ -16,7 +16,10 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $rol = $_SESSION['rol'];
 
-    if(isset($_SESSION['rolUsuario'])){
+    if(isset($_GET['rolUsuario'])){
+        $rolUsuario = $_GET['rolUsuario'];
+
+    }else{
         $rolUsuario = $_SESSION['rolUsuario'];
     }
 
