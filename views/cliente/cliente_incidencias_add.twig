@@ -6,39 +6,44 @@
     <div class="contenido">
         <form class="formularioTecnicos" action="" method="post">
 
-            <div class="vistaFormularioXS">
+            <div class="vistaFormularioS">
 
-               {% if pendientes.pendientes > '0' %}
+                {% if pendientes.pendientes > '0' %}
                     <p class="alert alert-warning"> **ATENCIÓN**: el cliente <span class="badge badge-info"> {{ nombreCliente }} </span>, tiene incidencias pendientes sin resolver, por favor revíselas antes de crear nuevas incidencias para evitar incidencias duplicadas.</p>
                 {% endif %}
 
+                {% if mensajeComentario == 'error' %}
+                  <p class="alert alert-danger"> El comentario es obligatorio.</p>
+                {% endif %}
+
+                <p id="mensajeComentarioCrearIncidencia" class="danger"></p>
+
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
-                    </div>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Tipo:</span>
                     <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tipo" id="tipo">
                         <option value="averia">Averia</option>
-                        <option value="Instalacion">Instalacion</option>
-                        <option value="cambiodomicilio">Cambio de Domicilio</option>
+                        <option value="instalacion">Instalación</option>
+                        <option value="cambiodomicilio">Cambio de domicilio</option>
                         {% if rol == '0' %}
                             <option value="baja">Baja</option>
                         {% endif %}
                     </select>
                 </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label for="otros" class="input-group-text" id="inputGroup-sizing-default">Detalles(Opcional):</label>
-                        <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="otros" cols="15" rows="2"></textarea>
-                    </div>
-                </div>
+            </div>
+            <div class="vistaFormularioS">
+                <label for=comentarioCrearIncidencia class="input-group-text">Detalles*:</label>
+                <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="comentario" id="comentarioCrearIncidencia" cols="10" rows="4" required></textarea>
             </div>
 
+            <div class="vistaFormularioS">
+                <p class="alert alert-info">(*) Campos obligatorios</p>
+            </div>
 
             <div class="vistaCheck">
-                <button class="btn btn-primary" type="submit" name="btnCrearIncidencia"><i class="fas fa-plus"></i> Crear</button>
+                <button id="btnCrearIncidencia" class="btn btn-primary" type="submit" name="btnCrearIncidencia"><i class="fas fa-plus"></i> Crear</button>
                 <a href="javascript:history.back()"><button class="btn btn-primary" type="button" name="btnVolver"><i class="fas fa-undo"></i> Volver</button></a>
             </div>
+
 
             {% if mensaje == 'error' %}
                 <p class="alert alert-danger">Error al añadir la incidencia</p>

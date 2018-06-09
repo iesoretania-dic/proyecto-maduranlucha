@@ -910,5 +910,20 @@ $(function(){
         }
     });
 
+    //Validacion comentario al crear incidencia
+
+    let btnCrearIncidencia = $('#btnCrearIncidencia');
+    let inputComentarioCrearIncidencia = $('#comentarioCrearIncidencia');
+    let mensajeComentarioCrearIncidencia = $('#mensajeComentarioCrearIncidencia');
+
+    btnCrearIncidencia.click(function(e){
+        mensajeComentarioCrearIncidencia.html("");
+
+        if(inputComentarioCrearIncidencia.val().trim().length === 0){
+            e.preventDefault();
+            mensajeComentarioCrearIncidencia.html('El comentario es obligatorio.');
+        }
+    });
+
     //**********FIN VALIDACIONES**********//
 });

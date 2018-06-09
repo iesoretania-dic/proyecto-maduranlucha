@@ -44,31 +44,35 @@ if(!isset($_SESSION['usuario'])){
     if(isset($_POST['btnCrearIncidencia'])){
 
         $tipo = $_POST['tipo'];
-        var_dump($tipo);
-        $otros = $_POST['otros'];
+        $comentario = trim($_POST['comentario']);
+        $mensajeComentario = null;
         $estado = 0;
         if($tipo != 'averia'){
             $estado = 1;
         }
 
-        $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
-        $parametros = array(":usuario"=>$idUsuario,":cliente"=>$idCliente,":tipo"=>$tipo,":otros"=>$otros,":estado"=>$estado);
-        $datos = new Consulta();
-        $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
+        if(strlen($comentario) > 0){
+            $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
+            $parametros = array(":usuario"=>$idUsuario,":cliente"=>$idCliente,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
+            $datos = new Consulta();
+            $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
 
-        if($filasAfectadas > 0){
-            $mensaje = 'ok';
+            if($filasAfectadas > 0){
+                $mensaje = 'ok';
 
-            //$correo = enviarCorreo($tipo,$nombreUsuario,$nombreCliente,$otros);
+                //$correo = enviarCorreo($tipo,$nombreUsuario,$nombreCliente,$otros);
 
-            if($tipoI == 1){
-                header('Location: ../cliente/cliente_listar.php?cambios=3');
-            }elseif($tipoI == 0){
-                header('Location: ../cliente/cliente_incidencias.php?dni='.$idCliente."&tipo=1&cambios=3");
+                if($tipoI == 1){
+                    header('Location: ../cliente/cliente_listar.php?cambios=3');
+                }elseif($tipoI == 0){
+                    header('Location: ../cliente/cliente_incidencias.php?dni='.$idCliente."&tipo=1&cambios=3");
+                }
+
+            }else{
+                $mensaje = "error";
             }
-
         }else{
-            $mensaje = "error";
+            $mensajeComentario = 'error';
         }
     }
 
@@ -83,7 +87,8 @@ if(!isset($_SESSION['usuario'])){
             'usuario',
             'rol',
             'pendientes',
-            'nombreCliente'
+            'nombreCliente',
+            'mensajeComentario'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
