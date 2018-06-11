@@ -45,12 +45,31 @@ if(!isset($_SESSION['usuario'])){
             $actual = $_POST['incidencia_aceptar'];
 
             if(!$asignada){
-                //Consulta para asignar la incidencia en caso de que no tenga ya una asignada
-                $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni= :dni";
-                $parametros = (array(":asignada"=>$actual, ":dni"=>$idUsuario));
-                $datos = new Consulta();
-                $datos->get_sinDatos($sentencia,$parametros);
-                header("Location: tecnico.php");
+
+                try {
+                    //Usamos una transacción para que en caso de error no ejecute ninguna sentencia.
+                    $datos->conexionDB->beginTransaction();
+
+                    //Consulta para asignar la incidencia en caso de que no tenga ya una asignada
+                    $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni= :dni";
+                    $parametros = (array(":asignada"=>$actual, ":dni"=>$idUsuario));
+                    $datos->get_sinDatos($sentencia,$parametros);
+
+                    $consulta = "UPDATE incidencia SET incidencia.llamada_obligatoria = :llamada WHERE id_incidencia = :incidencia";
+                    $parametros = array(":llamada"=>'No',":incidencia"=>$actual);
+                    $datos->get_sinDatos($consulta,$parametros);
+                    $datos->conexionDB->commit();
+
+                    header("Location: tecnico.php");
+
+                } catch (PDOException $e) {
+                    $datos->conexionDB->rollBack();
+                    die('Error: ' . $e->getMessage());
+                } finally {
+                    $datos->conexionDB = null;
+                }
+
+
             }
         }catch (Exception $e){
             die('Error: ' . $e->GetMessage());

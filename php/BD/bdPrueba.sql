@@ -116,6 +116,19 @@ INSERT INTO `incidencia` (`id_incidencia`, `id_usuario`, `id_cliente`, `tecnico`
 	(113, '02598702R', '27447172F', NULL, '2018-06-06 11:20:35', NULL, NULL, NULL, '2018-06-06 11:20:35', 'por la noche le falla mucho el internet', 'averia', '0', NULL, 'No', 'No', NULL, NULL, NULL, 'No');
 /*!40000 ALTER TABLE `incidencia` ENABLE KEYS */;
 
+DROP TABLE IF EXISTS `llamadas`;
+CREATE TABLE IF NOT EXISTS `llamadas` (
+  `id_llamada` smallint(10) NOT NULL AUTO_INCREMENT,
+  `id_incidencia` smallint(10) NOT NULL,
+  `id_usuario` varchar(9) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_llamada`),
+  KEY `FK_llamadas_incidencia` (`id_incidencia`),
+  KEY `FK_llamadas_usuario` (`id_usuario`),
+  CONSTRAINT `FK_llamadas_incidencia` FOREIGN KEY (`id_incidencia`) REFERENCES `incidencia` (`id_incidencia`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_llamadas_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`dni`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 DROP TABLE IF EXISTS `material`;
 CREATE TABLE IF NOT EXISTS `material` (
   `id_material` smallint(10) NOT NULL AUTO_INCREMENT,

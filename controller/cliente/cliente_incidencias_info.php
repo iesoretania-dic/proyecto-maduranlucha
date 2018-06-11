@@ -72,8 +72,17 @@ if(!isset($_SESSION['usuario'])){
         //Obtener los comentarios de la incidencia ****
         $sentencia = "SELECT comentarios.texto FROM comentarios WHERE id_incidencia = :incidencia ORDER BY comentarios.fecha ASC";
         $parametros = (array(":incidencia"=>$idIncidencia));
-        $datos = new Consulta();
         $arrayComentarios = $datos->get_conDatos($sentencia,$parametros);
+
+        //Obtenemos el numero de veces que se llamo al cliente
+        $sentencia = "SELECT count(*) as llamada FROM llamadas WHERE id_incidencia = :incidencia";
+        $parametros = (array(":incidencia"=>$idIncidencia));
+        $llamada = $datos->get_conDatosUnica($sentencia,$parametros);
+
+        //Obtenermos el registro de llamadas
+        $sentencia = "SELECT (SELECT nombre from usuario where id_usuario = dni) as usuario, fecha FROM llamadas WHERE id_incidencia = :incidencia ORDER BY fecha";
+        $parametros = (array(":incidencia"=>$idIncidencia));
+        $llamadas = $datos->get_conDatos($sentencia,$parametros);
 
     } catch (PDOException $e) {
         $datos->conexionDB->rollBack();
@@ -142,8 +151,6 @@ if(!isset($_SESSION['usuario'])){
 
     }
 
-
-
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
     $loader = new Twig_Loader_Filesystem('../../views');
@@ -167,7 +174,9 @@ if(!isset($_SESSION['usuario'])){
             'tecnicoSolucion',
             'historialIncidencias',
             'ultimaIncidencia',
-            'arrayComentarios'
+            'arrayComentarios',
+            'llamada',
+            'llamadas'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
