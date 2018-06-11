@@ -95,7 +95,8 @@ if(!isset($_SESSION['usuario'])){
             $comprobarComentario = true;
         }
 
-        //El administrador da de alta un usuario pero no crea una incidencia automaticamente.
+
+
         if($rol == '0'){
             //Comprobamos que los datos son correctos antes de insertar el cliente
             if($comprobarVacios  AND $comprobarDNI AND $comprobarTelefono AND $comprobarComentario){
@@ -108,9 +109,8 @@ if(!isset($_SESSION['usuario'])){
                     $datos = new Consulta();
                     $datos->conexionDB->beginTransaction();
 
-                    $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-                    $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,"ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-                    $datos = new Consulta();
+                    $cadena = "INSERT INTO cliente(dni,nombre,id_usuario,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:nombre,:usuario,:direccion,:cp,:provincia,:ciudad,:telefono,:fAlta)";
+                    $parametros = array(":dni"=>$dni,":nombre"=>$nombre,":usuario"=>$comercial,":direccion"=>$direccion,"ciudad"=>$ciudad,":telefono"=>$telefono,"provincia"=>$provincia,"cp"=>$cp,":fAlta"=> date("Y-m-d H:i:s"));
                     $resultados = $datos->get_sinDatos($cadena,$parametros);
 
                     if($tipo != ""){
@@ -121,7 +121,6 @@ if(!isset($_SESSION['usuario'])){
 
                         $consulta = "INSERT INTO incidencia(id_usuario,id_cliente,tipo,otros, estado) values (:usuario, :cliente, :tipo, :otros, :estado)";
                         $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":tipo"=>$tipo,":otros"=>$comentario,":estado"=>$estado);
-                        $datos = new Consulta();
                         $filasAfectadas = $datos->get_sinDatos($consulta,$parametros);
                     }
 
@@ -149,23 +148,21 @@ if(!isset($_SESSION['usuario'])){
                     $datos = new Consulta();
                     $datos->conexionDB->beginTransaction();
 
-                    $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:cp,:provincia,:direccion,:ciudad,:telefono,:fAlta)";
-                    $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,"provincia"=>$provincia,"cp"=>$cp,":ciudad"=>$ciudad,":telefono"=>$telefono,":fAlta"=> date("Y-m-d H:i:s"));
-                    $datos = new Consulta();
+                    $cadena = "INSERT INTO cliente(dni,id_usuario,nombre,direccion,provincia,cp,ciudad,telefono,fecha_alta) VALUES (:dni,:usuario,:nombre,:direccion,:cp,:provincia,:ciudad,:telefono,:fAlta)";
+                    $parametros = array(":dni"=>$dni,":usuario"=>$idUsuario,":nombre"=>$nombre,":direccion"=>$direccion,":ciudad"=>$ciudad,":telefono"=>$telefono,"provincia"=>$provincia,"cp"=>$cp,":fAlta"=> date("Y-m-d H:i:s"));
                     $resultados = $datos->get_sinDatos($cadena,$parametros);
                     if ($resultados > 0){
                         $mensaje = 'Ok';
 
                         $cadena = "INSERT INTO incidencia(id_usuario,id_cliente,otros,tipo,estado) values (:usuario,:cliente,:comentario,:tipo,:estado)";
                         $parametros = array(":usuario"=>$idUsuario,":cliente"=>$dni,":comentario"=>$comentario,":tipo"=>'instalacion',":estado"=>'1');
-                        $datos = new Consulta();
                         $resultados = $datos->get_sinDatos($cadena,$parametros);
                         if ($resultados > 0) {
                             $mensaje = 'Ok';
                             header('Location: cliente_listar.php');
-                        }else{
-                            $mensaje = 'Error';
                         }
+                    }else{
+                        $mensajedos = 'Error';
                     }
                     $datos->conexionDB->commit();
                 } catch (PDOException $e) {
@@ -175,7 +172,6 @@ if(!isset($_SESSION['usuario'])){
                 } finally {
                     $datos->conexionDB = null;
                 }
-
             }
         }
     }

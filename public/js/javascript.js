@@ -28,6 +28,7 @@ $(function(){
     let nif = /^[XxYyZz]\d{7}[A-Za-z]$/;
     let soloLetras = /^[a-z_A-Z]*$/;  //Solo letras sin incluir la ñ, se aceptan _ para separar nombre compuestos
     let soloLetrasAlt = /^[a-zñ_A-ZÑ]*$/; //Solo letras incluida la ñ, se aceptan _ para separar nombre compuestos
+    let nombres = /^[a-záéíóúñ ]*$/i;  //Solo nombres, acepta acentos y ñ
 
 
     $('#miselect').select2();
@@ -357,6 +358,21 @@ $(function(){
             comentarioFinalizarCambioDomicilio.css("display","block");
         } else {
             comentarioFinalizarCambioDomicilio.css("display","none");
+        }
+    });
+
+    //comentario finalizar mentenimiento
+    let solucionFinalizarMantenimiento = $('#solucionFinalizarMantenimiento');
+    let comentarioFinalizarMantenimiento = $('#comentarioFinalizarMantenimiento');
+    comentarioFinalizarMantenimiento.css("display","none");
+
+    solucionFinalizarMantenimiento.change(function () {
+        let opcion = this.options[this.selectedIndex].innerHTML;
+
+        if (opcion === "otros" ) {
+            comentarioFinalizarMantenimiento.css("display","block");
+        } else {
+            comentarioFinalizarMantenimiento.css("display","none");
         }
     });
 
@@ -816,9 +832,9 @@ $(function(){
             e.preventDefault();
             mensajeNombreAdminConexionObligatorio.html('El nombre es obligatorio');
         }
-        if(!soloLetrasAlt.test(inputNombreAdminConexion.val())){
+        if(!nombres.test(inputNombreAdminConexion.val())){
             e.preventDefault();
-            mensajeNombreAdminConexionNoValidoOpc.html('El nombre no es válido, solo se permiten letras');
+            mensajeNombreAdminConexionNoValidoOpc.html('El nombre no es válido, no se permiten números ni caracteres especiales.');
         }
         if(inputNombreAdminConexion.val().trim().length < 4 && inputNombreAdminConexion.val().trim().length > 0){
             e.preventDefault();

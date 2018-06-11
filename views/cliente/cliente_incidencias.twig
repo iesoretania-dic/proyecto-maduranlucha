@@ -36,6 +36,7 @@
                                 <th>Disponible</th>
                                 <th>Tipo</th>
                                 <th>Acciones</th>
+
                             {% endif %}
                             {#Vista para el comercial#}
                             {% if rol == '1' %}
@@ -47,16 +48,14 @@
                                 <th>Resolución</th>
                                 <th>Disponible</th>
                                 <th>Tipo</th>
-                                {#<th>Otros</th>#}
                                 <th>Acciones</th>
                             {% endif %}
                             {#Vista para el controlador#}
                             {% if rol == '4' %}
-                                <th>Cliente_Dni</th>
-                                <th>Cliente_Nombre</th>
-                                <th>Cliente_Telefono</th>
-                                <th>Cliente_Ciudad</th>
-                                <th>Info</th>
+                                <th>Dni</th>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Información</th>
                                 <th>Acciones</th>
                             {% endif %}
 
@@ -95,6 +94,8 @@
                                             Baja
                                         {% elseif fila.tipo == 'instalacion' %}
                                             Instalación
+                                        {% elseif fila.tipo == 'mantenimiento' %}
+                                            Mantenimiento
                                         {% endif %}
                                     </td>
                                 {% endif %}
@@ -115,6 +116,8 @@
                                             Baja
                                         {% elseif fila.tipo == 'instalacion' %}
                                             Instalación
+                                        {% elseif fila.tipo == 'mantenimiento' %}
+                                            Mantenimiento
                                         {% endif %}
                                     </td>
                                 {% endif %}
@@ -122,7 +125,6 @@
                                     <td>{{ fila.id_cliente }}</td>
                                     <td>{{ fila.nombreCliente }}</td>
                                     <td>{{ fila.telefono }}</td>
-                                    <td>{{ fila.ciudad }}</td>
                                     <td>{{ fila.otros }}</td>
                                 {% endif %}
 
@@ -131,7 +133,7 @@
                                         {% if fila.estado == '0' %}
                                             <a href="../controlador/controlador_confirmar_tecnicos.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnTecnico" title="Enviar a tecnicos"></a>
                                         {% endif %}
-                                        {% if fila.estado == '0' or (fila.estado == '1' and fila.tipo == 'averia')%}
+                                        {% if fila.estado == '0' or (fila.estado == '1' and (fila.tipo == 'averia' or fila.tipo == 'mantenimiento'))%}
                                             <a href="../controlador/controlador_confirmar_finalizar.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAceptar" title="Finalizar"></a>
                                         {% endif %}
                                         {% if rol == '0' and fila.estado == '2' %}

@@ -47,7 +47,7 @@
                             {# Elementos para los comerciales #}
                         {% elseif rol == '1' %}
                             <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_listar.php'%} active {% endif %}" href="../cliente/cliente_listar.php"><i class="fas fa-users"></i> Clientes</a></li>
-                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_incidencias.php?tipo=0'%} active {% endif %}" href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Indicencias</a></li>
+                            <li class="nav-item"><a class="miLink {% if uri == '/q/controller/cliente/cliente_incidencias.php?tipo=0'%} active {% endif %}" href="../cliente/cliente_incidencias.php?tipo=0"><i class="fas fa-exclamation-triangle"></i> Incidencias</a></li>
                             {# Elementos para los tecnicos #}
                         {% elseif rol == '2' %}
                             <li class="nav-item"><a class="miLink {% if uri == '/q/controller/tecnico/tecnico.php'%} active {% endif %}" href="../tecnico/tecnico.php"><i class="fas fa-exclamation-triangle"></i> Inicio</a></li>

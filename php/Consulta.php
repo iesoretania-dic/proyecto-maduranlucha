@@ -162,7 +162,7 @@ class Consulta extends Conexion{
         $sentencia->closeCursor();
         return $resultado['usuario'];
     }
-
+    // Metodo para obtener el stock del almacen
     public function get_stock(){
 
         $sql= "SELECT * FROM stock ORDER BY fecha DESC LIMIT 1";
@@ -172,7 +172,7 @@ class Consulta extends Conexion{
         $sentencia->closeCursor();
         return $resultado;
     }
-
+    // Metodo para obtener el nombre de un cliente a traves de su dni
     public function get_nombreCliente($dni){
         $sql= "SELECT nombre FROM cliente where dni = :dni";
         $sentencia=$this->conexionDB->prepare($sql);
@@ -181,7 +181,7 @@ class Consulta extends Conexion{
         $sentencia->closeCursor();
         return $resultado['nombre'];
     }
-
+    // Metodo para obtetener el nombre de un usuario a traves de su dni
     public function get_nombreUsuario($dni){
         $sql= "SELECT nombre FROM usuario where dni = :dni";
         $sentencia=$this->conexionDB->prepare($sql);
@@ -190,7 +190,23 @@ class Consulta extends Conexion{
         $sentencia->closeCursor();
         return $resultado['nombre'];
     }
-
-
+    // Metodo para obtener la ultima bolsa de conectores de un tecnico
+    public function get_conectores($idUsuario){
+        $sql = "SELECT contador FROM material WHERE id_usuario = :usuario and terminado = :terminado AND nombre = :nombre";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$idUsuario,":terminado"=>'No',":nombre"=>'bolsaconectores'));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['contador'];
+    }
+    // Metodo para obtener la ultima caja de cables de un tecnico
+    public function get_cables($idUsuario){
+        $sql = "SELECT contador FROM material WHERE id_usuario = :usuario and terminado = :terminado AND nombre = :nombre";
+        $sentencia=$this->conexionDB->prepare($sql);
+        $sentencia->execute(array(":usuario"=>$idUsuario,":terminado"=>'No',":nombre"=>'cajacable'));
+        $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+        $sentencia->closeCursor();
+        return $resultado['contador'];
+    }
 }
 

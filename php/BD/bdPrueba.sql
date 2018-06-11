@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `incidencia` (
   `fecha_parcial` datetime DEFAULT NULL,
   `disponible` datetime DEFAULT CURRENT_TIMESTAMP,
   `otros` text COLLATE utf8_spanish_ci,
-  `tipo` enum('instalacion','cambiodomicilio','averia','baja') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'instalacion',
+  `tipo` enum('instalacion','cambiodomicilio','averia','baja','mantenimiento') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'instalacion',
   `estado` enum('0','1','2','3','4','5') COLLATE utf8_spanish_ci NOT NULL DEFAULT '0',
   `reincidencia` smallint(2) DEFAULT NULL,
   `llamada_obligatoria` enum('No','Si') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'No',

@@ -83,6 +83,8 @@
                                     class="badge badge-warning"
                                 {% elseif incidencia.tipo == 'cambiodomicilio' %}
                                     class="badge badge-info"
+                                {% elseif incidencia.tipo == 'mantenimiento' %}
+                                    class="badge badge-dark"
                                 {% endif %}
                         >
                                 {% if incidencia.tipo == 'instalacion' %}
@@ -93,6 +95,8 @@
                                     Averia
                                 {% elseif incidencia.tipo == 'cambiodomicilio' %}
                                     Cambio de domicilio
+                                {% elseif incidencia.tipo == 'mantenimiento' %}
+                                    Mantenimiento
                                 {% endif %}
                         </span>
                     </li>

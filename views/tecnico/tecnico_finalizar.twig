@@ -306,6 +306,30 @@
                 </div>
             {% endif %}
 
+            {% if tipo == 'mantenimiento' %}
+
+                <div class="vistaCheck">
+                    <div class="input-group mb-3">
+                        <label for="solucionFinalizarCambioMantenimiento" class="input-group-text" id="inputGroup-sizing-default">Seleccione una solución:</label>
+                        <select id="solucionFinalizarMantenimiento" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="solucion">
+                            <option value="Mantenimiento normal">Mantenimiento normal</option>
+                            <option value="otros">otros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="comentarioFinalizarMantenimiento" class="vistaCheck">
+                    <label for="comentario" class="input-group-text" id="inputGroup-sizing-default">Detalles:</label>
+                    <textarea class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="otros" id="comentario" cols="15" rows="2"></textarea>
+                </div>
+
+                <div class="vistaFormulario">
+                    <button class="btn btn-dark" type="submit" name="btnConfirmarFinalizar"><i class="fas fa-check"></i> Finalizar</button>
+                    <button class="btn btn-warning" type="submit" name="cancelarFinalizar"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+
+            {% endif %}
+
 
 
             {#mensajes posibles de error#}
@@ -350,20 +374,16 @@
                     <label class="alert alert-danger">Error al desasignar la incidencia al usuario</label>
                 {% endif %}
 
-                {% if mensajeIncidencia == 'error' %}
-                    <label class="alert alert-danger">No se pudo actualizar el estado de la incidencia, consulte con un administrador.</label>
-                {% endif %}
-
                 {% if mensajeFaltaConector == 'error' %}
-                    <p class="alert alert-danger">No tienes bolsa de conectores asignada, retire una del almacen</p>
+                    <p class="alert alert-danger">No tiene bolsa de conectores asignada, retire una del almacen</p>
                 {% endif %}
 
                 {% if mensajeFaltaCable == 'error' %}
-                    <p class="alert alert-danger">No tienes caja de cable asignada, retire una del almacen</p>
+                    <p class="alert alert-danger">No tiene caja de cable asignada, retire una del almacen</p>
                 {% endif %}
 
                 {% if mensajeSolucionAveria == 'error' %}
-                    <p class="alert alert-danger">Debes indicar una solución</p>
+                    <p class="alert alert-danger">Debe indicar una solución</p>
                 {% endif %}
 
                 {% if mensajeMaterialPositivo == 'error' %}
@@ -372,7 +392,6 @@
             {% endif %}
 
             {% if tipo == 'cambiodomicilio' %}
-
                 {% if mensajeCambioDomicilio == 'materialnegativo' %}
                     <label class="alert alert-danger">El cliente no dispone de ese material.</label>
                 {% endif %}

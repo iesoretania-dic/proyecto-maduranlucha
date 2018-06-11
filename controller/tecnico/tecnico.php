@@ -61,7 +61,7 @@ if(!isset($_SESSION['usuario'])){
 
                 //Consulta si no tiene una incidencia asignada
                 $mensaje = 'No';
-                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria,parcial,urgente,disponible FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL ORDER BY urgente = :urgente DESC, tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
+                $sentencia = "SELECT id_incidencia, id_cliente,fecha_creacion,otros,tipo,reincidencia,llamada_obligatoria,parcial,urgente,disponible FROM incidencia WHERE (disponible < NOW() OR disponible IS NULL) and fecha_resolucion IS NULL AND estado = :estado AND tecnico IS NULL and tipo != 'mantenimiento' ORDER BY urgente = :urgente DESC, tipo= :tipouno or tipo = :tipodos DESC, fecha_creacion LIMIT 1";
                 $parametros = (array(":estado"=>'1', ":tipouno"=>'averia',"tipodos"=>'cambiodomicilio',":urgente"=>'Si'));
                 $resultado = $datos->get_conDatosUnica($sentencia,$parametros);
 

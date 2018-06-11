@@ -12,6 +12,7 @@ if(!isset($_SESSION['usuario'])){
     header('Location: index.php');
 }else{
     $rol = $_SESSION['rol'];
+    $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();
     $uri =  $_SERVER['REQUEST_URI'];
@@ -20,7 +21,7 @@ if(!isset($_SESSION['usuario'])){
     $fechaActual = date("Y-m-d H:i:s");
     try{
         //Consulta para obtener las incidencias pendientes del tecnico
-        $sentencia = "SELECT incidencia.id_incidencia,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.fecha_resolucion,incidencia.disponible,incidencia.otros, cliente.nombre, cliente.telefono,cliente.ciudad, cliente.direccion, usuario.asignada,incidencia.urgente FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.tecnico= :tecnico AND incidencia.fecha_resolucion IS NULL ORDER BY fecha_creacion";
+        $sentencia = "SELECT incidencia.id_incidencia,incidencia.id_usuario,incidencia.id_cliente,incidencia.fecha_creacion,incidencia.fecha_resolucion,incidencia.disponible,incidencia.otros,incidencia.urgente, cliente.nombre, cliente.telefono,cliente.ciudad, cliente.direccion, usuario.asignada FROM incidencia INNER JOIN cliente ON incidencia.id_cliente = cliente.dni INNER JOIN usuario ON incidencia.id_usuario = usuario.dni WHERE incidencia.tecnico= :tecnico AND incidencia.fecha_resolucion IS NULL ORDER BY fecha_creacion";
         $parametros = (array(":tecnico"=>$idUsuario));
         $datos = new Consulta();
         $arrayFilas = $datos->get_conDatos($sentencia,$parametros);
@@ -56,9 +57,7 @@ if(!isset($_SESSION['usuario'])){
         }finally{
             $bbdd = null;
         }
-
     }
-
 
     ////////////////////////Renderizado//////////////////////////
     require_once '../../vendor/autoload.php';
@@ -74,10 +73,10 @@ if(!isset($_SESSION['usuario'])){
             'actual',
             'rol',
             'fechaActual',
+            'usuario',
             'uri'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
     }
 }
-

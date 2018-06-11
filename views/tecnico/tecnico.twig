@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 
-{% block title 'Tecnico' %}
+{% block title 'Técnico' %}
 
 {% block contenido %}
     <div class="contenido">
@@ -37,7 +37,7 @@
 
                         <ul class="list-group">
                             <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
-                                <span>Material del tecnico: {{ datosUsuario.nombre }}, {{ datosUsuario.dni }}</span>
+                                <span>Material del técnico: {{ datosUsuario.nombre }}, {{ datosUsuario.dni }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>Routers disponibles:</span>
@@ -86,6 +86,8 @@
                                             class="badge badge-warning"
                                         {% elseif tipo == 'cambiodomicilio' %}
                                             class="badge badge-info"
+                                        {% elseif tipo == 'mantenimiento' %}
+                                            class="badge badge-dark"
                                         {% endif %}
                                 >
                                 {% if tipo == 'instalacion' %}
@@ -96,6 +98,8 @@
                                     Averia
                                 {% elseif tipo == 'cambiodomicilio' %}
                                     Cambio de domicilio
+                                {% elseif tipo == 'mantenimiento' %}
+                                    Mantenimiento
                                 {% endif %}
                             </span>
                             </li>

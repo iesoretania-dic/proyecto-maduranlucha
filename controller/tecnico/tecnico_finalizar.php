@@ -622,6 +622,64 @@ if(!isset($_SESSION['usuario'])){
                 $mensajeCambioDomicilio = 'materialRecoger';
             }
         }
+
+        //Accion en caso de mantenimiento
+
+        if ($tipo == 'mantenimiento') {
+
+            $arrayMantenimiento = [];
+
+            if (isset($_POST['solucion']) and $_POST['solucion'] != 'otros') {
+                $solucion = ($_POST['solucion']);
+                array_push($arrayMantenimiento, $solucion);
+            }
+            if (isset($_POST['otros']) and ($_POST['otros'] != '')) {
+                $otros = ($_POST['otros']);
+                array_push($arrayMantenimiento, $otros);
+            }
+
+            $listamantimiento = json_encode($arrayMantenimiento,JSON_UNESCAPED_UNICODE);
+
+            try {
+                $datos = new Consulta();
+                //Usamos una transaccion para que en caso de error no ejecute ninguna sentencia.
+                $datos->conexionDB->beginTransaction();
+
+                //Consulta para establecer el estado a finalizado y incluir la fecha de resolucion
+                $sentencia = "UPDATE incidencia SET estado=:estado, fecha_resolucion= :fechaRes,disponible = NULL WHERE id_incidencia = :id ";
+                $parametros = array(":estado" => '3', ":fechaRes" => date("Y-m-d H:i:s"), ":id" => $asignada);
+                $datos->get_sinDatos($sentencia, $parametros);
+
+                //consulta para insertar la solucion
+                $sentencia = "INSERT INTO solucion (id_incidencia, solucion,tecnico) VALUES (:incidencia, :solucion, :tecnico)";
+                $parametros = array(":incidencia" => $asignada, ":solucion" => $listamantimiento, ":tecnico" => $idUsuario);
+                $datos->get_sinDatos($sentencia, $parametros);
+
+                //Consulta para desasignarle la instalacion al usuario
+                if(!isset($_SESSION['forzado'])){  //si no es cerrada por un administrador desasignamos la incidencia al usuario
+                    $sentencia = "UPDATE usuario SET asignada = :asignada WHERE dni = :dni ";
+                    $parametros = array(":asignada" => NULL, ":dni" => $idUsuario);
+                    $datos->get_sinDatos($sentencia, $parametros);
+                }
+
+                $datos->conexionDB->commit();
+
+                if(isset($_SESSION['forzado'])){
+                    header("Location: ../cliente/cliente_incidencias.php?tipo=0");
+                }else{
+                    header("Location: ../tecnico/tecnico.php");
+                }
+
+            } catch (PDOException $e) {
+                $datos->conexionDB->rollBack();
+                die('Error: ' . $e->getMessage());
+            } finally {
+                $datos->conexionDB = null;
+            }
+
+        }
+
+
     }
 
     //Accion si pulsa el boton cancelar

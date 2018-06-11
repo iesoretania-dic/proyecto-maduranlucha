@@ -8,10 +8,9 @@
             {% if asignada == actual  %}
                 <label class="alert alert-success">Ya tiene asignada la incidencia {{ actual }}</label>
             {% else %}
-                <label class="alert alert-warning">No se pudo asignar la incidencia {{ actual }}, ya tiene un incidencia asignada: {{ asignada }}</label>
+                <label class="alert alert-warning">No se pudo asignar la incidencia <span class="badge badge-warning">{{ actual }}</span>, ya tiene como principal la incidencia: <span class="badge badge-warning">{{ asignada }}</span></label>
             {% endif %}
         {% endif %}
-
         <form action="" method="post">
             {% if mensaje == 'Si' %}
                 <div class="table-responsive-xl">
@@ -21,11 +20,11 @@
                             <th>Id</th>
                             <th>Cliente</th>
                             <th>Nombre</th>
-                            <th>Telefono</th>
+                            <th>Teléfono</th>
                             <th>Ciudad</th>
-                            <th>Creacion</th>
+                            <th>Creación</th>
                             <th>Disponible</th>
-                            <th>Otros</th>
+                            <th>Información</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -46,7 +45,6 @@
                                     <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                 </td>
                             </tr>
-
                         {% endfor %}
                         </tbody>
                     </table>
@@ -57,6 +55,7 @@
             {% endif %}
         </form>
     </div>
+
 
 {% endblock %}
 
