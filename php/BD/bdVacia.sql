@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `solucion` (
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `solucion` text COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id_solucion`),
+  UNIQUE KEY `id_incidencia` (`id_incidencia`),
   KEY `FK_solucion_incidencia` (`id_incidencia`),
   KEY `FK_solucion_usuario` (`tecnico`),
   CONSTRAINT `FK_solucion_incidencia` FOREIGN KEY (`id_incidencia`) REFERENCES `incidencia` (`id_incidencia`) ON DELETE CASCADE ON UPDATE CASCADE,

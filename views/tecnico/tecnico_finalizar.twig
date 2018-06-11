@@ -414,6 +414,11 @@
 
             {% endif %}
 
+            {% if mensajeSolucion == 'error' %}
+                <p class="alert alert-danger">Ya existe una solución para esta incidencia, contacte con un administrador.</p>
+            {% endif %}
+
+
         </form>
     </div>
 
