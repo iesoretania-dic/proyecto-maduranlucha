@@ -7,6 +7,14 @@
     <div class="contenido">
         <form action="" method="post">
 
+
+            <div class="vistaFormulario">
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary">Información del comercial: <span class="badge badge-primary">{{ idIncidencia }}</span></li>
+                    <li class="list-group-item liArea"><p class="pArea">{{ incidencia.otros }}</p></li>
+                </ul>
+            </div>
+
             {% if mensaje == 'error' %}
                 <label class="alert alert-primary">No hay comentarios para la incidencia número: <span class="badge badge-primary">{{ idIncidencia }}</span></label>
             {% else %}
@@ -19,12 +27,13 @@
 
             {% if mensaje == 'Ok' %}
                 <div class="contenedorTabla">
-                    <table id="" class="table table-bordered table-responsive-xl miHover">
+                    <table id="" class="table table-bordered table-sm miTabla table-responsive-xl">
                         <thead class="miThead">
                         <tr>
                             <th>Técnico</th>
                             <th>Comentario</th>
                             <th>Creación</th>
+                            {#<th>Acciones</th>#}
                         </tr>
                         </thead>
 
@@ -34,6 +43,7 @@
                                 <td>{{ comentario.tecnico }}</td>
                                 <td>{{ comentario.texto }}</td>
                                 <td>{% if comentario.fecha %}{{ comentario.fecha | date ('d/m/y H:i') }} {% endif %}</td>
+
                             </tr>
                         {% endfor %}
                     </table>
