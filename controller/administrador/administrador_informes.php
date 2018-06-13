@@ -35,6 +35,21 @@ if(!isset($_SESSION['usuario'])){
     $datos = new Consulta();
     $tecnicos = $datos->get_conDatos($sentencia,$parametros);
 
+    if(isset($_POST['materialClientes'])){
+
+        $sentencia = "SELECT (select count(*) from cliente where antenas = '1') as antenas ,(select count(*) from cliente where routers = '1') as routers,(select count(*) from cliente where atas = '1') as atas";
+        $parametros = array();
+        $datos = new Consulta();
+        $materialClientes = $datos->get_conDatosUnica($sentencia,$parametros);
+
+        if($materialClientes){
+            $vista = 'consulta';
+            $consulta = '0';
+        }else{
+            $mensaje = 'error';
+        }
+    }
+
     if(isset($_POST['bajaMaterial'])){
 
         $sentencia = "SELECT cliente.dni, cliente.nombre, cliente.antenas,cliente.telefono, cliente.routers,cliente.atas, incidencia.tipo FROM cliente INNER JOIN incidencia ON cliente.dni = incidencia.id_cliente WHERE incidencia.tipo ='baja' and (cliente.routers  or cliente.antenas)";
@@ -199,7 +214,8 @@ if(!isset($_SESSION['usuario'])){
             'mensajeTecnicoResueltas',
             'nombreCliente',
             'uri',
-            'fechaActual'
+            'fechaActual',
+            'materialClientes'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";
