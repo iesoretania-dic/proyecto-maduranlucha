@@ -931,6 +931,7 @@ $(function(){
     let btnCrearIncidencia = $('#btnCrearIncidencia');
     let inputComentarioCrearIncidencia = $('#comentarioCrearIncidencia');
     let mensajeComentarioCrearIncidencia = $('#mensajeComentarioCrearIncidencia');
+    let formularioIncidenciasAdd = $('#formularioIncidenciasAdd');
 
     btnCrearIncidencia.click(function(e){
         mensajeComentarioCrearIncidencia.html("");
@@ -939,6 +940,12 @@ $(function(){
             e.preventDefault();
             mensajeComentarioCrearIncidencia.html('El comentario es obligatorio.');
         }
+    });
+
+    //Desactivamos el boton de enviar para evitar duplicar incidencias.
+    formularioIncidenciasAdd.submit(function(){
+        btnCrearIncidencia.submit();
+        btnCrearIncidencia.attr("disabled", "true");
     });
 
     //**********FIN VALIDACIONES**********//

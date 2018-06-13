@@ -62,7 +62,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Número de antenas*:</span>
                         </div>
-                        <input id="usuarioAntenas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="antenas" value="{{ datosUsuario.antenas }}">
+                        <input id="usuarioAntenas" type="number" min="0" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="antenas" value="{{ datosUsuario.antenas }}">
                         <p type="text" class="badge badge-danger alerta" id="mensajeAntenas"></p>
                     </div>
 
@@ -70,7 +70,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Número de routers*:</span>
                         </div>
-                        <input id="usuarioRouters" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="routers" value="{{ datosUsuario.routers }}">
+                        <input id="usuarioRouters" type="number" min="0" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="routers" value="{{ datosUsuario.routers }}">
                         <p type="text" class="badge badge-danger alerta" id="mensajeRouters"></p>
                     </div>
 
@@ -78,7 +78,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Número de atas*:</span>
                         </div>
-                        <input id="usuarioAtas" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="atas" value="{{ datosUsuario.atas }}">
+                        <input id="usuarioAtas" type="number" min="0" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="atas" value="{{ datosUsuario.atas }}">
                         <p type="text" class="badge badge-danger alerta" id="mensajeAtas"></p>
                     </div>
 

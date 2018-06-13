@@ -34,7 +34,7 @@
                             <th>Telefono</th>
                             {% if rol == '0' %}
                                 <th>Comercial</th>
-                                <th>Eliminado</th>
+                                {#<th>Eliminado</th>#}
                             {% endif %}
                             <th>Alta</th>
                             <th>Baja</th>
@@ -55,7 +55,7 @@
                                 <td>{{ cliente.telefono }}</td>
                                 {% if rol == '0' %}
                                     <td>{{ cliente.nombreComercial }}</td>
-                                    <td>{{ cliente.eliminado }}</td>
+                                    {#<td>{{ cliente.eliminado }}</td>#}
                                 {% endif %}
                                 <td>{% if cliente.fecha_alta %}{{ cliente.fecha_alta | date ('d/m/Y') }} {% endif %}</td>
                                 <td>{% if cliente.fecha_baja %} {{ cliente.fecha_baja | date ('d/m/Y') }} {% endif %}</td>

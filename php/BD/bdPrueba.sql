@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `antenas` smallint(9) DEFAULT '0',
   `routers` smallint(9) DEFAULT '0',
   `atas` smallint(9) DEFAULT '0',
-  `fecha_alta` datetime DEFAULT NULL,
-  `fecha_baja` datetime DEFAULT NULL,
+  `fecha_alta` date DEFAULT NULL,
+  `fecha_baja` date DEFAULT NULL,
   PRIMARY KEY (`dni`),
   KEY `FK_cliente_usuario` (`id_usuario`),
   CONSTRAINT `FK_cliente_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`dni`) ON DELETE SET NULL ON UPDATE CASCADE

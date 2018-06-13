@@ -239,7 +239,7 @@
                         {% if incidencia.estado == '3' and tecnicoSolucion %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>Solución:</span>
-                                <a href="#" data-toggle="modal" data-target="#myModal2">Pulsa para ver la solución</a>
+                                <a href="#" data-toggle="modal" data-target="#myModal">Pulsa para ver la solución</a>
                             </li>
                         {% endif %}
 
@@ -375,6 +375,7 @@
                                     </tr>
                                     </thead>
 
+                                    {#le pasamos la variable que contiene el array con las llamadas#}
                                     {% for llamada in llamadas %}
                                         <tr>
                                             <td>{{ llamada.usuario }}</td>

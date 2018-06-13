@@ -12,7 +12,7 @@ if(isset($_POST['enviar'])){
     $datos = new Consulta();
     $passwordCifrado = $datos->get_clave($usuario);
 
-    if(password_verify($password,$passwordCifrado)){
+    if(!password_verify($password,$passwordCifrado)){
         header('Location: ../../index.php');
     }else{
         $consulta = new Consulta();
