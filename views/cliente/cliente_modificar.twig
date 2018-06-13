@@ -94,23 +94,23 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input1">
+                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Fecha de  alta:</span>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             </div>
-                            <input class="form-control" size="2" type="text" value="{{ cliente.fecha_alta }}" name="alta">
+                            <input class="form-control" size="2" type="text" value="{% if cliente.fecha_alta %}{{ cliente.fecha_alta | date ('Y-m-d') }}{% endif %}" name="alta">
                         </div>
                         <input type="hidden" id="dtp_input1" value="{{ cliente.fecha_alta }}" />
                     </div>
 
                     <div class="form-group mb-3">
-                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii p" data-link-field="dtp_input2">
+                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Fecha de baja:</span>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             </div>
-                            <input class="form-control" size="2" type="text" value="{{ cliente.fecha_baja }}" name="baja">
+                            <input class="form-control" size="2" type="text"  value="{% if cliente.fecha_baja %}{{ cliente.fecha_baja | date ('Y-m-d') }}{% endif %}" name="baja">
                         </div>
                         <input type="hidden"  id="dtp_input2" value="{{ cliente.fecha_baja }}"/>
                     </div>
