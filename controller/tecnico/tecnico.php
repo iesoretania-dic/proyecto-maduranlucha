@@ -24,6 +24,13 @@ if(!isset($_SESSION['usuario'])){
         $datos = new Consulta();
         $datosUsuario = $datos->get_conDatosUnica($sentencia,$parametros);
         $asignada = $datosUsuario['asignada'];
+
+        //Obtenemos el numero de veces que se llamo al cliente
+        $sentencia = "SELECT count(*) as llamada FROM llamadas WHERE id_incidencia = :incidencia";
+        $parametros = (array(":incidencia"=>$asignada));
+        $datos = new Consulta();
+        $llamadasContador = $datos->get_conDatosUnica($sentencia,$parametros);
+
         $cliente = null;
 
         //comprobar si hay averias sin asignar
@@ -203,15 +210,26 @@ if(!isset($_SESSION['usuario'])){
     //Accion si se pulsa el boton de confirmar llamada
     if(isset($_POST['confirmarLlamada'])){
         try{
+            $datos = new Consulta();
+            $datos->conexionDB->beginTransaction();
+            //Consulta para actualizar el estado de llamada obligatoria
             $sentencia = "UPDATE incidencia SET llamada_obligatoria = :llamada WHERE id_incidencia= :incidencia";
             $parametros = (array(":llamada"=>'Si', ":incidencia"=>$asignada));
-            $datos = new Consulta();
             $datos->get_sinDatos($sentencia,$parametros);
-        }catch (Exception $e){
-            die('Error: ' . $e->GetMessage());
-        }finally{
-            $bbdd = null;
+
+            //Consulta para insertar la llamada en el registro
+            $sentencia = "INSERT INTO llamadas(id_incidencia, id_usuario) VALUES (:incidencia,:usuario)";
+            $parametros = array(":incidencia"=>$asignada,":usuario"=>$idUsuario);
+            $resultados = $datos->get_sinDatos($sentencia,$parametros);
+
+            $datos->conexionDB->commit();
+
             header("Location: ../tecnico/tecnico.php");
+        }catch (Exception $e){
+            $datos->conexionDB->rollBack();
+            die('Error: ' . $e->getMessage());
+        }finally{
+            $datos->conexionDB = null;
         }
     }
 
@@ -237,7 +255,8 @@ if(!isset($_SESSION['usuario'])){
             'urgente',
             'resultado',
             'uri',
-            'arrayComentarios'
+            'arrayComentarios',
+            'llamadasContador'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

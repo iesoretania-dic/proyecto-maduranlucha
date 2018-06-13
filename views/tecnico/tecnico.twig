@@ -75,6 +75,14 @@
                                 <span>Teléfono:</span>
                                 <span>{{ cliente.telefono }}</span>
                             </li>
+                            {% if llamadasContador.llamada != '0' %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span>Número de llamadas: </span>
+                                    </div>
+                                    <span class="badge badge-success">{{ llamadasContador.llamada }}</span>
+                                </li>
+                            {% endif %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>Tipo:</span>
                                 <span
@@ -146,7 +154,7 @@
                         <div class="btn-group-vertical">
                             <button class="btn btn-info text-left" type="submit" name="btnFinalizarIncidencia"><i class="fas fa-check"></i> Finalizar</button>
                             <button class="btn btn-info text-left" type="submit" name="btnFinalizarParcialIncidencia"><i class="fas fa-check"></i> Finalizar de forma parcial</button>
-                            <button class="btn btn-info text-left" type="submit" name="btnPendiente"><i class="fas fa-calendar-alt"></i> Resolver mas tarde</button>
+                            <button class="btn btn-info text-left" type="submit" name="btnPendiente"><i class="fas fa-calendar-alt"></i> Resolver más tarde</button>
                             <button class="btn btn-info text-left" type="submit" name="btnErrorIncidencia"><i class="fas fa-ban"></i> Sin contacto con el cliente</button>
                         </div>
 
