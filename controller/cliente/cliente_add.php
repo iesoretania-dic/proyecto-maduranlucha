@@ -126,6 +126,7 @@ if(!isset($_SESSION['usuario'])){
 
                     if ($resultados > 0){
                         $mensaje = 'Ok';
+                        //$correo = enviarCorreo($tipo,$nombreUsuario,$nombre,$comentario);
                         header('Location: cliente_listar.php');
                     }
 
@@ -159,6 +160,7 @@ if(!isset($_SESSION['usuario'])){
                         $resultados = $datos->get_sinDatos($cadena,$parametros);
                         if ($resultados > 0) {
                             $mensaje = 'Ok';
+                            //$correo = enviarCorreo($tipo,$nombreUsuario,$nombre,$comentario);
                             header('Location: cliente_listar.php');
                         }
                     }else{

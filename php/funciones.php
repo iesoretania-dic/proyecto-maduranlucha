@@ -35,4 +35,33 @@ function restarfechas($inicio, $fin){
     return $resultado = $fechados - $fechauno;
 
 }
+//Funcion que nos permite enviar correos
+function enviarCorreo($tipo,$nombreUsuario,$nombreCliente,$comentario){
+    try{
+        $phpmailer = new PHPMailer();
+        $phpmailer->Username = ""; //Correo de origen
+        $phpmailer->Password = ""; //Contraseña del correo
+        $phpmailer->IsSMTP();
+        $phpmailer->Host = ""; //servidor de correo
+        $phpmailer->Port = 25; //puerto SMTP
+        $phpmailer->SMTPAuth = true;
+        $phpmailer->From = ""; //Correo de origen
+        $phpmailer->FromName = "Nueva incidencia";
+        $phpmailer->AddAddress(""); //Email destino
+        $phpmailer->Subject = "Nueva incidencia"; //Asunto del correo
+        $phpmailer->Body .="<h1 style='color:#3498db;'>Nuev@ $tipo</h1>";
+        $phpmailer->Body .= "<p>Comercial: $nombreUsuario</p>";
+        $phpmailer->Body .= "<p>Cliente: $nombreCliente</p>";
+        $phpmailer->Body .= "<p>Comenatario del comercial: $comentario</p>";
+        $phpmailer->Body .= "<p>Fecha de creacion: ".date("d/m/Y h:i:s")."</p>";
+        $phpmailer->IsHTML(true);
+        if(!$phpmailer->Send()) {
+            return "Error al enviar: " . $phpmailer->ErrorInfo;
+        } else {
+            return "Enviado..";
+        }
+    }catch (Exception $e){
+        die('Error: ' . $e->getMessage());
+    }
+}
 
