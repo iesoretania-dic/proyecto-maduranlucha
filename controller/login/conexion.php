@@ -4,8 +4,6 @@ require '../../php/funciones.php';
 require '../../php/Base.php';
 session_start();
 $_SESSION = array();
-//var_dump($_POST);
-//var_dump($_SESSION);
 
 $vista = null;
 

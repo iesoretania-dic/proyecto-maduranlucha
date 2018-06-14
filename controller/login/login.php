@@ -3,8 +3,6 @@ require '../../php/Consulta.php';
 require '../../php/funciones.php';
 session_start();
 $_SESSION = array();
-//var_dump($_POST);
-//var_dump($_SESSION);
 
 
 ////////////////////////Renderizado//////////////////////////

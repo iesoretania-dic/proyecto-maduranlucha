@@ -1,7 +1,6 @@
 <?php
 //Iniciamos la sesion
 session_start();
-var_dump($_SESSION);
 
 require '../../php/Consulta.php';
 require '../../php/funciones.php';

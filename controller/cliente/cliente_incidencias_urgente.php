@@ -1,10 +1,8 @@
 <?php
 require '../../php/Consulta.php';
 require '../../php/funciones.php';
-
 session_start();
-//var_dump($_POST);
-//var_dump($_SESSION);
+
 
 if(!isset($_SESSION['usuario'])){
     header('Location: ../../index.php');
