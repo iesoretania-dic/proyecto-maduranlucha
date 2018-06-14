@@ -14,19 +14,19 @@
 
         {% if zona == 'password' %}
             <form class="" action="" method="post">
-                <p class="alert alert-info">Por motivos de seguridad:</p>
 
                 <div class="vistaFormulario">
+                    <p class="alert alert-info">Por motivos de seguridad:</p>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">Introduce la contraseña:</span>
                         </div>
-                        <input class="form-control" id="usuario" type="password" name="passwordVerificar" value="">
+                        <input class="form-control" id="usuario" type="password" name="passwordVerificar" value="" required>
                     </div>
                 </div>
 
                 <div class="vistaCheck">
-                    <button id="btnAddCliente" class="btn btn-primary" type="submit" name="aceptar"><i class="fas fa-unlock"></i> Aceptar</button>
+                    <button class="btn btn-primary" type="submit" name="aceptar"><i class="fas fa-unlock"></i> Aceptar</button>
                 </div>
                 {% if mensaje == 'Ok' %}
                     <p class="alert alert-success">Cambios guardados</p>
