@@ -440,13 +440,11 @@ $(function(){
     let dniBuscarInput = $('#dniBuscarInput');
     let mensajedniBuscarInput = $('#mensajedniBuscarInput');
 
-
-
     dniBuscarCliente.click(function(e){
         mensajedniBuscarInput.html("");
-        if(dniBuscarInput.val().length !== 9){
+        if(!dni.test(dniBuscarInput.val())){
             e.preventDefault();
-            mensajedniBuscarInput.html('La longitud debe ser de 9 caracteres');
+            mensajedniBuscarInput.html('El dni no es correcto');
         }
     });
 
@@ -473,9 +471,9 @@ $(function(){
         mensajeTelefonoInput.html("");
         mensajeComentarioInputComercial.html("");
         // mensajeComentarioInputAdmin.html("");
-        if(dniAddInput.val().length !== 9){
+        if(!dni.test(dniAddInput.val())){
             e.preventDefault();
-            mensajedniAddInput.html('9 caracteres');
+            mensajedniAddInput.html('El dni no es correcto');
         }
         if(inputNombreAdd.val().trim().length === 0){
             e.preventDefault();

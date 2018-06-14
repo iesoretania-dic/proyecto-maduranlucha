@@ -2,8 +2,11 @@
 require '../../php/Consulta.php';
 require '../../php/funciones.php';
 session_start();
-$_SESSION = array();
 
+if(isset($_SESSION['login']) and $_SESSION['login'] == 'error'){
+    $login = 'error';
+}
+$_SESSION = array();
 
 ////////////////////////Renderizado//////////////////////////
 require_once '../../vendor/autoload.php';
@@ -13,7 +16,8 @@ $twig = new Twig_Environment($loader, []);
 try{
     echo $twig->render('login/login.twig', compact(
         'usuario',
-        'prueba'
+        'prueba',
+        'login'
     ));
 }catch (Exception $e){
     echo  'Excepción: ', $e->getMessage(), "\n";

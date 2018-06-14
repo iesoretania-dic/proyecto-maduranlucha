@@ -51,7 +51,6 @@
   height: 100vh;
   background-image: url("../resources/padded.png");
   background-repeat: repeat;
-  background-size: 100%;
   background-size: 5%;
 }
 
@@ -122,6 +121,11 @@
 .b-login {
   grid-column: 2;
   grid-row: 12/14;
+}
+
+.m-login {
+  grid-column: 2;
+  grid-row: 15/16;
 }
 
 .formularioLogin {

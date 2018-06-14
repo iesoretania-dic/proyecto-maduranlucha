@@ -13,10 +13,12 @@ if(isset($_POST['enviar'])){
 
     if(!password_verify($password,$passwordCifrado)){
         header('Location: ../../index.php');
+        $_SESSION['login'] = 'error';
     }else{
         $consulta = new Consulta();
         $_SESSION['usuario'] = $usuario;
         $_SESSION['rol'] = $consulta->get_rol();
+        $_SESSION['login'] = 'ok';
         $consulta->conexion();
         if(isset($_SESSION['rol'])){
             switch ($_SESSION['rol']) {
