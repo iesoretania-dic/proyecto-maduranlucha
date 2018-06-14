@@ -28,11 +28,16 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 DELETE FROM `cliente`;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` (`dni`, `id_usuario`, `nombre`, `direccion`, `telefono`, `ciudad`, `cp`, `provincia`, `eliminado`, `antenas`, `routers`, `atas`, `fecha_alta`, `fecha_baja`) VALUES
-	('24070717K', '22342611C', 'MARTIN PRIETO BLANCA', 'C/ MARQUESES Nº3 5G', '654852364', 'BAÑOS', 'JAEN', '23711', 'No', 0, 0, 0, '2018-06-06 09:54:04', NULL),
-	('27447172F', '25623900Z', 'RAMON SANCHEZ CARMONA', 'C/ LA PAZ Nº5', '659852471', 'BAILEN', 'JAEN', '23710', 'No', 1, 1, 0, '2018-06-06 09:46:48', NULL),
-	('58532667J', '22342611C', 'CELIA CAZORLA ROMA', 'C/ SEVILLA Nº32 4F', '645987425', 'BAILEN', 'JAEN', '23710', 'No', 1, 1, 1, '2018-06-06 09:55:39', NULL),
-	('66478717T', '25623900Z', 'LAURA LOPEZ BALLESTEROS', 'PSO ANDALUCIA Nº8', '687598412', 'LINARES', 'JAEN', '23700', 'No', 0, 0, 0, '2018-06-06 09:51:05', NULL),
-	('85219212A', '22342611C', 'ELENA NOGUERA BERBEL', 'C/ MIGUEL HERNANDEZ', '693587412', 'LINARES', 'JAEN', '23700', 'No', 0, 0, 0, '2018-06-06 09:58:34', NULL);
+  ('00061715Y', '22623964Z', 'ALVARO VALLS CHAMORRO', 'VíA DE ESPAñA, 99', '690756237', 'BAILEN', 'JAEN', '23710', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('02540484L', '34114901J', 'VICTOR CATALAN RUBIO', 'PSO AVENIDA MAYOR, 97', '605195835', 'LINARES', 'JAEN', '23700', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('03288763Q', '34114901J', 'BENITO VILLAR PELAEZ', 'C/ RONDA IGLESIA, 29', '666279246', 'BAILEN', 'JAEN', '23710', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('04027257A', '22623964Z', 'ANDREU BAUTISTA VICENTE', 'CAMINO IGLESIA, 31', '697651310', 'LINARES', 'JAEN', '23700', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('29126849V', '22623964Z', 'LETICIA SALGUERO CEREZO', 'PASAJE HORNO, 3', '682455185', 'LINARES', 'JAEN', '23700', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('39470299E', '34114901J', 'JUDITH CANOVAS OTERO', 'PLZA RAMBLA HORNO, 19', '739563111', 'BAILEN', 'JAEN', '23710', 'No', 0, 1, 0, '2018-06-14', NULL),
+  ('60954124F', '22623964Z', 'LEIRE SILVA VALENZUELA', 'VEREDA REAL, 39', '647907780', 'BAILEN', 'JAEN', '23710', 'No', 1, 1, 0, '2018-06-14', NULL),
+  ('62080672S', '22623964Z', 'MARIA JESUS CUEVAS GUERRERO', 'VEREDA IGLESIA, 61', '667964923', 'BAÑOS', 'JAEN', '26320', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('68294467S', '34114901J', 'OLIVIA VAZQUEZ BELLO', 'PLZA MAYOR, 28', '687706071', 'BAÑOS', 'JAEN', '26320', 'No', 0, 0, 0, '2018-06-14', NULL),
+  ('93289168H', '34114901J', 'MARIA VAZQUEZ NAVARRETE', 'PLZA MADRID, 36', '757828245', 'LINARES', 'JAEN', '23700', 'No', 1, 1, 1, '2018-06-14', NULL);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `comentarios`;
@@ -50,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
 DELETE FROM `comentarios`;
 /*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
 INSERT INTO `comentarios` (`id_comentario`, `id_incidencia`, `tecnico`, `texto`, `fecha`) VALUES
-	(13, 112, '02598702R', 'Orientar la antena', '2018-06-06 11:15:34');
+  (1, 1, '64458426Y', 'ir la semana que viene', '2018-06-14 17:46:04'),
+  (2, 11, '26242341P', 'orientar la antena', '2018-06-14 17:50:32');
 /*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `conexiones`;
@@ -67,14 +73,25 @@ CREATE TABLE IF NOT EXISTS `conexiones` (
 DELETE FROM `conexiones`;
 /*!40000 ALTER TABLE `conexiones` DISABLE KEYS */;
 INSERT INTO `conexiones` (`id`, `usuario`, `fecha`, `tipo`) VALUES
-	(883, '21418926S', '2018-06-06 11:05:47', 'conexion'),
-	(884, NULL, '2018-06-06 11:07:07', 'desconexion'),
-	(885, '02598702R', '2018-06-06 11:07:13', 'conexion'),
-	(886, '02598702R', '2018-06-06 11:12:35', 'desconexion'),
-	(887, '22342611C', '2018-06-06 11:12:38', 'conexion'),
-	(888, '22342611C', '2018-06-06 11:15:07', 'desconexion'),
-	(889, NULL, '2018-06-06 11:15:10', 'conexion'),
-	(890, '02598702R', '2018-06-06 11:15:16', 'conexion');
+  (1, '26242341P', '2018-06-14 15:42:10', 'conexion'),
+  (2, '26242341P', '2018-06-14 15:49:17', 'desconexion'),
+  (3, '34114901J', '2018-06-14 15:49:23', 'conexion'),
+  (4, '34114901J', '2018-06-14 16:14:56', 'desconexion'),
+  (5, '22623964Z', '2018-06-14 16:15:11', 'conexion'),
+  (6, '26242341P', '2018-06-14 17:41:56', 'conexion'),
+  (7, '26242341P', '2018-06-14 17:44:02', 'desconexion'),
+  (8, '64458426Y', '2018-06-14 17:44:11', 'conexion'),
+  (9, '64458426Y', '2018-06-14 17:47:31', 'desconexion'),
+  (10, '54025883X', '2018-06-14 17:47:45', 'conexion'),
+  (11, '54025883X', '2018-06-14 17:48:27', 'desconexion'),
+  (12, '26242341P', '2018-06-14 17:48:36', 'conexion'),
+  (13, '26242341P', '2018-06-14 17:51:37', 'desconexion'),
+  (14, '64458426Y', '2018-06-14 17:51:56', 'conexion'),
+  (15, '64458426Y', '2018-06-14 17:53:00', 'desconexion'),
+  (16, '26242341P', '2018-06-14 17:53:06', 'conexion'),
+  (17, '26242341P', '2018-06-14 18:39:06', 'conexion'),
+  (18, '26242341P', '2018-06-14 18:39:10', 'desconexion'),
+  (19, '26242341P', '2018-06-14 18:41:35', 'conexion');
 /*!40000 ALTER TABLE `conexiones` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `incidencia`;
@@ -110,10 +127,18 @@ CREATE TABLE IF NOT EXISTS `incidencia` (
 DELETE FROM `incidencia`;
 /*!40000 ALTER TABLE `incidencia` DISABLE KEYS */;
 INSERT INTO `incidencia` (`id_incidencia`, `id_usuario`, `id_cliente`, `tecnico`, `fecha_creacion`, `fecha_inicio`, `fecha_resolucion`, `fecha_parcial`, `disponible`, `otros`, `tipo`, `estado`, `reincidencia`, `llamada_obligatoria`, `parcial`, `antenas`, `routers`, `atas`, `urgente`) VALUES
-	(110, '02598702R', '27447172F', '21418926S', '2018-06-06 11:05:34', '2018-06-06 11:05:49', '2018-06-06 11:11:52', NULL, NULL, 'creada por un administrador', 'instalacion', '3', NULL, 'Si', 'No', 1, 1, 0, 'No'),
-	(111, '22342611C', '58532667J', '21418926S', '2018-06-06 11:13:09', '2018-06-06 11:13:15', '2018-06-06 11:13:31', NULL, NULL, 'Llevar una escalera', 'instalacion', '3', NULL, 'Si', 'No', 1, 1, 1, 'No'),
-	(112, '22342611C', '58532667J', '21418926S', '2018-06-06 11:14:58', '2018-06-06 11:15:39', '2018-06-06 11:16:53', NULL, NULL, 'No le llega bien la señal', 'averia', '3', NULL, 'Si', 'No', 0, 0, 0, 'No'),
-	(113, '02598702R', '27447172F', NULL, '2018-06-06 11:20:35', NULL, NULL, NULL, '2018-06-06 11:20:35', 'por la noche le falla mucho el internet', 'averia', '0', NULL, 'No', 'No', NULL, NULL, NULL, 'No');
+  (1, '34114901J', '03288763Q', '64458426Y', '2018-06-14 15:50:39', '2018-06-14 17:44:12', NULL, NULL, '2018-06-18 09:00:39', 'Ir por la tarde', 'instalacion', '2', NULL, 'Si', 'No', NULL, NULL, NULL, 'No'),
+  (2, '34114901J', '39470299E', '64458426Y', '2018-06-14 16:10:20', '2018-06-14 17:46:06', '2018-06-14 17:46:56', NULL, NULL, 'ejemplo', 'instalacion', '3', NULL, 'Si', 'No', 0, 1, 0, 'No'),
+  (3, '34114901J', '93289168H', '54025883X', '2018-06-14 16:11:16', '2018-06-14 17:47:46', '2018-06-14 17:48:12', NULL, NULL, 'llevar una escalera alta', 'instalacion', '3', NULL, 'Si', 'No', 1, 1, 1, 'No'),
+  (4, '34114901J', '02540484L', NULL, '2018-06-14 16:12:30', '2018-06-14 17:48:22', NULL, NULL, '2018-06-14 16:12:30', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (5, '34114901J', '68294467S', NULL, '2018-06-14 16:13:54', NULL, NULL, NULL, '2018-06-14 16:13:54', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (6, '22623964Z', '29126849V', NULL, '2018-06-14 16:16:14', NULL, NULL, NULL, '2018-06-14 16:16:14', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (7, '22623964Z', '60954124F', '64458426Y', '2018-06-14 16:17:16', '2018-06-14 17:52:03', '2018-06-14 17:52:12', NULL, NULL, 'a partir de las 11:00AM', 'instalacion', '3', NULL, 'Si', 'No', 1, 1, 0, 'No'),
+  (8, '22623964Z', '00061715Y', NULL, '2018-06-14 16:17:59', NULL, NULL, NULL, '2018-06-14 16:17:59', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (9, '22623964Z', '62080672S', NULL, '2018-06-14 16:18:51', NULL, NULL, NULL, '2018-06-14 16:18:51', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (10, '22623964Z', '04027257A', NULL, '2018-06-14 16:19:47', NULL, NULL, NULL, '2018-06-14 16:19:47', 'ejemplo', 'instalacion', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No'),
+  (11, '26242341P', '39470299E', '64458426Y', '2018-06-14 17:49:05', '2018-06-14 17:52:33', '2018-06-14 17:52:50', NULL, NULL, 'le falla el internet por la tarde', 'averia', '3', NULL, 'Si', 'No', 0, 0, 0, 'No'),
+  (12, '26242341P', '93289168H', NULL, '2018-06-14 17:49:45', '2018-06-14 17:52:52', NULL, NULL, '2018-06-14 17:49:45', 'se muda', 'cambiodomicilio', '1', NULL, 'No', 'No', NULL, NULL, NULL, 'No');
 /*!40000 ALTER TABLE `incidencia` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `llamadas`;
@@ -128,6 +153,16 @@ CREATE TABLE IF NOT EXISTS `llamadas` (
   CONSTRAINT `FK_llamadas_incidencia` FOREIGN KEY (`id_incidencia`) REFERENCES `incidencia` (`id_incidencia`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_llamadas_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`dni`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DELETE FROM `llamadas`;
+/*!40000 ALTER TABLE `llamadas` DISABLE KEYS */;
+INSERT INTO `llamadas` (`id_llamada`, `id_incidencia`, `id_usuario`, `fecha`) VALUES
+  (4, 1, '64458426Y', '2018-06-14 17:44:15'),
+  (5, 2, '64458426Y', '2018-06-14 17:46:08'),
+  (6, 3, '54025883X', '2018-06-14 17:47:47'),
+  (7, 7, '64458426Y', '2018-06-14 17:52:05'),
+  (8, 11, '64458426Y', '2018-06-14 17:52:34');
+/*!40000 ALTER TABLE `llamadas` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `material`;
 CREATE TABLE IF NOT EXISTS `material` (
@@ -145,8 +180,10 @@ CREATE TABLE IF NOT EXISTS `material` (
 DELETE FROM `material`;
 /*!40000 ALTER TABLE `material` DISABLE KEYS */;
 INSERT INTO `material` (`id_material`, `id_usuario`, `fecha`, `nombre`, `contador`, `terminado`) VALUES
-	(35, '21418926S', '2018-06-06 11:10:49', 'cajacable', 2, 'No'),
-	(36, '21418926S', '2018-06-06 11:10:49', 'bolsaconectores', 2, 'No');
+  (1, '64458426Y', '2018-06-14 17:46:34', 'cajacable', 2, 'No'),
+  (2, '64458426Y', '2018-06-14 17:46:34', 'bolsaconectores', 2, 'No'),
+  (3, '54025883X', '2018-06-14 17:48:00', 'cajacable', 1, 'No'),
+  (4, '54025883X', '2018-06-14 17:48:00', 'bolsaconectores', 1, 'No');
 /*!40000 ALTER TABLE `material` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `noautorizados`;
@@ -181,9 +218,10 @@ CREATE TABLE IF NOT EXISTS `solucion` (
 DELETE FROM `solucion`;
 /*!40000 ALTER TABLE `solucion` DISABLE KEYS */;
 INSERT INTO `solucion` (`id_solucion`, `id_incidencia`, `tecnico`, `fecha`, `solucion`) VALUES
-	(21, 110, '21418926S', '2018-06-06 11:11:52', '["Instalacion normal","Instalacion de antena","Instalacion de router"]'),
-	(22, 111, '21418926S', '2018-06-06 11:13:31', '["Instalacion normal","Instalacion de antena","Instalacion de router","Instalacion de ata"]'),
-	(23, 112, '21418926S', '2018-06-06 11:16:53', '["Orientacion de Antena"]');
+  (1, 2, '64458426Y', '2018-06-14 17:46:56', '["Instalacion normal","Instalacion de router"]'),
+  (2, 3, '54025883X', '2018-06-14 17:48:12', '["Instalacion normal","Instalacion de antena","Instalacion de router","Instalacion de ata"]'),
+  (3, 7, '64458426Y', '2018-06-14 17:52:12', '["Instalacion normal","Instalacion de antena","Instalacion de router"]'),
+  (4, 11, '64458426Y', '2018-06-14 17:52:50', '["Orientacion de Antena"]');
 /*!40000 ALTER TABLE `solucion` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `stock`;
@@ -205,8 +243,9 @@ CREATE TABLE IF NOT EXISTS `stock` (
 DELETE FROM `stock`;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
 INSERT INTO `stock` (`id_stock`, `fecha`, `antenas`, `routers`, `atas`, `ultimousuario`, `antenasM`, `routersM`, `atasM`) VALUES
-	(120, '2018-06-06 11:07:25', 20, 20, 20, '02598702R', 20, 20, 20),
-	(121, '2018-06-06 11:10:49', 15, 15, 15, '21418926S', -5, -5, -5);
+  (1, '2018-06-14 17:42:09', 100, 100, 100, '26242341P', 100, 100, 100),
+  (2, '2018-06-14 17:46:34', 90, 90, 91, '64458426Y', -10, -10, -9),
+  (3, '2018-06-14 17:48:00', 75, 75, 76, '54025883X', -15, -15, -15);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `usuario`;
@@ -231,13 +270,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`dni`, `usuario`, `nombre`, `telefono`, `clave`, `rol`, `asignada`, `antenas`, `routers`, `atas`, `limite`) VALUES
-	('02598702R', 'sadmin', 'JULIO ARANCE LOPEZ', '658745893', '$2y$12$NihUrF3/1LsBf84WVNRV7.xtGGRWiB.yu4wiVxvu/j1DZu8MgJ6dS', '0', NULL, NULL, NULL, NULL, NULL),
-	('16937417X', 'albamaria', 'ALBA MARIA PEREZ', '632587419', '$2y$12$PcBo5wrikLqqn7k771oBz./R2I24OcCyABs6QqkRk152tJXo9dk5C', '4', NULL, NULL, NULL, NULL, NULL),
-	('21418926S', 'maria', 'MARIA HERRERA GARCIA', '685297568', '$2y$12$fZfUAPmVWYF2x7P/Y5LOcexZ/sy5hrOy5783h/RjHPEsYtqeDMMmC', '2', NULL, 3, 3, 4, 5),
-	('22342611C', 'angeles', 'ANGELES BARREDA SELLES', '632198745', '$2y$12$buUFlHa61srWVgss4aBup.K56SXFkPN.4z5NrOPhDaD1Px2gOlSwO', '1', NULL, NULL, NULL, NULL, NULL),
-	('25623900Z', 'josemiguel', 'JOSE MIGUEL OLIVEROS CERRATO', '674185299', '$2y$12$Ek1Qsvl2PYvaFCdGIVu2cuH9BmJ/V94WCAfBLRZcMe0NM4NhTFXJu', '1', NULL, NULL, NULL, NULL, NULL),
-	('38854133A', 'mario', 'MARIO NUÑEZ FERNANDEZ', '648596578', '$2y$12$ygvTTPnCryGyWQv0pKflzu8PQrOAfDfeb2FsvnPxKGuK60Vss8dda', '2', NULL, 0, 0, 0, 10),
-	('78745224D', 'enrique', 'ENRIQUE MORENO RUIZ', '658741254', '$2y$12$2/lgRg5WeFObv8AJ9FvW3est.g2xsID7IO9UO1gqRbXxlUAeL.PRu', '4', NULL, NULL, NULL, NULL, NULL);
+  ('22037332C', 'oscar', 'OSCAR ROCA MORAL', '674715696', '$2y$12$QQB1CO8xtvRDJFQLsPFu4OIMhkfBwo13vBRblfGnaQ1YJe57iT/BG', '4', NULL, NULL, NULL, NULL, NULL),
+  ('22623964Z', 'jose', 'JOSE VELAZQUEZ MENDEZ', '651900279', '$2y$12$l/MTidhpdR2bH8dtHjSUXOTBuBuXjp.5YOHfbeXodSu.evmNrFUm6', '1', NULL, NULL, NULL, NULL, NULL),
+  ('26242341P', 'miguel', 'Miguel Ángel Durán Lucha', '666555444', '$2y$12$FovSsWKkhcj4g/Szy60cP.wD1ead6jqa.985Wh2NDLRv5QYMn0.n2', '0', NULL, NULL, NULL, NULL, NULL),
+  ('34114901J', 'judit', 'JUDIT PEINADO FALCON', '677173351', '$2y$12$PWMDn.GFzH7pzdLgTxCyZOW8iNR/rCb/1MbHFx34RZzwqFdCi0N4u', '1', NULL, NULL, NULL, NULL, NULL),
+  ('54025883X', 'felix', 'FELIX ALCAIDE REBOLLO', '667828717', '$2y$12$5bdW6dVLOWRZTajDulTeh.x35uB.iCTKqnuc8siiAeNwn8mL/wFiO', '2', NULL, 14, 14, 14, 15),
+  ('64458426Y', 'maria', 'MARIA MARIN ANGULO', '722593214', '$2y$12$stSTTn7AJzHhtQb3kHD2KOnYnse7d1yX2kC6eEyc4Gq58X5awzR2m', '2', NULL, 9, 8, 9, 10),
+  ('82165119B', 'aurelia', 'AURELIA DE LA FUENTE DEL RIO', '739237164', '$2y$12$L66TMQUjJw6SPAYWTAcVLOXWiIbxw1SD/ZqeZnjZgimxtFjObRz56', '4', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

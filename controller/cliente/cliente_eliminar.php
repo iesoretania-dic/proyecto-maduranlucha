@@ -49,7 +49,7 @@ if(!isset($_SESSION['usuario'])){
 
     //si pulsa cancelar redirigimos a la pagina del comercial.
     if(isset($_POST['btnCancelar'])){
-        header('Location: ../cliente/cliente_listar.phpcambios=2b');
+        header('Location: ../cliente/cliente_listar.php?cambios=2b');
     }
 
 
