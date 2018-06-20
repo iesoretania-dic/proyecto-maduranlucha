@@ -159,6 +159,9 @@
                                         {% if rol == '4' and (fila.estado == '0' or fila.estado == '1' or fila.estado == '2' ) %}
                                             <a href="#"><input type="button" {% if fila.urgente == 'Si' %} class="botonAccion btnUrgenteSi" {% else %} class="botonAccion btnUrgenteNo" {% endif %} title="Urgente"></a>
                                         {% endif %}
+                                        {% if rol == '0' and fila.estado != '3' %}
+                                            <a href="../cliente/cliente_incidencias_creador.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnAutor" title="Cambiar creador"></a>
+                                        {% endif %}
                                         {% if rol == '0' or rol == '4' %}
                                             <a href="../cliente/cliente_incidencias_comentario.php?Id={{ fila.id_incidencia }}"><input type="button" class="botonAccion btnComentario" title="Comentarios"></a>
                                         {% endif %}

@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+
+{% block title 'reasignar incidencia' %}
+
+{% block contenido %}
+    <div class="contenido">
+        <form class="" action="" method="post">
+
+            <div class="vistaFormulario">
+                <p class="alert alert-info">Esta incidencia corresponde a el usuario: <span class="badge badge-info">{{ actual.actual }}</span>, seleccione para cambiar el creador de la incidencia.</p>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Selecciona el creador:</label>
+                        <select class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="nuevoCreador" id="tecnico">
+                            <option value=""></option>
+                            {% for usuario in usuarios %}
+                                <option value="{{ usuario.dni }}">{{ usuario.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="vistaFormulario">
+                    <button class="btn btn-primary" type="submit" name="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
+                    <a href="javascript:history.back()"><button class="btn btn-primary" type="button"><i class="fas fa-undo"></i> Volver</button></a>
+                </div>
+
+                {% if mensaje == 'error' %}
+                    <div>
+                        <label class="alert alert-danger">No se pudo modificar el creador de la incidencia.</label>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

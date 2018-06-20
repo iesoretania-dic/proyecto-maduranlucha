@@ -440,6 +440,10 @@ body {
   background-image: url("../resources/solucion.png");
 }
 
+.btnAutor {
+  background-image: url("../resources/autor_alt.png");
+}
+
 .antena {
   background-image: url("../resources/antena.png");
 }

@@ -69,7 +69,7 @@ function comprobarSesion(){
     if(!isset($_SESSION['usuario'])){
         header('Location: ../../index.php');
     }else{
-        $limiteTiempo = 15; //Establecemos el tiempo que dura la sesion
+        $limiteTiempo = 1800; //Establecemos el tiempo que dura la sesion
         $tiempo = time();
         $_SESSION['sesionFinalziada'] = 'tiempoSesion';
         $tiempoSesion = $tiempo - $_SESSION['tiempoSesion'];
