@@ -6,6 +6,7 @@ session_start();
 if(!isset($_SESSION['usuario'])){
     header('Location: index.php');
 }else{
+    comprobarSesion();
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
     $idUsuario = $datos->get_id();

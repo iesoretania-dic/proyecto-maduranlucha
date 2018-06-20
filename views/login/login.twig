@@ -35,6 +35,11 @@
                         <p class="danger">Error al conectar</p>
                     </div>
                 {% endif %}
+                {% if login == 'tiempo' %}
+                    <div class="m-login">
+                        <p class="danger">Expiró el tiempo de sesión</p>
+                    </div>
+                {% endif %}
             </div>
         </form>
     </div>

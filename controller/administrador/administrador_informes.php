@@ -10,7 +10,7 @@ if(!isset($_SESSION['usuario'])){
     $datos->set_noautorizado();
     header('Location: ../../index.php');
 }else{
-
+    comprobarSesion();
     $usuario  = $_SESSION['usuario'];
     $rol = $_SESSION['rol'];
     $datos = new Consulta();

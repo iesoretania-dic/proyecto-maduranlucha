@@ -10,7 +10,7 @@ if(!isset($_SESSION['usuario'])){
     $datos->set_noautorizado();
     header('Location: ../../index.php');
 }else{
-
+    comprobarSesion();
     $usuario  = $_SESSION['usuario'];
     $rol = $_SESSION['rol'];
     $rolUsuario = $_SESSION['rolUsuario']; //Guardamos el rol del usuario añadido en una variable de sesion para poder volver a la zona indicada de los usuarios.

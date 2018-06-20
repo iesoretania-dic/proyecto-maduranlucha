@@ -1,7 +1,7 @@
 <?php
 require_once '../../php/Consulta.php';
+require '../../php/funciones.php';
 session_start();
-
 
 if(!isset($_SESSION['usuario'])){
     header('Location: index.php');
@@ -10,6 +10,7 @@ if(!isset($_SESSION['usuario'])){
     $datos->set_noautorizado();
     header('Location: index.php');
 }else {
+    comprobarSesion();
     $rol = $_SESSION['rol'];
     $usuario = $_SESSION['usuario'];
     $tipo = $_SESSION['tipo'];

@@ -17,6 +17,7 @@ if(isset($_POST['enviar'])){
     }else{
         $consulta = new Consulta();
         $_SESSION['usuario'] = $usuario;
+        $_SESSION['tiempoSesion'] = time(); //guardamos la hora de inicio de la sesion.
         $_SESSION['rol'] = $consulta->get_rol();
         $_SESSION['login'] = 'ok';
         $consulta->conexion();

@@ -1,5 +1,6 @@
 <?php
 require '../../php/Consulta.php';
+require '../../php/funciones.php';
 session_start();
 
 if(!isset($_SESSION['usuario'])){
@@ -13,7 +14,7 @@ if(!isset($_SESSION['usuario'])){
     $usuario  = $_SESSION['usuario'];
     $dni = $_GET['Id'];
     $mensaje = null;
-
+    comprobarSesion();
     //El administrador si elimina el cliente
     if($rol == '0'){ /**/
         if(isset($_POST['btnEliminar'])){

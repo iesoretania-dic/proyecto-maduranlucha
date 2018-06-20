@@ -1,5 +1,6 @@
 <?php
 require '../../php/Consulta.php';
+require '../../php/funciones.php';
 session_start();
 
 if(!isset($_SESSION['usuario'])){
@@ -13,7 +14,7 @@ if(!isset($_SESSION['usuario'])){
     /*Primero comprobamos si el rol viene por GET por la URL esto sera cuando pulsemos los botones del menu de navegacion
     pero cuando pusamos cancelar a la hora de insertar un usuario o bien el usuario se inserta con exito nos redirige a la pagina
     de los usuarios y debemos especificar el rol y como ya no esta por la url se lo enviamos de vuelta en una variable de session.*/
-
+    comprobarSesion();
     if(isset($_GET['rol'])){
         if($_GET['rol'] == '1'){
             $rolUsuario = '1';

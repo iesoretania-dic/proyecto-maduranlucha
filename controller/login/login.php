@@ -6,6 +6,11 @@ session_start();
 if(isset($_SESSION['login']) and $_SESSION['login'] == 'error'){
     $login = 'error';
 }
+
+if(isset($_SESSION['sesionFinalziada']) and $_SESSION['sesionFinalziada'] = 'tiempoSesion'){
+    $login = 'tiempo';
+}
+
 $_SESSION = array();
 
 ////////////////////////Renderizado//////////////////////////

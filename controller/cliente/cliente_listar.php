@@ -1,5 +1,6 @@
 <?php
 require '../../php/Consulta.php';
+require '../../php/funciones.php';
 session_start();
 
 if(!isset($_SESSION['usuario'])){
@@ -10,7 +11,7 @@ if(!isset($_SESSION['usuario'])){
     header('Location: ../login/no_autorizado.php');
 }else{
 
-
+    comprobarSesion();
     $rol = $_SESSION['rol'];
     $usuario  = $_SESSION['usuario'];
     $datos = new Consulta();
