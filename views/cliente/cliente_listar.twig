@@ -67,6 +67,7 @@
                                     </td>
                                 {% endif %}
                                 <td class="td-acciones">
+                                    <a href="cliente_info.php?dni={{ cliente.dni }}"><input type="button" class="botonAccion btnInfo" title="información"></a>
                                     <a href="cliente_modificar.php?Id={{ cliente.dni }}"><input type="button" class="botonAccion btnModificar" title="modificar"></a>
                                     <a href="cliente_incidencias.php?dni={{ cliente.dni }}&tipo=1"><input type="button" class="botonAccion btnIncidencias" title="ver incidencias"></a>
                                     <a href="cliente_incidencias_add.php?add={{ cliente.dni }}&tipo=1"><input type="button" class="botonAccion btnNuevaIncidencia" title="nueva incidencia"></a>

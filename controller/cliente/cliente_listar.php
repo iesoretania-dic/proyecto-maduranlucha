@@ -18,6 +18,7 @@ if(!isset($_SESSION['usuario'])){
     $idUsuario = $datos->get_id();
     $_SESSION['dniCliente'] ='';
     $uri =  $_SERVER['REQUEST_URI'];
+    $_SESSION['origen'] = $_SERVER['REQUEST_URI'];
 
     $clientes = [];
     $mensaje = null;

@@ -35,6 +35,12 @@ if(!isset($_SESSION['usuario'])){
        $mensaje = 'principal';
        $nombreTecnico = $principal['nombre'];
     }else{
+        //Obtenemos el autor actual de la incidencia
+        $consulta = "SELECT (SELECT nombre from usuario WHERE dni = tecnico) as actual  FROM incidencia WHERE id_incidencia = :incidencia";
+        $parametros = array(":incidencia"=>$idIncidencia);
+        $datos = new Consulta();
+        $actual = $datos->get_conDatosUnica($consulta,$parametros);
+
         //Obtenemos una lista de tecnicos disponibles
         $datos = new Consulta();
         $consulta = "SELECT dni, nombre FROM usuario WHERE rol = :rol";
@@ -114,7 +120,8 @@ if(!isset($_SESSION['usuario'])){
             'rol',
             'usuario',
             'tecnicos',
-            'nombreTecnico'
+            'nombreTecnico',
+            'actual'
         ));
     }catch (Exception $e){
         echo  'Excepción: ', $e->getMessage(), "\n";

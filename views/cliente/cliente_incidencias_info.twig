@@ -47,18 +47,18 @@
                     {% endif %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de creación:</span>
-                        <span>{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</span>
+                        <span class="badge badge-info tLetraL">{% if incidencia.fecha_creacion %} {{ incidencia.fecha_creacion | date ('d/m/y H:i') }} {% endif %}</span>
                     </li>
                     {% if incidencia.fecha_inicio %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>Fecha de inicio:</span>
-                        <span>{{ incidencia.fecha_inicio | date ('d/m/y H:i') }}</span>
+                        <span class="badge badge-info tLetraL">{{ incidencia.fecha_inicio | date ('d/m/y H:i') }}</span>
                     </li>
                     {% endif %}
                     {% if incidencia.fecha_resolucion %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>Fecha de resolución:</span>
-                            <span>{% if incidencia.fecha_resolucion %}{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</span>
+                            <span class="badge badge-info tLetraL">{% if incidencia.fecha_resolucion %}{{ incidencia.fecha_resolucion | date ('d/m/y H:i') }} {% endif %}</span>
                         </li>
                     {% endif %}
                     {% if incidencia.estado != '3' and incidencia.disponible %}

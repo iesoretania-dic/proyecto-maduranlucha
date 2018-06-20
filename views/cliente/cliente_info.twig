@@ -1,0 +1,112 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Información' %}
+
+{% block contenido %}
+
+    <div class="contenidoInfo">
+        <form class="formInfo" action="" method="post">
+            <div class="">
+                <ul class="list-group">
+                    <li class="alert alert-info list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                            Datos del cliente:
+                        <button class="btn btn-primary" type="submit" name="btnVolver"><i class="fas fa-undo"></i> Volver</button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                       <span>Dni:</span>
+                       <span>{{ cliente.dni }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                       <span>Nombre:</span>
+                       <span>{{ cliente.nombre }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Dirección:</span>
+                        <span>{{ cliente.direccion }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Teléfono:</span>
+                        <span>{{ cliente.telefono }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Ciudad:</span>
+                        <span>{{ cliente.ciudad }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Provincia:</span>
+                        <span>{{ cliente.provincia }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Código postal:</span>
+                        <span>{{ cliente.cp }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Router:</span>
+                        {% if cliente.routers == '0' %}
+                            <span class="badge badge-danger">No </span>
+                        {% elseif cliente.routers == '1' %}
+                            <span class="badge badge-success">Si </span>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Antena:</span>
+                        {% if cliente.antenas == '0' %}
+                            <span class="badge badge-danger">No </span>
+                        {% elseif cliente.antenas == '1' %}
+                            <span class="badge badge-success">Si </span>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Ata:</span>
+                        {% if cliente.atas == '0' %}
+                            <span class="badge badge-danger">No </span>
+                        {% elseif cliente.atas == '1' %}
+                            <span class="badge badge-success">Si </span>
+                        {% endif %}
+                    </li>
+                        {% if cliente.fecha_contrato %}
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de contrato:</span>
+                            <span class="badge badge-success tLetraXL">{{ cliente.fecha_contrato | date ('d/m/Y H:i:s') }}</span>
+                    </li>
+                        {% endif %}
+                        {% if cliente.fecha_instalacion %}
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de instalación:</span>
+                            <span class="badge badge-info tLetraXL">{{ cliente.fecha_instalacion | date ('d/m/Y H:i:s' ) }}</span>
+                    </li>
+                        {% endif %}
+
+                        {% if cliente.fecha_baja %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de baja:</span>
+                            <span class="badge badge-danger tLetraXL">{{ cliente.fecha_baja | date ('d/m/Y H:i:s') }}</span>
+                    </li>
+
+                        {% endif %}
+                        {% if cliente.fecha_retirada %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Fecha de retirada:</span>
+                        <span class="badge badge-dark tLetraXL">{{ cliente.fecha_retirada | date ('d/m/Y H:i:s') }}</span>
+                    </li>
+                        {% endif %}
+                    {% if rol == '0' %}
+                        {% if cliente.id_usuario %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Comercial:</span>
+                                <span>{{ cliente.id_usuario }}</span>
+                            </li>
+                        {% endif %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Eliminado:</span>
+                        <span>{{ cliente.eliminado }}</span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </form>
+{% endblock %}
+
+{% block usuario %}
+    <span>Conectado como: {{ usuario }}</span>
+{% endblock %}

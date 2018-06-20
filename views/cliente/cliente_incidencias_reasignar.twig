@@ -5,8 +5,7 @@
 {% block contenido %}
     <div class="contenido">
         <form class="" action="" method="post">
-
-
+            
             <div class="vistaFormulario">
 
                 {% if mensaje == 'principal' %}
@@ -20,6 +19,11 @@
 
                 {% else %}
 
+                    {% if actual.actual %}
+                        <p class="alert alert-info">Esta incidencia corresponde a el técnico: <span class="badge badge-info">{{ actual.actual }}</span>, seleccione para cambiar el técnico de la incidencia.</p>
+                    {% else %}
+                        <p class="alert alert-info">Seleccione un técnico de la lista.</p>
+                    {% endif %}
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label for="tecnico" class="input-group-text" id="inputGroup-sizing-default">Selecciona el técnico:</label>
@@ -50,7 +54,6 @@
         </form>
     </div>
 {% endblock %}
-
 
 {% block usuario %}
     <span>Conectado como: {{ usuario }}</span>
